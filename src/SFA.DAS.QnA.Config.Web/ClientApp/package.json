@@ -1,15 +1,23 @@
 {
-  "name": "ClientApp",
+  "name": "das-qna-config",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
     "react-scripts": "3.0.1"
   },
   "dependencies": {
+    "@reach/router": "^1.2.1",
+    "govuk-react": "^0.7.1",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dnd": "^8.0.3",
+    "react-dnd-html5-backend": "^8.0.3",
+    "react-dom": "^16.8.6",
+    "react-markdown": "^4.1.0",
+    "source-map-explorer": "^2.0.1",
+    "styled-components": "^4.3.2"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
