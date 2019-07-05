@@ -1,10 +1,35 @@
 import React from "react";
-import { H3 } from "govuk-react";
+import Question from "./Question";
 
 const Page = props => {
   console.log(props);
 
-  return <H3>Page view: {props.pageId}</H3>;
+  const { PageId, Title, LinkTitle, Next, Questions } = props.page;
+  return (
+    <div className="qna-page">
+      <div className="qna-page__header">
+        <div>
+          <h2>{LinkTitle}</h2>
+          <span>{Title}</span>
+        </div>
+        <div>Page ID: {PageId}</div>
+      </div>
+      <div className="qna-page__body">
+        {Questions.map((question, index) => (
+          <Question key={question.QuestionId} question={question} />
+        ))}
+      </div>
+      <div className="qna-page__footer">
+        {Next.length === 1 ? "Next page: " : "Possible routes: "}
+        {Next.map((nextPage, index) => (
+          <span key={index}>
+            {index !== 0 ? " or " : ""}
+            {nextPage.ReturnId}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Page;
