@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "@reach/router";
 
 const Question = ({ question }) => {
+  // console.log(question);
+
   return (
     <div className="qna-question">
       <div>

@@ -38,7 +38,7 @@
     },
     {
       "id": "789",
-      "name": "Check and amend",
+      "name": "Declarations",
       "Pages": []
     },
     {
@@ -127,7 +127,7 @@
           "PageId": "2",
           "SequenceId": "c1a3c474-4bb0-4c0d-0b62-08d6f96ce085",
           "SectionId": "713a23fa-3a1f-4bdc-852e-08d6f96ce0ce",
-          "Title": "Trading name",
+          "Title": "Name to use on the register",
           "LinkTitle": "Name to use on the register",
           "InfoText": "",
           "Questions": [

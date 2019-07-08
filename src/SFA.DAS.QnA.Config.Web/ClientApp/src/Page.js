@@ -2,7 +2,7 @@ import React from "react";
 import Question from "./Question";
 
 const Page = props => {
-  console.log(props);
+  // console.log(props);
 
   const { PageId, Title, LinkTitle, Next, Questions } = props.page;
   return (
