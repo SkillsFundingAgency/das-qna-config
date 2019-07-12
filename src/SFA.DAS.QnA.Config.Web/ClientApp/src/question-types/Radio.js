@@ -13,20 +13,24 @@ const Radio = props => {
       <h2>Options</h2>
       {props.options.map((option, index) => (
         <div key={index}>
-          <label htmlFor={option.Label}>Option label</label>
-          <input
-            id={option.Label}
-            name="Label"
-            value={option.Label}
-            onChange={event => handleOptionInputChange(index, event)}
-          />
-          <label htmlFor={option.Value}>Option value</label>
-          <input
-            id={option.Value}
-            name="Value"
-            value={option.Value}
-            onChange={event => handleOptionInputChange(index, event)}
-          />
+          <div className="qna-form-group">
+            <label htmlFor={option.Label}>Option label</label>
+            <input
+              id={option.Label}
+              name="Label"
+              value={option.Label}
+              onChange={event => handleOptionInputChange(index, event)}
+            />
+          </div>
+          <div className="qna-form-group">
+            <label htmlFor={option.Value}>Option value</label>
+            <input
+              id={option.Value}
+              name="Value"
+              value={option.Value}
+              onChange={event => handleOptionInputChange(index, event)}
+            />
+          </div>
         </div>
       ))}
     </div>

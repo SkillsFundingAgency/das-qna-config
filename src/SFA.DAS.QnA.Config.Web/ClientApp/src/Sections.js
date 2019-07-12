@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "@reach/router";
 
+import AddSectionForm from "./forms/AddSectionForm";
+
 const Sections = ({ location }) => {
-  const { sections } = location.state;
+  const [sections, setSection] = useState(location.state.sections);
+
+  const addSection = section => {
+    section.id = `section-${sections.length + 1}`;
+    setSection([...sections, section]);
+  };
 
   return (
     <div>
@@ -16,6 +23,7 @@ const Sections = ({ location }) => {
           </li>
         ))}
       </ul>
+      <AddSectionForm addSection={addSection} />
     </div>
   );
 };

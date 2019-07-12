@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import Radio from "./question-types/Radio";
-import Text from "./question-types/Text";
-import ComplexRadio from "./question-types/ComplexRadio";
+import Radio from "../question-types/Radio";
+import Text from "../question-types/Text";
+import ComplexRadio from "../question-types/ComplexRadio";
 
-const EditQuestion = ({ location }) => {
+const EditQuestionForm = ({ location }) => {
   // console.log(location.state.question);
 
   // const {
@@ -31,8 +31,10 @@ const EditQuestion = ({ location }) => {
   //   ShortLabel: ""
   // };
 
+  // Allow for updating the "question" state
   const [question, setQuestion] = useState(location.state.question);
 
+  // Simple question updating. Uses the "name" attribute to specify which part to update
   const handleQuestionChange = event => {
     event.preventDefault();
     const { name, value } = event.target;
@@ -40,11 +42,14 @@ const EditQuestion = ({ location }) => {
     setQuestion({ ...question, [name]: value });
   };
 
+  // More complex question updating. Recieves props from chold component to update nested/array state on the question state object
   const handleOptionChange = (optionindex, name, value) => {
     setQuestion({
       ...question,
       Input: {
         ...question.Input,
+        // First loop and find the correct option (using map and index comparison)
+        // Then find the correct field to update (using [name] as above)
         Options: question.Input.Options.map((option, index) =>
           index === optionindex
             ? { ...question.Input.Options[optionindex], [name]: value }
@@ -57,6 +62,7 @@ const EditQuestion = ({ location }) => {
   return (
     <div>
       <h1>Editing question: {question.QuestionId}</h1>
+      <h2>{question.Label}</h2>
       <div className="qna-form-group">
         <label htmlFor="bodyText">Question body text</label>
         <textarea
@@ -103,10 +109,30 @@ const EditQuestion = ({ location }) => {
 
       {question.Input.Validations.map((validation, index) => (
         <div key={index}>
-          <p>Validation type: {validation.Name}</p>
-          <p>Error message: {validation.ErrorMessage}</p>
+          <div className="qna-form-group">
+            <label htmlFor="Name">Validation type</label>
+            <input
+              id="Name"
+              name="Name"
+              value={validation.Name}
+              onChange={handleQuestionChange}
+            />
+          </div>
+          <div className="qna-form-group">
+            <label htmlFor="validation-message">Error message</label>
+            <input
+              id="ErrorMessage"
+              name="ErrorMessage"
+              value={validation.ErrorMessage}
+              onChange={handleQuestionChange}
+            />
+          </div>
         </div>
       ))}
+
+      <h2>Routing</h2>
+
+      <button>Save</button>
 
       {/* {Input.Options.length &&
         Input.Options.map(option => {
@@ -139,4 +165,4 @@ const EditQuestion = ({ location }) => {
   );
 };
 
-export default EditQuestion;
+export default EditQuestionForm;

@@ -7,7 +7,7 @@ import Projects from "./Projects";
 import Project from "./Project";
 import Sections from "./Sections";
 import Section from "./Section";
-import EditQuestion from "./EditQuestion";
+import EditQuestionForm from "./forms/EditQuestionForm";
 import * as serviceWorker from "./serviceWorker";
 
 const Root = () => (
@@ -17,7 +17,7 @@ const Root = () => (
       <Project path="projects/:projectId" />
       <Sections path="sections" />
       <Section path="sections/:sectionId" />
-      <EditQuestion path="questions/:questionId" />
+      <EditQuestionForm path="questions/:questionId" />
     </App>
   </Router>
 );

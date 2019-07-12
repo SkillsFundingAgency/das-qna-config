@@ -13,8 +13,14 @@ code {
     monospace;
 }
 
-* {
+html {
   box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 a {
@@ -22,8 +28,9 @@ a {
 }
 
 .app-container {
-  width: 660px;
+  max-width: 660px;
   margin: 0 auto;
+  padding: 5px;
 }
 
 .qna-page {
@@ -96,4 +103,13 @@ textarea {
 
 .qna-form-group {
   margin: 1em 0;
+}
+
+button {
+  border: 0;
+  color: white;
+  font-size: 16px;
+  padding: 8px;
+  background: green;
+  margin-bottom: 10px;
 }
