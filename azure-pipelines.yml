@@ -48,7 +48,7 @@ steps:
     arguments: '--configuration $(buildConfiguration) --no-build'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Publish Internal API'
+  displayName: 'Publish  Web App'
   inputs:
     command: publish
     publishWebProjects: false
