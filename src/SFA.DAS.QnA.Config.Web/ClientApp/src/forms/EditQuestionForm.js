@@ -5,18 +5,6 @@ import Text from "../question-types/Text";
 import ComplexRadio from "../question-types/ComplexRadio";
 
 const EditQuestionForm = ({ location }) => {
-  // console.log(location.state.question);
-
-  // const {
-  //   Hint,
-  //   Input,
-  //   Label,
-  //   QuestionBodyText,
-  //   QuestionId,
-  //   QuestionTag,
-  //   ShortLabel
-  // } = location.state.question;
-
   // const initialQuestionState = {
   //   Hint: "",
   //   Input: {

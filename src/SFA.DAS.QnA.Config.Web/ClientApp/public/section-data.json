@@ -1,22 +1,37 @@
 {
   "Sections": [
     {
-      "id": "123",
+      "id": "section-1",
       "name": "Contact details",
       "Pages": []
     },
     {
-      "id": "456",
+      "id": "section-2",
       "name": "Financial health",
       "Pages": []
     },
     {
-      "id": "789",
+      "id": "section-3",
       "name": "Declarations",
       "Pages": []
     },
     {
-      "id": "012",
+      "id": "section-4",
+      "name": "Organisation details",
+      "Pages": []
+    },
+    {
+      "id": "section-5",
+      "name": "Directors",
+      "Pages": []
+    },
+    {
+      "id": "section-6",
+      "name": "Another section",
+      "Pages": []
+    },
+    {
+      "id": "section-7",
       "name": "Working section",
       "Pages": [
         {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Page from "./Page";
 
 // import Example from "./dnd-example/example";
@@ -6,8 +6,30 @@ import Page from "./Page";
 // import HTML5Backend from "react-dnd-html5-backend";
 
 const Section = ({ location }) => {
-  const [section, setSection] = useState(location.state.section);
-  // console.log(section);
+  // const sectionId = location.state.section.id;
+  // console.log("sectionId:", sectionId);
+
+  const [section, setSection] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  /*  TODO:
+  // So actually here we only want to load the section data
+  // for the section which has been clicked on (this json has all of the sections in)
+  */
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch("/section-data.json");
+      const sections = await data.json();
+      const thisSection = sections.Sections.filter(
+        thisSection => thisSection.id === location.state.section.id
+      );
+      // console.log("sections:", thisSection);
+      setSection(thisSection[0]);
+    };
+
+    fetchData();
+    setLoading(false);
+  }, [location.state.section.id]);
 
   /*  TODO: Update a copy of the section state here based on:
    *
@@ -31,20 +53,22 @@ const Section = ({ location }) => {
   };
 
   return (
-    <div>
-      <h1>{section.name}</h1>
-      <button onClick={saveSection}>Save section</button>
-
-      {section.Pages.length ? (
-        section.Pages.map(page => <Page key={page.PageId} page={page} />)
+    <>
+      {section && !loading ? (
+        <>
+          <h1>{section.name}</h1>
+          <button onClick={saveSection}>Save section</button>
+          {section.Pages.map(page => (
+            <Page key={page.PageId} page={page} />
+          ))}
+        </>
       ) : (
         <p>No pages in this section.</p>
       )}
-
       {/* <DndProvider backend={HTML5Backend}>
         <Example />
       </DndProvider> */}
-    </div>
+    </>
   );
 };
 

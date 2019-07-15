@@ -17,7 +17,7 @@ const Sections = ({ location }) => {
       <ul role="navigation">
         {sections.map(section => (
           <li key={section.id}>
-            <Link to={section.id} state={{ section: section }}>
+            <Link to={section.id} state={{ section }}>
               {section.name}
             </Link>
           </li>

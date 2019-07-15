@@ -3,23 +3,22 @@ import { render } from "react-dom";
 import { Router } from "@reach/router";
 import "./index.css";
 import App from "./App";
-import Projects from "./Projects";
+// import Projects from "./Projects";
 import Project from "./Project";
-import Sections from "./Sections";
+// import Sections from "./Sections";
 import Section from "./Section";
 import EditQuestionForm from "./forms/EditQuestionForm";
 import * as serviceWorker from "./serviceWorker";
 
 const Root = () => (
-  <Router>
-    <App path="/">
-      <Projects path="projects" />
-      <Project path="projects/:projectId" />
-      <Sections path="sections" />
-      <Section path="sections/:sectionId" />
-      <EditQuestionForm path="questions/:questionId" />
-    </App>
-  </Router>
+  <div className="app-container">
+    <Router>
+      <App path="/" />
+      <Project path=":projectId" />
+      <Section path=":projectId/:sectionId" />
+      <EditQuestionForm path=":projectId/:sectionId/:questionId" />
+    </Router>
+  </div>
 );
 
 render(<Root />, document.getElementById("root"));

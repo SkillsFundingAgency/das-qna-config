@@ -1,40 +1,49 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "@reach/router";
+// import { Link } from "@reach/router";
+
+import Projects from "./Projects";
 
 const App = ({ children }) => {
-  const [data, setData] = useState({
-    projects: [],
-    sections: [],
-    loading: true
-  });
+  const [projects, setProjects] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // const [data, setData] = useState({
+  //   projects: [],
+  //   sections: [],
+  //   loading: true
+  // });
+
+  // useEffect(() => {
+  //   fetch("/data.json")
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       setData({
+  //         projects: data.Projects,
+  //         sections: data.Sections,
+  //         loading: false
+  //       });
+  //     });
+  // }, []);
 
   useEffect(() => {
-    fetch("/data.json")
-      .then(response => response.json())
-      .then(data => {
-        setData({
-          projects: data.Projects,
-          sections: data.Sections,
-          loading: false
-        });
-      });
+    const fetchData = async () => {
+      const data = await fetch("/projects-data.json");
+      const projects = await data.json();
+      setProjects(projects.Projects);
+    };
+
+    fetchData();
+    setLoading(false);
   }, []);
 
   return (
-    <div className="app-container">
-      <nav>
-        <Link
-          to="projects"
-          state={{ projects: data.projects, sections: data.sections }}
-        >
-          Projects
-        </Link>{" "}
-        <Link to="sections" state={{ sections: data.sections }}>
-          Sections
-        </Link>
-      </nav>
-      {children}
-    </div>
+    <>
+      {projects && !loading ? (
+        <Projects projects={projects} />
+      ) : (
+        <span>Loading...</span>
+      )}
+    </>
   );
 };
 

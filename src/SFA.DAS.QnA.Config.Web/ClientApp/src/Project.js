@@ -1,25 +1,22 @@
 import React from "react";
 import { Link } from "@reach/router";
 
-const Project = ({ location }) => {
-  const { project, sections } = location.state;
-
-  const projectSections = sections.filter(
-    section => !project.sections.includes(section.id)
-  );
+const Project = props => {
+  const { project } = props.location.state;
 
   return (
-    <div>
+    <>
       <h1>{project.name}</h1>
+      <h2>Sections</h2>
 
-      {projectSections.map(section => (
+      {project.sections.map(section => (
         <li key={section.id}>
-          <Link to={`/sections/${section.id}`} state={{ section: section }}>
+          <Link to={section.id} state={{ section }}>
             {section.name}
           </Link>
         </li>
       ))}
-    </div>
+    </>
   );
 };
 
