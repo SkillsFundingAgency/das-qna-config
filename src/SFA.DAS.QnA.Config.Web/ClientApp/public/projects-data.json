@@ -2,7 +2,9 @@
   "Projects": [
     {
       "id": "project-1",
+      "createdAt": 1563185688567,
       "name": "EPAO - Apply to become an end point assessor",
+      "description": "Apply to become an end point assessor and assess a standard",
       "sections": [
         {
           "id": "section-1",
@@ -16,7 +18,9 @@
     },
     {
       "id": "project-2",
+      "createdAt": 1562185687567,
       "name": "EPAO - Certification",
+      "description": "Record grades and print certificates",
       "sections": [
         {
           "id": "section-3",
@@ -30,7 +34,9 @@
     },
     {
       "id": "project-3",
+      "createdAt": 1560185687567,
       "name": "RoATP - register",
+      "description": "Register of assessment training providers",
       "sections": [
         {
           "id": "section-5",
