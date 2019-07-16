@@ -4,7 +4,7 @@ import { Router } from "@reach/router";
 import "./index.css";
 import App from "./App";
 // import Projects from "./Projects";
-import Project from "./Project";
+// import Sections from "./Sections";
 // import Sections from "./Sections";
 import Section from "./Section";
 import EditQuestionForm from "./forms/EditQuestionForm";
@@ -14,9 +14,8 @@ const Root = () => (
   <div className="app-container">
     <Router>
       <App path="/" />
-      <Project path=":projectId" />
-      <Section path=":projectId/:sectionId" />
-      <EditQuestionForm path=":projectId/:sectionId/:questionId" />
+      <Section path=":sectionId" />
+      <EditQuestionForm path=":sectionId/:questionId" />
     </Router>
   </div>
 );

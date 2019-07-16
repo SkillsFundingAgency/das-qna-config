@@ -21,7 +21,7 @@ const AddProjectForm = ({ addProject }) => {
     setProject(EMPTY_PROJECT);
   };
 
-  const showError = error => {
+  const showError = () => {
     setIsValid(false);
   };
 
