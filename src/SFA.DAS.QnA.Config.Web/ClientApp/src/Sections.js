@@ -3,9 +3,9 @@ import { Link } from "@reach/router";
 
 import AddSectionForm from "./forms/AddSectionForm";
 
-const Sections = ({ project }) => {
-  console.log("project:", project);
-  // const { project } = location.state;
+const Sections = ({ location }) => {
+  // console.log("project:", project);
+  const { project } = location.state;
 
   const [sections, setSection] = useState(project.sections);
 

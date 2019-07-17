@@ -67,11 +67,11 @@ const Projects = ({ projectsData }) => {
         <ul className="link-list" role="navigation">
           {projects.map(project => (
             <li key={project.id}>
-              <Sections project={project} />
+              {/* <Sections project={project} /> */}
               <h2 className="link-list__title">
-                {/* <Link to={project.id} state={{ project }}> */}
-                {project.name}
-                {/* </Link> */}
+                <Link to={project.id} state={{ project }}>
+                  {project.name}
+                </Link>
               </h2>
               {project.description && (
                 <p className="link-list__body">{project.description}</p>
