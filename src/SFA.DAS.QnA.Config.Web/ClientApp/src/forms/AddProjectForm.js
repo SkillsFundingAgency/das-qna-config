@@ -46,7 +46,7 @@ const AddProjectForm = ({ addProject }) => {
           onChange={handleInputChange}
         />
       </div>
-      <button>Add project</button>
+      <button className="govuk-button">Add project</button>
     </form>
   );
 };

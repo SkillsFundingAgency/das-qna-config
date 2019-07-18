@@ -38,7 +38,7 @@ const EditProjectForm = ({ currentProject, updateProject }) => {
           onChange={handleInputChange}
         />
       </div>
-      <button>Edit project</button>
+      <button className="govuk-button">Edit project</button>
     </form>
   );
 };

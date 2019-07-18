@@ -28,7 +28,7 @@ const AddSectionForm = ({ addSection }) => {
           onChange={handleInputChange}
         />
       </div>
-      <button>Add section</button>
+      <button className="govuk-button">Add section</button>
     </form>
   );
 };

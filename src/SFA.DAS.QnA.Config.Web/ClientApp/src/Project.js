@@ -1,22 +1,13 @@
 import React from "react";
-import { Link } from "@reach/router";
+import Sections from "./Sections";
 
-const Project = ({ location }) => {
-  const { project } = location.state;
-
+const Project = ({ project, addSectionToProject }) => {
   return (
     <>
-      <h1>Sections</h1>
-      <h2>{project.name}</h2>
+      <h1>{project.name}</h1>
 
       <ul role="navigation">
-        {project.sections.map(section => (
-          <li key={section.id}>
-            <Link to={section.id} state={{ section }}>
-              {section.name}
-            </Link>
-          </li>
-        ))}
+        <Sections project={project} addSectionToProject={addSectionToProject} />
       </ul>
     </>
   );
