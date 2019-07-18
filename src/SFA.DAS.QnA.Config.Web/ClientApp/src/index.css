@@ -129,11 +129,31 @@ textarea {
   margin: 1em 0;
 }
 
-button {
+.govuk-button {
   border: 0;
   color: white;
   font-size: 16px;
   padding: 8px;
   background: green;
   margin-bottom: 10px;
+}
+
+.button-link {
+  background-color: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: underline;
+  padding: 0;
+  text-align: left;
+}
+
+.button-link:hover,
+.button-link:focus {
+  text-decoration: underline;
+}
+
+.button-link--large {
+  font-size: 24px;
+  font-weight: 700;
 }

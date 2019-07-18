@@ -1,5 +1,6 @@
 import React from "react";
 import Question from "./Question";
+import EditQuestionForm from "./forms/EditQuestionForm";
 
 const Page = props => {
   // console.log(props);
@@ -15,8 +16,11 @@ const Page = props => {
         <div>Page ID: {PageId}</div>
       </div>
       <div className="qna-page__body">
-        {Questions.map((question, index) => (
-          <Question key={question.QuestionId} question={question} />
+        {Questions.map(question => (
+          <div key={question.QuestionId}>
+            <Question key={question.QuestionId} question={question} />
+            <EditQuestionForm questionData={question} />
+          </div>
         ))}
       </div>
       <div className="qna-page__footer">

@@ -1,34 +1,67 @@
-import React, { useState } from "react";
-import { Link } from "@reach/router";
+import React, { useState, useEffect } from "react";
 
+import Section from "./Section";
 import AddSectionForm from "./forms/AddSectionForm";
 
-const Sections = ({ location }) => {
-  // console.log("project:", project);
-  const { project } = location.state;
+const Sections = ({ project, addSectionToProject }) => {
+  /*  TODO:
+      We'll need to update both the project-data with a reference to the added section
+      as well as generate a new section-id.json. This will be a post to the API
+      but will go into local storage for now.
+  */
 
-  const [sections, setSection] = useState(project.sections);
+  const [sections, setSections] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // View single section
+  const [showSection, setShowSection] = useState(false);
+  const [selectedSection, setSelectedSection] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch("/section-data.json");
+      const sections = await data.json();
+      setSections(sections.Sections);
+    };
+
+    fetchData();
+    setLoading(false);
+  }, []);
+
+  const openSection = id => {
+    const sectionToOpen = sections.find(section => section.id === id);
+    setSelectedSection(sectionToOpen);
+    setShowSection(true);
+  };
 
   const addSection = section => {
     section.id = `section-${sections.length + 1}`;
-    setSection([...sections, section]);
+    setSections([...sections, section]);
+    addSectionToProject(project.id, section.id, section.name);
   };
 
   return (
     <>
-      <h1>Sections</h1>
-      <AddSectionForm addSection={addSection} />
-      <h2>{project.name}</h2>
+      {showSection ? (
+        <Section section={selectedSection} />
+      ) : (
+        <>
+          <AddSectionForm addSection={addSection} />
 
-      <ul role="navigation">
-        {sections.map(section => (
-          <li key={section.id}>
-            <Link to={section.id} state={{ section }}>
-              {section.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
+          <ul role="navigation">
+            {project.sections.map((section, index) => (
+              <div key={index}>
+                <button
+                  className="button-link"
+                  onClick={() => openSection(section.id)}
+                >
+                  {section.name}
+                </button>
+              </div>
+            ))}
+          </ul>
+        </>
+      )}
     </>
   );
 };

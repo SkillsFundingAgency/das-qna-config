@@ -1,17 +1,11 @@
 import React from "react";
-import { Link } from "@reach/router";
 
 const Question = ({ question }) => {
-  // console.log(question);
-
   return (
     <div className="qna-question">
       <div>
         <div>
-          <Link to={question.QuestionId} state={{ question }}>
-            {question.Label}
-          </Link>{" "}
-          ({question.Input.Type})
+          {question.Label} ({question.Input.Type})
         </div>
       </div>
       <div>{question.QuestionId}</div>

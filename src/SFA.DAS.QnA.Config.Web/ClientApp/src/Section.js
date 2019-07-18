@@ -5,31 +5,30 @@ import Page from "./Page";
 // import { DndProvider } from "react-dnd";
 // import HTML5Backend from "react-dnd-html5-backend";
 
-const Section = ({ location }) => {
-  // const sectionId = location.state.section.id;
-  // console.log("sectionId:", sectionId);
+const Section = ({ section }) => {
+  console.log(section);
 
-  const [section, setSection] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // const [section, setSection] = useState(null);
+  // const [loading, setLoading] = useState(true);
 
   /*  TODO:
   // So actually here we only want to load the section data
   // for the section which has been clicked on (this json has all of the sections in)
   */
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetch("/section-data.json");
-      const sections = await data.json();
-      const thisSection = sections.Sections.filter(
-        thisSection => thisSection.id === location.state.section.id
-      );
-      // console.log("sections:", thisSection);
-      setSection(thisSection[0]);
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await fetch("/section-data.json");
+  //     const sections = await data.json();
+  //     const thisSection = sections.Sections.filter(
+  //       thisSection => thisSection.id === location.state.section.id
+  //     );
+  //     // console.log("sections:", thisSection);
+  //     setSection(thisSection[0]);
+  //   };
 
-    fetchData();
-    setLoading(false);
-  }, [location.state.section.id]);
+  //   fetchData();
+  //   setLoading(false);
+  // }, [location.state.section.id]);
 
   /*  TODO: Update a copy of the section state here based on:
    *
@@ -54,10 +53,12 @@ const Section = ({ location }) => {
 
   return (
     <>
-      {section && !loading ? (
+      {section ? (
         <>
           <h1>{section.name}</h1>
-          <button onClick={saveSection}>Save section</button>
+          <button className="govuk-button" onClick={saveSection}>
+            Save section
+          </button>
           {section.Pages.map(page => (
             <Page key={page.PageId} page={page} />
           ))}
@@ -65,6 +66,7 @@ const Section = ({ location }) => {
       ) : (
         <p>No pages in this section.</p>
       )}
+
       {/* <DndProvider backend={HTML5Backend}>
         <Example />
       </DndProvider> */}

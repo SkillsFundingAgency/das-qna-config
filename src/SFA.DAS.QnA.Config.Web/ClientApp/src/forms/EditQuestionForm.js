@@ -4,7 +4,7 @@ import Radio from "../question-types/Radio";
 import Text from "../question-types/Text";
 import ComplexRadio from "../question-types/ComplexRadio";
 
-const EditQuestionForm = ({ location }) => {
+const EditQuestionForm = ({ questionData }) => {
   // const initialQuestionState = {
   //   Hint: "",
   //   Input: {
@@ -20,7 +20,7 @@ const EditQuestionForm = ({ location }) => {
   // };
 
   // Allow for updating the "question" state
-  const [question, setQuestion] = useState(location.state.question);
+  const [question, setQuestion] = useState(questionData);
 
   // Simple question updating. Uses the "name" attribute to specify which part to update
   const handleQuestionChange = event => {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-// import { Link } from "@reach/router";
-
 import Projects from "./Projects";
+import Sidebar from "./Sidebar";
 
 const App = () => {
   const [projectsData, setProjectsData] = useState(null);
@@ -19,13 +18,14 @@ const App = () => {
   }, []);
 
   return (
-    <>
+    <div className="app-container">
+      <Sidebar />
       {projectsData && !loading ? (
         <Projects projectsData={projectsData} />
       ) : (
         <span>Loading...</span>
       )}
-    </>
+    </div>
   );
 };
 
