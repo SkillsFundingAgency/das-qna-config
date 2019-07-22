@@ -1,34 +1,29 @@
 import React, { useState, useEffect } from "react";
 import Page from "./Page";
+import EditQuestionForm from "./forms/EditQuestionForm";
 
 // import Example from "./dnd-example/example";
 // import { DndProvider } from "react-dnd";
 // import HTML5Backend from "react-dnd-html5-backend";
 
-const Section = ({ section }) => {
-  console.log(section);
+const Section = ({ sectionId }) => {
+  const [section, setSection] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // const [section, setSection] = useState(null);
-  // const [loading, setLoading] = useState(true);
+  // Editing question form
+  const [showQuestionToEdit, setShowQuestionToEdit] = useState(false);
+  const [questionToEdit, setQuestionToEdit] = useState(null);
 
-  /*  TODO:
-  // So actually here we only want to load the section data
-  // for the section which has been clicked on (this json has all of the sections in)
-  */
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await fetch("/section-data.json");
-  //     const sections = await data.json();
-  //     const thisSection = sections.Sections.filter(
-  //       thisSection => thisSection.id === location.state.section.id
-  //     );
-  //     // console.log("sections:", thisSection);
-  //     setSection(thisSection[0]);
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch(`/data/sections/${sectionId}.json`);
+      const section = await data.json();
+      setSection(section);
+    };
 
-  //   fetchData();
-  //   setLoading(false);
-  // }, [location.state.section.id]);
+    fetchData();
+    setLoading(false);
+  }, [sectionId]);
 
   /*  TODO: Update a copy of the section state here based on:
    *
@@ -45,27 +40,52 @@ const Section = ({ section }) => {
    *
    */
 
+  const editQuestion = question => {
+    setShowQuestionToEdit(true);
+    setQuestionToEdit(question);
+  };
+
   const saveSection = () => {
     // event.preventDefualt();
     const jsonSection = JSON.stringify(section);
-    window.localStorage.setItem(section.id, jsonSection);
+    window.localStorage.setItem(section.Sectionid, jsonSection);
+  };
+
+  const addPage = () => {
+    console.log("page add");
   };
 
   return (
     <>
-      {section ? (
-        <>
-          <h1>{section.name}</h1>
-          <button className="govuk-button" onClick={saveSection}>
-            Save section
-          </button>
-          {section.Pages.map(page => (
-            <Page key={page.PageId} page={page} />
-          ))}
-        </>
-      ) : (
-        <p>No pages in this section.</p>
+      {showQuestionToEdit && (
+        <EditQuestionForm questionToEdit={questionToEdit} />
       )}
+      {section && !loading ? (
+        <>
+          <h1>{section.Description}</h1>
+          {section.Pages.length ? (
+            <>
+              <button className="govuk-button" onClick={saveSection}>
+                Save section
+              </button>
+              {section.Pages.map(page => (
+                <Page
+                  key={page.PageId}
+                  page={page}
+                  editQuestion={editQuestion}
+                />
+              ))}
+            </>
+          ) : (
+            <>
+              <button className="govuk-button" onClick={addPage}>
+                Add page
+              </button>
+              <p>No pages in this section.</p>
+            </>
+          )}
+        </>
+      ) : null}
 
       {/* <DndProvider backend={HTML5Backend}>
         <Example />

@@ -1,14 +1,16 @@
 import React from "react";
 
-const Question = ({ question }) => {
+const Question = ({ question, editQuestion }) => {
+  const handleClick = question => {
+    editQuestion(question);
+  };
   return (
     <div className="qna-question">
       <div>
-        <div>
-          {question.Label} ({question.Input.Type})
-        </div>
+        {question.Label} ({question.Input.Type})
       </div>
       <div>{question.QuestionId}</div>
+      <button onClick={() => handleClick(question)}>Edit</button>
     </div>
   );
 };

@@ -28,9 +28,8 @@ a {
 }
 
 .app-container {
-  max-width: 660px;
-  margin: 0 auto;
-  padding: 5px;
+  margin: 20px 20px 0 170px;
+  max-width: 600px;
 }
 
 ul {

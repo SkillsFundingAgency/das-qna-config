@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+// import { v4 } from 'uuid';
+
+// import { EMPTY_PROJECT } from "./data-structures";
 
 import Section from "./Section";
 import AddSectionForm from "./forms/AddSectionForm";
@@ -10,27 +13,15 @@ const Sections = ({ project, addSectionToProject }) => {
       but will go into local storage for now.
   */
 
-  const [sections, setSections] = useState(null);
-  const [loading, setLoading] = useState(true);
+  console.log("project:", project);
+  const [sections, setSections] = useState(project.sections);
 
   // View single section
   const [showSection, setShowSection] = useState(false);
-  const [selectedSection, setSelectedSection] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetch("/section-data.json");
-      const sections = await data.json();
-      setSections(sections.Sections);
-    };
-
-    fetchData();
-    setLoading(false);
-  }, []);
+  const [sectionId, setSectionId] = useState(null);
 
   const openSection = id => {
-    const sectionToOpen = sections.find(section => section.id === id);
-    setSelectedSection(sectionToOpen);
+    setSectionId(id);
     setShowSection(true);
   };
 
@@ -43,7 +34,7 @@ const Sections = ({ project, addSectionToProject }) => {
   return (
     <>
       {showSection ? (
-        <Section section={selectedSection} />
+        <Section sectionId={sectionId} />
       ) : (
         <>
           <AddSectionForm addSection={addSection} />

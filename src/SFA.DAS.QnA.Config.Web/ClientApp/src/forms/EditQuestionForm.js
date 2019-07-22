@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Radio from "../question-types/Radio";
 import Text from "../question-types/Text";
 import ComplexRadio from "../question-types/ComplexRadio";
 
-const EditQuestionForm = ({ questionData }) => {
+const EditQuestionForm = ({ questionToEdit }) => {
   // const initialQuestionState = {
   //   Hint: "",
   //   Input: {
@@ -20,7 +20,11 @@ const EditQuestionForm = ({ questionData }) => {
   // };
 
   // Allow for updating the "question" state
-  const [question, setQuestion] = useState(questionData);
+  const [question, setQuestion] = useState(questionToEdit);
+
+  useEffect(() => {
+    setQuestion(questionToEdit);
+  }, [questionToEdit]);
 
   // Simple question updating. Uses the "name" attribute to specify which part to update
   const handleQuestionChange = event => {
@@ -120,7 +124,7 @@ const EditQuestionForm = ({ questionData }) => {
 
       <h2>Routing</h2>
 
-      <button>Save</button>
+      <button className="govuk-button">Save</button>
 
       {/* {Input.Options.length &&
         Input.Options.map(option => {

@@ -9,6 +9,7 @@ import EditProjectForm from "./forms/EditProjectForm";
 // import Sections from "./Sections";
 
 const Projects = ({ projectsData }) => {
+  // console.log("navigate:", navigate);
   const initialProjects = () =>
     JSON.parse(window.localStorage.getItem("projects")) || projectsData;
   const [projects, setProjects] = useState(initialProjects);

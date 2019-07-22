@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+// import { Router, Link, navigate } from "@reach/router";
 import Projects from "./Projects";
-import Sidebar from "./Sidebar";
+import { Sidebar, Menu, Icon } from "semantic-ui-react";
 
 const App = () => {
   const [projectsData, setProjectsData] = useState(null);
@@ -8,7 +9,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetch("/projects-data.json");
+      const data = await fetch("/data/projects-data.json");
       const projects = await data.json();
       setProjectsData(projects.Projects);
     };
@@ -18,14 +19,33 @@ const App = () => {
   }, []);
 
   return (
-    <div className="app-container">
-      <Sidebar />
-      {projectsData && !loading ? (
-        <Projects projectsData={projectsData} />
-      ) : (
-        <span>Loading...</span>
-      )}
-    </div>
+    <>
+      <Sidebar as={Menu} inverted visible vertical width="thin" icon="labeled">
+        {/* <Link to="/projects"> */}
+        <Menu.Item name="projects">
+          <Icon name="folder open" />
+          Projects
+        </Menu.Item>
+        {/* </Link> */}
+        {/* <Menu.Item name="logout">
+          <Icon name="power" />
+          Logout
+        </Menu.Item> */}
+      </Sidebar>
+      <div className="app-container">
+        {projectsData && !loading ? (
+          // <Router>
+          <Projects
+            // path="/projects"
+            // navigate={navigate}
+            projectsData={projectsData}
+          />
+        ) : (
+          // </Router>
+          <span>Loading...</span>
+        )}
+      </div>
+    </>
   );
 };
 

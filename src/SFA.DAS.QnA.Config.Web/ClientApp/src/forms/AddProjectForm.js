@@ -27,7 +27,7 @@ const AddProjectForm = ({ addProject }) => {
 
   return (
     <form onSubmit={onSubmit}>
-      {!isValid && <p className="qna-error-message">Enter an name</p>}
+      {!isValid && <p className="qna-error-message">Enter a name</p>}
       <div className="qna-form-group">
         <label>Name</label>
         <input
