@@ -4,6 +4,10 @@ import Question from "./Question";
 const Page = props => {
   // console.log(props);
 
+  const handleClick = page => {
+    props.editPage(page);
+  };
+
   const { PageId, Title, LinkTitle, Next, Questions } = props.page;
   return (
     <div className="qna-page">
@@ -13,6 +17,7 @@ const Page = props => {
           <span>{Title}</span>
         </div>
         <div>Page ID: {PageId}</div>
+        <button onClick={() => handleClick(props.page)}>Edit</button>
       </div>
       <div className="qna-page__body">
         {Questions.map(question => (

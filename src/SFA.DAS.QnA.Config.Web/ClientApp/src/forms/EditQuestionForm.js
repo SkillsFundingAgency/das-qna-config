@@ -34,7 +34,7 @@ const EditQuestionForm = ({ questionToEdit }) => {
     setQuestion({ ...question, [name]: value });
   };
 
-  // More complex question updating. Recieves props from chold component to update nested/array state on the question state object
+  // More complex question updating. Recieves props from child component to update nested/array state on the question state object
   const handleOptionChange = (optionindex, name, value) => {
     setQuestion({
       ...question,

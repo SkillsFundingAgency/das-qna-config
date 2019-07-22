@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Page from "./Page";
+import EditPageForm from "./forms/EditPageForm";
 import EditQuestionForm from "./forms/EditQuestionForm";
 
 // import Example from "./dnd-example/example";
@@ -13,6 +14,10 @@ const Section = ({ sectionId }) => {
   // Editing question form
   const [showQuestionToEdit, setShowQuestionToEdit] = useState(false);
   const [questionToEdit, setQuestionToEdit] = useState(null);
+
+  // Editing page form
+  const [showPageToEdit, setShowPageToEdit] = useState(false);
+  const [pageToEdit, setPageToEdit] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +45,11 @@ const Section = ({ sectionId }) => {
    *
    */
 
+  const editPage = page => {
+    setShowPageToEdit(true);
+    setPageToEdit(page);
+  };
+
   const editQuestion = question => {
     setShowQuestionToEdit(true);
     setQuestionToEdit(question);
@@ -57,6 +67,7 @@ const Section = ({ sectionId }) => {
 
   return (
     <>
+      {showPageToEdit && <EditPageForm pageToEdit={pageToEdit} />}
       {showQuestionToEdit && (
         <EditQuestionForm questionToEdit={questionToEdit} />
       )}
@@ -73,6 +84,7 @@ const Section = ({ sectionId }) => {
                   key={page.PageId}
                   page={page}
                   editQuestion={editQuestion}
+                  editPage={editPage}
                 />
               ))}
             </>
