@@ -67,7 +67,9 @@ const Section = ({ sectionId }) => {
 
   return (
     <>
-      {showPageToEdit && <EditPageForm pageToEdit={pageToEdit} />}
+      {showPageToEdit && (
+        <EditPageForm pageToEdit={pageToEdit} section={section} />
+      )}
       {showQuestionToEdit && (
         <EditQuestionForm questionToEdit={questionToEdit} />
       )}

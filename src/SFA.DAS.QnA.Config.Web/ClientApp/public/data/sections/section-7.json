@@ -962,7 +962,10 @@
       "AllowMultipleAnswers": false,
       "Active": true,
       "NotRequiredOrgTypes": [
-        "HEI"
+        "HEI",
+        "LMS",
+        "WFA",
+        "ESFA"
       ],
       "NotRequired": false,
       "BodyText": ""

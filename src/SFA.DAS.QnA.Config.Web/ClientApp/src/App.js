@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { Router, Link, navigate } from "@reach/router";
 import Projects from "./Projects";
 import { Sidebar, Menu, Icon } from "semantic-ui-react";
 

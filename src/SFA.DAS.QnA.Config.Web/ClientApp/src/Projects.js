@@ -6,8 +6,6 @@ import Project from "./Project";
 import AddProjectForm from "./forms/AddProjectForm";
 import EditProjectForm from "./forms/EditProjectForm";
 
-// import Sections from "./Sections";
-
 const Projects = ({ projectsData }) => {
   // console.log("navigate:", navigate);
   const initialProjects = () =>
