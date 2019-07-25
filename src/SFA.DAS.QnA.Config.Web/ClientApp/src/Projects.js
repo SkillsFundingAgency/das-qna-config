@@ -6,12 +6,9 @@ import Project from "./Project";
 import AddProjectForm from "./forms/AddProjectForm";
 import EditProjectForm from "./forms/EditProjectForm";
 
-const Projects = ({ projectsData }) => {
-  // console.log("navigate:", navigate);
-  const initialProjects = () =>
-    JSON.parse(window.localStorage.getItem("projects")) || projectsData;
-  const [projects, setProjects] = useState(initialProjects);
-  const jsonProjects = JSON.stringify(projects);
+const Projects = () => {
+  const [loading, setLoading] = useState(true);
+  const [projects, setProjects] = useState(null);
 
   // Current project for editing
   const [currentProject, setCurrentProject] = useState(EMPTY_PROJECT);
@@ -21,8 +18,23 @@ const Projects = ({ projectsData }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [showProject, setShowProject] = useState(false);
 
+  // Get data and add to projects
   useEffect(() => {
-    window.localStorage.setItem("projects", jsonProjects);
+    const fetchData = async () => {
+      const data = await fetch("/data/projects-data.json");
+      const projects = await data.json();
+      setProjects(
+        JSON.parse(window.localStorage.getItem("projects")) || projects.Projects
+      );
+    };
+
+    fetchData();
+    setLoading(false);
+  }, []);
+
+  // Add project to localStorage
+  useEffect(() => {
+    window.localStorage.setItem("projects", JSON.stringify(projects));
   });
 
   const openProject = id => {
@@ -70,6 +82,7 @@ const Projects = ({ projectsData }) => {
       )
     );
     setSelectedProject(updatedProject);
+    window.localStorage.setItem(sectionId, updatedSection);
   };
 
   return (
@@ -79,7 +92,9 @@ const Projects = ({ projectsData }) => {
           project={selectedProject}
           addSectionToProject={addSectionToProject}
         />
-      ) : (
+      ) : null}
+
+      {!showProject && projects ? (
         <>
           <h1>Projects</h1>
           {editing ? (
@@ -103,7 +118,9 @@ const Projects = ({ projectsData }) => {
             deleteProject={deleteProject}
           />
         </>
-      )}
+      ) : null}
+
+      {loading ? <span>Loading...</span> : null}
     </>
   );
 };

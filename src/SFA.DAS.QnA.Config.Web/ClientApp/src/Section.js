@@ -7,7 +7,9 @@ import EditQuestionForm from "./forms/EditQuestionForm";
 // import { DndProvider } from "react-dnd";
 // import HTML5Backend from "react-dnd-html5-backend";
 
-const Section = ({ sectionId }) => {
+const Section = ({ sectionId, match }) => {
+  const sectionIdToLoad = sectionId || match.params.id;
+
   const [section, setSection] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -21,14 +23,14 @@ const Section = ({ sectionId }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetch(`/data/sections/${sectionId}.json`);
+      const data = await fetch(`/data/sections/${sectionIdToLoad}.json`);
       const section = await data.json();
       setSection(section);
     };
 
     fetchData();
     setLoading(false);
-  }, [sectionId]);
+  }, [sectionIdToLoad]);
 
   /*  TODO: Update a copy of the section state here based on:
    *
@@ -65,10 +67,26 @@ const Section = ({ sectionId }) => {
     console.log("page add");
   };
 
+  const updatePage = pageToUpdate => {
+    console.log("pageToUpdate:", pageToUpdate);
+
+    setSection({
+      ...section,
+      Pages: section.Pages.map(page =>
+        page.PageId === pageToUpdate.PageId ? pageToUpdate : page
+      )
+    });
+    console.log("section:", section);
+  };
+
   return (
     <>
       {showPageToEdit && (
-        <EditPageForm pageToEdit={pageToEdit} section={section} />
+        <EditPageForm
+          pageToEdit={pageToEdit}
+          section={section}
+          updatePage={updatePage}
+        />
       )}
       {showQuestionToEdit && (
         <EditQuestionForm questionToEdit={questionToEdit} />
@@ -78,9 +96,6 @@ const Section = ({ sectionId }) => {
           <h1>{section.Description}</h1>
           {section.Pages.length ? (
             <>
-              <button className="govuk-button" onClick={saveSection}>
-                Save section
-              </button>
               {section.Pages.map(page => (
                 <Page
                   key={page.PageId}
@@ -98,6 +113,9 @@ const Section = ({ sectionId }) => {
               <p>No pages in this section.</p>
             </>
           )}
+          <button className="govuk-button" onClick={saveSection}>
+            Save section
+          </button>
         </>
       ) : null}
 

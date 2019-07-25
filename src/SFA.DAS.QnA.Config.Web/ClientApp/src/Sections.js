@@ -1,9 +1,8 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { sixDigitNumber } from "./helpers";
 // import { v4 } from 'uuid';
-
 // import { EMPTY_PROJECT } from "./data-structures";
-
-import Section from "./Section";
 import AddSectionForm from "./forms/AddSectionForm";
 
 const Sections = ({ project, addSectionToProject }) => {
@@ -13,46 +12,25 @@ const Sections = ({ project, addSectionToProject }) => {
       but will go into local storage for now.
   */
 
-  console.log("project:", project);
   const [sections, setSections] = useState(project.sections);
 
-  // View single section
-  const [showSection, setShowSection] = useState(false);
-  const [sectionId, setSectionId] = useState(null);
-
-  const openSection = id => {
-    setSectionId(id);
-    setShowSection(true);
-  };
-
   const addSection = section => {
-    section.id = `section-${sections.length + 1}`;
+    section.id = `section-${sixDigitNumber()}`;
     setSections([...sections, section]);
     addSectionToProject(project.id, section.id, section.name);
   };
 
   return (
     <>
-      {showSection ? (
-        <Section sectionId={sectionId} />
-      ) : (
-        <>
-          <AddSectionForm addSection={addSection} />
+      <AddSectionForm addSection={addSection} />
 
-          <ul role="navigation">
-            {project.sections.map((section, index) => (
-              <div key={index}>
-                <button
-                  className="button-link"
-                  onClick={() => openSection(section.id)}
-                >
-                  {section.name}
-                </button>
-              </div>
-            ))}
-          </ul>
-        </>
-      )}
+      <ul role="navigation">
+        {project.sections.map((section, index) => (
+          <div key={index}>
+            <Link to={`/section/${section.id}`}>{section.name}</Link>
+          </div>
+        ))}
+      </ul>
     </>
   );
 };

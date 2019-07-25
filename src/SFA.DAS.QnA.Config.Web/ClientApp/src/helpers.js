@@ -8,3 +8,8 @@ export function formatDateTime(timestamp) {
     second: "2-digit"
   }).format(timestamp);
 }
+
+// returns
+export function sixDigitNumber() {
+  return Math.floor(Math.random() * 899999 + 10000);
+}

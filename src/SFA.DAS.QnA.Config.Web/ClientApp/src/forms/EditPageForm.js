@@ -1,42 +1,47 @@
 import React, { useState, useEffect } from "react";
 
-const EditPageForm = ({ pageToEdit, section }) => {
-  // Allow for updating the "question" state
+const EditPageForm = ({ pageToEdit, section, updatePage }) => {
   const [page, setPage] = useState(pageToEdit);
+  console.log(page);
 
   useEffect(() => {
     setPage(pageToEdit);
   }, [pageToEdit]);
 
   // Simple page updating. Uses the "name" attribute to specify which part to update
-  const handleQuestionChange = event => {
+  const handlePageChange = event => {
     event.preventDefault();
     const { name, value } = event.target;
 
     setPage({ ...page, [name]: value });
   };
 
+  const onSubmit = event => {
+    event.preventDefault();
+    updatePage(page);
+  };
+
   return (
-    <div>
+    <form onSubmit={onSubmit}>
       <h1>Editing page: {page.PageId}</h1>
       <p>Sequence id: {page.SequenceId}</p>
       <p>Section id: {page.SectionId}</p>
       <div className="qna-form-group">
         <label htmlFor="Title">Title</label>
-        <textarea
+        <input
           id="Title"
           name="Title"
           value={page.Title}
-          onChange={handleQuestionChange}
+          onChange={handlePageChange}
         />
       </div>
       <div className="qna-form-group">
         <label htmlFor="LinkTitle">Link title</label>
-        <textarea
+        <input
           id="LinkTitle"
           name="LinkTitle"
           value={page.LinkTitle}
-          onChange={handleQuestionChange}
+          onChange={handlePageChange}
         />
       </div>
       <div className="qna-form-group">
@@ -45,7 +50,7 @@ const EditPageForm = ({ pageToEdit, section }) => {
           id="InfoText"
           name="InfoText"
           value={page.InfoText}
-          onChange={handleQuestionChange}
+          onChange={handlePageChange}
         />
       </div>
       <div className="qna-form-group">
@@ -54,37 +59,37 @@ const EditPageForm = ({ pageToEdit, section }) => {
           id="BodyText"
           name="BodyText"
           value={page.BodyText}
-          onChange={handleQuestionChange}
+          onChange={handlePageChange}
         />
       </div>
 
-      <div className="qna-form-group">
+      {/* <div className="qna-form-group">
         <label htmlFor="Complete">Complete</label>
         <input
           id="Complete"
           name="Complete"
           value={page.Complete}
-          onChange={handleQuestionChange}
+          onChange={handlePageChange}
         />
-      </div>
+      </div> */}
       <div className="qna-form-group">
         <label htmlFor="AllowMultipleAnswers">Allow multiple answers</label>
         <input
           id="AllowMultipleAnswers"
           name="AllowMultipleAnswers"
           value={page.AllowMultipleAnswers}
-          onChange={handleQuestionChange}
+          onChange={handlePageChange}
         />
       </div>
-      <div className="qna-form-group">
+      {/* <div className="qna-form-group">
         <label htmlFor="Active">Active</label>
         <input
           id="Active"
           name="Active"
           value={page.Active}
-          onChange={handleQuestionChange}
+          onChange={handlePageChange}
         />
-      </div>
+      </div> */}
       <div className="qna-form-group">
         <label htmlFor="NotRequiredOrgTypes">
           Not required organisation types:
@@ -93,7 +98,7 @@ const EditPageForm = ({ pageToEdit, section }) => {
           id="NotRequiredOrgTypes"
           name="NotRequiredOrgTypes"
           value={page.NotRequiredOrgTypes.map(orgs => orgs)}
-          onChange={handleQuestionChange}
+          onChange={handlePageChange}
         />
       </div>
       <div className="qna-form-group">
@@ -102,7 +107,7 @@ const EditPageForm = ({ pageToEdit, section }) => {
           id="NotRequired"
           name="NotRequired"
           value={page.NotRequired}
-          onChange={handleQuestionChange}
+          onChange={handlePageChange}
         />
       </div>
 
@@ -124,7 +129,7 @@ const EditPageForm = ({ pageToEdit, section }) => {
               id="Action"
               name="Action"
               value={nextPage.Action}
-              onChange={handleQuestionChange}
+              onChange={handlePageChange}
             />
           </div>
           <div className="qna-form-group">
@@ -133,7 +138,7 @@ const EditPageForm = ({ pageToEdit, section }) => {
               id="ReturnId"
               name="ReturnId"
               value={nextPage.ReturnId}
-              onChange={handleQuestionChange}
+              onChange={handlePageChange}
             />
           </div>
           {nextPage.Condition ? (
@@ -145,7 +150,7 @@ const EditPageForm = ({ pageToEdit, section }) => {
                   id="QuestionId"
                   name="QuestionId"
                   value={nextPage.Condition.QuestionId}
-                  onChange={handleQuestionChange}
+                  onChange={handlePageChange}
                 />
               </div>
               <div className="qna-form-group">
@@ -154,7 +159,7 @@ const EditPageForm = ({ pageToEdit, section }) => {
                   id="MustEqual"
                   name="MustEqual"
                   value={nextPage.Condition.MustEqual}
-                  onChange={handleQuestionChange}
+                  onChange={handlePageChange}
                 />
               </div>
               <div className="qna-form-group">
@@ -163,7 +168,7 @@ const EditPageForm = ({ pageToEdit, section }) => {
                   id="ConditionMet"
                   name="ConditionMet"
                   value={nextPage.ConditionMet}
-                  onChange={handleQuestionChange}
+                  onChange={handlePageChange}
                 />
               </div>
             </>
@@ -172,7 +177,7 @@ const EditPageForm = ({ pageToEdit, section }) => {
       ))}
 
       <button className="govuk-button">Save</button>
-    </div>
+    </form>
   );
 };
 
