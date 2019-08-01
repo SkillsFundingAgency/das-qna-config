@@ -156,3 +156,29 @@ textarea {
   font-size: 24px;
   font-weight: 700;
 }
+
+.page-style {
+  margin: 0 0 120px 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.page-style--inline {
+  display: flex;
+  margin: 0 0 120px 0;
+  justify-content: flex-end;
+}
+
+.label-style {
+  position: relative;
+  background: white;
+  padding: 5px;
+  border-radius: 3px;
+  border: 2px solid #ccc;
+}
+
+.box-style {
+  padding: 20px;
+  border: 2px solid #222;
+  background: rgba(255, 255, 255, 0.8);
+}

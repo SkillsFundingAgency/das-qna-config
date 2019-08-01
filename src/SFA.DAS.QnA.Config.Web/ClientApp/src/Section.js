@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { ArcherContainer, ArcherElement } from "react-archer";
+
 import Page from "./Page";
 import EditPageForm from "./forms/EditPageForm";
 import EditQuestionForm from "./forms/EditQuestionForm";
@@ -6,6 +8,28 @@ import EditQuestionForm from "./forms/EditQuestionForm";
 // import Example from "./dnd-example/example";
 // import { DndProvider } from "react-dnd";
 // import HTML5Backend from "react-dnd-html5-backend";
+
+const pageStyle = {
+  margin: "0 0 200px 0",
+  display: "flex",
+  justifyContent: "center"
+};
+
+const inlinePageStyle = {
+  margin: "200px 0",
+  display: "flex",
+  justifyContent: "space-between"
+};
+
+const labelStyle = {
+  position: "relative",
+  background: "white",
+  padding: "5px",
+  borderRadius: "3px",
+  border: "2px solid #ccc"
+};
+
+const boxStyle = { padding: "10px", border: "2px solid #222" };
 
 const Section = ({ sectionId, match }) => {
   const sectionIdToLoad = sectionId || match.params.id;
@@ -94,16 +118,122 @@ const Section = ({ sectionId, match }) => {
       {section && !loading ? (
         <>
           <h1>{section.Description}</h1>
+
           {section.Pages.length ? (
             <>
-              {section.Pages.map(page => (
-                <Page
-                  key={page.PageId}
-                  page={page}
-                  editQuestion={editQuestion}
-                  editPage={editPage}
-                />
-              ))}
+              {/* <ArcherContainer
+                strokeColor="#222"
+                arrowLength="8"
+                arrowThickness="8"
+              >
+                <div style={pageStyle}>
+                  <ArcherElement
+                    id="page-1"
+                    relations={[
+                      {
+                        targetId: "page-2",
+                        sourceAnchor: "bottom",
+                        targetAnchor: "top",
+                        label: <div style={labelStyle}>Yes</div>
+                      },
+                      {
+                        targetId: "page-3",
+                        sourceAnchor: "bottom",
+                        targetAnchor: "top",
+                        label: <div style={labelStyle}>No</div>
+                      },
+                      {
+                        targetId: "page-4",
+                        sourceAnchor: "bottom",
+                        targetAnchor: "top",
+                        label: <div style={labelStyle}>Maybe</div>
+                      }
+                    ]}
+                  >
+                    <div style={boxStyle}>Page 1</div>
+                  </ArcherElement>
+                </div>
+
+                <div style={inlinePageStyle}>
+                  <ArcherElement
+                    id="page-2"
+                    relations={[
+                      {
+                        targetId: "page-5",
+                        sourceAnchor: "bottom",
+                        targetAnchor: "top"
+                      }
+                    ]}
+                  >
+                    <div style={boxStyle}>Page 2</div>
+                  </ArcherElement>
+                  <ArcherElement
+                    id="page-3"
+                    relations={[
+                      {
+                        targetId: "page-5",
+                        sourceAnchor: "bottom",
+                        targetAnchor: "top"
+                      }
+                    ]}
+                  >
+                    <div style={boxStyle}>Page 3</div>
+                  </ArcherElement>
+                  <ArcherElement
+                    id="page-4"
+                    relations={[
+                      {
+                        targetId: "page-5",
+                        sourceAnchor: "bottom",
+                        targetAnchor: "top"
+                      }
+                    ]}
+                  >
+                    <div style={boxStyle}>Page 4</div>
+                  </ArcherElement>
+                </div>
+
+                <div style={pageStyle}>
+                  <ArcherElement
+                    id="page-5"
+                    relations={[
+                      {
+                        targetId: "page-6",
+                        sourceAnchor: "bottom",
+                        targetAnchor: "top",
+                        style: {
+                          strokeColor: "#f00",
+                          borderStyle: "dashed"
+                        }
+                      }
+                    ]}
+                  >
+                    <div style={boxStyle}>Page 5</div>
+                  </ArcherElement>
+                </div>
+
+                <div style={pageStyle}>
+                  <ArcherElement id="page-6">
+                    <div style={boxStyle}>Page 6</div>
+                  </ArcherElement>
+                </div>
+              </ArcherContainer> */}
+              <ArcherContainer
+                strokeColor="#222"
+                arrowLength="8"
+                arrowThickness="8"
+              >
+                {section.Pages.map((page, index) => {
+                  return (
+                    <Page
+                      key={index}
+                      page={page}
+                      editQuestion={editQuestion}
+                      editPage={editPage}
+                    />
+                  );
+                })}
+              </ArcherContainer>
             </>
           ) : (
             <>
