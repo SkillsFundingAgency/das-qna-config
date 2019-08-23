@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 const EditPageForm = ({ pageToEdit, section, updatePage }) => {
   const [page, setPage] = useState(pageToEdit);
-  console.log(page);
+  // console.log(page);
 
   useEffect(() => {
     setPage(pageToEdit);
@@ -12,6 +12,8 @@ const EditPageForm = ({ pageToEdit, section, updatePage }) => {
   const handlePageChange = event => {
     event.preventDefault();
     const { name, value } = event.target;
+    console.log("name:", name);
+    console.log("value:", value);
 
     setPage({ ...page, [name]: value });
   };
@@ -112,17 +114,17 @@ const EditPageForm = ({ pageToEdit, section, updatePage }) => {
       </div>
 
       <h2>Routes</h2>
+      {/* <p>
+        Currently this page will continue to question {nextPage.ReturnId} (
+        {
+          section.Pages.filter(
+            thisPage => thisPage.PageId === nextPage.ReturnId
+          )[0].Title
+        }
+        ) once the form has been submitted and the validation criteria met.
+      </p> */}
       {page.Next.map((nextPage, index) => (
         <div key={index}>
-          <p>
-            Currently this page will continue to question {nextPage.ReturnId} (
-            {
-              section.Pages.filter(
-                thisPage => thisPage.PageId === nextPage.ReturnId
-              )[0].Title
-            }
-            ) once the form has been submitted and the validation criteria met.
-          </p>
           <div className="qna-form-group">
             <label htmlFor="Action">Action</label>
             <input
