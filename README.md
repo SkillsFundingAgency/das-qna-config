@@ -13,7 +13,7 @@ or if using yarn:
 
 ```yarn```
 
-## Available Scripts
+## Start the application
 
 You can then run:
 
