@@ -1,45 +1,37 @@
 {
   "name": "das-qna-config",
-  "version": "0.1.0",
-  "private": true,
-  "devDependencies": {
-    "react-scripts": "3.0.1"
-  },
-  "dependencies": {
-    "govuk-react": "^0.7.1",
-    "react": "^16.8.6",
-    "react-archer": "^1.1.0",
-    "react-dnd": "^8.0.3",
-    "react-dnd-html5-backend": "^8.0.3",
-    "react-dom": "^16.8.6",
-    "react-markdown": "^4.1.0",
-    "react-router-dom": "^5.0.1",
-    "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.87.3",
-    "source-map-explorer": "^2.0.1",
-    "styled-components": "^4.3.2",
-    "uuid": "^3.3.2"
-  },
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.22",
+    "@fortawesome/free-solid-svg-icons": "^5.10.2",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "final-form": "^4.18.5",
+    "final-form-arrays": "^3.0.1",
+    "govuk-react": "^0.7.2",
+    "next": "^9.0.4",
+    "prop-types": "^15.7.2",
+    "react": "^16.9.0",
+    "react-beautiful-dnd": "^11.0.5",
+    "react-dom": "^16.9.0",
+    "react-final-form": "^6.3.0",
+    "react-final-form-arrays": "^3.1.1",
+    "react-final-form-listeners": "^1.0.2",
+    "react-html-parser": "^2.0.2",
+    "react-markdown": "^4.2.2",
+    "react-select": "^3.0.4",
+    "react-sortable-hoc": "^1.10.1",
+    "react-textarea-autosize": "^7.1.0",
+    "styled-components": "^4.3.2",
+    "styled-normalize": "^8.0.6"
   }
 }

@@ -1,1 +1,1 @@
-# das-qna-config
+src/SFA.DAS.QnA.Config.Web/ClientApp/readme.md
