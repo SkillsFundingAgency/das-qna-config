@@ -5,7 +5,7 @@ This project uses [next.js](https://nextjs.org/)
 
 ## Install modules
 
-Run the command:
+In the project directory: `/src/SFA.DAS.QnA.Config.Web/ClientApp` run:
 
 ```npm install```
 
@@ -15,7 +15,7 @@ or if using yarn:
 
 ## Available Scripts
 
-In the project directory (/das-qna-config/src/SFA.DAS.QnA.Config.Web/ClientApp), you can run:
+You can then run:
 
 ```npm run dev```
 
