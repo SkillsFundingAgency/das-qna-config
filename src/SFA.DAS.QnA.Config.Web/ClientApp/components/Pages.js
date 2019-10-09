@@ -8,7 +8,7 @@ const Pages = () => {
     <Container>
       <FieldArray name="Pages">
         {({ fields }) => {
-          console.log("fields:", fields);
+          // console.log("fields:", fields);
 
           return fields.map((name, index) => (
             <Page
