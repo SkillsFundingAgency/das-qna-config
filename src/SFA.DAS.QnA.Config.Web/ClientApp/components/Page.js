@@ -8,7 +8,9 @@ const Page = ({ name }) => {
 
   return (
     <Container>
-      <h2>Page</h2>
+      <Field name={`${name}.PageId`}>
+        {({ input: { name, value } }) => <h2 name={name}>Page {value}</h2>}
+      </Field>
       <Row>
         <Field
           name={`${name}.Title`}

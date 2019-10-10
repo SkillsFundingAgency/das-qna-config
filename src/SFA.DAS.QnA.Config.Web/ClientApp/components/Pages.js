@@ -8,16 +8,20 @@ const Pages = () => {
     <Container>
       <FieldArray name="Pages">
         {({ fields }) => {
-          // console.log("fields:", fields);
+          // console.log("Page fields:", fields);
 
-          return fields.map((name, index) => (
-            <Page
-              key={name}
-              index={index}
-              name={name}
-              removePage={() => fields.remove(index)}
-            />
-          ));
+          return fields.map((name, index) => {
+            // console.log("name:", name);
+
+            return (
+              <Page
+                key={name}
+                index={index}
+                name={name}
+                removePage={() => fields.remove(index)}
+              />
+            );
+          });
         }}
       </FieldArray>
     </Container>

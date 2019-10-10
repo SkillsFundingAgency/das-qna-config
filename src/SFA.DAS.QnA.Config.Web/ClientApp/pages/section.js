@@ -11,7 +11,7 @@ const required = value => (value ? undefined : "required");
 
 const Section = ({ data }) => {
   const [section, setSection] = useState(data);
-  console.log("section:", section);
+  // console.log("section:", section);
 
   return (
     <>

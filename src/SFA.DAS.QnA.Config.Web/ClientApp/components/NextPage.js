@@ -11,7 +11,7 @@ const NextPage = ({ name }) => {
 
       <FieldArray name={`${name}.Next`}>
         {({ fields }) => {
-          // console.log("fields:", fields);
+          // console.log("NextPage fields:", fields);
           {
             return fields.map((name, index) => (
               <>
@@ -22,6 +22,7 @@ const NextPage = ({ name }) => {
                     type="text"
                     placeholder="Action"
                   />
+                  <p>will be</p>
                   <Field
                     name={`${name}.ReturnId`}
                     component="input"
@@ -29,17 +30,11 @@ const NextPage = ({ name }) => {
                     placeholder="Return ID"
                   />
                   {/* <Field
-                  name={`${name}.Condition`}
-                  component="input"
-                  type="text"
-                  placeholder="Condition"
-                /> */}
-                  <Field
-                    name={`${name}.Conditions`}
+                    name={`${name}.Condition`}
                     component="input"
                     type="text"
-                    placeholder="Condition equal"
-                  />
+                    placeholder="Condition"
+                  /> */}
                 </Row>
                 <Conditions name={name} />
               </>

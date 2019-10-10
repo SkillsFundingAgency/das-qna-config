@@ -5,21 +5,33 @@ import styled from "styled-components";
 const Conditions = ({ name }) => {
   return (
     <Container>
-      <p>...if...</p>
+      {/* <p>when</p> */}
 
       <FieldArray name={`${name}.Conditions`}>
         {({ fields }) => {
-          console.log("fields:", fields);
+          // console.log("Condition fields:", fields);
           {
             return fields.map((name, index) => (
-              <Row>
-                <Field
-                  name={`${name}.QuestionId`}
-                  component="input"
-                  type="text"
-                  placeholder="Question Id"
-                />
-              </Row>
+              <>
+                <p>when</p>
+
+                <Row>
+                  <Field
+                    name={`${name}.QuestionId`}
+                    component="input"
+                    type="text"
+                    placeholder="Question Id"
+                  />
+                  <p>equals</p>
+                  <Field
+                    name={`${name}.MustEqual`}
+                    component="input"
+                    type="text"
+                    placeholder="Must equal"
+                  />
+                </Row>
+                <p>otherwise</p>
+              </>
             ));
           }
         }}
