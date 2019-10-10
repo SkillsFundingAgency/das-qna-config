@@ -7,20 +7,22 @@ const Page = ({ name }) => {
   // console.log(props);
 
   return (
-    <Container>
-      <Field name={`${name}.PageId`}>
-        {({ input: { name, value } }) => <h2 name={name}>Page {value}</h2>}
-      </Field>
-      <Row>
-        <Field
-          name={`${name}.Title`}
-          component="input"
-          type="text"
-          placeholder="Page title"
-        />
-      </Row>
-      <NextPage name={name} />
-    </Container>
+    <>
+      <Container>
+        <Field name={`${name}.PageId`}>
+          {({ input: { name, value } }) => <h2 name={name}>Page {value}</h2>}
+        </Field>
+        <Row>
+          <Field
+            name={`${name}.Title`}
+            component="input"
+            type="text"
+            placeholder="Page title"
+          />
+        </Row>
+        <NextPage name={name} />
+      </Container>
+    </>
   );
 };
 
