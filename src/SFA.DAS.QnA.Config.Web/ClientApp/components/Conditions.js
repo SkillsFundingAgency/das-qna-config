@@ -5,16 +5,13 @@ import styled from "styled-components";
 const Conditions = ({ name }) => {
   return (
     <Container>
-      {/* <p>when</p> */}
-
       <FieldArray name={`${name}.Conditions`}>
         {({ fields }) => {
           // console.log("Condition fields:", fields);
           {
             return fields.map((name, index) => (
-              <>
+              <div key={index}>
                 <p>when</p>
-
                 <Row>
                   <Field
                     name={`${name}.QuestionId`}
@@ -31,7 +28,7 @@ const Conditions = ({ name }) => {
                   />
                 </Row>
                 <p>otherwise</p>
-              </>
+              </div>
             ));
           }
         }}

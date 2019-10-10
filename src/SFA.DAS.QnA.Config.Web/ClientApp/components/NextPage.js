@@ -14,7 +14,7 @@ const NextPage = ({ name }) => {
           // console.log("NextPage fields:", fields);
           {
             return fields.map((name, index) => (
-              <>
+              <div key={index}>
                 <Row>
                   <Field
                     name={`${name}.Action`}
@@ -37,7 +37,7 @@ const NextPage = ({ name }) => {
                   /> */}
                 </Row>
                 <Conditions name={name} />
-              </>
+              </div>
             ));
           }
         }}
