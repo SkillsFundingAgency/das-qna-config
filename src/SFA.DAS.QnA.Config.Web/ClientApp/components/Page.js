@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import NextPage from "./NextPage";
 
-const Page = ({ name }) => {
+const Page = ({ name, questions }) => {
   // console.log(props);
 
   return (
@@ -20,7 +20,7 @@ const Page = ({ name }) => {
             placeholder="Page title"
           />
         </Row>
-        <NextPage name={name} />
+        <NextPage name={name} questions={questions} />
       </Container>
     </>
   );

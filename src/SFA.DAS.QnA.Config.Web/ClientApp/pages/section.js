@@ -1,23 +1,46 @@
 import { useState } from "react";
 import { Form, Field } from "react-final-form";
 import arrayMutators from "final-form-arrays";
+// import fetch from "isomorphic-unfetch";
 
 import styled from "styled-components";
 import GlobalStyles from "../styles/global";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCode } from "@fortawesome/free-solid-svg-icons";
 
 import Pages from "./../components/Pages";
 
 const required = value => (value ? undefined : "required");
 
 const Section = ({ data }) => {
-  const [section, setSection] = useState(data);
+  const [showSchema, setShowSchema] = useState(false);
+  const [section, setSection] = useState(data.default);
   // console.log("section:", section);
+
+  const questions = section.Pages.map(
+    page =>
+      page.Questions &&
+      page.Questions.reduce(
+        (accumulator, element) => ({
+          label: `${element.Label} (${element.QuestionId})`,
+          value: element.QuestionId
+        }),
+        {}
+      )
+  );
 
   return (
     <>
       <GlobalStyles />
       <Container>
         <Header>QnA Config</Header>
+        <DisplayControls>
+          <ToggleCodeView
+            icon={faCode}
+            onClick={() => setShowSchema(!showSchema)}
+            width="0"
+          />
+        </DisplayControls>
         <Form
           onSubmit={() => {}}
           initialValues={section}
@@ -59,7 +82,7 @@ const Section = ({ data }) => {
                     )}
                   </Field>
                 </Row>
-                <Pages />
+                <Pages questions={questions} />
               </form>
 
               {/* <div>
@@ -72,13 +95,13 @@ const Section = ({ data }) => {
               {/* <Link href="/section">
               <a title="Section page">Section page</a>
             </Link> */}
-              {/* </div>
+              {/* </div> */}
               {showSchema && (
                 <div>
                   <h3>Generated JSON</h3>
                   <Dump>{JSON.stringify(values, 0, 2)}</Dump>
                 </div>
-              )} */}
+              )}
             </Columns>
           )}
         />
@@ -87,16 +110,17 @@ const Section = ({ data }) => {
   );
 };
 
-Section.getInitialProps = async function(context) {
-  const { sectionId } = context.query;
-
-  // const data = await import(`../../data/sections/${sectionId}.json`);
-  const data = await import(`./../data/sections/section-1.json`);
-  console.log(`Show data fetched. Count: ${data.Pages.length} pages`);
-  return { data };
-
-  // const res = await fetch("https://api.tvmaze.com/search/shows?q=batman");
-  // const data = await res.json();
+Section.getInitialProps = async context => {
+  // const { sectionId } = context.query;
+  if (context.req) {
+    const data = await import(`./../data/sections/section-1.json`);
+    // const data = await import(`../../data/sections/${sectionId}.json`);
+    console.log(`Show data fetched. Count: ${data.Pages.length} pages`);
+    return { data };
+  } else {
+    const data = window.__NEXT_DATA__.props.pageProps.data;
+    return { data };
+  }
 };
 
 export default Section;
@@ -179,6 +203,14 @@ const Row = styled.div`
   }
 `;
 
+const DisplayControls = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 50px;
+  margin: 5px 15px;
+`;
+
 const Dump = styled.pre`
   border: 1px solid #ccc;
   font-size: 0.8em;
@@ -186,4 +218,8 @@ const Dump = styled.pre`
   box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
   padding: 20px;
   overflow: auto;
+`;
+
+const ToggleCodeView = styled(FontAwesomeIcon)`
+  cursor: pointer;
 `;

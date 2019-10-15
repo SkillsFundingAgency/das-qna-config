@@ -4,60 +4,53 @@ import styled from "styled-components";
 
 import Conditions from "./Conditions";
 
-const NextPage = ({ name }) => {
+const NextPage = ({ name, questions }) => {
   return (
-    <Container>
+    <>
       <h3>Routes</h3>
 
       <FieldArray name={`${name}.Next`}>
         {({ fields }) => {
-          // console.log("NextPage fields:", fields);
           {
             return fields.map((name, index) => (
               <div key={index}>
                 <Row>
+                  <InnerText>The</InnerText>
                   <Field
                     name={`${name}.Action`}
                     component="input"
                     type="text"
                     placeholder="Action"
                   />
-                  <p>will be</p>
+                  <InnerText>will be</InnerText>
                   <Field
                     name={`${name}.ReturnId`}
                     component="input"
                     type="text"
                     placeholder="Return ID"
                   />
-                  {/* <Field
-                    name={`${name}.Condition`}
-                    component="input"
-                    type="text"
-                    placeholder="Condition"
-                  /> */}
                 </Row>
-                <Conditions name={name} />
+                <Conditions name={name} questions={questions} />
               </div>
             ));
           }
         }}
       </FieldArray>
-    </Container>
+    </>
   );
 };
 
 export default NextPage;
 
-const Container = styled.div`
-  display: flex;
-  flex-flow: column nowrap;
-  margin-bottom: 20px;
+const InnerText = styled.p`
+  line-height: 2.4em;
+  margin: 0 5px;
 `;
 
 const Row = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 
   &:last-child {
     margin-bottom: 0;

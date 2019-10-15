@@ -21,7 +21,7 @@ const Index = () => {
     <>
       <GlobalStyles />
       <Container>
-        <Header>QnA Config</Header>
+        <Header>QnA Config - page builder</Header>
         <DisplayControls>
           <ToggleCodeView
             icon={faCode}
@@ -311,7 +311,7 @@ const Index = () => {
           }) => (
             <Columns>
               <form onSubmit={handleSubmit}>
-                <h3>Page</h3>
+                <h3>Page {values.PageId}</h3>
                 {/* <GradientBar /> */}
 
                 <Row>

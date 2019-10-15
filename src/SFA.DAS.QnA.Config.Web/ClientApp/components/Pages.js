@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import Page from "./Page";
 
-const Pages = () => {
+const Pages = ({ questions }) => {
   return (
     <Container>
       <FieldArray name="Pages">
@@ -19,6 +19,7 @@ const Pages = () => {
                 index={index}
                 name={name}
                 removePage={() => fields.remove(index)}
+                questions={questions}
               />
             );
           });

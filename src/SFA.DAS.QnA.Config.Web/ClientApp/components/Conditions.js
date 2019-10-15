@@ -1,58 +1,46 @@
 import { Field } from "react-final-form";
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
+import Select from "./../components/Select";
 
-const Conditions = ({ name }) => {
+const Conditions = ({ name, questions }) => {
   return (
-    <Container>
-      <FieldArray name={`${name}.Conditions`}>
-        {({ fields }) => {
-          // console.log("Condition fields:", fields);
-          {
-            return fields.map((name, index) => (
-              <div key={index}>
-                <p>when</p>
-                <Row>
-                  <Field
-                    name={`${name}.QuestionId`}
-                    component="input"
-                    type="text"
-                    placeholder="Question Id"
-                  />
-                  <p>equals</p>
-                  <Field
-                    name={`${name}.MustEqual`}
-                    component="input"
-                    type="text"
-                    placeholder="Must equal"
-                  />
-                </Row>
-                <p>otherwise</p>
-              </div>
-            ));
-          }
-        }}
-      </FieldArray>
-    </Container>
+    <FieldArray name={`${name}.Conditions`}>
+      {({ fields }) => {
+        // console.log("Condition fields:", fields);
+        {
+          return fields.map((name, index) => (
+            <div key={index}>
+              <Row>
+                <InnerText>when</InnerText>
+                <Field
+                  name={`${name}.QuestionId`}
+                  component={TypeSelector}
+                  options={questions}
+                  isSearchable={true}
+                />
+                <InnerText>equals</InnerText>
+                <Field
+                  name={`${name}.MustEqual`}
+                  component="input"
+                  type="text"
+                  placeholder="Must equal"
+                />
+              </Row>
+            </div>
+          ));
+        }
+      }}
+    </FieldArray>
   );
 };
 
 export default Conditions;
 
-const Container = styled.div`
-  display: flex;
-  flex-flow: column nowrap;
-  margin-bottom: 20px;
-`;
-
 const Row = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  margin-bottom: 5px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+  margin-bottom: 10px;
 
   input,
   textarea {
@@ -80,4 +68,13 @@ const Row = styled.div`
     line-height: 24px;
     margin: 0;
   }
+`;
+
+const TypeSelector = styled(Select)`
+  width: 100%;
+`;
+
+const InnerText = styled.p`
+  line-height: 2.4em;
+  margin: 0 5px;
 `;
