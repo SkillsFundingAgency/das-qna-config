@@ -526,5 +526,3 @@ const Dump = styled.pre`
   padding: 20px;
   overflow: auto;
 `;
-
-const StyledSave = styled(AutoSave)``;
