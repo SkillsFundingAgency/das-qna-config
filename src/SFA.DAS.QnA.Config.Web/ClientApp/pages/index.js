@@ -33,12 +33,7 @@ const setCookie = values => Cookies.set("pageData", values);
 
 const Index = ({ initialPageData }) => {
   const [showSchema, setShowSchema] = useState(false);
-
-  const [pageData, setPageData] = useState({});
-
-  useEffect(() => {
-    setPageData(JSON.parse(initialPageData));
-  }, [initialPageData]);
+  const pageData = initialPageData ? JSON.parse(initialPageData) : {};
 
   return (
     <>
