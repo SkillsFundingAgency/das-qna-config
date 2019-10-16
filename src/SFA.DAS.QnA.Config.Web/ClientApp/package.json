@@ -20,7 +20,9 @@
     "final-form": "^4.18.5",
     "final-form-arrays": "^3.0.1",
     "govuk-react": "^0.7.2",
+    "js-cookie": "^2.2.1",
     "next": "^9.1.1",
+    "object-diff": "^0.0.4",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "react-beautiful-dnd": "^11.0.5",
@@ -34,7 +36,7 @@
     "react-sortable-hoc": "^1.10.1",
     "react-textarea-autosize": "^7.1.0",
     "styled-components": "^4.3.2",
-    "styled-normalize": "^8.0.6",
-    "styled-jsx": "^3.2.0"
+    "styled-jsx": "^3.2.0",
+    "styled-normalize": "^8.0.6"
   }
 }

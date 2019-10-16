@@ -1,20 +1,37 @@
 import Link from "next/link";
-import { useState } from "react";
+import cookie from "cookie";
+import { useState, useEffect } from "react";
 import { Form, Field } from "react-final-form";
 import arrayMutators from "final-form-arrays";
+import Cookies from "js-cookie";
 
 import styled from "styled-components";
 import GlobalStyles from "../styles/global";
 
-import Questions from "../components/Questions";
-import GeneratedPage from "../components/GeneratedPage";
-import Textarea from "../components/Textarea";
+import AutoSave from "./../components/AutoSave";
+import Questions from "./../components/Questions";
+import GeneratedPage from "./../components/GeneratedPage";
+import Textarea from "./../components/Textarea";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode } from "@fortawesome/free-solid-svg-icons";
 
+import { EMPTY_PAGE } from "./../data/data-structures";
+
 const required = value => (value ? undefined : "required");
 
-const Index = () => {
+const parseCookies = req =>
+  cookie.parse(req ? req.headers.cookie || "" : document.cookie);
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+const save = async values => {
+  setCookie(values);
+  await sleep(2000);
+};
+
+const setCookie = values => Cookies.set("pageData", values);
+
+const Index = ({ initialPageData }) => {
   const [showSchema, setShowSchema] = useState(false);
 
   return (
@@ -30,272 +47,273 @@ const Index = () => {
           />
         </DisplayControls>
         <Form
-          onSubmit={() => {}}
-          initialValues={{
-            // This is just for one page
-            PageId: "2",
-            Title: "Name to use on the register",
-            LinkTitle: "Name to use on the register",
-            InfoText: "",
-            Next: [
-              {
-                Action: "NextPage",
-                ReturnId: "3",
-                ConditionMet: false
-              }
-            ],
-            AllowMultipleAnswers: false,
-            BodyText: "",
-            Questions: [
-              {
-                QuestionId: "CD-02",
-                QuestionTag: "contact-name",
-                Label: "Full name",
-                ShortLabel: "",
-                QuestionBodyText: "",
-                Hint: "",
-                Input: {
-                  Type: "text",
-                  Validations: [
-                    {
-                      Name: "Required",
-                      ErrorMessage: "Enter name"
-                    }
-                  ]
-                }
-              },
-              {
-                QuestionId: "CD-01",
-                QuestionTag: "use-trading-name",
-                Label: "Do you want to use your trading name on the register?",
-                ShortLabel: "",
-                QuestionBodyText: "",
-                Hint: "",
-                Input: {
-                  Type: "Radio",
-                  Options: [
-                    {
-                      Value: "Yes",
-                      Label: "Yes"
-                    },
-                    {
-                      Value: "No",
-                      Label: "No"
-                    }
-                  ],
-                  Validations: [
-                    {
-                      Name: "Required",
-                      ErrorMessage:
-                        "Select yes if you want to use your trading name on the register"
-                    }
-                  ]
-                }
-              },
-              {
-                QuestionId: "CD-14",
-                Label: "Provide details of other positions or directorships ",
-                ShortLabel: "",
-                QuestionBodyText: "",
-                Hint: "",
-                Input: {
-                  Type: "Textarea",
-                  Validations: [
-                    {
-                      Name: "Required",
-                      ErrorMessage: "Enter other organisation details"
-                    }
-                  ]
-                }
-              },
-              {
-                QuestionId: "CD-20",
-                Label: "Date of birth",
-                ShortLabel: "",
-                QuestionBodyText: "",
-                Hint: "",
-                Input: {
-                  Type: "Date",
-                  Validations: [
-                    {
-                      Name: "Required",
-                      ErrorMessage: "Enter a date"
-                    },
-                    {
-                      Name: "Date",
-                      Value: "",
-                      ErrorMessage: "Date must be correct"
-                    },
-                    {
-                      Name: "DateNotInFuture",
-                      Value: "",
-                      ErrorMessage: "Date cannot be in the future"
-                    }
-                  ]
-                }
-              },
-              {
-                QuestionId: "CD-21",
-                Label: "How many shares does the director hold?",
-                ShortLabel: "",
-                QuestionBodyText: "",
-                Hint: "",
-                Input: {
-                  Type: "number",
-                  InputClasses: "govuk-input--width-5",
-                  Validations: [
-                    {
-                      Name: "Required",
-                      ErrorMessage: "Enter number of shares"
-                    }
-                  ]
-                }
-              },
-              {
-                QuestionId: "CD-12",
-                QuestionTag: "company-ukprn",
-                Label: "Do you have a UK provider registration number (UKPRN)?",
-                ShortLabel: "",
-                QuestionBodyText: "",
-                Hint: "",
-                Input: {
-                  Type: "ComplexRadio",
-                  Options: [
-                    {
-                      FurtherQuestions: [
-                        {
-                          QuestionId: "CD-12.1",
-                          Label: "Provide your UKPRN",
-                          ShortLabel: "",
-                          QuestionBodyText: "",
-                          Hint: "",
-                          Input: {
-                            Type: "number",
-                            InputClasses: "govuk-input--width-10",
-                            Validations: [
-                              {
-                                Name: "Required",
-                                ErrorMessage: "Enter your UKPRN"
-                              },
-                              {
-                                Name: "Regex",
-                                Value: "^[0-9]{8}$",
-                                ErrorMessage:
-                                  "Enter your UKPRN (must be 8 digits)"
-                              }
-                            ]
-                          }
-                        }
-                      ],
-                      Value: "Yes",
-                      Label: "Yes"
-                    },
-                    {
-                      Value: "No",
-                      Label: "No"
-                    }
-                  ],
-                  Validations: [
-                    {
-                      Name: "Required",
-                      ErrorMessage: "Select yes if you have a UKPRN"
-                    }
-                  ]
-                }
-              }
-            ],
-            // questions: [
-            //   {
-            //     type: "text",
-            //     key: "givenName",
-            //     text: "Given name",
-            //     hint: "Tell us your given name",
-            //     placeholder: "Given name"
-            //   },
-            //   {
-            //     type: "longText",
-            //     key: "longTextQuestion",
-            //     text: "Long answer question",
-            //     placeholder: "Type your long answer here"
-            //   },
-            //   {
-            //     type: "checkbox",
-            //     key: "employed",
-            //     text: "Employed?"
-            //   },
-            //   {
-            //     type: "optionGroup",
-            //     key: "standardAppliedFor",
-            //     text: "Standard applied for?",
-            //     answers: [
-            //       {
-            //         text: "Carpentry",
-            //         value: "Carpentry"
-            //       },
-            //       {
-            //         text: "Plumbing",
-            //         value: "Plumbing"
-            //       },
-            //       {
-            //         text: "Accountancy",
-            //         value: "Accountancy"
-            //       }
-            //     ]
-            //   }
-            // {
-            //   QuestionId: "CD-01",
-            //   QuestionTag: "use-trading-name",
-            //   Label: "Do you want to use your trading name on the register?",
-            //   ShortLabel: "",
-            //   QuestionBodyText: "",
-            //   Hint: "",
-            //   Input: {
-            //     Type: "Radio",
-            //     Options: [
-            //       {
-            //         Value: "Yes",
-            //         Label: "Yes"
-            //       },
-            //       {
-            //         Value: "No",
-            //         Label: "No"
-            //       }
-            //     ],
-            //     Validations: [
-            //       {
-            //         Name: "Required",
-            //         ErrorMessage:
-            //           "Select yes if you want to use your trading name on the register"
-            //       }
-            //     ]
-            //   }
-            // },
-            // {
-            //   QuestionId: "CD-02",
-            //   QuestionTag: "contact-name",
-            //   Label: "Full name",
-            //   ShortLabel: "",
-            //   QuestionBodyText: "",
-            //   Hint: "",
-            //   Input: {
-            //     Type: "text",
-            //     Validations: [
-            //       {
-            //         Name: "Required",
-            //         ErrorMessage: "Enter name"
-            //       }
-            //     ]
-            //   }
-            // }
-            // ],
-            SequenceId: "c1a3c474-4bb0-4c0d-0b62-08d6f96ce085",
-            SectionId: "713a23fa-3a1f-4bdc-852e-08d6f96ce0ce",
-            PageOfAnswers: [],
-            Complete: false,
-            Active: false,
-            NotRequiredOrgTypes: [],
-            NotRequired: false
-          }}
+          onSubmit={save}
+          // initialValues={{
+          //   // This is just for one page
+          //   PageId: "2",
+          //   Title: "Name to use on the register",
+          //   LinkTitle: "Name to use on the register",
+          //   InfoText: "",
+          //   Next: [
+          //     {
+          //       Action: "NextPage",
+          //       ReturnId: "3",
+          //       ConditionMet: false
+          //     }
+          //   ],
+          //   AllowMultipleAnswers: false,
+          //   BodyText: "",
+          //   Questions: [
+          //     {
+          //       QuestionId: "CD-02",
+          //       QuestionTag: "contact-name",
+          //       Label: "Full name",
+          //       ShortLabel: "",
+          //       QuestionBodyText: "",
+          //       Hint: "",
+          //       Input: {
+          //         Type: "text",
+          //         Validations: [
+          //           {
+          //             Name: "Required",
+          //             ErrorMessage: "Enter name"
+          //           }
+          //         ]
+          //       }
+          //     },
+          //     {
+          //       QuestionId: "CD-01",
+          //       QuestionTag: "use-trading-name",
+          //       Label: "Do you want to use your trading name on the register?",
+          //       ShortLabel: "",
+          //       QuestionBodyText: "",
+          //       Hint: "",
+          //       Input: {
+          //         Type: "Radio",
+          //         Options: [
+          //           {
+          //             Value: "Yes",
+          //             Label: "Yes"
+          //           },
+          //           {
+          //             Value: "No",
+          //             Label: "No"
+          //           }
+          //         ],
+          //         Validations: [
+          //           {
+          //             Name: "Required",
+          //             ErrorMessage:
+          //               "Select yes if you want to use your trading name on the register"
+          //           }
+          //         ]
+          //       }
+          //     },
+          //     {
+          //       QuestionId: "CD-14",
+          //       Label: "Provide details of other positions or directorships ",
+          //       ShortLabel: "",
+          //       QuestionBodyText: "",
+          //       Hint: "",
+          //       Input: {
+          //         Type: "Textarea",
+          //         Validations: [
+          //           {
+          //             Name: "Required",
+          //             ErrorMessage: "Enter other organisation details"
+          //           }
+          //         ]
+          //       }
+          //     },
+          //     {
+          //       QuestionId: "CD-20",
+          //       Label: "Date of birth",
+          //       ShortLabel: "",
+          //       QuestionBodyText: "",
+          //       Hint: "",
+          //       Input: {
+          //         Type: "Date",
+          //         Validations: [
+          //           {
+          //             Name: "Required",
+          //             ErrorMessage: "Enter a date"
+          //           },
+          //           {
+          //             Name: "Date",
+          //             Value: "",
+          //             ErrorMessage: "Date must be correct"
+          //           },
+          //           {
+          //             Name: "DateNotInFuture",
+          //             Value: "",
+          //             ErrorMessage: "Date cannot be in the future"
+          //           }
+          //         ]
+          //       }
+          //     },
+          //     {
+          //       QuestionId: "CD-21",
+          //       Label: "How many shares does the director hold?",
+          //       ShortLabel: "",
+          //       QuestionBodyText: "",
+          //       Hint: "",
+          //       Input: {
+          //         Type: "number",
+          //         InputClasses: "govuk-input--width-5",
+          //         Validations: [
+          //           {
+          //             Name: "Required",
+          //             ErrorMessage: "Enter number of shares"
+          //           }
+          //         ]
+          //       }
+          //     },
+          //     {
+          //       QuestionId: "CD-12",
+          //       QuestionTag: "company-ukprn",
+          //       Label: "Do you have a UK provider registration number (UKPRN)?",
+          //       ShortLabel: "",
+          //       QuestionBodyText: "",
+          //       Hint: "",
+          //       Input: {
+          //         Type: "ComplexRadio",
+          //         Options: [
+          //           {
+          //             FurtherQuestions: [
+          //               {
+          //                 QuestionId: "CD-12.1",
+          //                 Label: "Provide your UKPRN",
+          //                 ShortLabel: "",
+          //                 QuestionBodyText: "",
+          //                 Hint: "",
+          //                 Input: {
+          //                   Type: "number",
+          //                   InputClasses: "govuk-input--width-10",
+          //                   Validations: [
+          //                     {
+          //                       Name: "Required",
+          //                       ErrorMessage: "Enter your UKPRN"
+          //                     },
+          //                     {
+          //                       Name: "Regex",
+          //                       Value: "^[0-9]{8}$",
+          //                       ErrorMessage:
+          //                         "Enter your UKPRN (must be 8 digits)"
+          //                     }
+          //                   ]
+          //                 }
+          //               }
+          //             ],
+          //             Value: "Yes",
+          //             Label: "Yes"
+          //           },
+          //           {
+          //             Value: "No",
+          //             Label: "No"
+          //           }
+          //         ],
+          //         Validations: [
+          //           {
+          //             Name: "Required",
+          //             ErrorMessage: "Select yes if you have a UKPRN"
+          //           }
+          //         ]
+          //       }
+          //     }
+          //   ],
+          //   // questions: [
+          //   //   {
+          //   //     type: "text",
+          //   //     key: "givenName",
+          //   //     text: "Given name",
+          //   //     hint: "Tell us your given name",
+          //   //     placeholder: "Given name"
+          //   //   },
+          //   //   {
+          //   //     type: "longText",
+          //   //     key: "longTextQuestion",
+          //   //     text: "Long answer question",
+          //   //     placeholder: "Type your long answer here"
+          //   //   },
+          //   //   {
+          //   //     type: "checkbox",
+          //   //     key: "employed",
+          //   //     text: "Employed?"
+          //   //   },
+          //   //   {
+          //   //     type: "optionGroup",
+          //   //     key: "standardAppliedFor",
+          //   //     text: "Standard applied for?",
+          //   //     answers: [
+          //   //       {
+          //   //         text: "Carpentry",
+          //   //         value: "Carpentry"
+          //   //       },
+          //   //       {
+          //   //         text: "Plumbing",
+          //   //         value: "Plumbing"
+          //   //       },
+          //   //       {
+          //   //         text: "Accountancy",
+          //   //         value: "Accountancy"
+          //   //       }
+          //   //     ]
+          //   //   }
+          //   // {
+          //   //   QuestionId: "CD-01",
+          //   //   QuestionTag: "use-trading-name",
+          //   //   Label: "Do you want to use your trading name on the register?",
+          //   //   ShortLabel: "",
+          //   //   QuestionBodyText: "",
+          //   //   Hint: "",
+          //   //   Input: {
+          //   //     Type: "Radio",
+          //   //     Options: [
+          //   //       {
+          //   //         Value: "Yes",
+          //   //         Label: "Yes"
+          //   //       },
+          //   //       {
+          //   //         Value: "No",
+          //   //         Label: "No"
+          //   //       }
+          //   //     ],
+          //   //     Validations: [
+          //   //       {
+          //   //         Name: "Required",
+          //   //         ErrorMessage:
+          //   //           "Select yes if you want to use your trading name on the register"
+          //   //       }
+          //   //     ]
+          //   //   }
+          //   // },
+          //   // {
+          //   //   QuestionId: "CD-02",
+          //   //   QuestionTag: "contact-name",
+          //   //   Label: "Full name",
+          //   //   ShortLabel: "",
+          //   //   QuestionBodyText: "",
+          //   //   Hint: "",
+          //   //   Input: {
+          //   //     Type: "text",
+          //   //     Validations: [
+          //   //       {
+          //   //         Name: "Required",
+          //   //         ErrorMessage: "Enter name"
+          //   //       }
+          //   //     ]
+          //   //   }
+          //   // }
+          //   // ],
+          //   SequenceId: "c1a3c474-4bb0-4c0d-0b62-08d6f96ce085",
+          //   SectionId: "713a23fa-3a1f-4bdc-852e-08d6f96ce0ce",
+          //   PageOfAnswers: [],
+          //   Complete: false,
+          //   Active: false,
+          //   NotRequiredOrgTypes: [],
+          //   NotRequired: false
+          // }}
+          initialValues={JSON.parse(initialPageData)}
           mutators={{
             ...arrayMutators
           }}
@@ -309,81 +327,97 @@ const Index = () => {
             pristine,
             values
           }) => (
-            <Columns>
-              <form onSubmit={handleSubmit}>
-                <h3>Page {values.PageId}</h3>
-                {/* <GradientBar /> */}
+            <>
+              <Columns>
+                <form>
+                  <AutoSave debounce={1000} save={save} />
+                  <h3>Page {values.PageId}</h3>
+                  {/* <GradientBar /> */}
 
-                <Row>
-                  <Field name="LinkTitle" validate={required}>
-                    {({ input, meta }) => (
-                      <>
-                        <input
-                          {...input}
-                          type="text"
-                          placeholder={
-                            meta.error && meta.touched
-                              ? `Link title is ${meta.error}`
-                              : `Link title`
-                          }
-                          style={{ width: "100%" }}
-                          component="input"
-                          className={meta.error && meta.touched && meta.error}
-                        />
-                      </>
-                    )}
-                  </Field>
-                </Row>
-                <Row>
-                  <Field name="Title" validate={required}>
-                    {({ input, meta }) => (
-                      <>
-                        <input
-                          {...input}
-                          type="text"
-                          placeholder={
-                            meta.error && meta.touched
-                              ? `Page title is ${meta.error}`
-                              : `Page title`
-                          }
-                          style={{ width: "100%" }}
-                          component="input"
-                          className={meta.error && meta.touched && meta.error}
-                        />
-                      </>
-                    )}
-                  </Field>
-                </Row>
-                <Row>
-                  <Field
-                    name="BodyText"
-                    component={Textarea}
-                    type="text"
-                    placeholder="Body text (HTML)"
-                    style={{ width: "100%" }}
-                  />
-                </Row>
-                <Questions />
-              </form>
-              <div>
-                <h3>Preview</h3>
-                <GeneratedPage schema={values} />
-                {/* <Link href="/section">
+                  <Row>
+                    <Field name="LinkTitle" validate={required}>
+                      {({ input, meta }) => (
+                        <>
+                          <input
+                            {...input}
+                            type="text"
+                            placeholder={
+                              meta.error && meta.touched
+                                ? `Link title is ${meta.error}`
+                                : `Link title`
+                            }
+                            style={{ width: "100%" }}
+                            component="input"
+                            className={
+                              meta.error && meta.touched
+                                ? meta.error
+                                : undefined
+                            }
+                          />
+                        </>
+                      )}
+                    </Field>
+                  </Row>
+                  <Row>
+                    <Field name="Title" validate={required}>
+                      {({ input, meta }) => (
+                        <>
+                          <input
+                            {...input}
+                            type="text"
+                            placeholder={
+                              meta.error && meta.touched
+                                ? `Page title is ${meta.error}`
+                                : `Page title`
+                            }
+                            style={{ width: "100%" }}
+                            component="input"
+                            className={
+                              meta.error && meta.touched
+                                ? meta.error
+                                : undefined
+                            }
+                          />
+                        </>
+                      )}
+                    </Field>
+                  </Row>
+                  <Row>
+                    <Field
+                      name="BodyText"
+                      component={Textarea}
+                      type="text"
+                      placeholder="Body text (HTML)"
+                      style={{ width: "100%" }}
+                    />
+                  </Row>
+                  <Questions />
+                </form>
+                <div>
+                  <h3>Preview</h3>
+                  <GeneratedPage schema={values} />
+                  {/* <Link href="/section">
               <a title="Section page">Section page</a>
             </Link> */}
-              </div>
-              {showSchema && (
-                <div>
-                  <h3>Generated JSON</h3>
-                  <Dump>{JSON.stringify(values, 0, 2)}</Dump>
                 </div>
-              )}
-            </Columns>
+                {showSchema && (
+                  <div>
+                    <h3>Generated JSON</h3>
+                    <Dump>{JSON.stringify(values, 0, 2)}</Dump>
+                  </div>
+                )}
+              </Columns>
+            </>
           )}
         />
       </Container>
     </>
   );
+};
+
+Index.getInitialProps = async context => {
+  const cookies = parseCookies(context.req);
+  return { initialPageData: cookies.pageData };
 };
 
 export default Index;
@@ -491,3 +525,5 @@ const Dump = styled.pre`
   padding: 20px;
   overflow: auto;
 `;
+
+const StyledSave = styled(AutoSave)``;
