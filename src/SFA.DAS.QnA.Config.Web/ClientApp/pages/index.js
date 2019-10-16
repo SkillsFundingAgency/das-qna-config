@@ -34,6 +34,12 @@ const setCookie = values => Cookies.set("pageData", values);
 const Index = ({ initialPageData }) => {
   const [showSchema, setShowSchema] = useState(false);
 
+  const [pageData, setPageData] = useState({});
+
+  useEffect(() => {
+    setPageData(JSON.parse(initialPageData));
+  }, [initialPageData]);
+
   return (
     <>
       <GlobalStyles />
@@ -313,7 +319,7 @@ const Index = ({ initialPageData }) => {
           //   NotRequiredOrgTypes: [],
           //   NotRequired: false
           // }}
-          initialValues={JSON.parse(initialPageData)}
+          initialValues={pageData}
           mutators={{
             ...arrayMutators
           }}
