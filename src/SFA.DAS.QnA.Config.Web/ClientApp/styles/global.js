@@ -29,6 +29,10 @@ export default () => (
         line-height: 1.6em;
       }
 
+      .govuk-body {
+        font-size: 19px;
+      }
+
       strong {
         color: #145;
         font-weight: bold;

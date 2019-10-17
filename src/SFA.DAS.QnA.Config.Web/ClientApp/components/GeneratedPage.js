@@ -69,66 +69,66 @@ const GeneratedPage = ({ schema }) => {
   const { LinkTitle, Title, BodyText, Questions } = schema;
   const reset = event => event.preventDefault();
   return (
-    <Container>
-      <GridRow>
-        <GridCol>
-          <Link noVisitedState href="#">
-            {LinkTitle}
-          </Link>
-        </GridCol>
-      </GridRow>
-      <GridRow>
-        <GridCol>
-          <H1>{Title}</H1>
-        </GridCol>
-      </GridRow>
-      <GridRow>
-        <GridCol>{ReactHtmlParser(BodyText)}</GridCol>
-      </GridRow>
+    <>
+      <Link noVisitedState href="#" style={{ marginBottom: "10px" }}>
+        {LinkTitle}
+      </Link>
+      <Container>
+        <GridRow>
+          <GridCol></GridCol>
+        </GridRow>
+        <GridRow>
+          <GridCol>
+            <H1>{Title}</H1>
+          </GridCol>
+        </GridRow>
+        <GridRow>
+          <GridCol>{ReactHtmlParser(BodyText)}</GridCol>
+        </GridRow>
 
-      <Form
-        onSubmit={onSubmit}
-        render={({ handleSubmit, reset, submitting, pristine, values }) => (
-          <form onSubmit={handleSubmit}>
-            <GridRow>
-              <GridCol>
-                {Questions &&
-                  Questions.filter(
-                    question => question.QuestionId && question.Input
-                  ).map((question, index) => {
-                    // console.log(question);
+        <Form
+          onSubmit={onSubmit}
+          render={({ handleSubmit, reset, submitting, pristine, values }) => (
+            <form onSubmit={handleSubmit}>
+              <GridRow>
+                <GridCol>
+                  {Questions &&
+                    Questions.filter(
+                      question => question.QuestionId && question.Input
+                    ).map((question, index) => {
+                      // console.log(question);
 
-                    const QuestionComponent = components[question.Input.Type];
-                    return (
-                      question.QuestionId && (
-                        <QuestionComponent
-                          key={index}
-                          questionIndex={index}
-                          question={question}
-                        />
-                      )
-                    );
-                  })}
-              </GridCol>
-            </GridRow>
-            <GridRow>
-              <GridCol>
-                <Button type="submit" disabled={submitting}>
-                  Submit
-                </Button>
-              </GridCol>
-            </GridRow>
-            {/* <GridRow>
+                      const QuestionComponent = components[question.Input.Type];
+                      return (
+                        question.QuestionId && (
+                          <QuestionComponent
+                            key={index}
+                            questionIndex={index}
+                            question={question}
+                          />
+                        )
+                      );
+                    })}
+                </GridCol>
+              </GridRow>
+              <GridRow>
+                <GridCol>
+                  <Button type="submit" disabled={submitting}>
+                    Save and continue
+                  </Button>
+                </GridCol>
+              </GridRow>
+              {/* <GridRow>
               <GridCol>
                 <Button disabled={submitting || pristine}>Reset</Button>
               </GridCol>
             </GridRow> */}
-            {/* <GridRow>
+              {/* <GridRow>
               <GridCol>
                 <Dump>{JSON.stringify(values, 0, 2)}</Dump>
               </GridCol>
             </GridRow> */}
-            {/* <Buttons>
+              {/* <Buttons>
                 <Button
                   secondary
                   type="submit"
@@ -138,10 +138,11 @@ const GeneratedPage = ({ schema }) => {
                 </Button>
                 </Buttons>
               <Dump>{JSON.stringify(values, 0, 2)}</Dump> */}
-          </form>
-        )}
-      />
-    </Container>
+            </form>
+          )}
+        />
+      </Container>
+    </>
   );
 };
 
@@ -150,7 +151,8 @@ export default GeneratedPage;
 const Container = styled.div`
   border: 1px solid #ddd;
   border-radius: 3px;
-  padding: 10px;
+  padding: 25px;
+  margin-top: 10px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 `;
 

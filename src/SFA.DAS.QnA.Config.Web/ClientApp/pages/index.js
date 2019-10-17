@@ -12,8 +12,13 @@ import AutoSave from "./../components/AutoSave";
 import Questions from "./../components/Questions";
 import GeneratedPage from "./../components/GeneratedPage";
 import Textarea from "./../components/Textarea";
+import FileManager from "./../components/FileManager";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCode } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCode,
+  faFolderOpen,
+  faFolder
+} from "@fortawesome/free-solid-svg-icons";
 
 import { EMPTY_PAGE } from "./../data/data-structures";
 
@@ -33,7 +38,18 @@ const setCookie = values => Cookies.set("pageData", values);
 
 const Index = ({ initialPageData }) => {
   const [showSchema, setShowSchema] = useState(false);
-  const pageData = initialPageData ? JSON.parse(initialPageData) : {};
+  const [showFileManager, setShowFileManager] = useState(true);
+
+  const initialPageState = initialPageData ? JSON.parse(initialPageData) : {};
+  const [pageData, setpageData] = useState(initialPageState);
+
+  useEffect(() => {
+    updatePageBuilder(pageData);
+  }, [initialPageState]);
+
+  const updatePageBuilder = fileContents => {
+    setpageData(fileContents);
+  };
 
   return (
     <>
@@ -41,6 +57,11 @@ const Index = ({ initialPageData }) => {
       <Container>
         <Header>QnA Config - page builder</Header>
         <DisplayControls>
+          <ToggleFileView
+            icon={showFileManager ? faFolderOpen : faFolder}
+            onClick={() => setShowFileManager(!showFileManager)}
+            width="0"
+          />
           <ToggleCodeView
             icon={faCode}
             onClick={() => setShowSchema(!showSchema)}
@@ -401,6 +422,12 @@ const Index = ({ initialPageData }) => {
               <a title="Section page">Section page</a>
             </Link> */}
                 </div>
+                {showFileManager && (
+                  <div>
+                    <h3>Load a file</h3>
+                    <FileManager updatePageBuilder={updatePageBuilder} />
+                  </div>
+                )}
                 {showSchema && (
                   <div>
                     <h3>Generated JSON</h3>
@@ -516,6 +543,11 @@ const Buttons = styled.div`
 
 const ToggleCodeView = styled(FontAwesomeIcon)`
   cursor: pointer;
+`;
+
+const ToggleFileView = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  margin-right: 10px;
 `;
 
 const Dump = styled.pre`
