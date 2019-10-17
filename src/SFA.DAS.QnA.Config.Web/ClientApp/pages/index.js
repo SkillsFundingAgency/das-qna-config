@@ -1,6 +1,6 @@
 import Link from "next/link";
 import cookie from "cookie";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { Form, Field } from "react-final-form";
 import arrayMutators from "final-form-arrays";
 import Cookies from "js-cookie";
@@ -17,7 +17,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCode,
   faFolderOpen,
-  faFolder
+  faFolder,
+  faFileAlt
 } from "@fortawesome/free-solid-svg-icons";
 
 import { EMPTY_PAGE } from "./../data/data-structures";
@@ -40,15 +41,14 @@ const Index = ({ initialPageData }) => {
   const [showSchema, setShowSchema] = useState(false);
   const [showFileManager, setShowFileManager] = useState(true);
 
-  const initialPageState = initialPageData ? JSON.parse(initialPageData) : {};
-  const [pageData, setpageData] = useState(initialPageState);
+  // This is probably the line causeing the issues
+  // let initialPageState = initialPageData ? JSON.parse(initialPageData) : {};
 
-  useEffect(() => {
-    updatePageBuilder(pageData);
-  }, [initialPageState]);
+  // const [pageData, setpageData] = useState(JSON.parse(initialPageData) || {});
+  const [pageData, setpageData] = useState(JSON.parse(initialPageData) || {});
 
   const updatePageBuilder = fileContents => {
-    setpageData(fileContents);
+    setpageData(JSON.parse(fileContents));
   };
 
   return (
@@ -416,7 +416,9 @@ const Index = ({ initialPageData }) => {
                   <Questions />
                 </form>
                 <div>
-                  <h3>Preview</h3>
+                  <h3>
+                    <FontAwesomeIcon icon={faFileAlt} width="0" /> Preview
+                  </h3>
                   <GeneratedPage schema={values} />
                   {/* <Link href="/section">
               <a title="Section page">Section page</a>
@@ -424,13 +426,18 @@ const Index = ({ initialPageData }) => {
                 </div>
                 {showFileManager && (
                   <div>
-                    <h3>Load a file</h3>
+                    <h3>
+                      <FontAwesomeIcon icon={faFolderOpen} width="0" /> Load a
+                      file
+                    </h3>
                     <FileManager updatePageBuilder={updatePageBuilder} />
                   </div>
                 )}
                 {showSchema && (
                   <div>
-                    <h3>Generated JSON</h3>
+                    <h3>
+                      <FontAwesomeIcon icon={faCode} width="0" /> Generated JSON{" "}
+                    </h3>
                     <Dump>{JSON.stringify(values, 0, 2)}</Dump>
                   </div>
                 )}
