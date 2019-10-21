@@ -37,19 +37,40 @@ const save = async values => {
 
 const setCookie = values => Cookies.set("pageData", values);
 
-const Index = ({ initialPageData }) => {
-  const [showSchema, setShowSchema] = useState(false);
-  const [showFileManager, setShowFileManager] = useState(true);
+const Index = ({ initialPageData, initialUserSettings }) => {
+  // console.log("initialPageData:", initialPageData);
 
-  // This is probably the line causeing the issues
-  // let initialPageState = initialPageData ? JSON.parse(initialPageData) : {};
+  const [userSettings, setUserSettings] = useState(
+    initialUserSettings
+      ? JSON.parse(initialUserSettings)
+      : {
+          showPreview: true,
+          showSchema: false,
+          showFileManager: false
+        }
+  );
 
-  // const [pageData, setpageData] = useState(JSON.parse(initialPageData) || {});
-  const [pageData, setpageData] = useState(JSON.parse(initialPageData) || {});
+  const [pageData, setpageData] = useState(
+    initialPageData ? JSON.parse(initialPageData) : {}
+  );
+  // console.log("pageData:", pageData);
 
   const updatePageBuilder = fileContents => {
     setpageData(JSON.parse(fileContents));
   };
+
+  const updateUserSettings = setting => {
+    setUserSettings(prevState => {
+      return {
+        ...prevState,
+        [setting]: !userSettings[setting]
+      };
+    });
+  };
+
+  useEffect(() => {
+    Cookies.set("userSettings", userSettings);
+  }, [userSettings]);
 
   return (
     <>
@@ -57,14 +78,19 @@ const Index = ({ initialPageData }) => {
       <Container>
         <Header>QnA Config - page builder</Header>
         <DisplayControls>
+          <TogglePreView
+            icon={faFileAlt}
+            onClick={() => updateUserSettings("showPreview")}
+            width="0"
+          />
           <ToggleFileView
-            icon={showFileManager ? faFolderOpen : faFolder}
-            onClick={() => setShowFileManager(!showFileManager)}
+            icon={userSettings.showFileManager ? faFolderOpen : faFolder}
+            onClick={() => updateUserSettings("showFileManager")}
             width="0"
           />
           <ToggleCodeView
             icon={faCode}
-            onClick={() => setShowSchema(!showSchema)}
+            onClick={() => updateUserSettings("showSchema")}
             width="0"
           />
         </DisplayControls>
@@ -415,16 +441,15 @@ const Index = ({ initialPageData }) => {
                   </Row>
                   <Questions />
                 </form>
-                <div>
-                  <h3>
-                    <FontAwesomeIcon icon={faFileAlt} width="0" /> Preview
-                  </h3>
-                  <GeneratedPage schema={values} />
-                  {/* <Link href="/section">
-              <a title="Section page">Section page</a>
-            </Link> */}
-                </div>
-                {showFileManager && (
+                {userSettings.showPreview && (
+                  <div>
+                    <h3>
+                      <FontAwesomeIcon icon={faFileAlt} width="0" /> Preview
+                    </h3>
+                    <GeneratedPage schema={values} />
+                  </div>
+                )}
+                {userSettings.showFileManager && (
                   <div>
                     <h3>
                       <FontAwesomeIcon icon={faFolderOpen} width="0" /> Load a
@@ -433,7 +458,7 @@ const Index = ({ initialPageData }) => {
                     <FileManager updatePageBuilder={updatePageBuilder} />
                   </div>
                 )}
-                {showSchema && (
+                {userSettings.showSchema && (
                   <div>
                     <h3>
                       <FontAwesomeIcon icon={faCode} width="0" /> Generated JSON{" "}
@@ -452,7 +477,10 @@ const Index = ({ initialPageData }) => {
 
 Index.getInitialProps = async context => {
   const cookies = parseCookies(context.req);
-  return { initialPageData: cookies.pageData };
+  return {
+    initialPageData: cookies.pageData,
+    initialUserSettings: cookies.userSettings
+  };
 };
 
 export default Index;
@@ -548,13 +576,18 @@ const Buttons = styled.div`
   text-align: center;
 `;
 
-const ToggleCodeView = styled(FontAwesomeIcon)`
+const TogglePreView = styled(FontAwesomeIcon)`
   cursor: pointer;
+  margin-right: 10px;
 `;
 
 const ToggleFileView = styled(FontAwesomeIcon)`
   cursor: pointer;
   margin-right: 10px;
+`;
+
+const ToggleCodeView = styled(FontAwesomeIcon)`
+  cursor: pointer;
 `;
 
 const Dump = styled.pre`

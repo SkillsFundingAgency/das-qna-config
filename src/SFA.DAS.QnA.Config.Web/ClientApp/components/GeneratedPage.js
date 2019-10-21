@@ -51,10 +51,13 @@ const onSubmit = async values => {
 
 const components = {
   text: TextQuestion,
+  Email: TextQuestion,
   Date: DateQuestion,
+  MonthAndYear: TextQuestion, // needs own component
   number: NumberQuestion,
   longText: LongTextQuestion,
   Textarea: LongTextQuestion,
+  Address: LongTextQuestion, // needs own component
   checkbox: CheckboxQuestion,
   optionGroup: OptionGroupQuestion,
   ComplexRadio: ComplexRadioQuestion,
