@@ -1,9 +1,9 @@
 import React from "react";
 import { Field } from "react-final-form";
 import { FormGroup } from "govuk-react";
-import styled from "styled-components";
+// import styled from "styled-components";
 
-import CheckboxGroup from "../../components/govuk-components/CheckboxGroup";
+// import CheckboxGroup from "./../govuk-components/CheckboxGroup";
 
 export default ({ question }) => (
   <FormGroup>

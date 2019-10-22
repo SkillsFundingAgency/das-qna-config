@@ -1,7 +1,7 @@
 import React from "react";
 import { FormGroup } from "govuk-react";
 
-import CheckboxGroup from "../../components/govuk-components/CheckboxGroup";
+import CheckboxGroup from "./../govuk-components/CheckboxGroup";
 
 const CheckboxQuestion = ({ question }) => (
   <FormGroup>

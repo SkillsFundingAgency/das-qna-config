@@ -8,7 +8,7 @@ import GlobalStyles from "../styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode } from "@fortawesome/free-solid-svg-icons";
 
-import Pages from "./../components/Pages";
+import Pages from "../components/section-builder/Pages";
 
 const required = value => (value ? undefined : "required");
 

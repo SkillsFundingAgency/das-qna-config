@@ -46,7 +46,7 @@ const onSubmit = async values => {
   console.table(values);
 
   await sleep(300);
-  window.alert(JSON.stringify(values, 0, 2));
+  // window.alert(JSON.stringify(values, 0, 2));
 };
 
 const components = {
@@ -91,56 +91,56 @@ const GeneratedPage = ({ schema }) => {
 
         <Form
           onSubmit={onSubmit}
-          render={({ handleSubmit, reset, submitting, pristine, values }) => (
+          render={({ handleSubmit, form, submitting, pristine, values }) => (
             <form onSubmit={handleSubmit}>
-              <GridRow>
-                <GridCol>
-                  {Questions &&
-                    Questions.filter(
-                      question => question.QuestionId && question.Input
-                    ).map((question, index) => {
-                      // console.log(question);
+              {Questions && (
+                <>
+                  <GridRow>
+                    <GridCol>
+                      {Questions.filter(
+                        question => question.QuestionId && question.Input
+                      ).map((question, index) => {
+                        // console.log(question);
 
-                      const QuestionComponent = components[question.Input.Type];
-                      return (
-                        question.QuestionId && (
-                          <QuestionComponent
-                            key={index}
-                            questionIndex={index}
-                            question={question}
-                          />
-                        )
-                      );
-                    })}
-                </GridCol>
-              </GridRow>
-              <GridRow>
+                        const QuestionComponent =
+                          components[question.Input.Type];
+                        return (
+                          question.QuestionId && (
+                            <QuestionComponent
+                              key={index}
+                              questionIndex={index}
+                              question={question}
+                            />
+                          )
+                        );
+                      })}
+                    </GridCol>
+                  </GridRow>
+                  <GridRow>
+                    <GridCol>
+                      <Button type="submit" disabled={submitting || pristine}>
+                        Save and continue
+                      </Button>
+                    </GridCol>
+                  </GridRow>
+                </>
+              )}
+              {/* <GridRow>
                 <GridCol>
-                  <Button type="submit" disabled={submitting}>
-                    Save and continue
+                  <Button
+                    secondary
+                    onClick={form.reset}
+                    disabled={submitting || pristine}
+                  >
+                    Reset
                   </Button>
                 </GridCol>
-              </GridRow>
-              {/* <GridRow>
-              <GridCol>
-                <Button disabled={submitting || pristine}>Reset</Button>
-              </GridCol>
-            </GridRow> */}
+              </GridRow> */}
               {/* <GridRow>
               <GridCol>
                 <Dump>{JSON.stringify(values, 0, 2)}</Dump>
               </GridCol>
             </GridRow> */}
-              {/* <Buttons>
-                <Button
-                  secondary
-                  type="submit"
-                  disabled={submitting || pristine}
-                >
-                Submit
-                </Button>
-                </Buttons>
-              <Dump>{JSON.stringify(values, 0, 2)}</Dump> */}
             </form>
           )}
         />

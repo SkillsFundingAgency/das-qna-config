@@ -7,7 +7,7 @@ import { sortableElement } from "react-sortable-hoc";
 
 import Question from "./Question";
 import SortHandle from "./SortHandle";
-import Textarea from "./Textarea";
+import Textarea from "../Textarea";
 
 const Answer = sortableElement(({ name, remove }) => (
   <Container>

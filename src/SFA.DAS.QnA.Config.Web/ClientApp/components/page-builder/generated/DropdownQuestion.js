@@ -1,7 +1,7 @@
 import React from "react";
 import { Field } from "react-final-form";
 import styled from "styled-components";
-import Select from "../Select";
+import Select from "../../Select";
 
 export default ({ question }) => (
   <Row>

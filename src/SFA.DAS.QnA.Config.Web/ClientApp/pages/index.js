@@ -1,18 +1,19 @@
-import Link from "next/link";
 import cookie from "cookie";
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import { Form, Field } from "react-final-form";
 import arrayMutators from "final-form-arrays";
 import Cookies from "js-cookie";
+import saveAs from "file-saver";
 
 import styled from "styled-components";
 import GlobalStyles from "../styles/global";
 
-import AutoSave from "./../components/AutoSave";
-import Questions from "./../components/Questions";
-import GeneratedPage from "./../components/GeneratedPage";
+import AutoSave from "../components/page-builder/AutoSave";
+
+import Questions from "../components/page-builder/Questions";
+import GeneratedPage from "../components/page-builder/GeneratedPage";
 import Textarea from "./../components/Textarea";
-import FileManager from "./../components/FileManager";
+import FileManager from "../components/page-builder/FileManager";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCode,
@@ -71,6 +72,13 @@ const Index = ({ initialPageData, initialUserSettings }) => {
   useEffect(() => {
     Cookies.set("userSettings", userSettings);
   }, [userSettings]);
+
+  const saveCurrentPage = (fileName, jsonContents) => {
+    var file = new File([JSON.stringify(jsonContents)], fileName, {
+      type: "application/json;charset=utf-8"
+    });
+    saveAs(file);
+  };
 
   return (
     <>
@@ -376,12 +384,10 @@ const Index = ({ initialPageData, initialUserSettings }) => {
             values
           }) => (
             <>
+              <AutoSave debounce={1000} save={save} />
               <Columns>
                 <form>
-                  <AutoSave debounce={1000} save={save} />
                   <h3>Page {values.PageId}</h3>
-                  {/* <GradientBar /> */}
-
                   <Row>
                     <Field name="LinkTitle" validate={required}>
                       {({ input, meta }) => (
@@ -435,8 +441,11 @@ const Index = ({ initialPageData, initialUserSettings }) => {
                       name="BodyText"
                       component={Textarea}
                       type="text"
-                      placeholder="Body text (HTML)"
+                      placeholder={`<p class='govuk-body'>
+  Body text (HTML)
+</p>`}
                       style={{ width: "100%" }}
+                      label="Body text"
                     />
                   </Row>
                   <Questions />
@@ -452,14 +461,22 @@ const Index = ({ initialPageData, initialUserSettings }) => {
                 {userSettings.showFileManager && (
                   <div>
                     <h3>
-                      <FontAwesomeIcon icon={faFolderOpen} width="0" /> Load a
-                      file
+                      <FontAwesomeIcon icon={faFolderOpen} width="0" /> File
+                      manager
                     </h3>
-                    <FileManager updatePageBuilder={updatePageBuilder} />
+                    <FileManager
+                      updatePageBuilder={updatePageBuilder}
+                      savePageToFile={filename =>
+                        saveCurrentPage(filename, values)
+                      }
+                    />
                   </div>
                 )}
                 {userSettings.showSchema && (
                   <div>
+                    {/* <a onClick={() => saveCurrentPage("page-1.json", values)}>
+                      Save page
+                    </a> */}
                     <h3>
                       <FontAwesomeIcon icon={faCode} width="0" /> Generated JSON{" "}
                     </h3>

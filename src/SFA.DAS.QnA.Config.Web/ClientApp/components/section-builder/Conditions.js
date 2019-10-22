@@ -1,7 +1,7 @@
 import { Field } from "react-final-form";
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
-import Select from "./../components/Select";
+import Select from "../Select";
 
 const Conditions = ({ name, questions }) => {
   return (
