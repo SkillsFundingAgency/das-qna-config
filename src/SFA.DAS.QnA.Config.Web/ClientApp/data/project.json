@@ -1,0 +1,45 @@
+{
+  "id": "epaoall",
+  "createdAt": "",
+  "Name": "EPAO Project",
+  "Description": "EPAO",
+  "Workflows": [
+    {
+      "Description": "EPAO Workflow",
+      "Version": "1.2",
+      "Type": "EPAO",
+      "section": [
+        {
+          "id": "section1",
+          "SectionNo": 1,
+          "SequenceNo": 1,
+          "name": "Organisation details"
+        },
+        {
+          "id": "section2",
+          "SectionNo": 2,
+          "SequenceNo": 1,
+          "name": "Declarations"
+        },
+        {
+          "id": "section3",
+          "SectionNo": 3,
+          "SequenceNo": 1,
+          "name": "Financial health assessment"
+        },
+        {
+          "id": "section4",
+          "SectionNo": 4,
+          "SequenceNo": 2,
+          "name": "Apply to assess a standard"
+        },
+        {
+          "id": "section0",
+          "SectionNo": 0,
+          "SequenceNo": 0,
+          "name": "Empty section"
+        }
+      ]
+    }
+  ]
+}

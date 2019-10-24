@@ -10,6 +10,8 @@ import { faCode } from "@fortawesome/free-solid-svg-icons";
 
 import Pages from "../components/section-builder/Pages";
 
+import { EMPTY_SECTION } from "../data/data-structures";
+
 const required = value => (value ? undefined : "required");
 
 const Section = ({ data }) => {
@@ -33,7 +35,7 @@ const Section = ({ data }) => {
     <>
       <GlobalStyles />
       <Container>
-        <Header>QnA Config</Header>
+        <Header>QnA Config | Section builder</Header>
         <DisplayControls>
           <ToggleCodeView
             icon={faCode}
@@ -76,32 +78,32 @@ const Section = ({ data }) => {
                           }
                           style={{ width: "100%" }}
                           component="input"
-                          className={meta.error && meta.touched && meta.error}
+                          className={
+                            meta.error && meta.touched ? meta.error : ""
+                          }
                         />
                       </>
                     )}
                   </Field>
                 </Row>
+                <Row></Row>
                 <Pages questions={questions} />
               </form>
 
               {/* <div>
-                <Dump>{JSON.stringify(values, 0, 2)}</Dump>
+                <h3>Preview</h3>
+                <GeneratedPage schema={values} />
+                <Link href="/section">
+                  <a title="Section page">Section page</a>
+                </Link>
               </div> */}
 
-              {/* <div>
-                <h3>Preview</h3>
-                <GeneratedPage schema={values} /> */}
-              {/* <Link href="/section">
-              <a title="Section page">Section page</a>
-            </Link> */}
-              {/* </div> */}
-              {showSchema && (
+              {/* {showSchema && (
                 <div>
                   <h3>Generated JSON</h3>
                   <Dump>{JSON.stringify(values, 0, 2)}</Dump>
                 </div>
-              )}
+              )} */}
             </Columns>
           )}
         />
@@ -112,15 +114,15 @@ const Section = ({ data }) => {
 
 Section.getInitialProps = async context => {
   // const { sectionId } = context.query;
-  if (context.req) {
-    const data = await import(`./../data/sections/section-1.json`);
-    // const data = await import(`../../data/sections/${sectionId}.json`);
-    console.log(`Show data fetched. Count: ${data.Pages.length} pages`);
-    return { data };
-  } else {
-    const data = window.__NEXT_DATA__.props.pageProps.data;
-    return { data };
-  }
+  // if (context.req) {
+  const data = await import(`./../data/sections/section-1.json`);
+  // const data = await import(`../../data/sections/${sectionId}.json`);
+  console.log(`Show data fetched. Count: ${data.Pages.length} pages`);
+  return { data };
+  // } else {
+  //   const data = window.__NEXT_DATA__.props.pageProps.data;
+  //   return { data };
+  // }
 };
 
 export default Section;

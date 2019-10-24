@@ -1,12 +1,15 @@
 export const EMPTY_SECTION = {
+  Title: "",
+  LinkTitle: "",
+  DisplayType: "",
   RequestedFeedbackAnswered: null,
   Pages: []
 };
 
 export const EMPTY_PAGE = {
   PageId: "",
-  SequenceId: "",
-  SectionId: "",
+  SequenceId: null,
+  SectionId: null,
   Title: "",
   LinkTitle: "",
   InfoText: "",
@@ -41,10 +44,3 @@ export const EMPTY_QUESTION = {
   Value: null,
   ErrorMessages: null
 };
-
-// Input {} is below
-
-// Type: "",
-// Options: [],
-// Validations: [],
-// InputClasses: ""

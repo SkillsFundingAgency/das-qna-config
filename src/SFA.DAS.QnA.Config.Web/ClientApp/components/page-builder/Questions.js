@@ -5,11 +5,13 @@ import SortableList from "./SortableList";
 
 import Question from "./Question";
 
-const Questions = sortableContainer(() => {
+const Questions = sortableContainer(({ name }) => {
+  console.log(name);
+
   return (
     <Container>
       <h3>Questions</h3>
-      <FieldArray name="Questions">
+      <FieldArray name={`${name}.Questions`}>
         {({ fields }) => {
           // console.log("fields:", fields);
 

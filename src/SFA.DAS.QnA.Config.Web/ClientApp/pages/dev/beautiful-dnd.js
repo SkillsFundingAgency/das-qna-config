@@ -4,7 +4,7 @@ import { Form, Field } from "react-final-form";
 import arrayMutators from "final-form-arrays";
 import { FieldArray } from "react-final-form-arrays";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import Styles from "../../components/Styles";
+import Styles from "../../styles/unused-styles.js";
 
 const grid = 8;
 

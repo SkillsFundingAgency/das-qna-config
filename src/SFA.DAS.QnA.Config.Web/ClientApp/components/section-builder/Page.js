@@ -1,16 +1,37 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { Field } from "react-final-form";
 import styled from "styled-components";
 
 import NextPage from "./NextPage";
 
-const Page = ({ name, questions }) => {
+const Page = ({ name, questions, editSinglePage }) => {
   // console.log(props);
+  // const router = useRouter();
+  // const { sectionId } = router.query;
+
+  const handleEditPage = () => {
+    editSinglePage(name);
+  };
 
   return (
     <>
       <Container>
         <Field name={`${name}.PageId`}>
-          {({ input: { name, value } }) => <h2 name={name}>Page {value}</h2>}
+          {({ input: { name, value } }) => (
+            <>
+              <a href={`#${value}`} onClick={handleEditPage}>
+                Edit page
+              </a>
+              <h2 name={name}>Page {value}</h2>
+              {/* <Link
+                href={`/${sectionId}/${value}`}
+                as={`/${sectionId}/${value}`}
+              >
+                Edit
+              </Link> */}
+            </>
+          )}
         </Field>
         <Row>
           <Field

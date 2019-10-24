@@ -9,6 +9,7 @@ import WhenFieldChanges from "./WhenFieldChanges";
 import Select from "../Select";
 import Textarea from "../Textarea";
 import Answers from "./Answers";
+import Validations from "./Validations";
 
 const types = [
   {
@@ -151,6 +152,7 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
             </IfType> */}
           </>
         )}
+        <Validations name={name} />
       </Container>
     </div>
   );
