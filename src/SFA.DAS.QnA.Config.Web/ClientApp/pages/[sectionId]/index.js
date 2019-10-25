@@ -132,11 +132,11 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
           }) => (
             <Columns>
               <form onSubmit={handleSubmit}>
-                <h3>{currentView === "section" ? "Section" : "Page"}</h3>
+                {/* <h3>{currentView === "section" ? "Section" : "Page"}</h3> */}
 
                 {currentView === "section" && (
                   <>
-                    <Row>
+                    <Row style={{ marginTop: "20px" }}>
                       <Field name="Title" validate={required}>
                         {({ input, meta }) => (
                           <>

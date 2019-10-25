@@ -1,15 +1,11 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
 import { Field } from "react-final-form";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import NextPage from "./NextPage";
 
-const Page = ({ name, questions, editSinglePage }) => {
-  // console.log(props);
-  // const router = useRouter();
-  // const { sectionId } = router.query;
-
+const Page = ({ name, questions, editSinglePage, removePage }) => {
   const handleEditPage = () => {
     editSinglePage(name);
   };
@@ -20,19 +16,19 @@ const Page = ({ name, questions, editSinglePage }) => {
         <Field name={`${name}.PageId`}>
           {({ input: { name, value } }) => (
             <>
-              <a href={`#${value}`} onClick={handleEditPage}>
+              {/* <a href={`#${value}`} onClick={handleEditPage}>
                 Edit page
-              </a>
-              <h2 name={name}>Page {value}</h2>
-              {/* <Link
-                href={`/${sectionId}/${value}`}
-                as={`/${sectionId}/${value}`}
-              >
-                Edit
-              </Link> */}
+              </a> */}
+              <h2 name={name} style={{ marginTop: "0" }}>
+                Page {value}
+              </h2>
             </>
           )}
         </Field>
+        <PageControls>
+          <EditPageButton icon={faEdit} onClick={handleEditPage} width="0" />
+          <RemovePageButton icon={faTrash} onClick={removePage} width="0" />
+        </PageControls>
         <Row>
           <Field
             name={`${name}.Title`}
@@ -92,5 +88,41 @@ const Row = styled.div`
     min-height: 38px;
     line-height: 24px;
     margin: 0;
+  }
+`;
+
+const PageControls = styled.div`
+  position: absolute;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 0px;
+  top: 0px;
+  border-right: 2px solid #ccc;
+  background: #f2f2f2;
+`;
+
+const RemovePageButton = styled(FontAwesomeIcon)`
+  box-sizing: content-box;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 16px;
+  right: 0;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
+  color: #800;
+`;
+const EditPageButton = styled(FontAwesomeIcon)`
+  box-sizing: content-box;
+  cursor: pointer;
+  padding: 5px 0 5px 2px;
+  font-size: 16px;
+  right: 0;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
   }
 `;

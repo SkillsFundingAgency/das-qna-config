@@ -11,70 +11,66 @@ const required = value => (value ? undefined : "required");
 const SinglePageView = ({ currentPage }) => {
   return (
     <>
-      <Container>
-        <Field name={`${currentPage}.PageId`}>
-          {({ input: { name, value } }) => (
+      {/* <Container> */}
+      <Field name={`${currentPage}.PageId`}>
+        {({ input: { name, value } }) => (
+          <>
+            <h2 name={currentPage}>Page {value}</h2>
+          </>
+        )}
+      </Field>
+      <Row>
+        <Field name={`${currentPage}.LinkTitle`} validate={required}>
+          {({ input, meta }) => (
             <>
-              <h2 name={currentPage}>Page {value}</h2>
+              <input
+                {...input}
+                type="text"
+                placeholder={
+                  meta.error && meta.touched
+                    ? `Link title is ${meta.error}`
+                    : `Link title`
+                }
+                style={{ width: "100%" }}
+                component="input"
+                className={meta.error && meta.touched ? meta.error : undefined}
+              />
             </>
           )}
         </Field>
-        <Row>
-          <Field name={`${currentPage}.LinkTitle`} validate={required}>
-            {({ input, meta }) => (
-              <>
-                <input
-                  {...input}
-                  type="text"
-                  placeholder={
-                    meta.error && meta.touched
-                      ? `Link title is ${meta.error}`
-                      : `Link title`
-                  }
-                  style={{ width: "100%" }}
-                  component="input"
-                  className={
-                    meta.error && meta.touched ? meta.error : undefined
-                  }
-                />
-              </>
-            )}
-          </Field>
-        </Row>
-        <Row>
-          <Field name={`${currentPage}.Title`} validate={required}>
-            {({ input, meta }) => (
-              <>
-                <input
-                  {...input}
-                  type="text"
-                  placeholder={
-                    meta.error && meta.touched
-                      ? `Page title is ${meta.error}`
-                      : `Page title`
-                  }
-                  style={{ width: "100%" }}
-                  component="input"
-                  className={
-                    meta.error && meta.touched ? meta.error : undefined
-                  }
-                />
-              </>
-            )}
-          </Field>
-        </Row>
-        <Row>
-          <Field
-            name={`${currentPage}.BodyText`}
-            component={Textarea}
-            type="text"
-            placeholder={`Body text (HTML)`}
-            style={{ width: "100%" }}
-            label="Body text"
-          />
-        </Row>
-        <Questions name={currentPage} />
-      </Container>
+      </Row>
+      <Row>
+        <Field name={`${currentPage}.Title`} validate={required}>
+          {({ input, meta }) => (
+            <>
+              <input
+                {...input}
+                type="text"
+                placeholder={
+                  meta.error && meta.touched
+                    ? `Page title is ${meta.error}`
+                    : `Page title`
+                }
+                style={{ width: "100%" }}
+                component="input"
+                className={meta.error && meta.touched ? meta.error : undefined}
+              />
+            </>
+          )}
+        </Field>
+      </Row>
+      <Row>
+        <Field
+          name={`${currentPage}.BodyText`}
+          component={Textarea}
+          type="text"
+          placeholder={`Body text (HTML)`}
+          style={{ width: "100%" }}
+          label="Body text"
+        />
+      </Row>
+      <Questions name={currentPage} />
+      {/* </Container> */}
     </>
   );
 };
