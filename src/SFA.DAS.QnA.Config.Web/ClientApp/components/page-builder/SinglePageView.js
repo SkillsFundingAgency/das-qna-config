@@ -68,9 +68,7 @@ const SinglePageView = ({ currentPage }) => {
             name={`${currentPage}.BodyText`}
             component={Textarea}
             type="text"
-            placeholder={`<p class='govuk-body'>
-  Body text (HTML)
-</p>`}
+            placeholder={`Body text (HTML)`}
             style={{ width: "100%" }}
             label="Body text"
           />
@@ -88,7 +86,7 @@ const Container = styled.div`
   border: 2px solid #ccc;
   background: #fff;
   border-radius: 3px;
-  padding: 10px 10px 10px 36px;
+  padding: 10px;
   margin-bottom: 10px;
 `;
 

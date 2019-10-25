@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
 
-const FileManager = ({ updatePageBuilder, savePageToFile }) => {
+const FileManager = ({ loadSectionData, saveSectionToFile }) => {
   const [filename, setFilename] = useState("");
 
   const handleFilenameChange = event => {
@@ -11,7 +11,7 @@ const FileManager = ({ updatePageBuilder, savePageToFile }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    savePageToFile(filename);
+    saveSectionToFile(filename);
   };
 
   const onDrop = useCallback(acceptedFiles => {
@@ -23,7 +23,7 @@ const FileManager = ({ updatePageBuilder, savePageToFile }) => {
       // Do whatever you want with the file contents
       const fileContents = reader.result;
       // setFileContents(reader.result);
-      updatePageBuilder(fileContents);
+      loadSectionData(fileContents);
     };
 
     acceptedFiles.forEach(file => reader.readAsText(file));
@@ -42,7 +42,7 @@ const FileManager = ({ updatePageBuilder, savePageToFile }) => {
 
   return (
     <>
-      <h3>Load a file</h3>
+      <h3>Load a section from file</h3>
       <Row>
         <div {...getRootProps()}>
           <input {...getInputProps()} />
@@ -53,7 +53,7 @@ const FileManager = ({ updatePageBuilder, savePageToFile }) => {
         </div>
       </Row>
 
-      <h3>Save a file</h3>
+      <h3>Save current section to file</h3>
       <form onSubmit={handleSubmit}>
         <Row>
           <input type="text" onChange={handleFilenameChange} />

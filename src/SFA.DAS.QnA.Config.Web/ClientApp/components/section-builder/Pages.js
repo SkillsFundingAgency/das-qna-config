@@ -7,18 +7,21 @@ import SinglePageView from "./../page-builder/SinglePageView";
 
 import { EMPTY_PAGE } from "./../../data/data-structures";
 
-const Pages = ({ questions }) => {
-  const [currentPage, setCurrentPage] = useState(null);
-  const [showPageBuilder, setShowPageBuilder] = useState(false);
-
+const Pages = ({
+  questions,
+  updateCurrentView,
+  currentView,
+  updateCurrentPage,
+  currentPage
+}) => {
   const editSinglePage = pageId => {
-    setCurrentPage(pageId);
-    setShowPageBuilder(true);
+    updateCurrentPage(pageId);
+    updateCurrentView("page");
   };
 
   return (
     <Container>
-      {showPageBuilder ? (
+      {currentView === "page" ? (
         <SinglePageView currentPage={currentPage} name={name} />
       ) : (
         <FieldArray name="Pages">

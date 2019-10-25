@@ -44,3 +44,29 @@ export const EMPTY_QUESTION = {
   Value: null,
   ErrorMessages: null
 };
+
+export const INPUT_CLASSES = {
+  InputClasses: "govuk-!-width-two-thirds",
+  InputClasses: "govuk-input--width-10",
+  InputClasses: "govuk-input--width-20",
+  InputClasses: "govuk-input--width-3",
+  InputClasses: "govuk-input--width-5",
+  InputClasses: null
+};
+
+export const VALIDATION_TYPES = {
+  Name: "AddressBuildingAndStreetRequired",
+  Name: "AddressPostcodeRequired",
+  Name: "AddressTownOrCityRequired",
+  Name: "ClientApiCall",
+  Name: "Date",
+  Name: "DateNotInFuture",
+  Name: "EmailAddressIsValid",
+  Name: "MaxCharCount",
+  Name: "MaxWordCount",
+  Name: "MonthAndYear",
+  Name: "MonthAndYearNotInFuture",
+  Name: "Regex",
+  Name: "RegisteredCharityNumber",
+  Name: "Required"
+};

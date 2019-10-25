@@ -1,27 +1,60 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Field } from "react-final-form";
 import arrayMutators from "final-form-arrays";
+import cookie from "cookie";
+import Cookies from "js-cookie";
+import saveAs from "file-saver";
 // import fetch from "isomorphic-unfetch";
 
 import styled from "styled-components";
 import GlobalStyles from "../../styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCode } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCode,
+  faFolderOpen,
+  faFolder,
+  faFileAlt
+} from "@fortawesome/free-solid-svg-icons";
 
-// import Pages from "../components/section-builder/Pages";
+import FileManager from "./../../components/FileManager";
+import GeneratedPage from "../../components/page-builder/GeneratedPage";
+import GeneratedSection from "../../components/section-builder/GeneratedSection";
 import Pages from "../../components/section-builder/Pages";
 
-// import { EMPTY_SECTION } from "./../../data/data-structures";
+const parseCookies = req =>
+  cookie.parse(req ? req.headers.cookie || "" : document.cookie);
 
 const required = value => (value ? undefined : "required");
 
-const Section = ({ data }) => {
-  const [showSchema, setShowSchema] = useState(false);
-  const [section, setSection] = useState(data.default);
+const Section = ({ initialSectionData, initialUserSettings }) => {
+  const [sectionData, setSectionData] = useState(initialSectionData.default);
 
-  // console.log("section:", section);
+  const [currentView, setCurrentView] = useState("section"); // or page
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const questions = section.Pages.map(
+  const [userSettings, setUserSettings] = useState(
+    initialUserSettings
+      ? JSON.parse(initialUserSettings)
+      : {
+          showPreview: true,
+          showSchema: false,
+          showFileManager: false
+        }
+  );
+
+  const updateCurrentView = changeViewTo => {
+    console.log("changeViewTo:", changeViewTo);
+    setCurrentView(changeViewTo);
+  };
+
+  const updateCurrentPage = changePageTo => {
+    console.log("changePageTo:", changePageTo);
+    setCurrentPage(changePageTo);
+  };
+
+  // console.log("sectionData:", sectionData);
+
+  const questions = sectionData.Pages.map(
     page =>
       page.Questions &&
       page.Questions.reduce(
@@ -33,21 +66,57 @@ const Section = ({ data }) => {
       )
   );
 
+  const updateUserSettings = setting => {
+    setUserSettings(prevState => {
+      return {
+        ...prevState,
+        [setting]: !userSettings[setting]
+      };
+    });
+  };
+
+  const loadSectionData = fileContents => {
+    setSectionData(JSON.parse(fileContents));
+  };
+
+  useEffect(() => {
+    Cookies.set("userSettings", userSettings);
+  }, [userSettings]);
+
+  const saveCurrentSectionToFile = (fileName, jsonContents) => {
+    var file = new File([JSON.stringify(jsonContents)], fileName, {
+      type: "application/json;charset=utf-8"
+    });
+    saveAs(file);
+  };
+
   return (
     <>
       <GlobalStyles />
       <Container>
-        <Header>QnA Config | Editor</Header>
+        <Header>
+          QnA Config | {currentView === "section" ? "Section " : "Page "} editor
+        </Header>
         <DisplayControls>
+          <TogglePreView
+            icon={faFileAlt}
+            onClick={() => updateUserSettings("showPreview")}
+            width="0"
+          />
+          <ToggleFileView
+            icon={userSettings.showFileManager ? faFolderOpen : faFolder}
+            onClick={() => updateUserSettings("showFileManager")}
+            width="0"
+          />
           <ToggleCodeView
             icon={faCode}
-            onClick={() => setShowSchema(!showSchema)}
+            onClick={() => updateUserSettings("showSchema")}
             width="0"
           />
         </DisplayControls>
         <Form
           onSubmit={() => {}}
-          initialValues={section}
+          initialValues={sectionData}
           mutators={{
             ...arrayMutators
           }}
@@ -63,68 +132,106 @@ const Section = ({ data }) => {
           }) => (
             <Columns>
               <form onSubmit={handleSubmit}>
-                <h3>Section</h3>
-                {/* <GradientBar /> */}
+                <h3>{currentView === "section" ? "Section" : "Page"}</h3>
 
-                <Row>
-                  <Field name="Title" validate={required}>
-                    {({ input, meta }) => (
-                      <>
-                        <input
-                          {...input}
-                          type="text"
-                          placeholder={
-                            meta.error && meta.touched
-                              ? `Title is ${meta.error}`
-                              : `Title`
-                          }
-                          style={{ width: "100%" }}
-                          component="input"
-                          className={
-                            meta.error && meta.touched ? meta.error : ""
-                          }
-                        />
-                      </>
-                    )}
-                  </Field>
-                </Row>
-                <Row>
-                  <Field name="LinkTitle" validate={required}>
-                    {({ input, meta }) => (
-                      <>
-                        <input
-                          {...input}
-                          type="text"
-                          placeholder={
-                            meta.error && meta.touched
-                              ? `Link title is ${meta.error}`
-                              : `Link title`
-                          }
-                          style={{ width: "100%" }}
-                          component="input"
-                          className={
-                            meta.error && meta.touched ? meta.error : ""
-                          }
-                        />
-                      </>
-                    )}
-                  </Field>
-                </Row>
-                <Pages questions={questions} />
+                {currentView === "section" && (
+                  <>
+                    <Row>
+                      <Field name="Title" validate={required}>
+                        {({ input, meta }) => (
+                          <>
+                            <input
+                              {...input}
+                              type="text"
+                              placeholder={
+                                meta.error && meta.touched
+                                  ? `Title is ${meta.error}`
+                                  : `Title`
+                              }
+                              style={{ width: "100%" }}
+                              component="input"
+                              className={
+                                meta.error && meta.touched ? meta.error : ""
+                              }
+                            />
+                          </>
+                        )}
+                      </Field>
+                    </Row>
+                    <Row>
+                      <Field name="LinkTitle" validate={required}>
+                        {({ input, meta }) => (
+                          <>
+                            <input
+                              {...input}
+                              type="text"
+                              placeholder={
+                                meta.error && meta.touched
+                                  ? `Link title is ${meta.error}`
+                                  : `Link title`
+                              }
+                              style={{ width: "100%" }}
+                              component="input"
+                              className={
+                                meta.error && meta.touched ? meta.error : ""
+                              }
+                            />
+                          </>
+                        )}
+                      </Field>
+                    </Row>
+                  </>
+                )}
+
+                <Pages
+                  questions={questions}
+                  updateCurrentView={updateCurrentView}
+                  currentView={currentView}
+                  updateCurrentPage={updateCurrentPage}
+                  currentPage={currentPage}
+                />
               </form>
 
-              {/* <div>
-                <h3>Preview</h3>
-                <GeneratedPage schema={values} />
-                <Link href="/section">
-                  <a title="Section page">Section page</a>
-                </Link>
-              </div> */}
-
-              {showSchema && (
+              {userSettings.showPreview && (
                 <div>
-                  <h3>Generated JSON</h3>
-                  <Dump>{JSON.stringify(values, 0, 2)}</Dump>
+                  <h3>
+                    <FontAwesomeIcon icon={faFileAlt} width="0" /> Preview
+                  </h3>
+                  {currentView === "page" ? (
+                    <GeneratedPage schema={eval(`values.${currentPage}`)} />
+                  ) : (
+                    <GeneratedSection schema={values} />
+                  )}
+                </div>
+              )}
+
+              {userSettings.showFileManager && (
+                <div>
+                  <h3>
+                    <FontAwesomeIcon icon={faFolderOpen} width="0" /> File
+                    manager
+                  </h3>
+                  <FileManager
+                    loadSectionData={loadSectionData}
+                    saveSectionToFile={filename =>
+                      saveCurrentSectionToFile(filename, values)
+                    }
+                  />
+                </div>
+              )}
+
+              {userSettings.showSchema && (
+                <div>
+                  <h3>
+                    <FontAwesomeIcon icon={faCode} width="0" /> Generated JSON{" "}
+                  </h3>
+                  {currentView === "page" ? (
+                    <Dump>
+                      {JSON.stringify(eval(`values.${currentPage}`), 0, 2)}
+                    </Dump>
+                  ) : (
+                    <Dump>{JSON.stringify(values, 0, 2)}</Dump>
+                  )}
                 </div>
               )}
             </Columns>
@@ -137,11 +244,19 @@ const Section = ({ data }) => {
 
 Section.getInitialProps = async context => {
   const { sectionId } = context.query;
+  const cookies = parseCookies(context.req);
   // if (context.req) {
   // const data = await import(`./../data/sections/section-1.json`);
-  const data = await import(`../../data/sections/${sectionId}.json`);
-  console.log(`Show data fetched. Count: ${data.Pages.length} pages`);
-  return { data };
+  const initialSectionData = await import(
+    `../../data/sections/${sectionId}.json`
+  );
+  console.log(
+    `Show data fetched. Count: ${initialSectionData.Pages.length} pages`
+  );
+  return {
+    initialSectionData: initialSectionData,
+    initialUserSettings: cookies.userSettings
+  };
   // } else {
   //   const data = window.__NEXT_DATA__.props.pageProps.data;
   //   return { data };
@@ -243,6 +358,16 @@ const Dump = styled.pre`
   box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
   padding: 20px;
   overflow: auto;
+`;
+
+const TogglePreView = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  margin-right: 10px;
+`;
+
+const ToggleFileView = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  margin-right: 10px;
 `;
 
 const ToggleCodeView = styled(FontAwesomeIcon)`
