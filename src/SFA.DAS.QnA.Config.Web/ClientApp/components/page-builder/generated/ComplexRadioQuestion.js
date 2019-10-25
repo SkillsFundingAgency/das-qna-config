@@ -1,6 +1,13 @@
 import React from "react";
 import { Field } from "react-final-form";
-import { MultiChoice, Radio, Paragraph, FormGroup } from "govuk-react";
+import {
+  MultiChoice,
+  Radio,
+  Paragraph,
+  FormGroup,
+  GridRow,
+  GridCol
+} from "govuk-react";
 import PropTypes from "prop-types";
 
 import TextQuestion from "./../generated/TextQuestion";
@@ -56,7 +63,7 @@ export default ({ question, questionIndex }) => {
                     value={option.Value}
                     label={option.Label}
                   />
-                  {/* {option.FurtherQuestions
+                  {option.FurtherQuestions
                     ? option.FurtherQuestions.map(furtherQuestion => {
                         // This is returning both questions.. we only want the one with a furtherQuestion
                         console.log("furtherQuestion:", furtherQuestion);
@@ -65,15 +72,21 @@ export default ({ question, questionIndex }) => {
                           components[furtherQuestion.Input.Type];
                         return (
                           furtherQuestion.QuestionId && (
-                            <QuestionComponent
-                              key={index}
-                              questionIndex={index}
-                              question={furtherQuestion}
-                            />
+                            <div style={{ marginBottom: "20px" }}>
+                              <GridRow>
+                                <GridCol>
+                                  <QuestionComponent
+                                    key={index}
+                                    questionIndex={index}
+                                    question={furtherQuestion}
+                                  />
+                                </GridCol>
+                              </GridRow>
+                            </div>
                           )
                         );
                       })
-                    : null} */}
+                    : null}
                 </div>
               );
             })}

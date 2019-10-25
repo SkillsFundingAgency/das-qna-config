@@ -121,6 +121,12 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
             set={`${name}.Input.Options`}
             to={undefined}
           />
+          <WhenFieldChanges
+            field={`${name}.Input.Type`}
+            becomes="ComplexRadio"
+            set={`${name}.Input.Options`}
+            to={[{ FurtherQuestions: [{ Input: { Type: "text" } }] }]}
+          />
         </Row>
         <Row>
           <Field

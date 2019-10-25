@@ -53,7 +53,19 @@ const Answer = sortableElement(({ name, remove }) => (
                 );
               })}
               <Buttons>
-                <Button type="button" onClick={() => fields.push({})}>
+                <Button
+                  type="button"
+                  onClick={() =>
+                    fields.push({
+                      Input: {
+                        Type: "text"
+                      },
+                      QuestionId: "",
+                      Label: "",
+                      Hint: ""
+                    })
+                  }
+                >
                   + Add further questions
                 </Button>
               </Buttons>
