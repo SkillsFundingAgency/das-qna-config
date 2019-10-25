@@ -31,16 +31,14 @@ const Pages = ({ questions }) => {
                   // console.log("name:", name);
 
                   return (
-                    <>
-                      <Page
-                        key={name}
-                        index={index}
-                        name={name}
-                        removePage={() => fields.remove(index)}
-                        questions={questions}
-                        editSinglePage={editSinglePage}
-                      />
-                    </>
+                    <Page
+                      key={name}
+                      index={index}
+                      name={name}
+                      removePage={() => fields.remove(index)}
+                      questions={questions}
+                      editSinglePage={editSinglePage}
+                    />
                   );
                 })}
                 <Buttons>

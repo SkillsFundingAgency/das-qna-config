@@ -32,19 +32,15 @@ function Projects({ data }) {
                   {projectData.Name} ({projectData.Description})
                 </h2>
                 <ul>
-                  {projectData.Workflows.map(workflow => (
-                    <li>
+                  {projectData.Workflows.map((workflow, index) => (
+                    <li key={index}>
                       <h3>
                         {workflow.Type} ({workflow.Description})
                       </h3>
                       <ul>
                         {workflow.section.map((section, index) => (
-                          <li>
-                            <Link
-                              key={index}
-                              href="/[section.id]"
-                              as={`${section.id}`}
-                            >
+                          <li key={section.id}>
+                            <Link href="/[section.id]" as={`${section.id}`}>
                               <a>{section.name}</a>
                             </Link>{" "}
                             (Sequence {section.SequenceNo} / Section{" "}
@@ -57,15 +53,6 @@ function Projects({ data }) {
                 </ul>
               </li>
             </ul>
-
-            {projectData.Workflows.map(workflow =>
-              workflow.section.map(section => {
-                console.log(section);
-              })
-            )}
-
-            <Row>Hello</Row>
-            <Row>Test</Row>
           </div>
         </Columns>
       </Container>

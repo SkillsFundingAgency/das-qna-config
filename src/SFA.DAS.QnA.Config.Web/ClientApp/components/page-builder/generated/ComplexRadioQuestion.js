@@ -45,8 +45,6 @@ export default ({ question, questionIndex }) => {
         <div>
           <MultiChoice label={question.Label} hint={question.Hint}>
             {question.Input.Options.map((option, index) => {
-              // console.log(option.FurtherQuestions && "Hello");
-
               return (
                 <div key={`${question.QuestionId}[${questionIndex}][${index}]`}>
                   <Field

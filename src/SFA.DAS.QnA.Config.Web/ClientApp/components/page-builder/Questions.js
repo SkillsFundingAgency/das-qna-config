@@ -6,7 +6,7 @@ import SortableList from "./SortableList";
 import Question from "./Question";
 
 const Questions = sortableContainer(({ name }) => {
-  console.log(name);
+  // console.log(name);
 
   return (
     <Container>

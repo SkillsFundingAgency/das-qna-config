@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Validation from "./Validation";
 
 const Validations = ({ name }) => {
-  console.log(name);
+  // console.log(name);
 
   return (
     <Container>
@@ -12,7 +12,7 @@ const Validations = ({ name }) => {
         {({ fields }) => (
           <>
             {fields.map((name, index) => (
-              <>
+              <div key={name}>
                 <h3>Validation</h3>
                 <Validation
                   key={name}
@@ -20,7 +20,7 @@ const Validations = ({ name }) => {
                   name={name}
                   remove={() => fields.remove(index)}
                 />
-              </>
+              </div>
             ))}
             <Buttons>
               <Button type="button" onClick={() => fields.push({})}>
