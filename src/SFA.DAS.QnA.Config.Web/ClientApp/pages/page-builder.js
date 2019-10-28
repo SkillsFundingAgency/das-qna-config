@@ -8,7 +8,7 @@ import saveAs from "file-saver";
 import styled from "styled-components";
 import GlobalStyles from "../styles/global";
 
-import AutoSave from "../components/page-builder/AutoSave";
+import AutoSave from "../components/AutoSave";
 
 import Questions from "../components/page-builder/Questions";
 import GeneratedPage from "../components/page-builder/GeneratedPage";

@@ -99,7 +99,7 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
           <Field
             name={`${name}.Hint`}
             component={Textarea}
-            placeholder="Hint text"
+            placeholder="Hint text (HTML)"
           />
         </Row>
         <Row>

@@ -117,7 +117,7 @@ Section.getInitialProps = async context => {
   // if (context.req) {
   const data = await import(`./../data/sections/section-1.json`);
   // const data = await import(`../../data/sections/${sectionId}.json`);
-  console.log(`Show data fetched. Count: ${data.Pages.length} pages`);
+  // console.log(`Show data fetched. Count: ${data.Pages.length} pages`);
   return { data };
   // } else {
   //   const data = window.__NEXT_DATA__.props.pageProps.data;

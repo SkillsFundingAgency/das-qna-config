@@ -9,7 +9,7 @@ import Questions from "./Questions";
 const required = value => (value ? undefined : "required");
 
 const SinglePageView = ({ currentPage, returnToSection }) => {
-  console.log(currentPage);
+  // console.log(currentPage);
 
   return (
     <>

@@ -16,6 +16,7 @@ import {
   faFileAlt
 } from "@fortawesome/free-solid-svg-icons";
 
+import AutoSave from "./../../components/AutoSave";
 import FileManager from "./../../components/FileManager";
 import GeneratedPage from "../../components/page-builder/GeneratedPage";
 import GeneratedSection from "../../components/section-builder/GeneratedSection";
@@ -25,6 +26,13 @@ const parseCookies = req =>
   cookie.parse(req ? req.headers.cookie || "" : document.cookie);
 
 const required = value => (value ? undefined : "required");
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+const save = async values => {
+  localStorage.setItem("sectionData", JSON.stringify(values));
+  await sleep(2000);
+};
 
 const Section = ({ initialSectionData, initialUserSettings }) => {
   const [sectionData, setSectionData] = useState(initialSectionData.default);
@@ -43,12 +51,12 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
   );
 
   const updateCurrentView = changeViewTo => {
-    console.log("changeViewTo:", changeViewTo);
+    // console.log("changeViewTo:", changeViewTo);
     setCurrentView(changeViewTo);
   };
 
   const updateCurrentPage = changePageTo => {
-    console.log("changePageTo:", changePageTo);
+    // console.log("changePageTo:", changePageTo);
     setCurrentPage(changePageTo);
   };
 
@@ -82,6 +90,13 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
   useEffect(() => {
     Cookies.set("userSettings", userSettings);
   }, [userSettings]);
+
+  useEffect(() => {
+    const data = localStorage.getItem("sectionData");
+    if (data) {
+      setSectionData(JSON.parse(data));
+    }
+  }, []);
 
   const saveCurrentSectionToFile = (fileName, jsonContents) => {
     var file = new File([JSON.stringify(jsonContents)], fileName, {
@@ -130,111 +145,114 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
             pristine,
             values
           }) => (
-            <Columns>
-              <form onSubmit={handleSubmit}>
-                {/* <h3>{currentView === "section" ? "Section" : "Page"}</h3> */}
+            <>
+              <AutoSave debounce={1000} save={save} />
+              <Columns>
+                <form onSubmit={handleSubmit}>
+                  {/* <h3>{currentView === "section" ? "Section" : "Page"}</h3> */}
 
-                {currentView === "section" && (
-                  <>
-                    <Row style={{ marginTop: "20px" }}>
-                      <Field name="Title" validate={required}>
-                        {({ input, meta }) => (
-                          <>
-                            <input
-                              {...input}
-                              type="text"
-                              placeholder={
-                                meta.error && meta.touched
-                                  ? `Title is ${meta.error}`
-                                  : `Title`
-                              }
-                              style={{ width: "100%" }}
-                              component="input"
-                              className={
-                                meta.error && meta.touched ? meta.error : ""
-                              }
-                            />
-                          </>
-                        )}
-                      </Field>
-                    </Row>
-                    <Row>
-                      <Field name="LinkTitle" validate={required}>
-                        {({ input, meta }) => (
-                          <>
-                            <input
-                              {...input}
-                              type="text"
-                              placeholder={
-                                meta.error && meta.touched
-                                  ? `Link title is ${meta.error}`
-                                  : `Link title`
-                              }
-                              style={{ width: "100%" }}
-                              component="input"
-                              className={
-                                meta.error && meta.touched ? meta.error : ""
-                              }
-                            />
-                          </>
-                        )}
-                      </Field>
-                    </Row>
-                  </>
+                  {currentView === "section" && (
+                    <>
+                      <Row style={{ marginTop: "20px" }}>
+                        <Field name="Title" validate={required}>
+                          {({ input, meta }) => (
+                            <>
+                              <input
+                                {...input}
+                                type="text"
+                                placeholder={
+                                  meta.error && meta.touched
+                                    ? `Title is ${meta.error}`
+                                    : `Title`
+                                }
+                                style={{ width: "100%" }}
+                                component="input"
+                                className={
+                                  meta.error && meta.touched ? meta.error : ""
+                                }
+                              />
+                            </>
+                          )}
+                        </Field>
+                      </Row>
+                      <Row>
+                        <Field name="LinkTitle" validate={required}>
+                          {({ input, meta }) => (
+                            <>
+                              <input
+                                {...input}
+                                type="text"
+                                placeholder={
+                                  meta.error && meta.touched
+                                    ? `Link title is ${meta.error}`
+                                    : `Link title`
+                                }
+                                style={{ width: "100%" }}
+                                component="input"
+                                className={
+                                  meta.error && meta.touched ? meta.error : ""
+                                }
+                              />
+                            </>
+                          )}
+                        </Field>
+                      </Row>
+                    </>
+                  )}
+
+                  <Pages
+                    questions={questions}
+                    updateCurrentView={updateCurrentView}
+                    currentView={currentView}
+                    updateCurrentPage={updateCurrentPage}
+                    currentPage={currentPage}
+                  />
+                </form>
+
+                {userSettings.showPreview && (
+                  <div>
+                    <h3>
+                      <FontAwesomeIcon icon={faFileAlt} width="0" /> Preview
+                    </h3>
+                    {currentView === "page" ? (
+                      <GeneratedPage schema={eval(`values.${currentPage}`)} />
+                    ) : (
+                      <GeneratedSection schema={values} />
+                    )}
+                  </div>
                 )}
 
-                <Pages
-                  questions={questions}
-                  updateCurrentView={updateCurrentView}
-                  currentView={currentView}
-                  updateCurrentPage={updateCurrentPage}
-                  currentPage={currentPage}
-                />
-              </form>
+                {userSettings.showFileManager && (
+                  <div>
+                    <h3>
+                      <FontAwesomeIcon icon={faFolderOpen} width="0" /> File
+                      manager
+                    </h3>
+                    <FileManager
+                      loadSectionData={loadSectionData}
+                      saveSectionToFile={filename =>
+                        saveCurrentSectionToFile(filename, values)
+                      }
+                    />
+                  </div>
+                )}
 
-              {userSettings.showPreview && (
-                <div>
-                  <h3>
-                    <FontAwesomeIcon icon={faFileAlt} width="0" /> Preview
-                  </h3>
-                  {currentView === "page" ? (
-                    <GeneratedPage schema={eval(`values.${currentPage}`)} />
-                  ) : (
-                    <GeneratedSection schema={values} />
-                  )}
-                </div>
-              )}
-
-              {userSettings.showFileManager && (
-                <div>
-                  <h3>
-                    <FontAwesomeIcon icon={faFolderOpen} width="0" /> File
-                    manager
-                  </h3>
-                  <FileManager
-                    loadSectionData={loadSectionData}
-                    saveSectionToFile={filename =>
-                      saveCurrentSectionToFile(filename, values)
-                    }
-                  />
-                </div>
-              )}
-
-              {userSettings.showSchema && (
-                <div>
-                  <h3>
-                    <FontAwesomeIcon icon={faCode} width="0" /> Generated JSON{" "}
-                  </h3>
-                  {currentView === "page" ? (
-                    <Dump>
-                      {JSON.stringify(eval(`values.${currentPage}`), 0, 2)}
-                    </Dump>
-                  ) : (
-                    <Dump>{JSON.stringify(values, 0, 2)}</Dump>
-                  )}
-                </div>
-              )}
-            </Columns>
+                {userSettings.showSchema && (
+                  <div>
+                    <h3>
+                      <FontAwesomeIcon icon={faCode} width="0" /> Generated JSON{" "}
+                    </h3>
+                    {currentView === "page" ? (
+                      <Dump>
+                        {JSON.stringify(eval(`values.${currentPage}`), 0, 2)}
+                      </Dump>
+                    ) : (
+                      <Dump>{JSON.stringify(values, 0, 2)}</Dump>
+                    )}
+                  </div>
+                )}
+              </Columns>
+            </>
           )}
         />
       </Container>
@@ -245,14 +263,15 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
 Section.getInitialProps = async context => {
   const { sectionId } = context.query;
   const cookies = parseCookies(context.req);
+
   // if (context.req) {
   // const data = await import(`./../data/sections/section-1.json`);
   const initialSectionData = await import(
     `../../data/sections/${sectionId}.json`
   );
-  console.log(
-    `Show data fetched. Count: ${initialSectionData.Pages.length} pages`
-  );
+  // console.log(
+  //   `Show data fetched. Count: ${initialSectionData.Pages.length} pages`
+  // );
   return {
     initialSectionData: initialSectionData,
     initialUserSettings: cookies.userSettings

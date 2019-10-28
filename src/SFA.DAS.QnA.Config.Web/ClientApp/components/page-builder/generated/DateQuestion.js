@@ -1,6 +1,7 @@
 import React from "react";
 import { Field } from "react-final-form";
 import { DateField, InputField, FormGroup } from "govuk-react";
+import ReactHtmlParser from "react-html-parser";
 
 export default ({ question, questionIndex }) => {
   // console.log("question:", question);
@@ -9,7 +10,7 @@ export default ({ question, questionIndex }) => {
     <FormGroup>
       <Field
         component={DateField}
-        hintText={question.Hint}
+        hintText={ReactHtmlParser(question.Hint)}
         defaultValues={{
           day: "",
           month: "",

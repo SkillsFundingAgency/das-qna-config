@@ -1,6 +1,7 @@
 import React from "react";
 import { Field } from "react-final-form";
 import { MultiChoice, Radio, Paragraph, FormGroup } from "govuk-react";
+import ReactHtmlParser from "react-html-parser";
 import PropTypes from "prop-types";
 
 const GovRadio = ({ input, hint, inline, label }) => {
@@ -29,7 +30,7 @@ export default ({ question, questionIndex }) => {
                 <Field
                   key={`${question.QuestionId}[${questionIndex}][${index}]`}
                   name={`${question.QuestionId}[${questionIndex}]`}
-                  hint={option.Hint}
+                  hint={ReactHtmlParser(option.Hint)}
                   component={GovRadio}
                   type="radio"
                   value={option.Value}

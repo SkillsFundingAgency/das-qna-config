@@ -8,6 +8,7 @@ import {
   GridRow,
   GridCol
 } from "govuk-react";
+import ReactHtmlParser from "react-html-parser";
 import PropTypes from "prop-types";
 
 import TextQuestion from "./../generated/TextQuestion";
@@ -50,14 +51,17 @@ export default ({ question, questionIndex }) => {
     <FormGroup>
       {question.Input.Options && (
         <div>
-          <MultiChoice label={question.Label} hint={question.Hint}>
+          <MultiChoice
+            label={question.Label}
+            hint={ReactHtmlParser(question.Hint)}
+          >
             {question.Input.Options.map((option, index) => {
               return (
                 <div key={`${question.QuestionId}[${questionIndex}][${index}]`}>
                   <Field
                     // key={`${question.QuestionId}[${questionIndex}][${index}]`}
                     name={`${question.QuestionId}[${questionIndex}]`}
-                    hint={option.Hint}
+                    hint={ReactHtmlParser(option.Hint)}
                     component={GovRadio}
                     type="radio"
                     value={option.Value}
@@ -66,7 +70,7 @@ export default ({ question, questionIndex }) => {
                   {option.FurtherQuestions
                     ? option.FurtherQuestions.map(furtherQuestion => {
                         // This is returning both questions.. we only want the one with a furtherQuestion
-                        console.log("furtherQuestion:", furtherQuestion);
+                        // console.log("furtherQuestion:", furtherQuestion);
 
                         const QuestionComponent =
                           components[furtherQuestion.Input.Type];
