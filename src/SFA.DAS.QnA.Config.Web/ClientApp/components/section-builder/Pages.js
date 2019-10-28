@@ -19,10 +19,16 @@ const Pages = ({
     updateCurrentView("page");
   };
 
+  const returnToSection = () => updateCurrentView("section");
+
   return (
     <Container>
       {currentView === "page" ? (
-        <SinglePageView currentPage={currentPage} name={name} />
+        <SinglePageView
+          currentPage={currentPage}
+          returnToSection={returnToSection}
+          name={name}
+        />
       ) : (
         <FieldArray name="Pages">
           {({ fields }) => {

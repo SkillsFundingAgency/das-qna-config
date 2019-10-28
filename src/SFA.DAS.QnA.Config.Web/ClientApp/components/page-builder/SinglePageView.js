@@ -8,13 +8,16 @@ import Questions from "./Questions";
 
 const required = value => (value ? undefined : "required");
 
-const SinglePageView = ({ currentPage }) => {
+const SinglePageView = ({ currentPage, returnToSection }) => {
+  console.log(currentPage);
+
   return (
     <>
       {/* <Container> */}
       <Field name={`${currentPage}.PageId`}>
         {({ input: { name, value } }) => (
           <>
+            <Button onClick={returnToSection}>Return to section</Button>
             <h2 name={currentPage}>Page {value}</h2>
           </>
         )}
@@ -120,5 +123,23 @@ const Row = styled.div`
     min-height: 38px;
     line-height: 24px;
     margin: 0;
+  }
+`;
+
+const Buttons = styled.div`
+  padding: 0;
+  text-align: left;
+`;
+
+const Button = styled.button`
+  margin-top: 10px;
+  background: #0b0c0c;
+  padding: 5px 8px 6px;
+  color: white;
+  border-radius: 3px;
+  border: 0;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
   }
 `;

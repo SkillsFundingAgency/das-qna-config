@@ -31,6 +31,14 @@ const Page = ({ name, questions, editSinglePage, removePage }) => {
         </PageControls>
         <Row>
           <Field
+            name={`${name}.PageId`}
+            component="input"
+            type="text"
+            placeholder="Page Id"
+          />
+        </Row>
+        <Row>
+          <Field
             name={`${name}.Title`}
             component="input"
             type="text"

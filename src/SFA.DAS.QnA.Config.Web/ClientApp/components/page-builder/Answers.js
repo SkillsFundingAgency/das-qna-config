@@ -57,6 +57,7 @@ const Buttons = styled.div`
 
 const Button = styled.button`
   background: #0b0c0c;
+  margin-bottom: 10px;
   padding: 5px 8px 6px;
   color: white;
   border-radius: 3px;

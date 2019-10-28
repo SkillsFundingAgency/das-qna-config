@@ -5,6 +5,8 @@ import SortableList from "./SortableList";
 
 import Question from "./Question";
 
+import { EMPTY_QUESTION } from "./../../data/data-structures";
+
 const Questions = sortableContainer(({ name }) => {
   // console.log(name);
 
@@ -65,7 +67,7 @@ const Questions = sortableContainer(({ name }) => {
               <Buttons>
                 <Button
                   type="button"
-                  onClick={() => fields.push({ Input: { Type: "text" } })}
+                  onClick={() => fields.push(EMPTY_QUESTION)}
                 >
                   + Add Question
                 </Button>
