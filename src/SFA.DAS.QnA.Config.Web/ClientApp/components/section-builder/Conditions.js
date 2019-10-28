@@ -15,7 +15,7 @@ const Conditions = ({ name, questions }) => {
                 <InnerText>when</InnerText>
                 <Field
                   name={`${name}.QuestionId`}
-                  component={TypeSelector}
+                  component={QuestionSelector}
                   options={questions}
                   isSearchable={true}
                 />
@@ -70,7 +70,7 @@ const Row = styled.div`
   }
 `;
 
-const TypeSelector = styled(Select)`
+const QuestionSelector = styled(Select)`
   width: 100%;
 `;
 

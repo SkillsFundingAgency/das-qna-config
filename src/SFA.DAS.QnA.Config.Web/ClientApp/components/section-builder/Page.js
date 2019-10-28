@@ -16,9 +16,6 @@ const Page = ({ name, questions, editSinglePage, removePage }) => {
         <Field name={`${name}.PageId`}>
           {({ input: { name, value } }) => (
             <>
-              {/* <a href={`#${value}`} onClick={handleEditPage}>
-                Edit page
-              </a> */}
               <h2 name={name} style={{ marginTop: "0" }}>
                 Page {value}
               </h2>

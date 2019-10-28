@@ -1,8 +1,14 @@
 import { H1, Link, GridRow, GridCol } from "govuk-react";
 import styled from "styled-components";
 
-const GeneratedSection = ({ schema }) => {
+const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {
   const { LinkTitle, Title, Pages } = schema;
+
+  const editPage = pageId => {
+    updateCurrentPage(pageId);
+    updateCurrentView("page");
+  };
+
   return (
     <>
       <Link noVisitedState href="#" style={{ marginBottom: "10px" }}>
@@ -15,7 +21,12 @@ const GeneratedSection = ({ schema }) => {
           <div key={index}>
             <GridRow>
               <GridCol>
-                <Link noVisitedState href="#" style={{ marginBottom: "10px" }}>
+                <Link
+                  noVisitedState
+                  href="#"
+                  onClick={() => editPage(`Pages[${index}]`)}
+                  style={{ marginBottom: "10px" }}
+                >
                   {page.Title}
                 </Link>
               </GridCol>

@@ -26,6 +26,20 @@ export const EMPTY_PAGE = {
   ActivatedByPageId: ""
 };
 
+export const EMPTY_NEXT = {
+  Action: "NextPage",
+  ReturnId: "",
+  Condition: null,
+  Conditions: [],
+  ConditionMet: false
+};
+
+export const EMPTY_CONDITION = {
+  QuestionId: "",
+  QuestionTag: null,
+  MustEqual: ""
+};
+
 export const EMPTY_QUESTION = {
   QuestionId: "",
   QuestionTag: "",
@@ -125,4 +139,26 @@ export const QUESTION_TYPES = [
   //   value: "dropdown",
   //   label: "Select"
   // }
+];
+
+export const SECTION_DISPLAY_TYPES = [
+  {
+    value: "Pages",
+    label: "Pages"
+  },
+  {
+    value: "PagesWithSections",
+    label: "Pages with sections"
+  }
+];
+
+export const ROUTING_TYPES = [
+  {
+    value: "NextPage",
+    label: "Next page"
+  },
+  {
+    value: "ReturnToSection",
+    label: "Return to section"
+  }
 ];

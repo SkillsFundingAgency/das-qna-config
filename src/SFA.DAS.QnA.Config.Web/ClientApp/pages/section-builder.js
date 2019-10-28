@@ -86,7 +86,6 @@ const Section = ({ data }) => {
                     )}
                   </Field>
                 </Row>
-                <Row></Row>
                 <Pages questions={questions} />
               </form>
 

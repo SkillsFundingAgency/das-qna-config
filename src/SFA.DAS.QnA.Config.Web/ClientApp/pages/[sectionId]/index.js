@@ -217,7 +217,11 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
                     {currentView === "page" ? (
                       <GeneratedPage schema={eval(`values.${currentPage}`)} />
                     ) : (
-                      <GeneratedSection schema={values} />
+                      <GeneratedSection
+                        schema={values}
+                        updateCurrentPage={updateCurrentPage}
+                        updateCurrentView={updateCurrentView}
+                      />
                     )}
                   </div>
                 )}

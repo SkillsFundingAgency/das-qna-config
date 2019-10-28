@@ -1,8 +1,11 @@
 import { Field } from "react-final-form";
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
+import Select from "../Select";
 
 import Conditions from "./Conditions";
+
+import { ROUTING_TYPES, EMPTY_NEXT } from "./../../data/data-structures";
 
 const NextPage = ({ name, questions }) => {
   return (
@@ -11,29 +14,36 @@ const NextPage = ({ name, questions }) => {
 
       <FieldArray name={`${name}.Next`}>
         {({ fields }) => {
-          {
-            return fields.map((name, index) => (
-              <div key={index}>
-                <Row>
-                  <InnerText>The</InnerText>
-                  <Field
-                    name={`${name}.Action`}
-                    component="input"
-                    type="text"
-                    placeholder="Action"
-                  />
-                  <InnerText>will be</InnerText>
-                  <Field
-                    name={`${name}.ReturnId`}
-                    component="input"
-                    type="text"
-                    placeholder="Return ID"
-                  />
-                </Row>
-                <Conditions name={name} questions={questions} />
-              </div>
-            ));
-          }
+          return (
+            <>
+              {fields.map((name, index) => (
+                <div key={index}>
+                  <Row>
+                    <Field
+                      name={`${name}.Action`}
+                      component={RoutingSelector}
+                      options={ROUTING_TYPES}
+                      isSearchable={false}
+                    />
+                    <InnerText>will be</InnerText>
+                    <Field
+                      name={`${name}.ReturnId`}
+                      component="input"
+                      type="text"
+                      placeholder="Return ID"
+                    />
+                  </Row>
+                  <Conditions name={name} questions={questions} />
+                </div>
+              ))}
+
+              <Buttons>
+                <Button type="button" onClick={() => fields.push(EMPTY_NEXT)}>
+                  + Add a Route
+                </Button>
+              </Buttons>
+            </>
+          );
         }}
       </FieldArray>
     </>
@@ -81,5 +91,26 @@ const Row = styled.div`
     min-height: 38px;
     line-height: 24px;
     margin: 0;
+  }
+`;
+
+const RoutingSelector = styled(Select)`
+  width: 250px;
+`;
+
+const Buttons = styled.div`
+  padding: 0;
+  text-align: left;
+`;
+
+const Button = styled.button`
+  background: #0b0c0c;
+  padding: 5px 8px 6px;
+  color: white;
+  border-radius: 3px;
+  border: 0;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
   }
 `;
