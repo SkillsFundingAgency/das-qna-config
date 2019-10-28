@@ -10,57 +10,9 @@ import Select from "../Select";
 import Textarea from "../Textarea";
 import Answers from "./Answers";
 import Validations from "./Validations";
-
-const types = [
-  {
-    value: "text",
-    label: "Text"
-  },
-  {
-    value: "Date",
-    label: "Date"
-  },
-  {
-    value: "number",
-    label: "Number"
-  },
-  // {
-  //   value: "longText",
-  //   label: "Long answer"
-  // },
-  {
-    value: "Textarea",
-    label: "Long answer"
-  },
-  // {
-  //   value: "checkbox",
-  //   label: "Checkbox"
-  // },
-  // {
-  //   value: "optionGroup",
-  //   label: "Radio group"
-  // },
-  {
-    value: "Radio",
-    label: "Radio"
-  },
-  {
-    value: "ComplexRadio",
-    label: "Complex radio"
-  }
-  // {
-  //   value: "checklist",
-  //   label: "Checkbox list"
-  // },
-  // {
-  //   value: "dropdown",
-  //   label: "Select"
-  // }
-];
+import { QUESTION_TYPES, INPUT_CLASSES } from "./../../data/data-structures";
 
 const hasOptions = type => {
-  // console.log(Input);
-
   return ~[
     "optionGroup",
     "Radio",
@@ -112,7 +64,7 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
           <Field
             name={`${name}.Input.Type`}
             component={TypeSelector}
-            options={types}
+            options={QUESTION_TYPES}
             isSearchable={false}
           />
           <WhenFieldChanges
@@ -128,6 +80,7 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
             to={[{ FurtherQuestions: [{ Input: { Type: "text" } }] }]}
           />
         </Row>
+
         <Row>
           <Field
             name={`${name}.Label`}
@@ -137,9 +90,24 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
         </Row>
         <Row>
           <Field
+            name={`${name}.ShortLabel`}
+            component={Textarea}
+            placeholder="Short label"
+          />
+        </Row>
+        <Row>
+          <Field
             name={`${name}.Hint`}
             component={Textarea}
             placeholder="Hint text"
+          />
+        </Row>
+        <Row>
+          <Field
+            name={`${name}.Input.InputClasses`}
+            component={InputClasses}
+            options={INPUT_CLASSES}
+            placeholder="Input classes"
           />
         </Row>
         {open && (
@@ -215,6 +183,10 @@ const Row = styled.div`
 const TypeSelector = styled(Select)`
   margin-left: 5px;
   width: 150px;
+`;
+
+const InputClasses = styled(Select)`
+  width: 100%;
 `;
 
 // const Toggle = styled(Icon)`

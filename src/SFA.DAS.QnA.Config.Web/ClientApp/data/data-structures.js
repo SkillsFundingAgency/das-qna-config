@@ -45,14 +45,14 @@ export const EMPTY_QUESTION = {
   ErrorMessages: null
 };
 
-export const INPUT_CLASSES = {
-  InputClasses: "govuk-!-width-two-thirds",
-  InputClasses: "govuk-input--width-10",
-  InputClasses: "govuk-input--width-20",
-  InputClasses: "govuk-input--width-3",
-  InputClasses: "govuk-input--width-5",
-  InputClasses: null
-};
+export const INPUT_CLASSES = [
+  { value: "govuk-!-width-two-thirds", label: "govuk-!-width-two-thirds" },
+  { value: "govuk-input--width-10", label: "govuk-input--width-10" },
+  { value: "govuk-input--width-20", label: "govuk-input--width-20" },
+  { value: "govuk-input--width-3", label: "govuk-input--width-3" },
+  { value: "govuk-input--width-5", label: "govuk-input--width-5" },
+  { value: null, label: "null" }
+];
 
 export const VALIDATION_TYPES = {
   Name: "AddressBuildingAndStreetRequired",
@@ -70,3 +70,50 @@ export const VALIDATION_TYPES = {
   Name: "RegisteredCharityNumber",
   Name: "Required"
 };
+
+export const QUESTION_TYPES = [
+  {
+    value: "text",
+    label: "Text"
+  },
+  {
+    value: "Date",
+    label: "Date"
+  },
+  {
+    value: "number",
+    label: "Number"
+  },
+  // {
+  //   value: "longText",
+  //   label: "Long answer"
+  // },
+  {
+    value: "Textarea",
+    label: "Long answer"
+  },
+  // {
+  //   value: "checkbox",
+  //   label: "Checkbox"
+  // },
+  // {
+  //   value: "optionGroup",
+  //   label: "Radio group"
+  // },
+  {
+    value: "Radio",
+    label: "Radio"
+  },
+  {
+    value: "ComplexRadio",
+    label: "Complex radio"
+  }
+  // {
+  //   value: "checklist",
+  //   label: "Checkbox list"
+  // },
+  // {
+  //   value: "dropdown",
+  //   label: "Select"
+  // }
+];
