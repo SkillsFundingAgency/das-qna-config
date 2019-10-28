@@ -2,6 +2,7 @@ import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 
 import Validation from "./Validation";
+import { EMPTY_VALIDATION } from "./../../data/data-structures";
 
 const Validations = ({ name }) => {
   // console.log(name);
@@ -23,7 +24,10 @@ const Validations = ({ name }) => {
               </div>
             ))}
             <Buttons>
-              <Button type="button" onClick={() => fields.push({})}>
+              <Button
+                type="button"
+                onClick={() => fields.push(EMPTY_VALIDATION)}
+              >
                 + Add Validation
               </Button>
             </Buttons>

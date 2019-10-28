@@ -34,7 +34,7 @@ export const EMPTY_QUESTION = {
   QuestionBodyText: "",
   Hint: "",
   Input: {
-    Type: "",
+    Type: "text",
     Validations: [],
     Options: [],
     InputClasses: null,
@@ -43,6 +43,12 @@ export const EMPTY_QUESTION = {
   Order: null,
   Value: null,
   ErrorMessages: null
+};
+
+export const EMPTY_VALIDATION = {
+  Name: "",
+  Value: null,
+  ErrorMessage: ""
 };
 
 export const INPUT_CLASSES = [
@@ -54,22 +60,25 @@ export const INPUT_CLASSES = [
   { value: null, label: "null" }
 ];
 
-export const VALIDATION_TYPES = {
-  Name: "AddressBuildingAndStreetRequired",
-  Name: "AddressPostcodeRequired",
-  Name: "AddressTownOrCityRequired",
-  Name: "ClientApiCall",
-  Name: "Date",
-  Name: "DateNotInFuture",
-  Name: "EmailAddressIsValid",
-  Name: "MaxCharCount",
-  Name: "MaxWordCount",
-  Name: "MonthAndYear",
-  Name: "MonthAndYearNotInFuture",
-  Name: "Regex",
-  Name: "RegisteredCharityNumber",
-  Name: "Required"
-};
+export const VALIDATION_TYPES = [
+  {
+    value: "AddressBuildingAndStreetRequired",
+    label: "AddressBuildingAndStreetRequired"
+  },
+  { value: "AddressPostcodeRequired", label: "AddressPostcodeRequired" },
+  { value: "AddressTownOrCityRequired", label: "AddressTownOrCityRequired" },
+  { value: "ClientApiCall", label: "ClientApiCall" },
+  { value: "Date", label: "Date" },
+  { value: "DateNotInFuture", label: "DateNotInFuture" },
+  { value: "EmailAddressIsValid", label: "EmailAddressIsValid" },
+  { value: "MaxCharCount", label: "MaxCharCount" },
+  { value: "MaxWordCount", label: "MaxWordCount" },
+  { value: "MonthAndYear", label: "MonthAndYear" },
+  { value: "MonthAndYearNotInFuture", label: "MonthAndYearNotInFuture" },
+  { value: "Regex", label: "Regex" },
+  { value: "RegisteredCharityNumber", label: "RegisteredCharityNumber" },
+  { value: "Required", label: "Required" }
+];
 
 export const QUESTION_TYPES = [
   {

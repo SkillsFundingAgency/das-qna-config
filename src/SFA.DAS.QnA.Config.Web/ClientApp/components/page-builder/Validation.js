@@ -7,7 +7,10 @@ import { sortableElement } from "react-sortable-hoc";
 
 import Question from "./Question";
 import SortHandle from "./SortHandle";
-import Textarea from "../Textarea";
+import Textarea from "./../Textarea";
+import Select from "./../Select";
+
+import { VALIDATION_TYPES } from "./../../data/data-structures";
 
 const Validation = ({ name, remove }) => (
   <Container>
@@ -16,7 +19,12 @@ const Validation = ({ name, remove }) => (
     </QuestionControls>
     <Rows>
       <Row>
-        <Field name={`${name}.Name`} component={Textarea} placeholder="Name" />
+        <Field
+          name={`${name}.Name`}
+          options={VALIDATION_TYPES}
+          component={ValidationTypes}
+          isSearchable={false}
+        />
       </Row>
       <Row>
         <Field
@@ -139,4 +147,8 @@ const Button = styled.button`
   &:hover {
     opacity: 1;
   }
+`;
+
+const ValidationTypes = styled(Select)`
+  width: 100%;
 `;
