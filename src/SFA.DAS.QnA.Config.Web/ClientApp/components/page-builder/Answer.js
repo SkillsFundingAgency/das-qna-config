@@ -9,6 +9,8 @@ import Question from "./Question";
 import SortHandle from "./SortHandle";
 import Textarea from "../Textarea";
 
+import { EMPTY_FURTHER_QUESTION } from "./../../data/data-structures";
+
 const Answer = sortableElement(({ name, remove }) => (
   <Container>
     <QuestionControls>
@@ -55,16 +57,7 @@ const Answer = sortableElement(({ name, remove }) => (
               <Buttons>
                 <Button
                   type="button"
-                  onClick={() =>
-                    fields.push({
-                      Input: {
-                        Type: "text"
-                      },
-                      QuestionId: "",
-                      Label: "",
-                      Hint: ""
-                    })
-                  }
+                  onClick={() => fields.push(EMPTY_FURTHER_QUESTION)}
                 >
                   + Add further questions
                 </Button>

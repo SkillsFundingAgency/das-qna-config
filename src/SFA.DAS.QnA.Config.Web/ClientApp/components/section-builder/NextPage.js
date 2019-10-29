@@ -2,6 +2,8 @@ import { Field } from "react-final-form";
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 import Select from "../Select";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import Conditions from "./Conditions";
 
@@ -9,48 +11,63 @@ import { ROUTING_TYPES, EMPTY_NEXT } from "./../../data/data-structures";
 
 const NextPage = ({ name, questions }) => {
   return (
-    <>
-      <h3>Routes</h3>
+    <FieldArray name={`${name}.Next`}>
+      {({ fields }) => {
+        return (
+          <>
+            {fields.map((name, index) => (
+              <Container key={index}>
+                <h3 style={{ marginTop: "0" }}>Route</h3>
+                <PageControls>
+                  <RemoveRouteButton
+                    icon={faTrash}
+                    onClick={() => fields.remove(index)}
+                    width="0"
+                  />
+                </PageControls>
+                <Row>
+                  <Field
+                    name={`${name}.Action`}
+                    component={RoutingSelector}
+                    options={ROUTING_TYPES}
+                    isSearchable={false}
+                  />
+                  <InnerText>will be</InnerText>
+                  <Field
+                    name={`${name}.ReturnId`}
+                    component="input"
+                    type="text"
+                    placeholder="Return ID"
+                  />
+                </Row>
+                <Conditions name={name} questions={questions} />
+              </Container>
+            ))}
 
-      <FieldArray name={`${name}.Next`}>
-        {({ fields }) => {
-          return (
-            <>
-              {fields.map((name, index) => (
-                <div key={index}>
-                  <Row>
-                    <Field
-                      name={`${name}.Action`}
-                      component={RoutingSelector}
-                      options={ROUTING_TYPES}
-                      isSearchable={false}
-                    />
-                    <InnerText>will be</InnerText>
-                    <Field
-                      name={`${name}.ReturnId`}
-                      component="input"
-                      type="text"
-                      placeholder="Return ID"
-                    />
-                  </Row>
-                  <Conditions name={name} questions={questions} />
-                </div>
-              ))}
-
+            <Row>
               <Buttons>
                 <Button type="button" onClick={() => fields.push(EMPTY_NEXT)}>
                   + Add a Route
                 </Button>
               </Buttons>
-            </>
-          );
-        }}
-      </FieldArray>
-    </>
+            </Row>
+          </>
+        );
+      }}
+    </FieldArray>
   );
 };
 
 export default NextPage;
+
+const Container = styled.div`
+  position: relative;
+  border: 2px solid #ccc;
+  background: #fff;
+  border-radius: 3px;
+  padding: 10px 10px 10px 36px;
+  margin-bottom: 10px;
+`;
 
 const InnerText = styled.p`
   line-height: 2.4em;
@@ -113,4 +130,29 @@ const Button = styled.button`
   &:hover {
     opacity: 1;
   }
+`;
+
+const PageControls = styled.div`
+  position: absolute;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 0px;
+  top: 0px;
+  border-right: 2px solid #ccc;
+  background: #f2f2f2;
+`;
+
+const RemoveRouteButton = styled(FontAwesomeIcon)`
+  box-sizing: content-box;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 16px;
+  right: 0;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
+  color: #800;
 `;

@@ -23,7 +23,7 @@ export const EMPTY_PAGE = {
   NotRequiredConditions: [],
   NotRequired: false,
   BodyText: "",
-  ActivatedByPageId: ""
+  ActivatedByPageId: null
 };
 
 export const EMPTY_NEXT = {
@@ -45,6 +45,7 @@ export const EMPTY_QUESTION = {
   QuestionTag: "",
   Label: "",
   ShortLabel: "",
+  InputClasses: null,
   QuestionBodyText: "",
   Hint: "",
   Input: {
@@ -52,6 +53,26 @@ export const EMPTY_QUESTION = {
     Validations: [],
     Options: [],
     InputClasses: null,
+    DataEndpoint: null
+  },
+  Order: null,
+  Value: null,
+  ErrorMessages: null
+};
+
+export const EMPTY_FURTHER_QUESTION = {
+  QuestionId: "",
+  QuestionTag: "",
+  Label: "",
+  ShortLabel: "",
+  InputClasses: null,
+  QuestionBodyText: "",
+  Hint: "",
+  Input: {
+    Type: "text",
+    InputClasses: null,
+    Options: null,
+    Validations: [],
     DataEndpoint: null
   },
   Order: null,

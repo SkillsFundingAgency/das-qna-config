@@ -90,6 +90,13 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
         </Row>
         <Row>
           <Field
+            name={`${name}.QuestionTag`}
+            component={Textarea}
+            placeholder="Question tag"
+          />
+        </Row>
+        <Row>
+          <Field
             name={`${name}.ShortLabel`}
             component={Textarea}
             placeholder="Short label"
@@ -182,7 +189,7 @@ const Row = styled.div`
 
 const TypeSelector = styled(Select)`
   margin-left: 5px;
-  width: 150px;
+  width: 165px;
 `;
 
 const InputClasses = styled(Select)`
