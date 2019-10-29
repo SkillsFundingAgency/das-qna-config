@@ -1,6 +1,8 @@
 import { FormSpy } from "react-final-form";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSave } from "@fortawesome/free-solid-svg-icons";
 
 const AutoSave = ({ debounce, values, save }) => {
   const [submitting, setSubmitting] = useState(false);
@@ -18,7 +20,7 @@ const AutoSave = ({ debounce, values, save }) => {
 
   return (
     <FixedSave className={submitting ? "is-saving" : undefined}>
-      Saving...
+      <SaveIcon icon={faSave} width="0" /> Saving
     </FixedSave>
   );
 };
@@ -29,18 +31,24 @@ export default props => (
 );
 
 const FixedSave = styled.div`
+  z-index: 0;
+  font-weight: 800;
   position: fixed;
-  bottom: 0;
-  right: 0;
+  top: 0;
+  right: 160px;
   background: rgba(255, 255, 255, 1);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
-  padding: 5px;
-  transition: opacity 0.3s ease-in;
+  padding: 7px;
+  transition: opacity 0.2s ease-in;
   opacity: 0;
 
   &.is-saving {
-    transition: opacity 0.3s ease-in;
+    transition: opacity 0.2s ease-out;
     opacity: 1;
   }
+`;
+
+const SaveIcon = styled(FontAwesomeIcon)`
+  color: #00703c;
 `;

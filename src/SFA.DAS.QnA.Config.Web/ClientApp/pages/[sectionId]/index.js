@@ -9,12 +9,7 @@ import saveAs from "file-saver";
 import styled from "styled-components";
 import GlobalStyles from "../../styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCode,
-  faFolderOpen,
-  faFolder,
-  faFileAlt
-} from "@fortawesome/free-solid-svg-icons";
+import { faCode, faFolder, faFileAlt } from "@fortawesome/free-solid-svg-icons";
 
 import AutoSave from "./../../components/AutoSave";
 import FileManager from "./../../components/FileManager";
@@ -117,16 +112,22 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
             icon={faFileAlt}
             onClick={() => updateUserSettings("showPreview")}
             width="0"
+            title="Toggle preview"
+            className={userSettings.showPreview ? "view-is-open" : ""}
           />
           <ToggleFileView
-            icon={userSettings.showFileManager ? faFolderOpen : faFolder}
+            icon={faFolder}
             onClick={() => updateUserSettings("showFileManager")}
             width="0"
+            title="Toggle file manager"
+            className={userSettings.showFileManager ? "view-is-open" : ""}
           />
           <ToggleCodeView
             icon={faCode}
             onClick={() => updateUserSettings("showSchema")}
             width="0"
+            title="Toggle code view"
+            className={userSettings.showSchema ? "view-is-open" : ""}
           />
         </DisplayControls>
         <Form
@@ -229,8 +230,7 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
                 {userSettings.showFileManager && (
                   <div>
                     <h3>
-                      <FontAwesomeIcon icon={faFolderOpen} width="0" /> File
-                      manager
+                      <FontAwesomeIcon icon={faFolder} width="0" /> File manager
                     </h3>
                     <FileManager
                       loadSectionData={loadSectionData}
@@ -366,14 +366,6 @@ const Row = styled.div`
   }
 `;
 
-const DisplayControls = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 50px;
-  margin: 5px 15px;
-`;
-
 const Dump = styled.pre`
   border: 1px solid #ccc;
   font-size: 0.8em;
@@ -383,16 +375,56 @@ const Dump = styled.pre`
   overflow: auto;
 `;
 
+const DisplayControls = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 15px 15px;
+`;
+
 const TogglePreView = styled(FontAwesomeIcon)`
+  font-size: 30px;
   cursor: pointer;
-  margin-right: 10px;
+  margin-right: 15px;
+  opacity: 0.8;
+  padding: 0 0 3px;
+  border-bottom: 3px solid #fff;
+
+  &:hover {
+    opacity: 1;
+  }
+  &.view-is-open {
+    border-bottom: 3px solid #00703c;
+  }
 `;
 
 const ToggleFileView = styled(FontAwesomeIcon)`
+  font-size: 30px;
   cursor: pointer;
-  margin-right: 10px;
+  margin-right: 15px;
+  opacity: 0.8;
+  padding: 0 0 3px;
+  border-bottom: 3px solid #fff;
+
+  &:hover {
+    opacity: 1;
+  }
+  &.view-is-open {
+    border-bottom: 3px solid #00703c;
+  }
 `;
 
 const ToggleCodeView = styled(FontAwesomeIcon)`
+  font-size: 30px;
   cursor: pointer;
+  opacity: 0.8;
+  padding: 0 0 3px;
+  border-bottom: 3px solid #fff;
+
+  &:hover {
+    opacity: 1;
+  }
+  &.view-is-open {
+    border-bottom: 3px solid #00703c;
+  }
 `;
