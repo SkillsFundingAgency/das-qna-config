@@ -95,27 +95,33 @@ const GeneratedPage = ({ schema }) => {
             <form onSubmit={handleSubmit}>
               {Questions && (
                 <>
-                  <GridRow>
-                    <GridCol>
-                      {Questions.filter(
-                        question => question.QuestionId && question.Input
-                      ).map((question, index) => {
-                        // console.log(question);
+                  {Questions.filter(
+                    question => question.QuestionId && question.Input
+                  ).map((question, index) => {
+                    // console.log(question);
 
-                        const QuestionComponent =
-                          components[question.Input.Type];
-                        return (
-                          question.QuestionId && (
-                            <QuestionComponent
-                              key={index}
-                              questionIndex={index}
-                              question={question}
-                            />
-                          )
-                        );
-                      })}
-                    </GridCol>
-                  </GridRow>
+                    const QuestionComponent = components[question.Input.Type];
+                    return (
+                      question.QuestionId && (
+                        <>
+                          <GridRow>
+                            <GridCol>
+                              {ReactHtmlParser(question.QuestionBodyText)}
+                            </GridCol>
+                          </GridRow>
+                          <GridRow>
+                            <GridCol>
+                              <QuestionComponent
+                                key={index}
+                                questionIndex={index}
+                                question={question}
+                              />
+                            </GridCol>
+                          </GridRow>
+                        </>
+                      )
+                    );
+                  })}
                   <GridRow>
                     <GridCol>
                       <Button type="submit" disabled={submitting || pristine}>

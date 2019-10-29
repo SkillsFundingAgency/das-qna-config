@@ -321,9 +321,9 @@ const Columns = styled.div`
   & > * {
     flex: 1;
     margin: 5px;
-    border: 1px solid #ddd;
+    border: 3px solid #ddd;
     border-radius: 3px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); */
     padding: 0 20px;
     overflow-y: auto;
   }
@@ -379,22 +379,22 @@ const DisplayControls = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  margin: 15px 15px;
+  margin: 15px;
 `;
 
 const TogglePreView = styled(FontAwesomeIcon)`
   font-size: 30px;
   cursor: pointer;
   margin-right: 15px;
-  opacity: 0.8;
+  opacity: 0.7;
   padding: 0 0 3px;
   border-bottom: 3px solid #fff;
-
   &:hover {
     opacity: 1;
   }
   &.view-is-open {
     border-bottom: 3px solid #00703c;
+    opacity: 1;
   }
 `;
 
@@ -402,29 +402,29 @@ const ToggleFileView = styled(FontAwesomeIcon)`
   font-size: 30px;
   cursor: pointer;
   margin-right: 15px;
-  opacity: 0.8;
+  opacity: 0.7;
   padding: 0 0 3px;
   border-bottom: 3px solid #fff;
-
   &:hover {
     opacity: 1;
   }
   &.view-is-open {
     border-bottom: 3px solid #00703c;
+    opacity: 1;
   }
 `;
 
 const ToggleCodeView = styled(FontAwesomeIcon)`
   font-size: 30px;
   cursor: pointer;
-  opacity: 0.8;
+  opacity: 0.7;
   padding: 0 0 3px;
   border-bottom: 3px solid #fff;
-
   &:hover {
     opacity: 1;
   }
   &.view-is-open {
     border-bottom: 3px solid #00703c;
+    opacity: 1;
   }
 `;

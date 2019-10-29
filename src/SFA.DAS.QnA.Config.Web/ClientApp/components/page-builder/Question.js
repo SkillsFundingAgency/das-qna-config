@@ -80,12 +80,18 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
             to={[{ FurtherQuestions: [{ Input: { Type: "text" } }] }]}
           />
         </Row>
-
         <Row>
           <Field
             name={`${name}.Label`}
             component={Textarea}
             placeholder="Label"
+          />
+        </Row>
+        <Row>
+          <Field
+            name={`${name}.QuestionBodyText`}
+            component={Textarea}
+            placeholder="Question body text (HTML)"
           />
         </Row>
         <Row>
