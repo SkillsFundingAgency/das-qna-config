@@ -43,7 +43,7 @@ import ChecklistQuestion from "./generated/ChecklistQuestion";
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const onSubmit = async values => {
-  // console.table(values);
+  console.table(values);
 
   await sleep(300);
   // window.alert(JSON.stringify(values, 0, 2));
@@ -59,7 +59,6 @@ const components = {
   Textarea: LongTextQuestion,
   Address: LongTextQuestion, // needs own component
   checkbox: CheckboxQuestion,
-  optionGroup: OptionGroupQuestion,
   ComplexRadio: ComplexRadioQuestion,
   Radio: OptionGroupQuestion,
   checklist: ChecklistQuestion,

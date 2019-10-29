@@ -10,7 +10,11 @@ const WhenFieldChanges = ({ field, becomes, set, to }) => (
     ) => (
       <OnChange name={field}>
         {value => {
-          if (value === becomes) {
+          // if (value === becomes) {
+          //   onChange(to);
+          // }
+
+          if (becomes.includes(value)) {
             onChange(to);
           }
         }}

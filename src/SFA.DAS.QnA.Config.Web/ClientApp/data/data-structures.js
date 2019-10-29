@@ -51,7 +51,7 @@ export const EMPTY_QUESTION = {
   Input: {
     Type: "text",
     Validations: [],
-    Options: [],
+    Options: null,
     InputClasses: null,
     DataEndpoint: null
   },
@@ -128,22 +128,10 @@ export const QUESTION_TYPES = [
     value: "number",
     label: "Number"
   },
-  // {
-  //   value: "longText",
-  //   label: "Long answer"
-  // },
   {
     value: "Textarea",
-    label: "Long answer"
+    label: "Textarea"
   },
-  // {
-  //   value: "checkbox",
-  //   label: "Checkbox"
-  // },
-  // {
-  //   value: "optionGroup",
-  //   label: "Radio group"
-  // },
   {
     value: "Radio",
     label: "Radio"
@@ -152,6 +140,10 @@ export const QUESTION_TYPES = [
     value: "ComplexRadio",
     label: "Complex radio"
   }
+  // {
+  //   value: "checkbox",
+  //   label: "Checkbox"
+  // },
   // {
   //   value: "checklist",
   //   label: "Checkbox list"

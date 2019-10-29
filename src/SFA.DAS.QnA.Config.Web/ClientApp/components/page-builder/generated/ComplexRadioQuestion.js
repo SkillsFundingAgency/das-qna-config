@@ -28,7 +28,6 @@ const components = {
   longText: LongTextQuestion,
   Textarea: LongTextQuestion,
   checkbox: CheckboxQuestion,
-  optionGroup: OptionGroupQuestion,
   ComplexRadio: ComplexRadioQuestion,
   Radio: OptionGroupQuestion,
   checklist: ChecklistQuestion,

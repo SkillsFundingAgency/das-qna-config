@@ -10,19 +10,17 @@ import Select from "../Select";
 import Textarea from "../Textarea";
 import Answers from "./Answers";
 import Validations from "./Validations";
-import { QUESTION_TYPES, INPUT_CLASSES } from "./../../data/data-structures";
+import {
+  QUESTION_TYPES,
+  INPUT_CLASSES,
+  EMPTY_FURTHER_QUESTION
+} from "./../../data/data-structures";
 
 const hasOptions = type => {
-  return ~[
-    "optionGroup",
-    "Radio",
-    "ComplexRadio",
-    "checklist",
-    "dropdown"
-  ].indexOf(type);
+  return ~["Radio", "ComplexRadio", "checklist", "dropdown"].indexOf(type);
 };
 
-const isText = type => ~["text", "longText"].indexOf(type);
+const isText = type => ~["text", "longText", "Date", "number"].indexOf(type);
 
 const IfType = ({ name, children, predicate }) => (
   <Field name={`${name}.Input.Type`} subscription={{ value: true }}>
@@ -69,15 +67,21 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
           />
           <WhenFieldChanges
             field={`${name}.Input.Type`}
-            becomes="text"
+            becomes={["text", "longText", "Date", "number"]}
             set={`${name}.Input.Options`}
             to={undefined}
           />
           <WhenFieldChanges
             field={`${name}.Input.Type`}
-            becomes="ComplexRadio"
+            becomes={["Radio", "checklist", "dropdown"]}
             set={`${name}.Input.Options`}
-            to={[{ FurtherQuestions: [{ Input: { Type: "text" } }] }]}
+            to={[]}
+          />
+          <WhenFieldChanges
+            field={`${name}.Input.Type`}
+            becomes={["ComplexRadio"]}
+            set={`${name}.Input.Options`}
+            to={[{ FurtherQuestions: [EMPTY_FURTHER_QUESTION] }]}
           />
         </Row>
         <Row>
