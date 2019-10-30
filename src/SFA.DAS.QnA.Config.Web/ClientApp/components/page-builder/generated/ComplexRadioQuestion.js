@@ -11,28 +11,7 @@ import {
 import ReactHtmlParser from "react-html-parser";
 import PropTypes from "prop-types";
 
-import TextQuestion from "./../generated/TextQuestion";
-import DateQuestion from "./../generated/DateQuestion";
-import NumberQuestion from "./../generated/NumberQuestion";
-import LongTextQuestion from "./../generated/LongTextQuestion";
-import CheckboxQuestion from "./../generated/CheckboxQuestion";
-import OptionGroupQuestion from "./../generated/OptionGroupQuestion";
-import ComplexRadioQuestion from "./../generated/ComplexRadioQuestion";
-import DropdownQuestion from "./../generated/DropdownQuestion";
-import ChecklistQuestion from "./../generated/ChecklistQuestion";
-
-const components = {
-  text: TextQuestion,
-  Date: DateQuestion,
-  number: NumberQuestion,
-  longText: LongTextQuestion,
-  Textarea: LongTextQuestion,
-  checkbox: CheckboxQuestion,
-  ComplexRadio: ComplexRadioQuestion,
-  Radio: OptionGroupQuestion,
-  checklist: ChecklistQuestion,
-  dropdown: DropdownQuestion
-};
+import { QuestionComponents } from "./../generated/QuestionComponents";
 
 const GovRadio = ({ input, hint, inline, label }) => {
   return (
@@ -58,7 +37,6 @@ export default ({ question, questionIndex }) => {
               return (
                 <div key={`${question.QuestionId}[${questionIndex}][${index}]`}>
                   <Field
-                    // key={`${question.QuestionId}[${questionIndex}][${index}]`}
                     name={`${question.QuestionId}[${questionIndex}]`}
                     hint={ReactHtmlParser(option.Hint)}
                     component={GovRadio}
@@ -67,15 +45,12 @@ export default ({ question, questionIndex }) => {
                     label={option.Label}
                   />
                   {option.FurtherQuestions
-                    ? option.FurtherQuestions.map(furtherQuestion => {
-                        // This is returning both questions.. we only want the one with a furtherQuestion
-                        // console.log("furtherQuestion:", furtherQuestion);
-
+                    ? option.FurtherQuestions.map((furtherQuestion, index) => {
                         const QuestionComponent =
-                          components[furtherQuestion.Input.Type];
+                          QuestionComponents[furtherQuestion.Input.Type];
                         return (
                           furtherQuestion.QuestionId && (
-                            <div style={{ marginBottom: "20px" }}>
+                            <div key={index} style={{ marginBottom: "20px" }}>
                               <GridRow>
                                 <GridCol>
                                   <QuestionComponent

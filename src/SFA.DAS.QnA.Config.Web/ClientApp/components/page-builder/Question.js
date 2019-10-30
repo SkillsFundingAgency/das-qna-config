@@ -13,14 +13,17 @@ import Validations from "./Validations";
 import {
   QUESTION_TYPES,
   INPUT_CLASSES,
-  EMPTY_FURTHER_QUESTION
+  EMPTY_FURTHER_QUESTION,
+  EMPTY_COMPLEX_OPTION,
+  EMPTY_OPTION
 } from "./../../data/data-structures";
 
 const hasOptions = type => {
-  return ~["Radio", "ComplexRadio", "checklist", "dropdown"].indexOf(type);
+  return ~["Radio", "CheckBoxList", "dropdown"].indexOf(type);
 };
+const isComplex = type => ~["ComplexRadio"].indexOf(type);
 
-const isText = type => ~["text", "longText", "Date", "number"].indexOf(type);
+const isText = type => ~["Text", "longText", "Date", "Number"].indexOf(type);
 
 const IfType = ({ name, children, predicate }) => (
   <Field name={`${name}.Input.Type`} subscription={{ value: true }}>
@@ -67,21 +70,21 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
           />
           <WhenFieldChanges
             field={`${name}.Input.Type`}
-            becomes={["text", "longText", "Date", "number"]}
+            becomes={["Text", "longText", "Date", "Number"]}
             set={`${name}.Input.Options`}
             to={undefined}
           />
           <WhenFieldChanges
             field={`${name}.Input.Type`}
-            becomes={["Radio", "checklist", "dropdown"]}
+            becomes={["Radio", "CheckBoxList", "dropdown"]}
             set={`${name}.Input.Options`}
-            to={[]}
+            to={[EMPTY_OPTION]}
           />
           <WhenFieldChanges
             field={`${name}.Input.Type`}
             becomes={["ComplexRadio"]}
             set={`${name}.Input.Options`}
-            to={[{ FurtherQuestions: [EMPTY_FURTHER_QUESTION] }]}
+            to={[EMPTY_COMPLEX_OPTION]}
           />
         </Row>
         <Row>
@@ -130,7 +133,10 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
         {open && (
           <>
             <IfType name={name} predicate={hasOptions}>
-              <Answers name={name} />
+              <Answers name={name} isComplex={false} />
+            </IfType>
+            <IfType name={name} predicate={isComplex}>
+              <Answers name={name} isComplex={true} />
             </IfType>
             {/* <IfType name={name} predicate={isText}>
               <Row>

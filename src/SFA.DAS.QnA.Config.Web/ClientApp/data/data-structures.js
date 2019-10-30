@@ -19,11 +19,26 @@ export const EMPTY_PAGE = {
   Complete: false,
   AllowMultipleAnswers: false,
   Active: true,
-  NotRequiredOrgTypes: null,
   NotRequiredConditions: [],
   NotRequired: false,
   BodyText: "",
+  Details: null,
   ActivatedByPageId: null
+};
+
+export const EMPTY_OPTION = {
+  Value: "",
+  Label: "",
+  HintText: null,
+  HasHintText: false
+};
+
+export const EMPTY_COMPLEX_OPTION = {
+  FurtherQuestions: [],
+  Value: "",
+  Label: "",
+  HintText: null,
+  HasHintText: false
 };
 
 export const EMPTY_NEXT = {
@@ -32,6 +47,11 @@ export const EMPTY_NEXT = {
   Condition: null,
   Conditions: [],
   ConditionMet: false
+};
+
+export const EMPTY_DETAILS = {
+  Title: "",
+  Body: ""
 };
 
 export const EMPTY_CONDITION = {
@@ -117,7 +137,7 @@ export const VALIDATION_TYPES = [
 
 export const QUESTION_TYPES = [
   {
-    value: "text",
+    value: "Text",
     label: "Text"
   },
   {
@@ -125,7 +145,7 @@ export const QUESTION_TYPES = [
     label: "Date"
   },
   {
-    value: "number",
+    value: "Number",
     label: "Number"
   },
   {
@@ -139,14 +159,18 @@ export const QUESTION_TYPES = [
   {
     value: "ComplexRadio",
     label: "Complex radio"
+  },
+  {
+    value: "FileUpload",
+    label: "File upload"
+  },
+  {
+    value: "CheckBoxList",
+    label: "Checkbox list"
   }
   // {
   //   value: "checkbox",
   //   label: "Checkbox"
-  // },
-  // {
-  //   value: "checklist",
-  //   label: "Checkbox list"
   // },
   // {
   //   value: "dropdown",

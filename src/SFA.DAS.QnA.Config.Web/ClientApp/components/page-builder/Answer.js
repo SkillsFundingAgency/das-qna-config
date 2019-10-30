@@ -34,7 +34,11 @@ const Answer = sortableElement(({ name, remove }) => (
         />
       </Row>
       <Row>
-        <Field name={`${name}.Hint`} component={Textarea} placeholder="Hint" />
+        <Field
+          name={`${name}.HintText`}
+          component={Textarea}
+          placeholder="Hint text"
+        />
       </Row>
       <FieldArray name={`${name}.FurtherQuestions`}>
         {({ fields }) =>

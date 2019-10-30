@@ -29,7 +29,12 @@ export default () => (
         line-height: 1.6em;
       }
 
-      .govuk-body {
+      .govuk-list {
+        padding-left: 20px;
+      }
+
+      .govuk-body,
+      .govuk-list li {
         font-size: 19px;
       }
 

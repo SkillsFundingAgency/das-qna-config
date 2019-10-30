@@ -4,7 +4,13 @@ import styled from "styled-components";
 import Answer from "./Answer";
 import SortableList from "./SortableList";
 
-const Answers = ({ name }) => {
+import {
+  EMPTY_OPTION,
+  EMPTY_COMPLEX_OPTION
+} from "./../../data/data-structures";
+
+const Answers = ({ name, isComplex }) => {
+  // console.log("isComplex:", isComplex);
   // console.log(name);
 
   return (
@@ -31,7 +37,12 @@ const Answers = ({ name }) => {
               ))}
             </SortableList>
             <Buttons>
-              <Button type="button" onClick={() => fields.push({})}>
+              <Button
+                type="button"
+                onClick={() =>
+                  fields.push(isComplex ? EMPTY_COMPLEX_OPTION : EMPTY_OPTION)
+                }
+              >
                 + Add Answer
               </Button>
             </Buttons>

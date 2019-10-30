@@ -42,6 +42,21 @@ const Page = ({ name, questions, editSinglePage, removePage }) => {
             placeholder="Page title"
           />
         </Row>
+        <Row>
+          <Field
+            name={`${name}.ActivatedByPageId`}
+            component="input"
+            type="text"
+            placeholder="Activated by PageId"
+          />
+
+          {/* <Field
+            name={`${name}.ActivatedByPageId`}
+            component={Select}
+            options={EXISTING_PAGES}
+            isSearchable={false}
+          /> */}
+        </Row>
         <NextPage name={name} questions={questions} />
       </Container>
     </>

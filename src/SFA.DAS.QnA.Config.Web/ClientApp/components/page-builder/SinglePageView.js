@@ -23,26 +23,6 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
         )}
       </Field>
       <Row>
-        <Field name={`${currentPage}.LinkTitle`} validate={required}>
-          {({ input, meta }) => (
-            <>
-              <input
-                {...input}
-                type="text"
-                placeholder={
-                  meta.error && meta.touched
-                    ? `Link title is ${meta.error}`
-                    : `Link title`
-                }
-                style={{ width: "100%" }}
-                component="input"
-                className={meta.error && meta.touched ? meta.error : undefined}
-              />
-            </>
-          )}
-        </Field>
-      </Row>
-      <Row>
         <Field name={`${currentPage}.Title`} validate={required}>
           {({ input, meta }) => (
             <>
@@ -74,6 +54,26 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
       </Row>
       <Questions name={currentPage} />
       {/* </Container> */}
+
+      <h3>Details</h3>
+      <Row>
+        <Field
+          name={`${currentPage}.Details.Title`}
+          component={Textarea}
+          type="text"
+          placeholder={`Details title`}
+          label="Details title"
+        />
+      </Row>
+      <Row>
+        <Field
+          name={`${currentPage}.Details.Description`}
+          component={Textarea}
+          type="text"
+          placeholder={`Details description`}
+          label="Details title"
+        />
+      </Row>
     </>
   );
 };

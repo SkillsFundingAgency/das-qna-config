@@ -7,6 +7,7 @@ import {
   Breadcrumb,
   Button,
   Checkbox,
+  Details as GovDetails,
   DateInput,
   FormGroup,
   FileUpload,
@@ -30,15 +31,7 @@ import {
   UnorderedList
 } from "govuk-react";
 
-import TextQuestion from "./generated/TextQuestion";
-import DateQuestion from "./generated/DateQuestion";
-import NumberQuestion from "./generated/NumberQuestion";
-import LongTextQuestion from "./generated/LongTextQuestion";
-import CheckboxQuestion from "./generated/CheckboxQuestion";
-import OptionGroupQuestion from "./generated/OptionGroupQuestion";
-import ComplexRadioQuestion from "./generated/ComplexRadioQuestion";
-import DropdownQuestion from "./generated/DropdownQuestion";
-import ChecklistQuestion from "./generated/ChecklistQuestion";
+import { QuestionComponents } from "./generated/QuestionComponents";
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -49,36 +42,12 @@ const onSubmit = async values => {
   // window.alert(JSON.stringify(values, 0, 2));
 };
 
-const components = {
-  text: TextQuestion,
-  Email: TextQuestion,
-  Date: DateQuestion,
-  MonthAndYear: TextQuestion, // needs own component
-  number: NumberQuestion,
-  longText: LongTextQuestion,
-  Textarea: LongTextQuestion,
-  Address: LongTextQuestion, // needs own component
-  checkbox: CheckboxQuestion,
-  ComplexRadio: ComplexRadioQuestion,
-  Radio: OptionGroupQuestion,
-  checklist: ChecklistQuestion,
-  dropdown: DropdownQuestion
-};
-
 const GeneratedPage = ({ schema }) => {
-  // console.log(schema);
-
-  const { LinkTitle, Title, BodyText, Questions } = schema;
-  const reset = event => event.preventDefault();
+  const { Title, BodyText, Questions, Details } = schema;
+  // const reset = event => event.preventDefault();
   return (
     <>
-      <Link noVisitedState href="#" style={{ marginBottom: "10px" }}>
-        {LinkTitle}
-      </Link>
       <Container>
-        <GridRow>
-          <GridCol></GridCol>
-        </GridRow>
         <GridRow>
           <GridCol>
             <H1>{Title}</H1>
@@ -99,10 +68,11 @@ const GeneratedPage = ({ schema }) => {
                   ).map((question, index) => {
                     // console.log(question);
 
-                    const QuestionComponent = components[question.Input.Type];
+                    const QuestionComponent =
+                      QuestionComponents[question.Input.Type];
                     return (
                       question.QuestionId && (
-                        <>
+                        <div key={index}>
                           <GridRow>
                             <GridCol>
                               {ReactHtmlParser(question.QuestionBodyText)}
@@ -117,7 +87,7 @@ const GeneratedPage = ({ schema }) => {
                               />
                             </GridCol>
                           </GridRow>
-                        </>
+                        </div>
                       )
                     );
                   })}
@@ -149,6 +119,16 @@ const GeneratedPage = ({ schema }) => {
             </form>
           )}
         />
+
+        {Details && (
+          <GridRow>
+            <GridCol>
+              <GovDetails summary={Details.Title}>
+                {Details.Description}
+              </GovDetails>
+            </GridCol>
+          </GridRow>
+        )}
       </Container>
     </>
   );

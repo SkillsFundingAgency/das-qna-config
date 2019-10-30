@@ -32,13 +32,9 @@ const Pages = ({
       ) : (
         <FieldArray name="Pages">
           {({ fields }) => {
-            // console.log("Page fields:", fields);
-
             return (
               <>
                 {fields.map((name, index) => {
-                  // console.log("name:", name);
-
                   return (
                     <Page
                       key={name}
