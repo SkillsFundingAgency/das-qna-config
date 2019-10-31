@@ -1,9 +1,8 @@
-import React from "react";
 import { Field } from "react-final-form";
 import { TextArea, FormGroup, HintText } from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 
-export default ({ question, questionIndex }) => {
+const LongTextQuestion = ({ question, questionIndex }) => {
   // console.log(question);
 
   return (
@@ -18,3 +17,5 @@ export default ({ question, questionIndex }) => {
     </FormGroup>
   );
 };
+
+export default LongTextQuestion;

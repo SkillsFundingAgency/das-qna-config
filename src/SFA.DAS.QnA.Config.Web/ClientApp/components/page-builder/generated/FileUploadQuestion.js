@@ -2,7 +2,7 @@ import { Field } from "react-final-form";
 import { FileUpload, FormGroup } from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 
-export default ({ question, questionIndex }) => {
+const FileUploadQuestion = ({ question, questionIndex }) => {
   return (
     <FormGroup>
       <Field
@@ -15,3 +15,5 @@ export default ({ question, questionIndex }) => {
     </FormGroup>
   );
 };
+
+export default FileUploadQuestion;

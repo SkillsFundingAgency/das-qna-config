@@ -1,10 +1,8 @@
-import React from "react";
-import styled from "styled-components";
 import { Field } from "react-final-form";
 import { InputField, FormGroup } from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 
-export default ({ question, questionIndex }) => {
+const NumberQuestion = ({ question, questionIndex }) => {
   // console.log("question:", question);
 
   return (
@@ -19,3 +17,5 @@ export default ({ question, questionIndex }) => {
     </FormGroup>
   );
 };
+
+export default NumberQuestion;

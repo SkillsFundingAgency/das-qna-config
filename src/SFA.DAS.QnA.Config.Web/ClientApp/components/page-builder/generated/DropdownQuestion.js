@@ -1,9 +1,8 @@
-import React from "react";
 import { Field } from "react-final-form";
 import styled from "styled-components";
 import Select from "../../Select";
 
-export default ({ question }) => (
+const DropdownQuestion = ({ question }) => (
   <Row>
     <label>{question.text}</label>
     <Field
@@ -21,6 +20,8 @@ export default ({ question }) => (
     />
   </Row>
 );
+
+export default DropdownQuestion;
 
 const Row = styled.div`
   display: flex;

@@ -1,4 +1,3 @@
-import React from "react";
 import { FormGroup, Checkbox } from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 

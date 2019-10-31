@@ -1,11 +1,8 @@
-import React from "react";
 import { Field } from "react-final-form";
 import { FormGroup } from "govuk-react";
-// import styled from "styled-components";
-
 // import CheckboxGroup from "./../govuk-components/CheckboxGroup";
 
-export default ({ question }) => (
+const ChecklistQuestion = ({ question }) => (
   <FormGroup>
     <label>{question.text}</label>
     <div>
@@ -29,3 +26,4 @@ export default ({ question }) => (
     </div>
   </FormGroup>
 );
+export default ChecklistQuestion;

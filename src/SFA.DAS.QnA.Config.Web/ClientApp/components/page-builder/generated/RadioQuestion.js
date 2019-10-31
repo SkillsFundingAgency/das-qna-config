@@ -1,6 +1,5 @@
-import React from "react";
 import { Field } from "react-final-form";
-import { MultiChoice, Radio, Paragraph, FormGroup } from "govuk-react";
+import { MultiChoice, Radio, FormGroup } from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 import PropTypes from "prop-types";
 
@@ -14,7 +13,7 @@ const GovRadio = ({ input, hint, inline, label }) => {
   );
 };
 
-export default ({ question, questionIndex }) => {
+const RadioQuestion = ({ question, questionIndex }) => {
   // console.log("input:", input);
   // console.log("question:", question);
 
@@ -44,6 +43,8 @@ export default ({ question, questionIndex }) => {
     </FormGroup>
   );
 };
+
+export default RadioQuestion;
 
 // const required = value => (value ? undefined : "Required");
 
