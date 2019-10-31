@@ -118,7 +118,10 @@ export const INPUT_CLASSES = [
 ];
 
 export const VALIDATION_TYPES = [
-  { value: "AddressBuildingAndStreetRequired",label: "AddressBuildingAndStreetRequired" },
+  {
+    value: "AddressBuildingAndStreetRequired",
+    label: "AddressBuildingAndStreetRequired"
+  },
   { value: "AddressPostcodeRequired", label: "AddressPostcodeRequired" },
   { value: "AddressRequired", label: "AddressRequired" },
   { value: "AddressTownOrCityRequired", label: "AddressTownOrCityRequired" },
@@ -168,6 +171,10 @@ export const QUESTION_TYPES = [
   {
     value: "CheckBoxList",
     label: "Checkbox list"
+  },
+  {
+    value: "Address",
+    label: "Address"
   }
   // {
   //   value: "checkbox",

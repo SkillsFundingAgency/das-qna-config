@@ -10,7 +10,7 @@ import ChecklistQuestion from "./ChecklistQuestion";
 import FileUploadQuestion from "./FileUploadQuestion";
 
 export const QuestionComponents = {
-  Address: LongTextQuestion, // needs own component
+  Address: TextQuestion, // needs own component
   CheckBoxList: CheckboxQuestion,
   ComplexRadio: ComplexRadioQuestion,
   DataFed_CheckboxList: ChecklistQuestion,
