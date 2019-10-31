@@ -18,11 +18,13 @@ export const EMPTY_PAGE = {
   Next: [],
   Complete: false,
   AllowMultipleAnswers: false,
+  Order: null,
   Active: true,
   NotRequiredConditions: [],
-  NotRequired: false,
   BodyText: "",
   Details: null,
+  DisplayType: null,
+  Feedback: null,
   ActivatedByPageId: null
 };
 
@@ -62,7 +64,7 @@ export const EMPTY_CONDITION = {
 
 export const EMPTY_QUESTION = {
   QuestionId: "",
-  QuestionTag: "",
+  QuestionTag: null,
   Label: "",
   ShortLabel: "",
   InputClasses: null,
@@ -82,7 +84,7 @@ export const EMPTY_QUESTION = {
 
 export const EMPTY_FURTHER_QUESTION = {
   QuestionId: "",
-  QuestionTag: "",
+  QuestionTag: null,
   Label: "",
   ShortLabel: "",
   InputClasses: null,
