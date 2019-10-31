@@ -27,7 +27,7 @@ const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {
                   onClick={() => editPage(`Pages[${index}]`)}
                   style={{ marginBottom: "10px" }}
                 >
-                  {page.Title}
+                  {page.LinkTitle}
                 </Link>
               </GridCol>
             </GridRow>

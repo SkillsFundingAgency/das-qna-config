@@ -5,7 +5,7 @@ import ReactHtmlParser from "react-html-parser";
 // import CheckboxGroup from "./../govuk-components/CheckboxGroup";
 
 const CheckboxQuestion = ({ question }) => {
-  console.log(question);
+  // console.log(question);
 
   return (
     <FormGroup>
@@ -16,12 +16,6 @@ const CheckboxQuestion = ({ question }) => {
           </Checkbox>
         );
       })}
-
-      {/* <CheckboxGroup
-      name={question.key}
-      options={[{ title: question.text, value: question.text }]}
-      hint={ReactHtmlParser(question.hint)}
-    /> */}
     </FormGroup>
   );
 };

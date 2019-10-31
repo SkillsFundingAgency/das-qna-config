@@ -11,6 +11,8 @@ import GlobalStyles from "../../styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode, faFolder, faFileAlt } from "@fortawesome/free-solid-svg-icons";
 
+import QnaField from "./../../components/QnaField";
+import FloatingLabel from "./../../components/FloatingLabel";
 import AutoSave from "./../../components/AutoSave";
 import FileManager from "./../../components/FileManager";
 import GeneratedPage from "../../components/page-builder/GeneratedPage";
@@ -155,17 +157,25 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
                   {currentView === "section" && (
                     <>
                       <Row style={{ marginTop: "20px" }}>
-                        <Field name="Title" validate={required}>
+                        <QnaField
+                          emptyType="stringType"
+                          name="Title"
+                          validate={required}
+                        >
                           {({ input, meta }) => (
                             <>
-                              <label>Section title</label>
+                              {/* {console.log(meta.dirty)} */}
+                              {/* <FloatingLabel dirty={meta.dirty}>
+                                Title (section)
+                              </FloatingLabel> */}
+                              <label>Title (section)</label>
                               <input
                                 {...input}
                                 type="text"
                                 placeholder={
                                   meta.error && meta.touched
-                                    ? `Section title is ${meta.error}`
-                                    : `Section title`
+                                    ? `Title is ${meta.error}`
+                                    : `Title (section)`
                                 }
                                 style={{ width: "100%" }}
                                 component="input"
@@ -175,10 +185,14 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
                               />
                             </>
                           )}
-                        </Field>
+                        </QnaField>
                       </Row>
                       <Row>
-                        <Field name="LinkTitle" validate={required}>
+                        <QnaField
+                          emptyType="nullType"
+                          name="LinkTitle"
+                          validate={required}
+                        >
                           {({ input, meta }) => (
                             <>
                               <input
@@ -186,8 +200,8 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
                                 type="text"
                                 placeholder={
                                   meta.error && meta.touched
-                                    ? `Section link title is ${meta.error}`
-                                    : `Section link title`
+                                    ? `Link title is ${meta.error}`
+                                    : `Link title (section)`
                                 }
                                 style={{ width: "100%" }}
                                 component="input"
@@ -197,7 +211,7 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
                               />
                             </>
                           )}
-                        </Field>
+                        </QnaField>
                       </Row>
                     </>
                   )}

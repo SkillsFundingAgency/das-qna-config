@@ -2,13 +2,11 @@ import { Field } from "react-final-form";
 import { InputField, FormGroup } from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 
-export default ({ question, questionIndex }) => {
-  // console.log("question:", question);
-
+const TextQuestion = ({ question, questionIndex }) => {
   return (
     <FormGroup>
       <Field
-        name={`${question.QuestionId}[${questionIndex}]`}
+        name={questionIndex}
         component={InputField}
         hint={ReactHtmlParser(question.Hint)}
       >
@@ -17,3 +15,5 @@ export default ({ question, questionIndex }) => {
     </FormGroup>
   );
 };
+
+export default TextQuestion;
