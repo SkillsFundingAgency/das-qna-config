@@ -12,6 +12,7 @@ export default () => (
 
       body {
         font-family: "Helvetica Neue", arial, sans-serif;
+        color: #0b0c0c;
       }
 
       * {

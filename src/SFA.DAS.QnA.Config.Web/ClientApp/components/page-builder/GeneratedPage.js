@@ -43,10 +43,13 @@ const onSubmit = async values => {
 };
 
 const GeneratedPage = ({ schema }) => {
-  const { Title, BodyText, Questions, Details } = schema;
+  const { LinkTitle, Title, BodyText, Questions, Details } = schema;
   // const reset = event => event.preventDefault();
   return (
     <>
+      <Link noVisitedState href="#" style={{ marginBottom: "10px" }}>
+        {LinkTitle}
+      </Link>
       <Container>
         <GridRow>
           <GridCol>

@@ -158,13 +158,14 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
                         <Field name="Title" validate={required}>
                           {({ input, meta }) => (
                             <>
+                              <label>Section title</label>
                               <input
                                 {...input}
                                 type="text"
                                 placeholder={
                                   meta.error && meta.touched
-                                    ? `Title is ${meta.error}`
-                                    : `Title`
+                                    ? `Section title is ${meta.error}`
+                                    : `Section title`
                                 }
                                 style={{ width: "100%" }}
                                 component="input"
@@ -185,8 +186,8 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
                                 type="text"
                                 placeholder={
                                   meta.error && meta.touched
-                                    ? `Link title is ${meta.error}`
-                                    : `Link title`
+                                    ? `Section link title is ${meta.error}`
+                                    : `Section link title`
                                 }
                                 style={{ width: "100%" }}
                                 component="input"
@@ -333,6 +334,7 @@ const Row = styled.div`
   display: flex;
   flex-flow: row nowrap;
   margin-bottom: 5px;
+  position: relative;
 
   &:last-child {
     margin-bottom: 0;
@@ -363,6 +365,18 @@ const Row = styled.div`
     min-height: 38px;
     line-height: 24px;
     margin: 0;
+  }
+
+  & > label {
+    position: absolute;
+    top: -7px;
+    left: 10px;
+    padding: 0 1px;
+    line-height: 1;
+    font-size: 11px;
+    font-weight: bold;
+    color: #555555;
+    background: #fff;
   }
 `;
 

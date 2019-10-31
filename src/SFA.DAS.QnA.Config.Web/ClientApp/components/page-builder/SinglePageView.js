@@ -23,6 +23,26 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
         )}
       </Field>
       <Row>
+        <Field name={`${currentPage}.LinkTitle`} validate={required}>
+          {({ input, meta }) => (
+            <>
+              <input
+                {...input}
+                type="text"
+                placeholder={
+                  meta.error && meta.touched
+                    ? `Page link title is ${meta.error}`
+                    : `Page link title`
+                }
+                style={{ width: "100%" }}
+                component="input"
+                className={meta.error && meta.touched ? meta.error : undefined}
+              />
+            </>
+          )}
+        </Field>
+      </Row>
+      <Row>
         <Field name={`${currentPage}.Title`} validate={required}>
           {({ input, meta }) => (
             <>
