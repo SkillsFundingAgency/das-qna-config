@@ -72,9 +72,9 @@ export const EMPTY_QUESTION = {
   Hint: "",
   Input: {
     Type: "text",
-    Validations: [],
-    Options: null,
     InputClasses: null,
+    Options: [],
+    Validations: [],
     DataEndpoint: null
   },
   Order: null,
@@ -93,7 +93,7 @@ export const EMPTY_FURTHER_QUESTION = {
   Input: {
     Type: "text",
     InputClasses: null,
-    Options: null,
+    Options: [],
     Validations: [],
     DataEndpoint: null
   },
@@ -118,18 +118,17 @@ export const INPUT_CLASSES = [
 ];
 
 export const VALIDATION_TYPES = [
-  {
-    value: "AddressBuildingAndStreetRequired",
-    label: "AddressBuildingAndStreetRequired"
-  },
+  { value: "AddressBuildingAndStreetRequired",label: "AddressBuildingAndStreetRequired" },
   { value: "AddressPostcodeRequired", label: "AddressPostcodeRequired" },
+  { value: "AddressRequired", label: "AddressRequired" },
   { value: "AddressTownOrCityRequired", label: "AddressTownOrCityRequired" },
   { value: "ClientApiCall", label: "ClientApiCall" },
   { value: "Date", label: "Date" },
   { value: "DateNotInFuture", label: "DateNotInFuture" },
   { value: "EmailAddressIsValid", label: "EmailAddressIsValid" },
-  { value: "MaxCharCount", label: "MaxCharCount" },
+  { value: "MaxLength", label: "MaxLength" },
   { value: "MaxWordCount", label: "MaxWordCount" },
+  { value: "MinLength", label: "MinLength" },
   { value: "MonthAndYear", label: "MonthAndYear" },
   { value: "MonthAndYearNotInFuture", label: "MonthAndYearNotInFuture" },
   { value: "Regex", label: "Regex" },
