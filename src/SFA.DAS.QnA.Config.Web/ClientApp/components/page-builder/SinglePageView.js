@@ -94,6 +94,7 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
           label="Details title"
         />
       </Row>
+      <Button onClick={returnToSection}>Return to section</Button>
     </>
   );
 };

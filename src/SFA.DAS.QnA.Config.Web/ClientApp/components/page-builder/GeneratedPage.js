@@ -48,7 +48,7 @@ const GeneratedPage = ({ schema }) => {
   return (
     <>
       <Link noVisitedState href="#" style={{ marginBottom: "10px" }}>
-        {LinkTitle}
+        {Title}
       </Link>
       <Container>
         <GridRow>
