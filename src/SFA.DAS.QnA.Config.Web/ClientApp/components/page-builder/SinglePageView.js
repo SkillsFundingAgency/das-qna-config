@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import Textarea from "./../Textarea";
 import Questions from "./Questions";
+import Select from "../Select";
 
 const required = value => (value ? undefined : "required");
 
@@ -70,6 +71,17 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
           placeholder={`Body text (HTML)`}
           style={{ width: "100%" }}
           label="Body text"
+        />
+      </Row>
+      <Row>
+        <Field
+          name={`${currentPage}.AllowMultipleAnswers`}
+          component={MultipleAnswersSelect}
+          options={[
+            { label: "True", value: true },
+            { label: "False", value: false }
+          ]}
+          label="Allow multiple answers"
         />
       </Row>
       <Questions name={currentPage} />
@@ -150,6 +162,10 @@ const Row = styled.div`
 const Buttons = styled.div`
   padding: 0;
   text-align: left;
+`;
+
+const MultipleAnswersSelect = styled(Select)`
+  width: 100%;
 `;
 
 const Button = styled.button`
