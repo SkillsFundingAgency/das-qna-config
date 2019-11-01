@@ -31,7 +31,7 @@ const Page = ({ name, questions, editSinglePage, removePage }) => {
             name={`${name}.PageId`}
             component="input"
             type="text"
-            placeholder="Page Id"
+            placeholder="PageId"
           />
         </Row>
         <Row>
@@ -39,7 +39,7 @@ const Page = ({ name, questions, editSinglePage, removePage }) => {
             name={`${name}.Title`}
             component="input"
             type="text"
-            placeholder="Page title"
+            placeholder="Title (page)"
           />
         </Row>
         <Row>

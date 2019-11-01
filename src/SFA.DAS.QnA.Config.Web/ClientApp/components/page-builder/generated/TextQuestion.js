@@ -5,18 +5,19 @@ import ReactHtmlParser from "react-html-parser";
 const TextQuestion = ({ question, questionIndex }) => {
   return (
     <FormGroup>
-      {question.Input.Type === "Address" ? (
-        <>
-          <H2>Address</H2>
-          <Paragraph>**Start typing the address or postcode**</Paragraph>
-        </>
-      ) : null}
       <Field
         name={`${question.QuestionId}[${questionIndex}]`}
         component={InputField}
         hint={ReactHtmlParser(question.Hint)}
       >
-        {question.Label}
+        {question.Input.Type === "Address" ? (
+          <>
+            <H2>{question.Label}</H2>
+            <Paragraph>**Start typing the address or postcode**</Paragraph>
+          </>
+        ) : (
+          <span>{question.Label}</span>
+        )}
       </Field>
     </FormGroup>
   );
