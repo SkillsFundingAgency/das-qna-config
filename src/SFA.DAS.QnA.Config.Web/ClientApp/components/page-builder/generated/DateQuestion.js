@@ -3,8 +3,6 @@ import { DateField, FormGroup } from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 
 const DateQuestion = ({ question, questionIndex }) => {
-  // console.log("question:", question);
-
   return (
     <FormGroup>
       <Field

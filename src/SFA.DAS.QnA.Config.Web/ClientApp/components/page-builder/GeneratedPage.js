@@ -43,7 +43,7 @@ const onSubmit = async values => {
 };
 
 const GeneratedPage = ({ schema }) => {
-  const { LinkTitle, Title, BodyText, Questions, Details } = schema;
+  const { Title, BodyText, Questions, Details, AllowMultipleAnswers } = schema;
   // const reset = event => event.preventDefault();
   return (
     <>
@@ -94,6 +94,15 @@ const GeneratedPage = ({ schema }) => {
                       )
                     );
                   })}
+                  {AllowMultipleAnswers ? (
+                    <GridRow mb={5}>
+                      <GridCol>
+                        <Link noVisitedState href="#">
+                          Save and add another
+                        </Link>
+                      </GridCol>
+                    </GridRow>
+                  ) : null}
                   <GridRow>
                     <GridCol>
                       <Button type="submit" disabled={submitting || pristine}>

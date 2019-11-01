@@ -18,7 +18,7 @@ export const QuestionComponents = {
   Email: TextQuestion,
   FileUpload: FileUploadQuestion, // needs own component
   LongTextarea: LongTextQuestion,
-  MonthAndYear: TextQuestion, // needs own component
+  MonthAndYear: DateQuestion, // needs own component
   Number: NumberQuestion,
   Radio: RadioQuestion,
   Text: TextQuestion,

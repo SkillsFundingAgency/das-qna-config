@@ -12,8 +12,10 @@ const TextQuestion = ({ question, questionIndex }) => {
       >
         {question.Input.Type === "Address" ? (
           <>
-            <H2>{question.Label}</H2>
-            <Paragraph>**Start typing the address or postcode**</Paragraph>
+            <H2 margin={{ size: 0, direction: "bottom" }}>{question.Label}</H2>
+            <Paragraph mb="0">
+              **Start typing the address or postcode**
+            </Paragraph>
           </>
         ) : (
           <span>{question.Label}</span>

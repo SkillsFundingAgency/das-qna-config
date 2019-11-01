@@ -179,6 +179,10 @@ export const QUESTION_TYPES = [
   {
     value: "Email",
     label: "Email address"
+  },
+  {
+    value: "MonthAndYear",
+    label: "Month and year"
   }
   // {
   //   value: "checkbox",
