@@ -37,7 +37,7 @@ const NextPage = ({ name, questions }) => {
                     name={`${name}.ReturnId`}
                     component="input"
                     type="text"
-                    placeholder="Return ID"
+                    placeholder="PageId"
                   />
                 </Row>
                 <Conditions name={name} questions={questions} />
