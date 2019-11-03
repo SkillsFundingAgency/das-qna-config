@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Form, Field } from "react-final-form";
 import ReactHtmlParser from "react-html-parser";
 import styled from "styled-components";
@@ -44,6 +45,13 @@ const onSubmit = async values => {
 
 const GeneratedPage = ({ schema }) => {
   const { Title, BodyText, Questions, Details, AllowMultipleAnswers } = schema;
+
+  const [isSingleQuestion, setIsSingleQuestion] = useState(false);
+
+  useEffect(() => {
+    setIsSingleQuestion(Questions.length === 1);
+  }, [Questions]);
+
   // const reset = event => event.preventDefault();
   return (
     <>
@@ -52,9 +60,7 @@ const GeneratedPage = ({ schema }) => {
       </Link>
       <Container>
         <GridRow>
-          <GridCol>
-            <H1>{Title}</H1>
-          </GridCol>
+          <GridCol>{!isSingleQuestion && <H1>{Title}</H1>}</GridCol>
         </GridRow>
         <GridRow>
           <GridCol>{ReactHtmlParser(BodyText)}</GridCol>
@@ -78,6 +84,11 @@ const GeneratedPage = ({ schema }) => {
                         <div key={index}>
                           <GridRow>
                             <GridCol>
+                              {isSingleQuestion && <H1>{question.Label}</H1>}
+                            </GridCol>
+                          </GridRow>
+                          <GridRow>
+                            <GridCol>
                               {ReactHtmlParser(question.QuestionBodyText)}
                             </GridCol>
                           </GridRow>
@@ -87,6 +98,7 @@ const GeneratedPage = ({ schema }) => {
                                 key={index}
                                 questionIndex={index}
                                 question={question}
+                                isSingleQuestion={isSingleQuestion}
                               />
                             </GridCol>
                           </GridRow>
