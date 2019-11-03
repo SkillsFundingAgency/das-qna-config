@@ -36,10 +36,10 @@ const Page = ({ name, questions, editSinglePage, removePage }) => {
         </Row>
         <Row>
           <Field
-            name={`${name}.Title`}
+            name={`${name}.LinkTitle`}
             component="input"
             type="text"
-            placeholder="Title (page)"
+            placeholder="Link title (page)"
           />
         </Row>
         <Row>

@@ -59,6 +59,7 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
 
   // console.log("sectionData:", sectionData);
 
+  // useEffect on below to get "questions" to stay current
   const questions = sectionData.Pages.map(
     page =>
       page.Questions &&

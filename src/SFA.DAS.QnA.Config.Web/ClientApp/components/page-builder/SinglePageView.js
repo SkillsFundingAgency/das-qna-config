@@ -23,7 +23,7 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
           </>
         )}
       </Field>
-      <Row>
+      {/* <Row>
         <Field name={`${currentPage}.LinkTitle`} validate={required}>
           {({ input, meta }) => (
             <>
@@ -42,7 +42,7 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
             </>
           )}
         </Field>
-      </Row>
+      </Row> */}
       <Row>
         <Field name={`${currentPage}.Title`} validate={required}>
           {({ input, meta }) => (
@@ -53,7 +53,7 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
                 placeholder={
                   meta.error && meta.touched
                     ? `Page title is ${meta.error}`
-                    : `Page title`
+                    : `Page title (<h1> when more than one question)`
                 }
                 style={{ width: "100%" }}
                 component="input"
