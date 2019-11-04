@@ -51,6 +51,11 @@ export const EMPTY_NEXT = {
   ConditionMet: false
 };
 
+export const EMPTY_NOT_REQUIRED_CONDITION = {
+  Field: "",
+  IsOneOf: []
+};
+
 export const EMPTY_DETAILS = {
   Title: "",
   Body: ""

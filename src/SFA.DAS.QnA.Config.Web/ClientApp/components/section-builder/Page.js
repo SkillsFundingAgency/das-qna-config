@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
+import NotRequiredConditions from "./NotRequiredConditions";
 import NextPage from "./NextPage";
 
 const Page = ({ name, questions, editSinglePage, removePage }) => {
@@ -57,6 +58,7 @@ const Page = ({ name, questions, editSinglePage, removePage }) => {
             isSearchable={false}
           /> */}
         </Row>
+        <NotRequiredConditions name={name} />
         <NextPage name={name} questions={questions} />
       </Container>
     </>
