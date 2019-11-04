@@ -1,64 +1,83 @@
-import { useState } from "react";
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
+import { sortableContainer } from "react-sortable-hoc";
+import SortableList from "./../SortableList";
 
 import Page from "./Page";
 import SinglePageView from "./../page-builder/SinglePageView";
 
 import { EMPTY_PAGE } from "./../../data/data-structures";
 
-const Pages = ({
-  questions,
-  updateCurrentView,
-  currentView,
-  updateCurrentPage,
-  currentPage
-}) => {
-  const editSinglePage = pageId => {
-    updateCurrentPage(pageId);
-    updateCurrentView("page");
-  };
+const Pages = sortableContainer(
+  ({
+    questions,
+    updateCurrentView,
+    currentView,
+    updateCurrentPage,
+    currentPage
+  }) => {
+    const editSinglePage = pageId => {
+      updateCurrentPage(pageId);
+      updateCurrentView("page");
+    };
 
-  const returnToSection = () => updateCurrentView("section");
+    const returnToSection = () => updateCurrentView("section");
 
-  return (
-    <Container>
-      {currentView === "page" ? (
-        <SinglePageView
-          currentPage={currentPage}
-          returnToSection={returnToSection}
-          name={name}
-        />
-      ) : (
-        <FieldArray name="Pages">
-          {({ fields }) => {
-            return (
-              <>
-                {fields.map((name, index) => {
-                  return (
-                    <Page
-                      key={name}
-                      index={index}
-                      name={name}
-                      removePage={() => fields.remove(index)}
-                      questions={questions}
-                      editSinglePage={editSinglePage}
-                    />
-                  );
-                })}
-                <Buttons>
-                  <Button type="button" onClick={() => fields.push(EMPTY_PAGE)}>
-                    + Add Page
-                  </Button>
-                </Buttons>
-              </>
-            );
-          }}
-        </FieldArray>
-      )}
-    </Container>
-  );
-};
+    return (
+      <Container>
+        {currentView === "page" ? (
+          <SinglePageView
+            currentPage={currentPage}
+            returnToSection={returnToSection}
+            name={name}
+          />
+        ) : (
+          <FieldArray name="Pages">
+            {({ fields }) => {
+              return (
+                <>
+                  <SortableList
+                    lockAxis="y"
+                    useDragHandle
+                    onSortEnd={({
+                      oldIndex,
+                      newIndex,
+                      collection,
+                      isKeySorting
+                    }) => {
+                      return fields.move(oldIndex, newIndex);
+                    }}
+                  >
+                    {fields.map((name, index) => {
+                      return (
+                        <Page
+                          key={name}
+                          index={index}
+                          name={name}
+                          removePage={() => fields.remove(index)}
+                          questions={questions}
+                          editSinglePage={editSinglePage}
+                        />
+                      );
+                    })}
+                  </SortableList>
+                  <Buttons>
+                    <Button
+                      type="button"
+                      onClick={() => fields.push(EMPTY_PAGE)}
+                    >
+                      + Add Page
+                    </Button>
+                  </Buttons>
+                </>
+              );
+            }}
+          </FieldArray>
+        )}
+      </Container>
+    );
+  }
+);
 
 export default Pages;
 

@@ -1,69 +1,74 @@
 import { Field } from "react-final-form";
+import { sortableElement } from "react-sortable-hoc";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import SortHandle from "../SortHandle";
 
 import NotRequiredConditions from "./NotRequiredConditions";
 import NextPage from "./NextPage";
 
-const Page = ({ name, questions, editSinglePage, removePage }) => {
-  const handleEditPage = () => {
-    editSinglePage(name);
-  };
+const Page = sortableElement(
+  ({ name, questions, editSinglePage, removePage }) => {
+    const handleEditPage = () => {
+      editSinglePage(name);
+    };
 
-  return (
-    <>
-      <Container>
-        <Field name={`${name}.PageId`}>
-          {({ input: { name, value } }) => (
-            <>
-              <h2 name={name} style={{ marginTop: "0" }}>
-                Page {value}
-              </h2>
-            </>
-          )}
-        </Field>
-        <PageControls>
-          <EditPageButton icon={faEdit} onClick={handleEditPage} width="0" />
-          <RemovePageButton icon={faTrash} onClick={removePage} width="0" />
-        </PageControls>
-        <Row>
-          <Field
-            name={`${name}.PageId`}
-            component="input"
-            type="text"
-            placeholder="PageId"
-          />
-        </Row>
-        <Row>
-          <Field
-            name={`${name}.LinkTitle`}
-            component="input"
-            type="text"
-            placeholder="Link title (page)"
-          />
-        </Row>
-        <Row>
-          <Field
-            name={`${name}.ActivatedByPageId`}
-            component="input"
-            type="text"
-            placeholder="Activated by PageId"
-          />
+    return (
+      <>
+        <Container>
+          <Field name={`${name}.PageId`}>
+            {({ input: { name, value } }) => (
+              <>
+                <h2 name={name} style={{ marginTop: "0" }}>
+                  Page {value}
+                </h2>
+              </>
+            )}
+          </Field>
+          <PageControls>
+            <SortHandle />
+            <EditPageButton icon={faEdit} onClick={handleEditPage} width="0" />
+            <RemovePageButton icon={faTrash} onClick={removePage} width="0" />
+          </PageControls>
+          <Row>
+            <Field
+              name={`${name}.PageId`}
+              component="input"
+              type="text"
+              placeholder="PageId"
+            />
+          </Row>
+          <Row>
+            <Field
+              name={`${name}.LinkTitle`}
+              component="input"
+              type="text"
+              placeholder="Link title (page)"
+            />
+          </Row>
+          <Row>
+            <Field
+              name={`${name}.ActivatedByPageId`}
+              component="input"
+              type="text"
+              placeholder="Activated by PageId"
+            />
 
-          {/* <Field
+            {/* <Field
             name={`${name}.ActivatedByPageId`}
             component={Select}
             options={EXISTING_PAGES}
             isSearchable={false}
           /> */}
-        </Row>
-        <NotRequiredConditions name={name} />
-        <NextPage name={name} questions={questions} />
-      </Container>
-    </>
-  );
-};
+          </Row>
+          <NotRequiredConditions name={name} />
+          <NextPage name={name} questions={questions} />
+        </Container>
+      </>
+    );
+  }
+);
 
 export default Page;
 

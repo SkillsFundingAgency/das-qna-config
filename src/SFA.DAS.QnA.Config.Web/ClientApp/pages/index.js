@@ -1,70 +1,130 @@
-import Link from "next/link";
 import { useState } from "react";
+import Link from "next/link";
+import { Form } from "react-final-form";
+import arrayMutators from "final-form-arrays";
+import { FieldArray } from "react-final-form-arrays";
 
 import styled from "styled-components";
 import GlobalStyles from "../styles/global";
 
-function Projects({ data }) {
+import { EMPTY_SECTION } from "./../data/data-structures";
+
+const Projects = ({ initialProjectData }) => {
   // console.log(data.default);
 
-  const [projectData, setProjectData] = useState(data.default);
+  const [projectData, setProjectData] = useState(initialProjectData.default);
 
   return (
     <>
       <GlobalStyles />
       <Container>
         <Header>QnA Config | Projects</Header>
-        <Columns>
-          <div>
-            <ul>
-              {/* <li>
-                <Link href="/section-builder">
-                  <a>Section builder</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/page-builder">
-                  <a>Page builder</a>
-                </Link>
-              </li> */}
-              <li>
-                <h2>
-                  {projectData.Name} ({projectData.Description})
-                </h2>
-                <ul>
-                  {projectData.Workflows.map((workflow, index) => (
-                    <li key={index}>
-                      <h3>
-                        {workflow.Type} ({workflow.Description})
-                      </h3>
+        <Form
+          onSubmit={() => {}}
+          initialValues={projectData}
+          mutators={{
+            ...arrayMutators
+          }}
+          render={({
+            handleSubmit,
+            reset,
+            submitting,
+            form: {
+              mutators: { push, pop } // injected from final-form-arrays above
+            },
+            pristine,
+            values
+          }) => (
+            <>
+              <Columns>
+                <div>
+                  <ul>
+                    <li>
+                      <h2>
+                        {projectData.Name} ({projectData.Description})
+                      </h2>
                       <ul>
-                        {workflow.section.map((section, index) => (
-                          <li key={section.id}>
-                            <Link href="/[section.id]" as={`${section.id}`}>
-                              <a>{section.name}</a>
-                            </Link>{" "}
-                            (Sequence {section.SequenceNo} / Section{" "}
-                            {section.SectionNo})
+                        {projectData.Workflows.map((workflow, index) => (
+                          <li key={index}>
+                            <h3>
+                              {workflow.Type} ({workflow.Description})
+                            </h3>
+                            <ul>
+                              {workflow.section.map((section, index) => (
+                                <li key={section.id}>
+                                  <Link
+                                    href="/[section.id]"
+                                    as={`${section.id}`}
+                                  >
+                                    <a>{section.name}</a>
+                                  </Link>{" "}
+                                  (Sequence {section.SequenceNo} / Section{" "}
+                                  {section.SectionNo})
+                                </li>
+                              ))}
+                              {/* <button>Add a section</button> */}
+                            </ul>
                           </li>
                         ))}
                       </ul>
                     </li>
-                  ))}
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </Columns>
+                  </ul>
+                </div>
+                {/* <div>
+                  <h2>
+                    {projectData.Name} ({projectData.Description})
+                  </h2>
+                  <FieldArray name="Workflows">
+                    {({ fields }) => {
+                      return (
+                        <>
+                          {fields.map((name, index) => {
+                            return (
+                              <>
+                                <p>Workflows {name}</p>
+                                <FieldArray name={`${name}.section`}>
+                                  {({ fields }) => {
+                                    return (
+                                      <>
+                                        {fields.map((name, index) => {
+                                          console.log(name);
+
+                                          return <p>Section {name}</p>;
+                                        })}
+                                      </>
+                                    );
+                                  }}
+                                </FieldArray>
+                              </>
+                            );
+                          })}
+                          <Buttons>
+                            <Button
+                              type="button"
+                              onClick={() => fields.push(EMPTY_PAGE)}
+                            >
+                              + Add Workflow
+                            </Button>
+                          </Buttons>
+                        </>
+                      );
+                    }}
+                  </FieldArray>
+                </div> */}
+              </Columns>
+            </>
+          )}
+        />
       </Container>
     </>
   );
-}
+};
 
 export default Projects;
 
 Projects.getInitialProps = async context => {
-  const data = await import(`./../data/project.json`);
-  return { data };
+  const initialProjectData = await import(`./../data/project.json`);
+  return { initialProjectData };
 };
 
 const Container = styled.div`
@@ -115,5 +175,22 @@ const Row = styled.div`
 
   &:last-child {
     margin-bottom: 0;
+  }
+`;
+
+const Buttons = styled.div`
+  padding: 0;
+  text-align: left;
+`;
+
+const Button = styled.button`
+  background: #0b0c0c;
+  padding: 5px 8px 6px;
+  color: white;
+  border-radius: 3px;
+  border: 0;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
   }
 `;

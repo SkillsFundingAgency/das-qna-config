@@ -40,6 +40,11 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
     <p key={file.path}>{file.name} is not a json file</p>
   ));
 
+  const deleteLocalStorageAutoSave = event => {
+    event.preventDefault();
+    localStorage.removeItem("sectionData");
+  };
+
   return (
     <>
       <h3>Load a section from file</h3>
@@ -65,6 +70,10 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
           </Buttons>
         </Row>
       </form>
+
+      <a href="#" onClick={deleteLocalStorageAutoSave}>
+        Delete localStorage autosave
+      </a>
     </>
   );
 };

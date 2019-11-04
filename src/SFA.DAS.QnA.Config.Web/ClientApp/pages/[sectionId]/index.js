@@ -57,8 +57,6 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
     setCurrentPage(changePageTo);
   };
 
-  // console.log("sectionData:", sectionData);
-
   // useEffect on below to get "questions" to stay current
   const questions = sectionData.Pages.map(
     page =>
@@ -90,6 +88,7 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
   }, [userSettings]);
 
   useEffect(() => {
+    // this is a problem because the localStorage data will always overwrite the loaded section data
     const data = localStorage.getItem("sectionData");
     if (data) {
       setSectionData(JSON.parse(data));

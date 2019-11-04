@@ -297,7 +297,7 @@
                 "ErrorMessage": "Enter email address"
               },
               {
-                "Name": "EmailAddressIsValid",
+                "Name": "Email",
                 "Value": null,
                 "ErrorMessage": "Enter a valid email address"
               }

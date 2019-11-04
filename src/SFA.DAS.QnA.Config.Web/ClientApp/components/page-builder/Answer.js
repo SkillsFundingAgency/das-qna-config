@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { sortableElement } from "react-sortable-hoc";
 
 import Question from "./Question";
-import SortHandle from "./SortHandle";
+import SortHandle from "../SortHandle";
 import Textarea from "../Textarea";
 
 import { EMPTY_FURTHER_QUESTION } from "./../../data/data-structures";

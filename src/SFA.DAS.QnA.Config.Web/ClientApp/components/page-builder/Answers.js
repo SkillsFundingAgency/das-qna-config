@@ -2,7 +2,7 @@ import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 
 import Answer from "./Answer";
-import SortableList from "./SortableList";
+import SortableList from "../SortableList";
 
 import {
   EMPTY_OPTION,

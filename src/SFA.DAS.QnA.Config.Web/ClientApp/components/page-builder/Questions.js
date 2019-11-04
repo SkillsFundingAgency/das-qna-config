@@ -1,7 +1,7 @@
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 import { sortableContainer } from "react-sortable-hoc";
-import SortableList from "./SortableList";
+import SortableList from "../SortableList";
 
 import Question from "./Question";
 
