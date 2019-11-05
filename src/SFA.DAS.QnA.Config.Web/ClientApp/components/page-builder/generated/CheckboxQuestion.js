@@ -1,21 +1,34 @@
 import { FormGroup, Checkbox } from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 
-// import CheckboxGroup from "./../govuk-components/CheckboxGroup";
-
 const CheckboxQuestion = ({ question }) => {
-  // console.log(question);
-
   return (
-    <FormGroup>
-      {question.Input.Options.map(option => {
-        return (
-          <Checkbox hint={ReactHtmlParser(option.HintText)}>
-            {option.Label}
+    <>
+      {question.Input.Type === "DataFed_CheckboxList" ? (
+        <FormGroup>
+          <Checkbox
+            hint={`Options will be populated by ${question.Input.DataEndpoint}`}
+          >
+            Data-fed option placeholder
           </Checkbox>
-        );
-      })}
-    </FormGroup>
+          <Checkbox
+            hint={`Options will be populated by ${question.Input.DataEndpoint}`}
+          >
+            Data-fed option placeholder
+          </Checkbox>
+        </FormGroup>
+      ) : (
+        <FormGroup>
+          {question.Input.Options.map(option => {
+            return (
+              <Checkbox hint={ReactHtmlParser(option.HintText)}>
+                {option.Label}
+              </Checkbox>
+            );
+          })}
+        </FormGroup>
+      )}
+    </>
   );
 };
 

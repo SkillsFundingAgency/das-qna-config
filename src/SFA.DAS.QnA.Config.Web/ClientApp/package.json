@@ -26,7 +26,7 @@
     "object-diff": "^0.0.4",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
-    "react-beautiful-dnd": "^11.0.5",
+    "react-beautiful-dnd": "^12.0.0",
     "react-dom": "^16.10.2",
     "react-dropzone": "^10.1.10",
     "react-final-form": "^6.3.0",

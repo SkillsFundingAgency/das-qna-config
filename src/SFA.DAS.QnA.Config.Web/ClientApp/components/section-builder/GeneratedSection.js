@@ -19,16 +19,20 @@ const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {
 
         {Pages.map((page, index) => (
           <div key={index}>
-            <GridRow>
+            <GridRow mb="1">
               <GridCol>
                 <Link
                   noVisitedState
                   href="#"
                   onClick={() => editPage(`Pages[${index}]`)}
-                  style={{ marginBottom: "10px" }}
                 >
                   {page.LinkTitle}
                 </Link>
+              </GridCol>
+            </GridRow>
+            <GridRow mb="1">
+              <GridCol>
+                <hr />
               </GridCol>
             </GridRow>
           </div>

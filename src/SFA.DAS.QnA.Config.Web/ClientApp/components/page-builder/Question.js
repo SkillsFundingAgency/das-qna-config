@@ -15,16 +15,24 @@ import {
   INPUT_CLASSES,
   EMPTY_FURTHER_QUESTION,
   EMPTY_COMPLEX_OPTION,
+  EMPTY_DATAFED_CHECKBOXLIST,
   EMPTY_OPTION
 } from "./../../data/data-structures";
 
-const hasOptions = type => {
-  return ~["Radio", "CheckBoxList", "dropdown"].indexOf(type);
-};
+const hasOptions = type => ~["Radio", "CheckBoxList"].indexOf(type);
 const isComplex = type => ~["ComplexRadio"].indexOf(type);
-
+const isDataFedCheckboxList = type => ~["DataFed_CheckboxList"].indexOf(type);
 const isText = type =>
-  ~["Text", "longText", "Date", "Number", "Address"].indexOf(type);
+  ~[
+    "Text",
+    "Date",
+    "MonthAndYear",
+    "Number",
+    "Address",
+    "Email",
+    "Textarea",
+    "LongTextarea"
+  ].indexOf(type);
 
 const IfType = ({ name, children, predicate }) => (
   <Field name={`${name}.Input.Type`} subscription={{ value: true }}>
@@ -83,6 +91,12 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
           />
           <WhenFieldChanges
             field={`${name}.Input.Type`}
+            becomes={["DataFed_CheckboxList"]}
+            set={`${name}.Input`}
+            to={EMPTY_DATAFED_CHECKBOXLIST}
+          />
+          <WhenFieldChanges
+            field={`${name}.Input.Type`}
             becomes={["ComplexRadio"]}
             set={`${name}.Input.Options`}
             to={[EMPTY_COMPLEX_OPTION]}
@@ -123,14 +137,25 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
             placeholder="Hint text (HTML)"
           />
         </Row>
-        <Row>
-          <Field
-            name={`${name}.Input.InputClasses`}
-            component={InputClasses}
-            options={INPUT_CLASSES}
-            placeholder="Input classes"
-          />
-        </Row>
+        <IfType name={name} predicate={isText}>
+          <Row>
+            <Field
+              name={`${name}.Input.InputClasses`}
+              component={InputClasses}
+              options={INPUT_CLASSES}
+              placeholder="Input classes"
+            />
+          </Row>
+        </IfType>
+        <IfType name={name} predicate={isDataFedCheckboxList}>
+          <Row>
+            <Field
+              name={`${name}.Input.DataEndpoint`}
+              component={Textarea}
+              placeholder="You must enter a data endpoint"
+            />
+          </Row>
+        </IfType>
         {open && (
           <>
             <IfType name={name} predicate={hasOptions}>

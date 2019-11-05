@@ -7,6 +7,7 @@ import SortHandle from "../SortHandle";
 
 import NotRequiredConditions from "./NotRequiredConditions";
 import NextPage from "./NextPage";
+import QnaField from "./../QnaField";
 
 const Page = sortableElement(
   ({ name, questions, editSinglePage, removePage }) => {
@@ -17,7 +18,7 @@ const Page = sortableElement(
     return (
       <>
         <Container>
-          <Field name={`${name}.PageId`}>
+          <QnaField name={`${name}.PageId`}>
             {({ input: { name, value } }) => (
               <>
                 <h2 name={name} style={{ marginTop: "0" }}>
@@ -25,14 +26,14 @@ const Page = sortableElement(
                 </h2>
               </>
             )}
-          </Field>
+          </QnaField>
           <PageControls>
             <SortHandle />
             <EditPageButton icon={faEdit} onClick={handleEditPage} width="0" />
             <RemovePageButton icon={faTrash} onClick={removePage} width="0" />
           </PageControls>
           <Row>
-            <Field
+            <QnaField
               name={`${name}.PageId`}
               component="input"
               type="text"
@@ -40,7 +41,7 @@ const Page = sortableElement(
             />
           </Row>
           <Row>
-            <Field
+            <QnaField
               name={`${name}.LinkTitle`}
               component="input"
               type="text"
@@ -48,7 +49,7 @@ const Page = sortableElement(
             />
           </Row>
           <Row>
-            <Field
+            <QnaField
               name={`${name}.ActivatedByPageId`}
               component="input"
               type="text"

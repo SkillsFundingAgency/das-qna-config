@@ -13,7 +13,7 @@ export const QuestionComponents = {
   Address: TextQuestion, // needs own component
   CheckBoxList: CheckboxQuestion,
   ComplexRadio: ComplexRadioQuestion,
-  DataFed_CheckboxList: ChecklistQuestion,
+  DataFed_CheckboxList: CheckboxQuestion,
   Date: DateQuestion,
   Email: TextQuestion,
   FileUpload: FileUploadQuestion, // needs own component

@@ -15,11 +15,17 @@ const Conditions = ({ name, questions }) => {
               <div key={index}>
                 <Row>
                   <InnerText>when</InnerText>
-                  <Field
+                  {/* <Field
                     name={`${name}.QuestionId`}
                     component={QuestionSelector}
                     options={questions}
                     isSearchable={true}
+                  /> */}
+                  <Field
+                    name={`${name}.QuestionId`}
+                    component="input"
+                    type="text"
+                    placeholder="QuestionId"
                   />
                   <InnerText>equals</InnerText>
                   <Field
