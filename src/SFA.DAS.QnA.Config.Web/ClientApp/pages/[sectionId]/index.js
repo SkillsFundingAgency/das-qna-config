@@ -284,7 +284,7 @@ Section.getInitialProps = async context => {
   const cookies = parseCookies(context.req);
 
   // if (context.req) {
-  // const data = await import(`./../data/sections/section-1.json`);
+  // const data = await import(`./../data/sections/section1.json`);
   const initialSectionData = await import(
     `../../data/sections/${sectionId}.json`
   );

@@ -13,7 +13,7 @@ import AutoSave from "../components/AutoSave";
 import Questions from "../components/page-builder/Questions";
 import GeneratedPage from "../components/page-builder/GeneratedPage";
 import Textarea from "../components/Textarea";
-import FileManager from "../components/page-builder/FileManager";
+import FileManager from "../components/FileManager";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCode,

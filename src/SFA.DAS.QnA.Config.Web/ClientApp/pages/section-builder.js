@@ -114,7 +114,7 @@ const Section = ({ data }) => {
 Section.getInitialProps = async context => {
   // const { sectionId } = context.query;
   // if (context.req) {
-  const data = await import(`./../data/sections/section-1.json`);
+  const data = await import(`./../data/sections/section1.json`);
   // const data = await import(`../../data/sections/${sectionId}.json`);
   // console.log(`Show data fetched. Count: ${data.Pages.length} pages`);
   return { data };
