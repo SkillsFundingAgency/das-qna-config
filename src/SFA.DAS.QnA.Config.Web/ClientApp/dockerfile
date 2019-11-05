@@ -1,0 +1,33 @@
+FROM node:10
+
+# Install additional tooling
+
+RUN npm install pm2 -g
+# Setting working directory. All the path will be relative to WORKDIR
+
+WORKDIR /usr/app
+
+
+
+# Installing de
+#
+COPY package*.json /usr/app/
+
+RUN npm install
+
+COPY . .
+
+RUN ls -lrt
+
+
+
+
+# Building app
+
+RUN npm run build
+
+
+EXPOSE 3000
+# Running the app
+
+CMD [ "pm2-runtime", "start", "npm", "--", "start" ]
