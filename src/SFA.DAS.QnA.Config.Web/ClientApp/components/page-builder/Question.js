@@ -10,6 +10,7 @@ import Select from "../Select";
 import Textarea from "../Textarea";
 import Answers from "./Answers";
 import Validations from "./Validations";
+import QnaField from "./../QnaField";
 import {
   QUESTION_TYPES,
   INPUT_CLASSES,
@@ -65,7 +66,7 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
           onClick={this.toggleOpen}
         /> */}
         <Row>
-          <Field
+          <QnaField
             name={`${name}.QuestionId`}
             component="input"
             type="text"
@@ -103,35 +104,35 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
           />
         </Row>
         <Row>
-          <Field
+          <QnaField
             name={`${name}.Label`}
             component={Textarea}
             placeholder="Label"
           />
         </Row>
         <Row>
-          <Field
+          <QnaField
             name={`${name}.QuestionBodyText`}
             component={Textarea}
             placeholder="Question body text (HTML)"
           />
         </Row>
         <Row>
-          <Field
+          <QnaField
             name={`${name}.QuestionTag`}
             component={Textarea}
             placeholder="Question tag"
           />
         </Row>
         <Row>
-          <Field
+          <QnaField
             name={`${name}.ShortLabel`}
             component={Textarea}
             placeholder="Short label"
           />
         </Row>
         <Row>
-          <Field
+          <QnaField
             name={`${name}.Hint`}
             component={Textarea}
             placeholder="Hint text (HTML)"
@@ -139,7 +140,7 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
         </Row>
         <IfType name={name} predicate={isText}>
           <Row>
-            <Field
+            <QnaField
               name={`${name}.Input.InputClasses`}
               component={InputClasses}
               options={INPUT_CLASSES}
@@ -149,7 +150,7 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
         </IfType>
         <IfType name={name} predicate={isDataFedCheckboxList}>
           <Row>
-            <Field
+            <QnaField
               name={`${name}.Input.DataEndpoint`}
               component={Textarea}
               placeholder="You must enter a data endpoint"

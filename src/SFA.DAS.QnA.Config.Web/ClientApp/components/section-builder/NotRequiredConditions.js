@@ -2,6 +2,7 @@ import { Field } from "react-final-form";
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 import Select from "../Select";
+import QnaField from "./../QnaField";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -30,7 +31,7 @@ const NotRequiredConditions = ({ name }) => {
                     options={FIELD_TYPES}
                     isSearchable={false}
                   /> */}
-                  <Field
+                  <QnaField
                     name={`${name}.Field`}
                     component="input"
                     type="text"
@@ -44,7 +45,7 @@ const NotRequiredConditions = ({ name }) => {
                       <>
                         {fields.map((name, index) => (
                           <Row key={index}>
-                            <Field
+                            <QnaField
                               name={`${name}`}
                               component="input"
                               type="text"

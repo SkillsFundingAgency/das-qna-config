@@ -8,6 +8,7 @@ import { sortableElement } from "react-sortable-hoc";
 import Question from "./Question";
 import SortHandle from "../SortHandle";
 import Textarea from "../Textarea";
+import QnaField from "./../QnaField";
 
 import { EMPTY_FURTHER_QUESTION } from "./../../data/data-structures";
 
@@ -19,7 +20,7 @@ const Answer = sortableElement(({ name, remove }) => (
     </QuestionControls>
     <Rows>
       <Row>
-        <Field
+        <QnaField
           name={`${name}.Value`}
           component="input"
           type="text"
@@ -27,14 +28,14 @@ const Answer = sortableElement(({ name, remove }) => (
         />
       </Row>
       <Row>
-        <Field
+        <QnaField
           name={`${name}.Label`}
           component={Textarea}
           placeholder="Label"
         />
       </Row>
       <Row>
-        <Field
+        <QnaField
           name={`${name}.HintText`}
           component={Textarea}
           placeholder="Hint text"

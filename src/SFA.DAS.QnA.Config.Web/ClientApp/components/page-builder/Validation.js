@@ -9,6 +9,7 @@ import Question from "./Question";
 import SortHandle from "../SortHandle";
 import Textarea from "./../Textarea";
 import Select from "./../Select";
+import QnaField from "./../QnaField";
 
 import { VALIDATION_TYPES } from "./../../data/data-structures";
 
@@ -19,7 +20,7 @@ const Validation = ({ name, remove }) => (
     </QuestionControls>
     <Rows>
       <Row>
-        <Field
+        <QnaField
           name={`${name}.Name`}
           options={VALIDATION_TYPES}
           component={ValidationTypes}
@@ -27,7 +28,7 @@ const Validation = ({ name, remove }) => (
         />
       </Row>
       <Row>
-        <Field
+        <QnaField
           name={`${name}.Value`}
           component="input"
           type="text"
@@ -35,7 +36,7 @@ const Validation = ({ name, remove }) => (
         />
       </Row>
       <Row>
-        <Field
+        <QnaField
           name={`${name}.ErrorMessage`}
           component={Textarea}
           placeholder="Error message"

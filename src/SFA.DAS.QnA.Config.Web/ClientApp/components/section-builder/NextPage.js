@@ -2,6 +2,7 @@ import { Field } from "react-final-form";
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 import Select from "../Select";
+import QnaField from "./../QnaField";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -26,14 +27,14 @@ const NextPage = ({ name, questions }) => {
                   />
                 </PageControls>
                 <Row>
-                  <Field
+                  <QnaField
                     name={`${name}.Action`}
                     component={RoutingSelector}
                     options={ROUTING_TYPES}
                     isSearchable={false}
                   />
                   <InnerText>will be</InnerText>
-                  <Field
+                  <QnaField
                     name={`${name}.ReturnId`}
                     component="input"
                     type="text"

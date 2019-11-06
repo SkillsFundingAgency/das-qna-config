@@ -2,6 +2,7 @@ import { Field } from "react-final-form";
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 import Select from "../Select";
+import QnaField from "./../QnaField";
 
 import { EMPTY_CONDITION } from "./../../data/data-structures";
 
@@ -21,14 +22,14 @@ const Conditions = ({ name, questions }) => {
                     options={questions}
                     isSearchable={true}
                   /> */}
-                  <Field
+                  <QnaField
                     name={`${name}.QuestionId`}
                     component="input"
                     type="text"
                     placeholder="QuestionId"
                   />
                   <InnerText>equals</InnerText>
-                  <Field
+                  <QnaField
                     name={`${name}.MustEqual`}
                     component="input"
                     type="text"

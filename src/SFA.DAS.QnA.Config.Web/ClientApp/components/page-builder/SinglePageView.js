@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Textarea from "./../Textarea";
 import Questions from "./Questions";
 import Select from "../Select";
+import QnaField from "./../QnaField";
 
 const required = value => (value ? undefined : "required");
 
@@ -44,7 +45,7 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
         </Field>
       </Row> */}
       <Row>
-        <Field name={`${currentPage}.Title`} validate={required}>
+        <QnaField name={`${currentPage}.Title`} validate={required}>
           {({ input, meta }) => (
             <>
               <input
@@ -61,10 +62,10 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
               />
             </>
           )}
-        </Field>
+        </QnaField>
       </Row>
       <Row>
-        <Field
+        <QnaField
           name={`${currentPage}.BodyText`}
           component={Textarea}
           type="text"
@@ -89,7 +90,7 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
 
       <h3>Details</h3>
       <Row>
-        <Field
+        <QnaField
           name={`${currentPage}.Details.Title`}
           component={Textarea}
           type="text"
@@ -98,7 +99,7 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
         />
       </Row>
       <Row>
-        <Field
+        <QnaField
           name={`${currentPage}.Details.Description`}
           component={Textarea}
           type="text"

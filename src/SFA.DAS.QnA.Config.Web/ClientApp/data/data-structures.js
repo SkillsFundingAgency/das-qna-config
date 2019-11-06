@@ -31,16 +31,14 @@ export const EMPTY_PAGE = {
 export const EMPTY_OPTION = {
   Value: "",
   Label: "",
-  HintText: null,
-  HasHintText: false
+  HintText: ""
 };
 
 export const EMPTY_COMPLEX_OPTION = {
   FurtherQuestions: [],
   Value: "",
   Label: "",
-  HintText: null,
-  HasHintText: false
+  HintText: ""
 };
 
 export const EMPTY_NEXT = {
@@ -127,7 +125,7 @@ export const INPUT_CLASSES = [
   { value: "govuk-input--width-20", label: "govuk-input--width-20" },
   { value: "govuk-input--width-3", label: "govuk-input--width-3" },
   { value: "govuk-input--width-5", label: "govuk-input--width-5" },
-  { value: null, label: "null" }
+  { value: "", label: "None" }
 ];
 
 export const VALIDATION_TYPES = [
@@ -142,6 +140,7 @@ export const VALIDATION_TYPES = [
   { value: "Date", label: "Date" },
   { value: "DateNotInFuture", label: "DateNotInFuture" },
   { value: "EmailAddressIsValid", label: "EmailAddressIsValid" },
+  { value: "FileType", label: "FileType" },
   { value: "MaxLength", label: "MaxLength" },
   { value: "MaxWordCount", label: "MaxWordCount" },
   { value: "MinLength", label: "MinLength" },
@@ -158,8 +157,12 @@ export const QUESTION_TYPES = [
     label: "Text"
   },
   {
-    value: "Date",
-    label: "Date"
+    value: "Radio",
+    label: "Radio"
+  },
+  {
+    value: "ComplexRadio",
+    label: "Complex radio"
   },
   {
     value: "Number",
@@ -170,12 +173,20 @@ export const QUESTION_TYPES = [
     label: "Textarea"
   },
   {
-    value: "Radio",
-    label: "Radio"
+    value: "Email",
+    label: "Email address"
   },
   {
-    value: "ComplexRadio",
-    label: "Complex radio"
+    value: "Address",
+    label: "Address"
+  },
+  {
+    value: "Date",
+    label: "Date"
+  },
+  {
+    value: "MonthAndYear",
+    label: "Month and year"
   },
   {
     value: "FileUpload",
@@ -186,20 +197,12 @@ export const QUESTION_TYPES = [
     label: "Checkbox list"
   },
   {
-    value: "Address",
-    label: "Address"
-  },
-  {
-    value: "Email",
-    label: "Email address"
-  },
-  {
-    value: "MonthAndYear",
-    label: "Month and year"
-  },
-  {
     value: "DataFed_CheckboxList",
     label: "Data-fed checkbox list"
+  },
+  {
+    value: "TabularData",
+    label: "Tabular data"
   }
   // {
   //   value: "checkbox",
