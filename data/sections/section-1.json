@@ -1,8 +1,8 @@
 {
-  "RequestedFeedbackAnswered": null,
-  "Title": "Section one - new",
-  "LinkTitle": "Section one - new",
+  "Title": "Organisation details",
+  "LinkTitle": "Organisation details",
   "DisplayType": "Pages",
+  "RequestedFeedbackAnswered": null,
   "Pages": [
     {
       "PageId": "1",
@@ -14,7 +14,7 @@
       "Questions": [
         {
           "QuestionId": "CD-30",
-          "QuestionTag": "trading-name",
+          "QuestionTag": null,
           "Label": "Does your organisation have a trading name?",
           "ShortLabel": "",
           "InputClasses": null,
@@ -28,7 +28,7 @@
                 "FurtherQuestions": [
                   {
                     "QuestionId": "CD-30.1",
-                    "QuestionTag": null,
+                    "QuestionTag": "trading-name",
                     "Label": "What is your trading name?",
                     "ShortLabel": "",
                     "InputClasses": null,
@@ -37,45 +37,43 @@
                     "Input": {
                       "Type": "Text",
                       "InputClasses": null,
-                      "Options": null,
+                      "Options": [],
                       "Validations": [
                         {
                           "Name": "Required",
-                          "Value": null,
+                          "Value": "",
                           "ErrorMessage": "Enter a trading name"
                         }
                       ],
                       "DataEndpoint": null
                     },
                     "Order": null,
-                    "Value": null,
+                    "Value": "",
                     "ErrorMessages": null
                   }
                 ],
                 "Value": "Yes",
                 "Label": "Yes",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "No",
                 "Label": "No",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               }
             ],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Select yes if your organisation has a trading name"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -111,14 +109,13 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": null,
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": null
     },
     {
       "PageId": "2",
       "SequenceId": null,
       "SectionId": null,
-      "Title": "Name to use on the register",
+      "Title": "Trading name",
       "LinkTitle": "Name to use on the register",
       "InfoText": "",
       "Questions": [
@@ -135,31 +132,29 @@
             "InputClasses": null,
             "Options": [
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "Yes",
                 "Label": "Yes",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "No",
                 "Label": "No",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               }
             ],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Select yes if you want to use your trading name on the register"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -182,8 +177,7 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": "1",
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": "1"
     },
     {
       "PageId": "3",
@@ -204,18 +198,18 @@
           "Input": {
             "Type": "Text",
             "InputClasses": null,
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Enter given name"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         },
         {
@@ -229,18 +223,18 @@
           "Input": {
             "Type": "Text",
             "InputClasses": null,
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Enter family name"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         },
         {
@@ -254,28 +248,28 @@
           "Input": {
             "Type": "Address",
             "InputClasses": null,
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
-                "Name": "Required",
-                "Value": null,
+                "Name": "AddressBuildingAndStreetRequired",
+                "Value": "",
                 "ErrorMessage": "Enter building and street"
               },
               {
-                "Name": "Required",
-                "Value": null,
+                "Name": "AddressTownOrCityRequired",
+                "Value": "",
                 "ErrorMessage": "Enter town or city"
               },
               {
-                "Name": "Required",
-                "Value": null,
+                "Name": "AddressPostcodeRequired",
+                "Value": "",
                 "ErrorMessage": "Enter postcode"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         },
         {
@@ -289,23 +283,23 @@
           "Input": {
             "Type": "Email",
             "InputClasses": null,
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Enter email address"
               },
               {
                 "Name": "Email",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Enter a valid email address"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         },
         {
@@ -319,18 +313,18 @@
           "Input": {
             "Type": "Text",
             "InputClasses": "govuk-input--width-20",
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Enter telephone number"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -353,8 +347,7 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": null,
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": null
     },
     {
       "PageId": "4",
@@ -375,18 +368,18 @@
           "Input": {
             "Type": "Text",
             "InputClasses": null,
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Enter given name"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         },
         {
@@ -400,18 +393,18 @@
           "Input": {
             "Type": "Text",
             "InputClasses": null,
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Enter family name"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         },
         {
@@ -425,28 +418,28 @@
           "Input": {
             "Type": "Address",
             "InputClasses": null,
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
-                "Name": "Required",
-                "Value": null,
+                "Name": "AddressBuildingAndStreetRequired",
+                "Value": "",
                 "ErrorMessage": "Enter building and street"
               },
               {
-                "Name": "Required",
-                "Value": null,
+                "Name": "AddressTownOrCityRequired",
+                "Value": "",
                 "ErrorMessage": "Enter town or city"
               },
               {
-                "Name": "Required",
-                "Value": null,
+                "Name": "AddressPostcodeRequired",
+                "Value": "",
                 "ErrorMessage": "Enter postcode"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         },
         {
@@ -460,23 +453,23 @@
           "Input": {
             "Type": "Email",
             "InputClasses": null,
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Enter email address"
               },
               {
-                "Name": "EmailAddressIsValid",
-                "Value": null,
+                "Name": "Email",
+                "Value": "",
                 "ErrorMessage": "Enter a valid email address"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         },
         {
@@ -490,18 +483,18 @@
           "Input": {
             "Type": "Text",
             "InputClasses": "govuk-input--width-20",
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Enter telephone number"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -524,8 +517,7 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": null,
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": null
     },
     {
       "PageId": "5",
@@ -560,50 +552,53 @@
                     "Input": {
                       "Type": "Number",
                       "InputClasses": "govuk-input--width-10",
-                      "Options": null,
+                      "Options": [],
                       "Validations": [
                         {
                           "Name": "Required",
-                          "Value": null,
+                          "Value": "",
                           "ErrorMessage": "Enter your UKPRN"
                         },
                         {
                           "Name": "Regex",
                           "Value": "^[0-9]{8}$",
                           "ErrorMessage": "Enter your UKPRN (must be 8 digits)"
+                        },
+                        {
+                          "Name": "ClientApiCall",
+                          "Value": "Validations/UkPrn",
+                          "ErrorMessage": ""
                         }
                       ],
                       "DataEndpoint": null
                     },
                     "Order": null,
-                    "Value": null,
+                    "Value": "",
                     "ErrorMessages": null
                   }
                 ],
                 "Value": "Yes",
                 "Label": "Yes",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "No",
                 "Label": "No",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               }
             ],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Select yes if you have a UKPRN"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -626,8 +621,7 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": null,
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": null
     },
     {
       "PageId": "6",
@@ -648,18 +642,18 @@
           "Input": {
             "Type": "Text",
             "InputClasses": null,
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Enter name of person who has overall control"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         },
         {
@@ -687,45 +681,43 @@
                     "Input": {
                       "Type": "Textarea",
                       "InputClasses": null,
-                      "Options": null,
+                      "Options": [],
                       "Validations": [
                         {
                           "Name": "Required",
-                          "Value": null,
+                          "Value": "",
                           "ErrorMessage": "Enter other organisation details"
                         }
                       ],
                       "DataEndpoint": null
                     },
                     "Order": null,
-                    "Value": null,
+                    "Value": "",
                     "ErrorMessages": null
                   }
                 ],
                 "Value": "Yes",
                 "Label": "Yes",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "No",
                 "Label": "No",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               }
             ],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Select yes if they hold any other positions or directorships of other organisations"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -748,8 +740,7 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": null,
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": null
     },
     {
       "PageId": "7",
@@ -784,45 +775,43 @@
                     "Input": {
                       "Type": "Text",
                       "InputClasses": null,
-                      "Options": null,
+                      "Options": [],
                       "Validations": [
                         {
                           "Name": "Required",
-                          "Value": null,
+                          "Value": "",
                           "ErrorMessage": "Enter Ofqual recognition number"
                         }
                       ],
                       "DataEndpoint": null
                     },
                     "Order": null,
-                    "Value": null,
+                    "Value": "",
                     "ErrorMessages": null
                   }
                 ],
                 "Value": "Yes",
                 "Label": "Yes",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "No",
                 "Label": "No",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               }
             ],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Select yes if you have an Ofqual recognition number"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -845,8 +834,7 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": null,
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": null
     },
     {
       "PageId": "8",
@@ -869,39 +857,34 @@
             "InputClasses": null,
             "Options": [
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "Public limited company",
                 "Label": "Public limited company",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "Limited company",
                 "Label": "Limited company",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "Limited liability partnership",
                 "Label": "Limited liability partnership",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "Other partnership",
                 "Label": "Other partnership",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "Sole trader",
                 "Label": "Sole trader",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
                 "FurtherQuestions": [
@@ -916,38 +899,37 @@
                     "Input": {
                       "Type": "Text",
                       "InputClasses": null,
-                      "Options": null,
+                      "Options": [],
                       "Validations": [
                         {
                           "Name": "Required",
-                          "Value": null,
+                          "Value": "",
                           "ErrorMessage": "Enter your trading status"
                         }
                       ],
                       "DataEndpoint": null
                     },
                     "Order": null,
-                    "Value": null,
+                    "Value": "",
                     "ErrorMessages": null
                   }
                 ],
                 "Value": "Other",
                 "Label": "Other",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               }
             ],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Select your trading status"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -1041,8 +1023,7 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": null,
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": null
     },
     {
       "PageId": "9",
@@ -1077,45 +1058,48 @@
                     "Input": {
                       "Type": "Text",
                       "InputClasses": "govuk-input--width-10",
-                      "Options": null,
+                      "Options": [],
                       "Validations": [
                         {
                           "Name": "Required",
-                          "Value": null,
+                          "Value": "",
                           "ErrorMessage": "Enter your company number"
+                        },
+                        {
+                          "Name": "Regex",
+                          "Value": "^[A-Za-z0-9]{2}[0-9]{6}$",
+                          "ErrorMessage": "Enter a valid company number"
                         }
                       ],
                       "DataEndpoint": null
                     },
                     "Order": null,
-                    "Value": null,
+                    "Value": "",
                     "ErrorMessages": null
                   }
                 ],
                 "Value": "Yes",
                 "Label": "Yes",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "No",
                 "Label": "No",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               }
             ],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Select yes if you have a company number"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -1157,8 +1141,7 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": "8",
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": "8"
     },
     {
       "PageId": "10",
@@ -1193,18 +1176,18 @@
                     "Input": {
                       "Type": "Text",
                       "InputClasses": null,
-                      "Options": null,
+                      "Options": [],
                       "Validations": [
                         {
                           "Name": "Required",
-                          "Value": null,
+                          "Value": "",
                           "ErrorMessage": "Enter the country your parent company is registered"
                         }
                       ],
                       "DataEndpoint": null
                     },
                     "Order": null,
-                    "Value": null,
+                    "Value": "",
                     "ErrorMessages": null
                   },
                   {
@@ -1218,45 +1201,43 @@
                     "Input": {
                       "Type": "Text",
                       "InputClasses": "govuk-input--width-10",
-                      "Options": null,
+                      "Options": [],
                       "Validations": [
                         {
                           "Name": "Required",
-                          "Value": null,
+                          "Value": "",
                           "ErrorMessage": "Enter the parent company registration number"
                         }
                       ],
                       "DataEndpoint": null
                     },
                     "Order": null,
-                    "Value": null,
+                    "Value": "",
                     "ErrorMessages": null
                   }
                 ],
                 "Value": "Yes",
                 "Label": "Yes",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "No",
                 "Label": "No",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               }
             ],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Select yes if your parent company registered overseas"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -1286,8 +1267,7 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": "9",
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": "9"
     },
     {
       "PageId": "11",
@@ -1308,18 +1288,18 @@
           "Input": {
             "Type": "Text",
             "InputClasses": null,
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Enter a name"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         },
         {
@@ -1329,15 +1309,15 @@
           "ShortLabel": "",
           "InputClasses": null,
           "QuestionBodyText": "",
-          "Hint": "",
+          "Hint": "For example, 3 1980",
           "Input": {
             "Type": "MonthAndYear",
             "InputClasses": null,
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Enter a date"
               },
               {
@@ -1354,7 +1334,7 @@
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         },
         {
@@ -1368,18 +1348,18 @@
           "Input": {
             "Type": "Number",
             "InputClasses": "govuk-input--width-5",
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Enter number of shares"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -1409,8 +1389,7 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": null,
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": null
     },
     {
       "PageId": "12",
@@ -1433,31 +1412,29 @@
             "InputClasses": null,
             "Options": [
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "Yes",
                 "Label": "Yes",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "No",
                 "Label": "No",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               }
             ],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Select yes if a director, or any person with significant control of your organisation have had any of the listed issues"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -1500,8 +1477,7 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": null,
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": null
     },
     {
       "PageId": "13",
@@ -1518,15 +1494,15 @@
           "ShortLabel": "",
           "InputClasses": null,
           "QuestionBodyText": "",
-          "Hint": "",
+          "Hint": "For example, 31 3 1980",
           "Input": {
             "Type": "Date",
             "InputClasses": null,
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Enter a date"
               },
               {
@@ -1543,7 +1519,7 @@
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         },
         {
@@ -1557,18 +1533,18 @@
           "Input": {
             "Type": "Text",
             "InputClasses": null,
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Field must not be empty"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         },
         {
@@ -1582,18 +1558,18 @@
           "Input": {
             "Type": "Text",
             "InputClasses": null,
-            "Options": null,
+            "Options": [],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Field must not be empty"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -1616,8 +1592,7 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": "12",
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": "12"
     },
     {
       "PageId": "14",
@@ -1652,50 +1627,48 @@
                     "Input": {
                       "Type": "Text",
                       "InputClasses": "govuk-input--width-10",
-                      "Options": null,
+                      "Options": [],
                       "Validations": [
                         {
                           "Name": "Required",
-                          "Value": null,
+                          "Value": "",
                           "ErrorMessage": "Enter registered charity number"
                         },
                         {
                           "Name": "RegisteredCharityNumber",
-                          "Value": null,
+                          "Value": "",
                           "ErrorMessage": "Enter valid registered charity number"
                         }
                       ],
                       "DataEndpoint": null
                     },
                     "Order": null,
-                    "Value": null,
+                    "Value": "",
                     "ErrorMessages": null
                   }
                 ],
                 "Value": "Yes",
                 "Label": "Yes",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "No",
                 "Label": "No",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               }
             ],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Select yes if your organisation is a registered charity"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -1725,8 +1698,7 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": null,
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": null
     },
     {
       "PageId": "15",
@@ -1749,31 +1721,29 @@
             "InputClasses": null,
             "Options": [
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "Yes",
                 "Label": "Yes",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               },
               {
-                "FurtherQuestions": null,
+                "FurtherQuestions": [],
                 "Value": "No",
                 "Label": "No",
-                "HintText": null,
-                "HasHintText": false
+                "HintText": ""
               }
             ],
             "Validations": [
               {
                 "Name": "Required",
-                "Value": null,
+                "Value": "",
                 "ErrorMessage": "Select yes if any removals apply"
               }
             ],
             "DataEndpoint": null
           },
           "Order": null,
-          "Value": null,
+          "Value": "",
           "ErrorMessages": null
         }
       ],
@@ -1803,8 +1773,7 @@
       "Details": null,
       "DisplayType": null,
       "Feedback": null,
-      "ActivatedByPageId": null,
-      "NotRequiredOrgTypes": null
+      "ActivatedByPageId": null
     }
   ]
 }

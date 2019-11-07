@@ -157,44 +157,41 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
                   {currentView === "section" && (
                     <>
                       <Row style={{ marginTop: "20px" }}>
-                        <QnaField
-                          emptyType="stringType"
-                          name="Title"
-                          validate={required}
-                        >
-                          {({ input, meta }) => (
-                            <>
-                              {/* {console.log(meta.dirty)} */}
-                              {/* <FloatingLabel dirty={meta.dirty}>
+                        <QnaField name="Title" validate={required}>
+                          {({ input, meta }) => {
+                            // console.log(meta);
+
+                            return (
+                              <>
+                                {/* {console.log(meta.dirty)} */}
+                                {/* <FloatingLabel dirty={meta.dirty}>
                                 Title (section)
                               </FloatingLabel> */}
-                              <label>Title (section)</label>
-                              <input
-                                {...input}
-                                type="text"
-                                placeholder={
-                                  meta.error && meta.touched
-                                    ? `Title is ${meta.error}`
-                                    : `Title (section)`
-                                }
-                                style={{ width: "100%" }}
-                                component="input"
-                                className={
-                                  meta.error && meta.touched ? meta.error : ""
-                                }
-                              />
-                            </>
-                          )}
+                                <label>Title (section)</label>
+                                <input
+                                  {...input}
+                                  type="text"
+                                  placeholder={
+                                    meta.error && meta.touched
+                                      ? `Title is ${meta.error}`
+                                      : `Title (section)`
+                                  }
+                                  style={{ width: "100%" }}
+                                  component="input"
+                                  className={
+                                    meta.error && meta.touched ? meta.error : ""
+                                  }
+                                />
+                              </>
+                            );
+                          }}
                         </QnaField>
                       </Row>
                       <Row>
-                        <QnaField
-                          emptyType="nullType"
-                          name="LinkTitle"
-                          validate={required}
-                        >
+                        <QnaField name="LinkTitle" validate={required}>
                           {({ input, meta }) => (
                             <>
+                              <label>Link title (section)</label>
                               <input
                                 {...input}
                                 type="text"
@@ -347,7 +344,7 @@ const Columns = styled.div`
 const Row = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
   position: relative;
 
   &:last-child {
@@ -383,7 +380,7 @@ const Row = styled.div`
 
   & > label {
     position: absolute;
-    top: -7px;
+    top: -6px;
     left: 10px;
     padding: 0 1px;
     line-height: 1;
