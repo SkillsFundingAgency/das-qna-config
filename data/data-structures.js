@@ -203,6 +203,10 @@ export const QUESTION_TYPES = [
   {
     value: "TabularData",
     label: "Tabular data"
+  },
+  {
+    value: "Hidden",
+    label: "Hidden"
   }
   // {
   //   value: "checkbox",

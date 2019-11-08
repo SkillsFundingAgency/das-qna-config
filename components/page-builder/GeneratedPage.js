@@ -92,16 +92,18 @@ const GeneratedPage = ({ schema }) => {
                               {ReactHtmlParser(question.QuestionBodyText)}
                             </GridCol>
                           </GridRow>
-                          <GridRow>
-                            <GridCol>
-                              <QuestionComponent
-                                key={index}
-                                questionIndex={index}
-                                question={question}
-                                isSingleQuestion={isSingleQuestion}
-                              />
-                            </GridCol>
-                          </GridRow>
+                          {question.Input.Type !== "Hidden" && (
+                            <GridRow>
+                              <GridCol>
+                                <QuestionComponent
+                                  key={index}
+                                  questionIndex={index}
+                                  question={question}
+                                  isSingleQuestion={isSingleQuestion}
+                                />
+                              </GridCol>
+                            </GridRow>
+                          )}
                         </div>
                       )
                     );

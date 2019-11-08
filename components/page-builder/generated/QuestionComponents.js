@@ -5,6 +5,7 @@ import LongTextQuestion from "./LongTextQuestion";
 import CheckboxQuestion from "./CheckboxQuestion";
 import RadioQuestion from "./RadioQuestion";
 import ComplexRadioQuestion from "./ComplexRadioQuestion";
+import HiddenQuestion from "./HiddenQuestion";
 import DropdownQuestion from "./DropdownQuestion";
 import ChecklistQuestion from "./ChecklistQuestion";
 import FileUploadQuestion from "./FileUploadQuestion";
@@ -22,7 +23,8 @@ export const QuestionComponents = {
   Number: NumberQuestion,
   Radio: RadioQuestion,
   Text: TextQuestion,
-  Textarea: LongTextQuestion
+  Textarea: LongTextQuestion,
+  Hidden: HiddenQuestion
   // longText: LongTextQuestion,
   // checkbox: CheckboxQuestion,
   // checklist: ChecklistQuestion,
