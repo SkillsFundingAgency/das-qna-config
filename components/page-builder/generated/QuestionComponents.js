@@ -6,9 +6,10 @@ import CheckboxQuestion from "./CheckboxQuestion";
 import RadioQuestion from "./RadioQuestion";
 import ComplexRadioQuestion from "./ComplexRadioQuestion";
 import HiddenQuestion from "./HiddenQuestion";
+import FileUploadQuestion from "./FileUploadQuestion";
+import TabularDataQuestion from "./TabularDataQuestion";
 import DropdownQuestion from "./DropdownQuestion";
 import ChecklistQuestion from "./ChecklistQuestion";
-import FileUploadQuestion from "./FileUploadQuestion";
 
 export const QuestionComponents = {
   Address: TextQuestion, // needs own component
@@ -22,6 +23,7 @@ export const QuestionComponents = {
   MonthAndYear: DateQuestion, // needs own component
   Number: NumberQuestion,
   Radio: RadioQuestion,
+  TabularData: TabularDataQuestion,
   Text: TextQuestion,
   Textarea: LongTextQuestion,
   Hidden: HiddenQuestion
