@@ -97,7 +97,7 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
   }, []);
 
   const saveCurrentSectionToFile = (fileName, jsonContents) => {
-    var file = new File([JSON.stringify(jsonContents)], fileName, {
+    var file = new File([JSON.stringify(jsonContents, 0, 4)], fileName, {
       type: "application/json;charset=utf-8"
     });
     saveAs(file);
