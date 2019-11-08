@@ -1,6 +1,9 @@
-import React, { useCallback, useState, useEffect } from "react";
+import Router from "next/router";
+import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
 const FileManager = ({ loadSectionData, saveSectionToFile }) => {
   const [filename, setFilename] = useState("");
@@ -43,6 +46,10 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
   const deleteLocalStorageAutoSave = event => {
     event.preventDefault();
     localStorage.removeItem("sectionData");
+    Router.push({
+      pathname: "/",
+      query: { name: "emptied" }
+    });
   };
 
   return (
@@ -70,10 +77,14 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
           </Buttons>
         </Row>
       </form>
-
-      <a href="#" onClick={deleteLocalStorageAutoSave}>
-        Delete localStorage autosave
-      </a>
+      <Row>
+        <Buttons>
+          <ResetAppButton href="#" onClick={deleteLocalStorageAutoSave}>
+            <WarningIcon icon={faExclamationCircle} width="0" />
+            Reset and return to projects page
+          </ResetAppButton>
+        </Buttons>
+      </Row>
     </>
   );
 };
@@ -136,6 +147,7 @@ const Buttons = styled.div`
 
 const Button = styled.button`
   background: #0b0c0c;
+  margin-bottom: 10px;
   padding: 5px 8px 6px;
   color: white;
   border-radius: 3px;
@@ -144,6 +156,19 @@ const Button = styled.button`
   &:hover {
     opacity: 1;
   }
+`;
+
+const ResetAppButton = styled(Button)`
+  padding: 8px;
+  font-size: 16px;
+  background: #ab1409;
+  opacity: 0.9;
+`;
+
+const WarningIcon = styled(FontAwesomeIcon)`
+  font-size: 18px;
+  cursor: pointer;
+  margin-right: 8px;
 `;
 
 const InnerText = styled.p`
