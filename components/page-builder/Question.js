@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import SortHandle from "../SortHandle";
-import WhenFieldChanges from "./WhenFieldChanges";
+import WhenFieldChanges from "../WhenFieldChanges";
 import Select from "../Select";
 import Textarea from "../Textarea";
 import Answers from "./Answers";

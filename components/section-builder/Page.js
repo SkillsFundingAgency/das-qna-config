@@ -1,10 +1,11 @@
 import { Field } from "react-final-form";
+import { OnChange } from "react-final-form-listeners";
 import { sortableElement } from "react-sortable-hoc";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import SortHandle from "../SortHandle";
-
+import WhenFieldChanges from "./../WhenFieldChanges";
 import NotRequiredConditions from "./NotRequiredConditions";
 import NextPage from "./NextPage";
 import QnaField from "./../QnaField";
@@ -55,13 +56,13 @@ const Page = sortableElement(
               type="text"
               placeholder="Activated by PageId"
             />
-
-            {/* <Field
-            name={`${name}.ActivatedByPageId`}
-            component={Select}
-            options={EXISTING_PAGES}
-            isSearchable={false}
-          /> */}
+            <Field name={`${name}.Active`}>
+              {({ input: { onChange } }) => (
+                <OnChange name={`${name}.ActivatedByPageId`}>
+                  {value => onChange(value === null)}
+                </OnChange>
+              )}
+            </Field>
           </Row>
           <NotRequiredConditions name={name} />
           <NextPage name={name} questions={questions} />
