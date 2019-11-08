@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Field } from "react-final-form";
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
@@ -7,6 +8,13 @@ import QnaField from "./../QnaField";
 import { EMPTY_CONDITION } from "./../../data/data-structures";
 
 const Conditions = ({ name, questions }) => {
+  // const [conditionType, setConditionType] = useState("QuestionTag");
+
+  // const handleTagConditionChange = event => {
+  //   console.log(event);
+  //   // setConditionType(event.target.value === "QuestionTag")
+  // };
+
   return (
     <FieldArray name={`${name}.Conditions`}>
       {({ fields }) => {
@@ -22,11 +30,31 @@ const Conditions = ({ name, questions }) => {
                     options={questions}
                     isSearchable={true}
                   /> */}
+                </Row>
+                {/* <Row>
+                  <ConditionSelector
+                    name="ConditionSelector"
+                    options={[
+                      { label: "QuestionTag", value: "QuestionTag" },
+                      { label: "QuestionId", value: "QuestionId" }
+                    ]}
+                    onChange={handleTagConditionChange}
+                    value={conditionType}
+                  />
+                </Row> */}
+                <Row>
                   <QnaField
                     name={`${name}.QuestionId`}
                     component="input"
                     type="text"
                     placeholder="QuestionId"
+                  />
+                  <InnerText>or</InnerText>
+                  <QnaField
+                    name={`${name}.QuestionTag`}
+                    component="input"
+                    type="text"
+                    placeholder="QuestionTag"
                   />
                   <InnerText>equals</InnerText>
                   <QnaField
@@ -95,6 +123,10 @@ const Row = styled.div`
 `;
 
 const QuestionSelector = styled(Select)`
+  width: 100%;
+`;
+
+const ConditionSelector = styled(Select)`
   width: 100%;
 `;
 

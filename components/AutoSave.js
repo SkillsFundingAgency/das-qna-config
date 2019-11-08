@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 
-const AutoSave = ({ debounce, values, save }) => {
+const AutoSaveHOC = ({ debounce, values, save }) => {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -26,9 +26,11 @@ const AutoSave = ({ debounce, values, save }) => {
 };
 
 // Make a HOC
-export default props => (
-  <FormSpy {...props} subscription={{ values: true }} component={AutoSave} />
+const AutoSave = props => (
+  <FormSpy {...props} subscription={{ values: true }} component={AutoSaveHOC} />
 );
+
+export default AutoSave;
 
 const FixedSave = styled.div`
   z-index: 0;

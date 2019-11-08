@@ -87,6 +87,7 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
     Cookies.set("userSettings", userSettings);
   }, [userSettings]);
 
+  // loads data from localStorage to editor
   useEffect(() => {
     // this is a problem because the localStorage data will always overwrite the loaded section data
     const data = localStorage.getItem("sectionData");
@@ -114,21 +115,18 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
             icon={faFileAlt}
             onClick={() => updateUserSettings("showPreview")}
             width="0"
-            title="Toggle preview"
             className={userSettings.showPreview ? "view-is-open" : ""}
           />
           <ToggleFileView
             icon={faFolder}
             onClick={() => updateUserSettings("showFileManager")}
             width="0"
-            title="Toggle file manager"
             className={userSettings.showFileManager ? "view-is-open" : ""}
           />
           <ToggleCodeView
             icon={faCode}
             onClick={() => updateUserSettings("showSchema")}
             width="0"
-            title="Toggle code view"
             className={userSettings.showSchema ? "view-is-open" : ""}
           />
         </DisplayControls>

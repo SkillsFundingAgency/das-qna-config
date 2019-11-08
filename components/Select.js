@@ -9,8 +9,6 @@ const customStyles = {
 };
 
 export default ({ input, ...rest }) => {
-  // console.log(input, rest);
-
   return (
     <ReactSelect
       {...input}
