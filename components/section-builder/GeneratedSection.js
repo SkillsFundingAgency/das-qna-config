@@ -20,7 +20,7 @@ const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {
         {Pages.map((page, index) => (
           <div key={index}>
             <GridRow mb="1">
-              <GridCol>
+              <GridColFlex>
                 <Link
                   noVisitedState
                   href="#"
@@ -28,7 +28,8 @@ const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {
                 >
                   {page.LinkTitle}
                 </Link>
-              </GridCol>
+                <PageId>{page.PageId}</PageId>
+              </GridColFlex>
             </GridRow>
             <GridRow mb="1">
               <GridCol>
@@ -50,4 +51,14 @@ const Container = styled.div`
   padding: 25px;
   margin-top: 10px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+`;
+
+const GridColFlex = styled(GridCol)`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PageId = styled.span`
+  font-weight: bold;
+  color: #555;
 `;
