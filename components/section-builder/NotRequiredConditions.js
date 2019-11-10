@@ -107,7 +107,6 @@ const InnerText = styled.p`
 const Row = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  margin-bottom: 10px;
 
   &:last-child {
     margin-bottom: 0;

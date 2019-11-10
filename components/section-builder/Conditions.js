@@ -92,7 +92,6 @@ export default Conditions;
 const Row = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  margin-bottom: 10px;
 
   input,
   textarea {

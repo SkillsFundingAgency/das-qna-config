@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { Form, Field } from "react-final-form";
 import arrayMutators from "final-form-arrays";
 import cookie from "cookie";
@@ -32,6 +33,10 @@ const save = async values => {
 };
 
 const Section = ({ initialSectionData, initialUserSettings }) => {
+  const router = useRouter();
+  console.log("router query: ", router.query);
+  console.log(initialSectionData);
+
   const [sectionData, setSectionData] = useState(initialSectionData.default);
 
   const [currentView, setCurrentView] = useState("section"); // or page
@@ -162,10 +167,6 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
                             return (
                               <>
                                 {/* {console.log(meta.dirty)} */}
-                                {/* <FloatingLabel dirty={meta.dirty}>
-                                Title (section)
-                              </FloatingLabel> */}
-                                <label>Title (section)</label>
                                 <input
                                   {...input}
                                   type="text"
@@ -189,7 +190,6 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
                         <QnaField name="LinkTitle" validate={required}>
                           {({ input, meta }) => (
                             <>
-                              <label>Link title (section)</label>
                               <input
                                 {...input}
                                 type="text"
@@ -342,8 +342,6 @@ const Columns = styled.div`
 const Row = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  margin-bottom: 7px;
-  position: relative;
 
   &:last-child {
     margin-bottom: 0;
@@ -374,18 +372,6 @@ const Row = styled.div`
     min-height: 38px;
     line-height: 24px;
     margin: 0;
-  }
-
-  & > label {
-    position: absolute;
-    top: -6px;
-    left: 10px;
-    padding: 0 1px;
-    line-height: 1;
-    font-size: 11px;
-    font-weight: bold;
-    color: #555555;
-    background: #fff;
   }
 `;
 

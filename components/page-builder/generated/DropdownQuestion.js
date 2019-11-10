@@ -26,7 +26,6 @@ export default DropdownQuestion;
 const Row = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  margin-bottom: 5px;
 
   &:last-child {
     margin-bottom: 0;

@@ -19,9 +19,11 @@ const AutoSaveHOC = ({ debounce, values, save }) => {
   };
 
   return (
+    // submitting && (
     <FixedSave className={submitting ? "is-saving" : undefined}>
       <SaveIcon icon={faSave} width="0" /> Saving
     </FixedSave>
+    // )
   );
 };
 

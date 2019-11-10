@@ -19,7 +19,7 @@ const Page = sortableElement(
     return (
       <>
         <Container>
-          <QnaField name={`${name}.PageId`}>
+          <Field name={`${name}.PageId`}>
             {({ input: { name, value } }) => (
               <>
                 <h2 name={name} style={{ marginTop: "0" }}>
@@ -27,7 +27,7 @@ const Page = sortableElement(
                 </h2>
               </>
             )}
-          </QnaField>
+          </Field>
           <PageControls>
             <SortHandle />
             <EditPageButton icon={faEdit} onClick={handleEditPage} width="0" />
@@ -86,7 +86,6 @@ const Container = styled.div`
 const Row = styled.div`
   display: flex;
   flex-flow: row nowrap;
-  margin-bottom: 5px;
 
   &:last-child {
     margin-bottom: 0;
