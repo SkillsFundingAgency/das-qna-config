@@ -146,6 +146,7 @@ const RoutingSelector = styled(Select)`
 
 const Buttons = styled.div`
   padding: 0;
+  margin-bottom: 10px;
   text-align: left;
 `;
 
