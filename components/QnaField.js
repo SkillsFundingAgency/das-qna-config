@@ -48,8 +48,8 @@ const QnaField = ({ emptyType, name, ...props }) => {
   const identity = value => (value === "" ? emptyValue : value);
   return (
     <QnaFieldContainer>
-      <Label>{singleWordName}</Label>
       <Field parse={identity} name={name} {...props} />
+      <Label>{singleWordName}</Label>
     </QnaFieldContainer>
   );
 };
@@ -58,8 +58,39 @@ export default QnaField;
 
 const QnaFieldContainer = styled.div`
   position: relative;
+  display: flex;
+  flex-flow: row nowrap;
   width: 100%;
   margin-bottom: 10px;
+
+  input,
+  textarea {
+    flex: 1;
+    padding: 6px 9px;
+    font-size: 1em;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    &[disabled] {
+      background: #eee;
+    }
+    min-height: 38px;
+    line-height: 24px;
+  }
+
+  .required {
+    border: 2px solid #d60000;
+  }
+
+  /* & > input {
+    margin: 0;
+    padding: 9px;
+  }
+
+  & > textarea {
+    min-height: 38px;
+    line-height: 24px;
+    margin: 0;
+  } */
 `;
 
 const Label = styled.label`

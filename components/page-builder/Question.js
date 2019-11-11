@@ -72,7 +72,7 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
             type="text"
             placeholder="Question ID"
           />
-          <Field
+          <QnaField
             name={`${name}.Input.Type`}
             component={TypeSelector}
             options={QUESTION_TYPES}
@@ -231,7 +231,7 @@ const Row = styled.div`
 
 const TypeSelector = styled(Select)`
   margin-left: 5px;
-  width: 165px;
+  width: 100%;
 `;
 
 const InputClasses = styled(Select)`

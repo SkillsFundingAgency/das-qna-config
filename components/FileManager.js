@@ -69,7 +69,6 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
       <form onSubmit={handleSubmit}>
         <Row>
           <input type="text" onChange={handleFilenameChange} />
-          <InnerText>.json</InnerText>
         </Row>
         <Row>
           <Buttons>
@@ -128,7 +127,7 @@ const Row = styled.div`
   }
 
   & > input {
-    margin: 0;
+    margin: 0 0 10px 0;
     padding: 9px;
   }
 
