@@ -40,16 +40,6 @@ const Page = sortableElement(
               type="text"
               placeholder="PageId"
             />
-          </Row>
-          <Row>
-            <QnaField
-              name={`${name}.LinkTitle`}
-              component="input"
-              type="text"
-              placeholder="Link title (page)"
-            />
-          </Row>
-          <Row>
             <QnaField
               name={`${name}.ActivatedByPageId`}
               component="input"
@@ -63,6 +53,14 @@ const Page = sortableElement(
                 </OnChange>
               )}
             </Field>
+          </Row>
+          <Row>
+            <QnaField
+              name={`${name}.LinkTitle`}
+              component="input"
+              type="text"
+              placeholder="Link title (page)"
+            />
           </Row>
           <NotRequiredConditions name={name} />
           <NextPage name={name} questions={questions} />

@@ -71,7 +71,7 @@ const Container = styled.div`
 
 const InnerText = styled.p`
   line-height: 2.4em;
-  margin: 0 5px;
+  margin: 0 0 0 5px;
   white-space: nowrap;
 `;
 

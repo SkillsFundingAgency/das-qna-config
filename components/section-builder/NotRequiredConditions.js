@@ -73,12 +73,12 @@ const NotRequiredConditions = ({ name }) => {
 
             <Row>
               <Buttons>
-                <Button
+                <AddRequiredConditionButton
                   type="button"
                   onClick={() => fields.push(EMPTY_NOT_REQUIRED_CONDITION)}
                 >
                   + Add not required condition
-                </Button>
+                </AddRequiredConditionButton>
               </Buttons>
             </Row>
           </>
@@ -113,13 +113,8 @@ const Row = styled.div`
   }
 `;
 
-const RoutingSelector = styled(Select)`
-  width: 100%;
-`;
-
 const Buttons = styled.div`
   padding: 0;
-  margin-bottom: 10px;
   text-align: left;
 `;
 
@@ -133,6 +128,10 @@ const Button = styled.button`
   &:hover {
     opacity: 1;
   }
+`;
+
+const RoutingSelector = styled(Select)`
+  width: 100%;
 `;
 
 const PageControls = styled.div`
@@ -164,4 +163,8 @@ const RemoveNotRequiredConditionValueButton = styled(
   RemoveNotRequiredConditionButton
 )`
   padding: 12px 0 0 10px;
+`;
+
+const AddRequiredConditionButton = styled(Button)`
+  margin-bottom: 10px;
 `;

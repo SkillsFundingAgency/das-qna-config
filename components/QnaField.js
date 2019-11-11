@@ -63,6 +63,10 @@ const QnaFieldContainer = styled.div`
   width: 100%;
   margin-bottom: 10px;
 
+  &:not(:first-child) {
+    margin-left: 5px;
+  }
+
   input,
   textarea {
     flex: 1;
@@ -73,6 +77,12 @@ const QnaFieldContainer = styled.div`
     &[disabled] {
       background: #eee;
     }
+    /* min-height: 38px; */
+    /* line-height: 24px; */
+  }
+
+  & > input,
+  & > textarea {
     min-height: 38px;
     line-height: 24px;
   }
