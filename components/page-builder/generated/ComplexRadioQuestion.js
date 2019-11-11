@@ -1,6 +1,7 @@
 import { Field } from "react-final-form";
 import { MultiChoice, Radio, FormGroup, GridRow, GridCol } from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
+import styled from "styled-components";
 // import PropTypes from "prop-types";
 
 import { QuestionComponents } from "./../generated/QuestionComponents";
@@ -30,7 +31,7 @@ const ComplexRadioQuestion = ({ question, questionIndex }) => {
                 <div key={`${question.QuestionId}[${questionIndex}][${index}]`}>
                   <Field
                     name={`${question.QuestionId}[${questionIndex}]`}
-                    hint={ReactHtmlParser(option.Hint)}
+                    hint={ReactHtmlParser(option.HintText)}
                     component={GovRadio}
                     type="radio"
                     value={option.Value}
@@ -42,13 +43,25 @@ const ComplexRadioQuestion = ({ question, questionIndex }) => {
                           QuestionComponents[furtherQuestion.Input.Type];
                         return (
                           furtherQuestion.QuestionId && (
-                            <div key={index} style={{ marginBottom: "20px" }}>
+                            <div
+                              key={index}
+                              style={{
+                                marginBottom: "15px",
+                                marginLeft: "18px",
+                                paddingLeft: "33px",
+                                borderLeft: "4px solid #b1b4b6"
+                              }}
+                            >
                               <GridRow>
                                 <GridCol>
                                   <QuestionComponent
                                     key={index}
                                     questionIndex={index}
                                     question={furtherQuestion}
+                                    style={{
+                                      paddingLeft: "10px",
+                                      borderLeft: "3px solid #ccc"
+                                    }}
                                   />
                                 </GridCol>
                               </GridRow>

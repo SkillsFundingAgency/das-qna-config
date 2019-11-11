@@ -16,6 +16,12 @@ const Label = ({ label, inputType }) => (
 );
 
 const TextQuestion = ({ question, questionIndex, isSingleQuestion }) => {
+  // console.log(question.Input.InputClasses);
+  /* 
+  TODO: Will need to extract input and label from this <Field /> component as on /[sectionId]/index.js
+  <span>{question.Input.InputClasses}</span>
+ */
+
   return (
     <FormGroup>
       <Field

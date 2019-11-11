@@ -14,26 +14,22 @@ const GovRadio = ({ input, hint, inline, label }) => {
 };
 
 const RadioQuestion = ({ question, questionIndex }) => {
-  // console.log("input:", input);
-  // console.log("question:", question);
-
   return (
     <FormGroup>
       {question.Input.Options && (
         <div>
           <MultiChoice label={question.Label} hint={question.Hint}>
             {question.Input.Options.map((option, index) => {
-              // console.log(option);
-
               return (
                 <Field
                   key={`${question.QuestionId}[${questionIndex}][${index}]`}
                   name={`${question.QuestionId}[${questionIndex}]`}
-                  hint={ReactHtmlParser(option.Hint)}
-                  component={GovRadio}
                   type="radio"
-                  value={option.Value}
+                  component={GovRadio}
+                  hint={ReactHtmlParser(option.HintText)}
+                  inline={question.Input.Options.length <= 2}
                   label={option.Label}
+                  value={option.Value}
                 />
               );
             })}
