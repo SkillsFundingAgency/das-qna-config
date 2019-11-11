@@ -18,31 +18,29 @@ const Validation = ({ name, remove }) => (
     <QuestionControls>
       <RemoveValidationButton icon={faTrash} onClick={remove} width="0" />
     </QuestionControls>
-    <Rows>
-      <Row>
-        <QnaField
-          name={`${name}.Name`}
-          options={VALIDATION_TYPES}
-          component={ValidationTypes}
-          isSearchable={false}
-        />
-      </Row>
-      <Row>
-        <QnaField
-          name={`${name}.Value`}
-          component="input"
-          type="text"
-          placeholder="Value"
-        />
-      </Row>
-      <Row>
-        <QnaField
-          name={`${name}.ErrorMessage`}
-          component={Textarea}
-          placeholder="Error message"
-        />
-      </Row>
-    </Rows>
+    <Row>
+      <QnaField
+        name={`${name}.Name`}
+        options={VALIDATION_TYPES}
+        component={ValidationTypes}
+        isSearchable={false}
+      />
+    </Row>
+    <Row>
+      <QnaField
+        name={`${name}.Value`}
+        component="input"
+        type="text"
+        placeholder="Value"
+      />
+    </Row>
+    <Row>
+      <QnaField
+        name={`${name}.ErrorMessage`}
+        component={Textarea}
+        placeholder="Error message"
+      />
+    </Row>
   </Container>
 );
 
@@ -79,28 +77,6 @@ const Container = styled.div`
 const FurtherQuestionsContainer = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const Rows = styled.div`
-  /* border: 1px solid #ddd; */
-  /* border-radius: 3px; */
-  /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); */
-
-  input,
-  textarea {
-    flex: 1;
-    padding: 6px 9px;
-    font-size: 1em;
-    border: 2px solid #ccc;
-    border-radius: 3px;
-    min-height: 38px;
-    line-height: 24px;
-    margin-left: 0;
-    margin-bottom: 0;
-    &[disabled] {
-      background: #eee;
-    }
-  }
 `;
 
 const Row = styled.div`

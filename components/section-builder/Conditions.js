@@ -22,15 +22,14 @@ const Conditions = ({ name, questions }) => {
           <>
             {fields.map((name, index) => (
               <div key={index}>
-                <Row>
-                  <InnerText>when</InnerText>
-                  {/* <Field
+                {/* <Row>
+                  <Field
                     name={`${name}.QuestionId`}
                     component={QuestionSelector}
                     options={questions}
                     isSearchable={true}
-                  /> */}
-                </Row>
+                  />
+                </Row> */}
                 {/* <Row>
                   <ConditionSelector
                     name="ConditionSelector"
@@ -43,6 +42,7 @@ const Conditions = ({ name, questions }) => {
                   />
                 </Row> */}
                 <Row>
+                  <InnerText>if</InnerText>
                   <QnaField
                     name={`${name}.QuestionId`}
                     component="input"
@@ -56,7 +56,7 @@ const Conditions = ({ name, questions }) => {
                     type="text"
                     placeholder="QuestionTag"
                   />
-                  <InnerText>equals</InnerText>
+                  <InnerText>value</InnerText>
                   <QnaField
                     name={`${name}.MustEqual`}
                     component="input"
@@ -93,36 +93,9 @@ const Row = styled.div`
   display: flex;
   flex-flow: row nowrap;
 
-  input,
-  textarea {
-    flex: 1;
-    padding: 6px 9px;
-    font-size: 1em;
-    border: 2px solid #ccc;
-    border-radius: 3px;
-    &[disabled] {
-      background: #eee;
-    }
+  &:last-child {
+    margin-bottom: 0;
   }
-
-  .required {
-    border: 2px solid #d60000;
-  }
-
-  & > input {
-    margin: 0;
-    padding: 9px;
-  }
-
-  & > textarea {
-    min-height: 38px;
-    line-height: 24px;
-    margin: 0;
-  }
-`;
-
-const QuestionSelector = styled(Select)`
-  width: 100%;
 `;
 
 const ConditionSelector = styled(Select)`

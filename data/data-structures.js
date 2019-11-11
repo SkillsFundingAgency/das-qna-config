@@ -81,7 +81,7 @@ export const EMPTY_QUESTION = {
     DataEndpoint: null
   },
   Order: null,
-  Value: null,
+  Value: "",
   ErrorMessages: null
 };
 
@@ -101,7 +101,7 @@ export const EMPTY_FURTHER_QUESTION = {
     DataEndpoint: null
   },
   Order: null,
-  Value: null,
+  Value: "",
   ErrorMessages: null
 };
 
@@ -115,7 +115,7 @@ export const EMPTY_DATAFED_CHECKBOXLIST = {
 
 export const EMPTY_VALIDATION = {
   Name: "",
-  Value: null,
+  Value: "",
   ErrorMessage: ""
 };
 

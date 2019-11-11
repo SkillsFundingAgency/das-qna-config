@@ -80,17 +80,6 @@ const QnaFieldContainer = styled.div`
   .required {
     border: 2px solid #d60000;
   }
-
-  /* & > input {
-    margin: 0;
-    padding: 9px;
-  }
-
-  & > textarea {
-    min-height: 38px;
-    line-height: 24px;
-    margin: 0;
-  } */
 `;
 
 const Label = styled.label`

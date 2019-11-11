@@ -1,4 +1,4 @@
-import ReactSelect from "react-select";
+import Select from "react-select";
 
 const customStyles = {
   control: provided => ({
@@ -10,13 +10,14 @@ const customStyles = {
 
 export default ({ input, ...rest }) => {
   return (
-    <ReactSelect
+    <Select
       {...input}
       {...rest}
       instanceId={input.name}
       onChange={option => input.onChange(option.value)}
       value={rest.options.find(option => option.value === input.value)}
       styles={customStyles}
+      isSearchable={false}
     />
   );
 };

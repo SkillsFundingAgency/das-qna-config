@@ -18,60 +18,58 @@ const Answer = sortableElement(({ name, remove }) => (
       <SortHandle />
       <RemoveAnswerButton icon={faTrash} onClick={remove} width="0" />
     </QuestionControls>
-    <Rows>
-      <Row>
-        <QnaField
-          name={`${name}.Value`}
-          component="input"
-          type="text"
-          placeholder="Value"
-        />
-      </Row>
-      <Row>
-        <QnaField
-          name={`${name}.Label`}
-          component={Textarea}
-          placeholder="Label"
-        />
-      </Row>
-      <Row>
-        <QnaField
-          name={`${name}.HintText`}
-          component={Textarea}
-          placeholder="Hint text"
-        />
-      </Row>
-      <FieldArray name={`${name}.FurtherQuestions`}>
-        {({ fields }) =>
-          fields.value ? (
-            <FurtherQuestionsContainer>
-              {/* {console.log({ fields })} */}
-              {fields.map((name, index) => {
-                // console.log(name);
+    <Row>
+      <QnaField
+        name={`${name}.Value`}
+        component="input"
+        type="text"
+        placeholder="Value"
+      />
+    </Row>
+    <Row>
+      <QnaField
+        name={`${name}.Label`}
+        component={Textarea}
+        placeholder="Label"
+      />
+    </Row>
+    <Row>
+      <QnaField
+        name={`${name}.HintText`}
+        component={Textarea}
+        placeholder="Hint text"
+      />
+    </Row>
+    <FieldArray name={`${name}.FurtherQuestions`}>
+      {({ fields }) =>
+        fields.value ? (
+          <FurtherQuestionsContainer>
+            {/* {console.log({ fields })} */}
+            {fields.map((name, index) => {
+              // console.log(name);
 
-                return (
-                  <Question
-                    key={name}
-                    index={index}
-                    name={name}
-                    isSortable={false}
-                    removeQuestion={() => fields.remove(index)}
-                  />
-                );
-              })}
-              <Buttons>
-                <Button
-                  type="button"
-                  onClick={() => fields.push(EMPTY_FURTHER_QUESTION)}
-                >
-                  + Add further questions
-                </Button>
-              </Buttons>
-            </FurtherQuestionsContainer>
-          ) : null
-        }
-      </FieldArray>
-    </Rows>
+              return (
+                <Question
+                  key={name}
+                  index={index}
+                  name={name}
+                  isSortable={false}
+                  removeQuestion={() => fields.remove(index)}
+                />
+              );
+            })}
+            <Buttons>
+              <Button
+                type="button"
+                onClick={() => fields.push(EMPTY_FURTHER_QUESTION)}
+              >
+                + Add further questions
+              </Button>
+            </Buttons>
+          </FurtherQuestionsContainer>
+        ) : null
+      }
+    </FieldArray>
   </Container>
 ));
 
@@ -108,28 +106,6 @@ const Container = styled.div`
 const FurtherQuestionsContainer = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const Rows = styled.div`
-  /* border: 1px solid #ddd; */
-  /* border-radius: 3px; */
-  /* box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); */
-
-  input,
-  textarea {
-    flex: 1;
-    padding: 6px 9px;
-    font-size: 1em;
-    border: 2px solid #ccc;
-    border-radius: 3px;
-    min-height: 38px;
-    line-height: 24px;
-    margin-left: 0;
-    margin-bottom: 0;
-    &[disabled] {
-      background: #eee;
-    }
-  }
 `;
 
 const Row = styled.div`

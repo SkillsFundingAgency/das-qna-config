@@ -31,7 +31,6 @@ const NextPage = ({ name, questions }) => {
                     name={`${name}.Action`}
                     component={RoutingSelector}
                     options={ROUTING_TYPES}
-                    isSearchable={false}
                   />
                   <InnerText>will be</InnerText>
                   <QnaField
@@ -73,6 +72,7 @@ const Container = styled.div`
 const InnerText = styled.p`
   line-height: 2.4em;
   margin: 0 5px;
+  white-space: nowrap;
 `;
 
 const Row = styled.div`
@@ -82,37 +82,10 @@ const Row = styled.div`
   &:last-child {
     margin-bottom: 0;
   }
-
-  input,
-  textarea {
-    flex: 1;
-    padding: 6px 9px;
-    font-size: 1em;
-    border: 2px solid #ccc;
-    border-radius: 3px;
-    &[disabled] {
-      background: #eee;
-    }
-  }
-
-  .required {
-    border: 2px solid #d60000;
-  }
-
-  & > input {
-    margin: 0;
-    padding: 9px;
-  }
-
-  & > textarea {
-    min-height: 38px;
-    line-height: 24px;
-    margin: 0;
-  }
 `;
 
 const RoutingSelector = styled(Select)`
-  width: 250px;
+  width: 100%;
 `;
 
 const Buttons = styled.div`

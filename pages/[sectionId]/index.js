@@ -33,9 +33,9 @@ const save = async values => {
 };
 
 const Section = ({ initialSectionData, initialUserSettings }) => {
-  const router = useRouter();
-  console.log("router query: ", router.query);
-  console.log(initialSectionData);
+  // const router = useRouter();
+  // console.log("router query: ", router.query);
+  // console.log(initialSectionData);
 
   const [sectionData, setSectionData] = useState(initialSectionData.default);
 
@@ -345,33 +345,6 @@ const Row = styled.div`
 
   &:last-child {
     margin-bottom: 0;
-  }
-
-  input,
-  textarea {
-    flex: 1;
-    padding: 6px 9px;
-    font-size: 1em;
-    border: 2px solid #ccc;
-    border-radius: 3px;
-    &[disabled] {
-      background: #eee;
-    }
-  }
-
-  .required {
-    border: 2px solid #d60000;
-  }
-
-  & > input {
-    margin: 0;
-    padding: 9px;
-  }
-
-  & > textarea {
-    min-height: 38px;
-    line-height: 24px;
-    margin: 0;
   }
 `;
 
