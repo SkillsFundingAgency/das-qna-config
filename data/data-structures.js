@@ -219,11 +219,7 @@ export const QUESTION_TYPES = [
     label: "Hidden"
   }
   // {
-  //   value: "checkbox",
-  //   label: "Checkbox"
-  // },
-  // {
-  //   value: "dropdown",
+  //   value: "Select",
   //   label: "Select"
   // }
 ];

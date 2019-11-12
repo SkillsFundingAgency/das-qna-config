@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 import { Form, Field } from "react-final-form";
 import arrayMutators from "final-form-arrays";
 import cookie from "cookie";
@@ -17,6 +18,9 @@ import AutoSave from "./../../components/AutoSave";
 import FileManager from "./../../components/FileManager";
 import GeneratedPage from "../../components/page-builder/GeneratedPage";
 import GeneratedSection from "../../components/section-builder/GeneratedSection";
+const GeneratedJson = dynamic(() => import("../../components/GeneratedJson"), {
+  ssr: false
+});
 import Pages from "../../components/section-builder/Pages";
 
 const parseCookies = req =>
@@ -251,18 +255,13 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
                 )}
 
                 {userSettings.showSchema && (
-                  <div>
-                    <h3>
-                      <FontAwesomeIcon icon={faCode} width="0" /> Generated JSON{" "}
-                    </h3>
+                  <>
                     {currentView === "page" ? (
-                      <Dump>
-                        {JSON.stringify(eval(`values.${currentPage}`), 0, 2)}
-                      </Dump>
+                      <GeneratedJson values={eval(`values.${currentPage}`)} />
                     ) : (
-                      <Dump>{JSON.stringify(values, 0, 2)}</Dump>
+                      <GeneratedJson values={values} />
                     )}
-                  </div>
+                  </>
                 )}
               </Columns>
             </>
@@ -332,7 +331,6 @@ const Columns = styled.div`
     margin: 5px;
     border: 3px solid #ddd;
     border-radius: 3px;
-    /* box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); */
     padding: 0 20px;
     overflow-y: auto;
   }
