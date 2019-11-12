@@ -1,6 +1,5 @@
 import { Field } from "react-final-form";
 import { FormGroup } from "govuk-react";
-// import CheckboxGroup from "./../govuk-components/CheckboxGroup";
 
 const ChecklistQuestion = ({ question }) => (
   <FormGroup>

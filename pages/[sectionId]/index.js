@@ -13,7 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode, faFolder, faFileAlt } from "@fortawesome/free-solid-svg-icons";
 
 import QnaField from "./../../components/QnaField";
-import FloatingLabel from "./../../components/FloatingLabel";
 import AutoSave from "./../../components/AutoSave";
 import FileManager from "./../../components/FileManager";
 import GeneratedPage from "../../components/page-builder/GeneratedPage";
