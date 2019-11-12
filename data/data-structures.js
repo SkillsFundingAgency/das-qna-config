@@ -120,12 +120,22 @@ export const EMPTY_VALIDATION = {
 };
 
 export const INPUT_CLASSES = [
-  { value: "govuk-!-width-two-thirds", label: "govuk-!-width-two-thirds" },
-  { value: "govuk-input--width-10", label: "govuk-input--width-10" },
   { value: "govuk-input--width-20", label: "govuk-input--width-20" },
-  { value: "govuk-input--width-3", label: "govuk-input--width-3" },
+  { value: "govuk-input--width-10", label: "govuk-input--width-10" },
   { value: "govuk-input--width-5", label: "govuk-input--width-5" },
-  { value: "", label: "None" }
+  { value: "govuk-input--width-4", label: "govuk-input--width-4" },
+  { value: "govuk-input--width-3", label: "govuk-input--width-3" },
+  { value: "govuk-input--width-2", label: "govuk-input--width-2" },
+  { value: "govuk-!-width-full", label: "govuk-!-width-full" },
+  {
+    value: "govuk-!-width-three-quarters",
+    label: "govuk-!-width-three-quarters"
+  },
+  { value: "govuk-!-width-two-thirds", label: "govuk-!-width-two-thirds" },
+  { value: "govuk-!-width-one-half", label: "govuk-!-width-one-half" },
+  { value: "govuk-!-width-one-third", label: "govuk-!-width-one-third" },
+  { value: "govuk-!-width-one-quarter", label: "govuk-!-width-one-quarter" },
+  { value: "", label: "None (100%)" }
 ];
 
 export const VALIDATION_TYPES = [
