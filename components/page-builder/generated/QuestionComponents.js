@@ -1,6 +1,5 @@
 import TextQuestion from "./TextQuestion";
 import DateQuestion from "./DateQuestion";
-import NumberQuestion from "./NumberQuestion";
 import LongTextQuestion from "./LongTextQuestion";
 import CheckboxQuestion from "./CheckboxQuestion";
 import RadioQuestion from "./RadioQuestion";
@@ -8,8 +7,7 @@ import ComplexRadioQuestion from "./ComplexRadioQuestion";
 import HiddenQuestion from "./HiddenQuestion";
 import FileUploadQuestion from "./FileUploadQuestion";
 import TabularDataQuestion from "./TabularDataQuestion";
-import DropdownQuestion from "./DropdownQuestion";
-import ChecklistQuestion from "./ChecklistQuestion";
+import SelectQuestion from "./SelectQuestion";
 
 export const QuestionComponents = {
   Address: TextQuestion, // needs own component
@@ -27,8 +25,5 @@ export const QuestionComponents = {
   Text: TextQuestion,
   Textarea: LongTextQuestion,
   Hidden: HiddenQuestion
-  // longText: LongTextQuestion,
-  // checkbox: CheckboxQuestion,
-  // checklist: ChecklistQuestion,
-  // dropdown: DropdownQuestion
+  // Select: SelectQuestion
 };

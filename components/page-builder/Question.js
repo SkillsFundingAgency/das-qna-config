@@ -80,13 +80,13 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
           />
           <WhenFieldChanges
             field={`${name}.Input.Type`}
-            becomes={["Text", "longText", "Date", "Number", "Address"]}
+            becomes={["Text", "Date", "Number", "Address"]}
             set={`${name}.Input.Options`}
             to={undefined}
           />
           <WhenFieldChanges
             field={`${name}.Input.Type`}
-            becomes={["Radio", "CheckBoxList", "dropdown"]}
+            becomes={["Radio", "CheckBoxList"]}
             set={`${name}.Input.Options`}
             to={[EMPTY_OPTION]}
           />
