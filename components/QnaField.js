@@ -59,8 +59,9 @@ export default QnaField;
 const QnaFieldContainer = styled.div`
   position: relative;
   display: flex;
-  flex-flow: row nowrap;
-  width: 100%;
+  flex-grow: 1;
+  /* flex-flow: row nowrap; */
+  /* width: 100%; */
   margin-bottom: 10px;
 
   &:not(:first-child) {
@@ -69,7 +70,8 @@ const QnaFieldContainer = styled.div`
 
   input,
   textarea {
-    flex: 1;
+    /* flex: 1; */
+    width: 100%;
     padding: 6px 9px;
     font-size: 1em;
     border: 2px solid #ccc;
