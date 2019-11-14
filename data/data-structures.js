@@ -134,8 +134,7 @@ export const INPUT_CLASSES = [
   { value: "govuk-!-width-two-thirds", label: "govuk-!-width-two-thirds" },
   { value: "govuk-!-width-one-half", label: "govuk-!-width-one-half" },
   { value: "govuk-!-width-one-third", label: "govuk-!-width-one-third" },
-  { value: "govuk-!-width-one-quarter", label: "govuk-!-width-one-quarter" },
-  { value: "", label: "None (100%)" }
+  { value: "govuk-!-width-one-quarter", label: "govuk-!-width-one-quarter" }
 ];
 
 export const VALIDATION_TYPES = [
