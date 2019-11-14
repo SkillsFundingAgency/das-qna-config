@@ -1,6 +1,7 @@
 import { Field } from "react-final-form";
 import {
   Label,
+  HintText,
   Input,
   InputField,
   FormGroup,
@@ -26,10 +27,7 @@ const LabelSwitcher = ({ label, inputType }) => (
 const TextQuestion = ({ question, questionIndex, isSingleQuestion }) => {
   return (
     <FormGroup>
-      <Field
-        name={`${question.QuestionId}[${questionIndex}]`}
-        hint={ReactHtmlParser(question.Hint)}
-      >
+      <Field name={`${question.QuestionId}[${questionIndex}]`}>
         {({ input, meta }) => (
           <>
             {!isSingleQuestion && (
@@ -38,6 +36,7 @@ const TextQuestion = ({ question, questionIndex, isSingleQuestion }) => {
                 inputType={question.Input.Type}
               />
             )}
+            <HintText>{ReactHtmlParser(question.Hint)}</HintText>
             <GovukInput {...input} className={question.Input.InputClasses} />
           </>
         )}
