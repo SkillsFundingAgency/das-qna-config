@@ -7,6 +7,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import SortHandle from "../SortHandle";
 import WhenFieldChanges from "../WhenFieldChanges";
 import Select from "../Select";
+import CreatableSelect from "../CreatableSelect";
 import Textarea from "../Textarea";
 import Answers from "./Answers";
 import Validations from "./Validations";
@@ -207,7 +208,7 @@ const TypeSelector = styled(Select)`
   width: 100%;
 `;
 
-const InputClasses = styled(Select)`
+const InputClasses = styled(CreatableSelect)`
   width: 100%;
 `;
 
