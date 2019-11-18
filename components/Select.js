@@ -1,4 +1,5 @@
 import Select from "react-select";
+import styled from "styled-components";
 
 const customStyles = {
   control: provided => ({
@@ -10,7 +11,7 @@ const customStyles = {
 
 export default ({ input, ...rest }) => {
   return (
-    <Select
+    <QnASelect
       {...input}
       {...rest}
       instanceId={input.name}
@@ -21,3 +22,7 @@ export default ({ input, ...rest }) => {
     />
   );
 };
+
+const QnASelect = styled(Select)`
+  width: 100%;
+`;

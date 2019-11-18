@@ -6,8 +6,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import Select from "../Select";
 import QnaField from "./../QnaField";
+import WhenFieldChanges from "../WhenFieldChanges";
 
 import { EMPTY_CONDITION } from "./../../data/data-structures";
+
+const Condition = ({ when, is, children }) => (
+  <Field name={when} subscription={{ value: true }}>
+    {({ input: { value } }) => (value === is ? children : null)}
+  </Field>
+);
 
 const Conditions = ({ name, questions }) => {
   // const [conditionType, setConditionType] = useState("QuestionTag");
@@ -34,38 +41,64 @@ const Conditions = ({ name, questions }) => {
                 </PageControls>
                 <Row>
                   <QnaField
-                    name={`${name}.QuestionId`}
-                    component="input"
-                    type="text"
-                    placeholder="QuestionId"
-                  />
-                  <InnerText>or</InnerText>
-                  <QnaField
-                    name={`${name}.QuestionTag`}
-                    component="input"
-                    type="text"
-                    placeholder="QuestionTag"
+                    name="QuestionIdOrTag"
+                    component={Select}
+                    options={[
+                      { value: "", label: "Select one..." },
+                      { value: "QuestionId", label: "QuestionId" },
+                      { value: "QuestionTag", label: "QuestionTag" }
+                    ]}
+                    isSearchable={false}
                   />
                 </Row>
                 <Row>
-                  <InnerText>value</InnerText>
+                  <Condition when="QuestionIdOrTag" is="QuestionId">
+                    <QnaField
+                      name={`${name}.QuestionId`}
+                      component="input"
+                      type="text"
+                      placeholder="QuestionId"
+                    />
+                  </Condition>
+                  <Condition when="QuestionIdOrTag" is="QuestionTag">
+                    <QnaField
+                      name={`${name}.QuestionTag`}
+                      component="input"
+                      type="text"
+                      placeholder="QuestionTag"
+                    />
+                  </Condition>
+                </Row>
+                <Row>
                   <QnaField
-                    name={`${name}.MustEqual`}
-                    component="input"
-                    type="text"
-                    placeholder="Must equal"
-                  />
-                  <InnerText>or</InnerText>
-                  <QnaField
-                    name={`${name}.Contains`}
-                    component="input"
-                    type="text"
-                    placeholder="Contains"
+                    name="ConditionType"
+                    component={Select}
+                    options={[
+                      { value: "", label: "Select one..." },
+                      { value: "MustEqual", label: "MustEqual" },
+                      { value: "Contains", label: "Contains" }
+                    ]}
+                    isSearchable={false}
                   />
                 </Row>
-                <Button type="button" onClick={() => fields.remove(index)}>
-                  Remove condition
-                </Button>
+                <Row>
+                  <Condition when="ConditionType" is="MustEqual">
+                    <QnaField
+                      name={`${name}.MustEqual`}
+                      component="input"
+                      type="text"
+                      placeholder="Must equal"
+                    />
+                  </Condition>
+                  <Condition when="ConditionType" is="Contains">
+                    <QnaField
+                      name={`${name}.Contains`}
+                      component="input"
+                      type="text"
+                      placeholder="Contains"
+                    />
+                  </Condition>
+                </Row>
               </Container>
             ))}
 
