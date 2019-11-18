@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import dynamic from "next/dynamic";
 import { Form, Field } from "react-final-form";
 import arrayMutators from "final-form-arrays";
 import cookie from "cookie";
@@ -18,9 +17,8 @@ import AutoSave from "./../../components/AutoSave";
 import FileManager from "./../../components/FileManager";
 import GeneratedPage from "../../components/page-builder/GeneratedPage";
 import GeneratedSection from "../../components/section-builder/GeneratedSection";
-const GeneratedJson = dynamic(() => import("../../components/GeneratedJson"), {
-  ssr: false
-});
+import GeneratedJson from "../../components/GeneratedJson";
+
 import Pages from "../../components/section-builder/Pages";
 
 const parseCookies = req =>
@@ -32,7 +30,7 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const save = async values => {
   localStorage.setItem("sectionData", JSON.stringify(values));
-  await sleep(2000);
+  await sleep(4000);
 };
 
 const Section = ({ initialSectionData, initialUserSettings }) => {
@@ -65,7 +63,7 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
     setCurrentPage(changePageTo);
   };
 
-  // useEffect on below to get "questions" to stay current
+  // useEffect on below to get "questions" to stay current. Not currently being used
   const questions = sectionData.Pages.map(
     page =>
       page.Questions &&
@@ -155,7 +153,7 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
             values
           }) => (
             <>
-              <AutoSave debounce={1000} save={save} />
+              <AutoSave debounce={2000} save={save} />
               <Columns>
                 <form onSubmit={handleSubmit}>
                   {/* <h3>{currentView === "section" ? "Section" : "Page"}</h3> */}
@@ -255,13 +253,13 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
                 )}
 
                 {userSettings.showSchema && (
-                  <>
-                    {currentView === "page" ? (
-                      <GeneratedJson values={eval(`values.${currentPage}`)} />
-                    ) : (
-                      <GeneratedJson values={values} />
-                    )}
-                  </>
+                  <GeneratedJson
+                    values={
+                      currentView === "page"
+                        ? eval(`values.${currentPage}`)
+                        : values
+                    }
+                  />
                 )}
               </Columns>
             </>
@@ -343,15 +341,6 @@ const Row = styled.div`
   &:last-child {
     margin-bottom: 0;
   }
-`;
-
-const Dump = styled.pre`
-  border: 1px solid #ccc;
-  font-size: 0.8em;
-  background: rgba(0, 0, 0, 0.1);
-  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  overflow: auto;
 `;
 
 const DisplayControls = styled.div`

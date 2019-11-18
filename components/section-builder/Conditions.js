@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Field } from "react-final-form";
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import Select from "../Select";
 import QnaField from "./../QnaField";
 
@@ -21,28 +23,16 @@ const Conditions = ({ name, questions }) => {
         return (
           <>
             {fields.map((name, index) => (
-              <div key={index}>
-                {/* <Row>
-                  <Field
-                    name={`${name}.QuestionId`}
-                    component={QuestionSelector}
-                    options={questions}
-                    isSearchable={true}
+              <Container key={index}>
+                <h3 style={{ marginTop: "0" }}>if</h3>
+                <PageControls>
+                  <RemoveConditionButton
+                    icon={faTrash}
+                    onClick={() => fields.remove(index)}
+                    width="0"
                   />
-                </Row> */}
-                {/* <Row>
-                  <ConditionSelector
-                    name="ConditionSelector"
-                    options={[
-                      { label: "QuestionTag", value: "QuestionTag" },
-                      { label: "QuestionId", value: "QuestionId" }
-                    ]}
-                    onChange={handleTagConditionChange}
-                    value={conditionType}
-                  />
-                </Row> */}
+                </PageControls>
                 <Row>
-                  <InnerText>if</InnerText>
                   <QnaField
                     name={`${name}.QuestionId`}
                     component="input"
@@ -56,6 +46,8 @@ const Conditions = ({ name, questions }) => {
                     type="text"
                     placeholder="QuestionTag"
                   />
+                </Row>
+                <Row>
                   <InnerText>value</InnerText>
                   <QnaField
                     name={`${name}.MustEqual`}
@@ -63,11 +55,18 @@ const Conditions = ({ name, questions }) => {
                     type="text"
                     placeholder="Must equal"
                   />
+                  <InnerText>or</InnerText>
+                  <QnaField
+                    name={`${name}.Contains`}
+                    component="input"
+                    type="text"
+                    placeholder="Contains"
+                  />
                 </Row>
                 <Button type="button" onClick={() => fields.remove(index)}>
                   Remove condition
                 </Button>
-              </div>
+              </Container>
             ))}
 
             {!fields.value.length && (
@@ -88,6 +87,15 @@ const Conditions = ({ name, questions }) => {
 };
 
 export default Conditions;
+
+const Container = styled.div`
+  position: relative;
+  border: 2px solid #ccc;
+  background: #fff;
+  border-radius: 3px;
+  padding: 10px 10px 10px 36px;
+  margin-bottom: 10px;
+`;
 
 const Row = styled.div`
   display: flex;
@@ -122,4 +130,29 @@ const Button = styled.button`
   &:hover {
     opacity: 1;
   }
+`;
+
+const PageControls = styled.div`
+  position: absolute;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  left: 0px;
+  top: 0px;
+  border-right: 2px solid #ccc;
+  background: #f2f2f2;
+`;
+
+const RemoveConditionButton = styled(FontAwesomeIcon)`
+  box-sizing: content-box;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 16px;
+  right: 0;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
+  color: #800;
 `;

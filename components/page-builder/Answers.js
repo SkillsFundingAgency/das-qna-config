@@ -18,7 +18,6 @@ const Answers = ({ name, isComplex }) => {
       <FieldArray name={`${name}.Input.Options`}>
         {({ fields }) => (
           <>
-            {/* {console.log({ fields })} */}
             <SortableList
               lockAxis="y"
               useDragHandle

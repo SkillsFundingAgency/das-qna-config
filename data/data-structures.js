@@ -62,7 +62,8 @@ export const EMPTY_DETAILS = {
 export const EMPTY_CONDITION = {
   QuestionId: "",
   QuestionTag: null,
-  MustEqual: ""
+  MustEqual: "",
+  Contains: ""
 };
 
 export const EMPTY_QUESTION = {

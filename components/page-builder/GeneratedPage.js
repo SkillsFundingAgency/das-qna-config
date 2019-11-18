@@ -48,6 +48,12 @@ const GeneratedPage = ({ schema }) => {
 
   const [isSingleQuestion, setIsSingleQuestion] = useState(false);
 
+  const handleError = questionType => {
+    console.warn(
+      `${questionType} is an unknown question type. Please select an existing one.`
+    );
+  };
+
   useEffect(() => {
     setIsSingleQuestion(Questions.length === 1);
   }, [Questions]);
@@ -75,10 +81,13 @@ const GeneratedPage = ({ schema }) => {
                   {Questions.filter(
                     question => question.QuestionId && question.Input
                   ).map((question, index) => {
-                    // console.log(question);
+                    const questionTypeExists = QuestionComponents.hasOwnProperty(
+                      question.Input.Type
+                    );
 
-                    const QuestionComponent =
-                      QuestionComponents[question.Input.Type];
+                    const QuestionComponent = questionTypeExists
+                      ? QuestionComponents[question.Input.Type]
+                      : handleError(question.Input.Type);
                     return (
                       question.QuestionId && (
                         <div key={index}>
@@ -92,7 +101,7 @@ const GeneratedPage = ({ schema }) => {
                               {ReactHtmlParser(question.QuestionBodyText)}
                             </GridCol>
                           </GridRow>
-                          {question.Input.Type !== "Hidden" && (
+                          {questionTypeExists && (
                             <GridRow>
                               <GridCol>
                                 <QuestionComponent

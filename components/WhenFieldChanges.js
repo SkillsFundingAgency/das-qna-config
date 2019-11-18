@@ -22,6 +22,7 @@ const WhenFieldChanges = ({ field, becomes, set, to }) => (
     )}
   </Field>
 );
+
 WhenFieldChanges.propTypes = {
   field: PropTypes.string.isRequired,
   becomes: PropTypes.any,
