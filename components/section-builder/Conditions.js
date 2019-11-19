@@ -11,19 +11,13 @@ import WhenFieldChanges from "../WhenFieldChanges";
 import { EMPTY_CONDITION } from "./../../data/data-structures";
 
 const Condition = ({ when, is, children }) => (
+  // show children if condition (value === is) is met or show nothing
   <Field name={when} subscription={{ value: true }}>
     {({ input: { value } }) => (value === is ? children : null)}
   </Field>
 );
 
 const Conditions = ({ name, questions }) => {
-  // const [conditionType, setConditionType] = useState("QuestionTag");
-
-  // const handleTagConditionChange = event => {
-  //   console.log(event);
-  //   // setConditionType(event.target.value === "QuestionTag")
-  // };
-
   return (
     <FieldArray name={`${name}.Conditions`}>
       {({ fields }) => {
@@ -39,65 +33,63 @@ const Conditions = ({ name, questions }) => {
                     width="0"
                   />
                 </PageControls>
+
                 <Row>
+                  {/* <Condition when={`${name}.QuestionIdOrTag`} is="QuestionId"> */}
+                  {/* </Condition> */}
                   <QnaField
-                    name="QuestionIdOrTag"
-                    component={Select}
-                    options={[
-                      { value: "", label: "Select one..." },
-                      { value: "QuestionId", label: "QuestionId" },
-                      { value: "QuestionTag", label: "QuestionTag" }
-                    ]}
-                    isSearchable={false}
+                    name={`${name}.QuestionId`}
+                    component="input"
+                    type="text"
+                    placeholder="QuestionId"
+                  />
+                  <WhenFieldChanges
+                    field={`${name}.QuestionId`}
+                    isNotEmpty
+                    set={`${name}.QuestionTag`}
+                    to={undefined}
+                  />
+                  <InnerText>or</InnerText>
+                  <QnaField
+                    name={`${name}.QuestionTag`}
+                    component="input"
+                    type="text"
+                    placeholder="QuestionTag"
+                  />
+                  <WhenFieldChanges
+                    field={`${name}.QuestionTag`}
+                    isNotEmpty
+                    set={`${name}.QuestionId`}
+                    to={undefined}
                   />
                 </Row>
-                <Row>
-                  <Condition when="QuestionIdOrTag" is="QuestionId">
-                    <QnaField
-                      name={`${name}.QuestionId`}
-                      component="input"
-                      type="text"
-                      placeholder="QuestionId"
-                    />
-                  </Condition>
-                  <Condition when="QuestionIdOrTag" is="QuestionTag">
-                    <QnaField
-                      name={`${name}.QuestionTag`}
-                      component="input"
-                      type="text"
-                      placeholder="QuestionTag"
-                    />
-                  </Condition>
-                </Row>
+                <Row></Row>
                 <Row>
                   <QnaField
-                    name="ConditionType"
-                    component={Select}
-                    options={[
-                      { value: "", label: "Select one..." },
-                      { value: "MustEqual", label: "MustEqual" },
-                      { value: "Contains", label: "Contains" }
-                    ]}
-                    isSearchable={false}
+                    name={`${name}.MustEqual`}
+                    component="input"
+                    type="text"
+                    placeholder="Must equal"
                   />
-                </Row>
-                <Row>
-                  <Condition when="ConditionType" is="MustEqual">
-                    <QnaField
-                      name={`${name}.MustEqual`}
-                      component="input"
-                      type="text"
-                      placeholder="Must equal"
-                    />
-                  </Condition>
-                  <Condition when="ConditionType" is="Contains">
-                    <QnaField
-                      name={`${name}.Contains`}
-                      component="input"
-                      type="text"
-                      placeholder="Contains"
-                    />
-                  </Condition>
+                  <WhenFieldChanges
+                    field={`${name}.MustEqual`}
+                    isNotEmpty
+                    set={`${name}.Contains`}
+                    to={undefined}
+                  />
+                  <InnerText>or</InnerText>
+                  <QnaField
+                    name={`${name}.Contains`}
+                    component="input"
+                    type="text"
+                    placeholder="Contains"
+                  />
+                  <WhenFieldChanges
+                    field={`${name}.Contains`}
+                    isNotEmpty
+                    set={`${name}.MustEqual`}
+                    to={undefined}
+                  />
                 </Row>
               </Container>
             ))}

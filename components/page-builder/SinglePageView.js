@@ -74,7 +74,9 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
           label="Body text"
         />
       </Row>
+
       <Row>
+        {/* turn this into a single checkbox */}
         <QnaField
           name={`${currentPage}.AllowMultipleAnswers`}
           component={MultipleAnswersSelect}
