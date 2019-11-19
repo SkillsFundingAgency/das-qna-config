@@ -15,9 +15,6 @@ const GovRadio = ({ input, hint, inline, label }) => {
 };
 
 const ComplexRadioQuestion = ({ question, questionIndex }) => {
-  // console.log("input: ", input);
-  // console.log("question: ", question);
-
   return (
     <FormGroup>
       {question.Input.Options && (

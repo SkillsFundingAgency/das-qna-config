@@ -10,8 +10,6 @@ import GlobalStyles from "../styles/global";
 import { EMPTY_SECTION } from "./../data/data-structures";
 
 const Projects = ({ initialProjectData }) => {
-  // console.log(data.default);
-
   const [projectData, setProjectData] = useState(initialProjectData.default);
 
   return (
@@ -87,8 +85,6 @@ const Projects = ({ initialProjectData }) => {
                                     return (
                                       <>
                                         {fields.map((name, index) => {
-                                          console.log(name);
-
                                           return <p>Section {name}</p>;
                                         })}
                                       </>

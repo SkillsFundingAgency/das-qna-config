@@ -3,8 +3,6 @@ import { TextArea, FormGroup, HintText } from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 
 const LongTextQuestion = ({ question, questionIndex }) => {
-  // console.log(question);
-
   return (
     <FormGroup>
       <Field

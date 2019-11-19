@@ -11,7 +11,6 @@ import {
   EMPTY_DETAILS,
   EMPTY_CONDITION,
   EMPTY_QUESTION,
-  EMPTY_FURTHER_QUESTION,
   EMPTY_VALIDATION
 } from "./../data/data-structures";
 
@@ -25,7 +24,6 @@ const schemaObjects = [
   EMPTY_DETAILS,
   EMPTY_CONDITION,
   EMPTY_QUESTION,
-  EMPTY_FURTHER_QUESTION,
   EMPTY_VALIDATION
 ];
 

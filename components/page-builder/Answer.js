@@ -10,7 +10,7 @@ import SortHandle from "../SortHandle";
 import Textarea from "../Textarea";
 import QnaField from "./../QnaField";
 
-import { EMPTY_FURTHER_QUESTION } from "./../../data/data-structures";
+import { EMPTY_QUESTION } from "./../../data/data-structures";
 
 const Answer = sortableElement(({ name, remove }) => (
   <Container>
@@ -44,10 +44,7 @@ const Answer = sortableElement(({ name, remove }) => (
       {({ fields }) =>
         fields.value ? (
           <FurtherQuestionsContainer>
-            {/* {console.log({ fields })} */}
             {fields.map((name, index) => {
-              // console.log(name);
-
               return (
                 <Question
                   key={name}
@@ -59,10 +56,7 @@ const Answer = sortableElement(({ name, remove }) => (
               );
             })}
             <Buttons>
-              <Button
-                type="button"
-                onClick={() => fields.push(EMPTY_FURTHER_QUESTION)}
-              >
+              <Button type="button" onClick={() => fields.push(EMPTY_QUESTION)}>
                 + Add further questions
               </Button>
             </Buttons>

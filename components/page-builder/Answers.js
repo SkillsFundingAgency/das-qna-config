@@ -10,9 +10,6 @@ import {
 } from "./../../data/data-structures";
 
 const Answers = ({ name, isComplex }) => {
-  // console.log("isComplex:", isComplex);
-  // console.log(name);
-
   return (
     <Container>
       <FieldArray name={`${name}.Input.Options`}>
@@ -22,7 +19,6 @@ const Answers = ({ name, isComplex }) => {
               lockAxis="y"
               useDragHandle
               onSortEnd={({ oldIndex, newIndex }) => {
-                console.log("oldIndex, newIndex:", oldIndex, newIndex);
                 return fields.move(oldIndex, newIndex);
               }}
             >

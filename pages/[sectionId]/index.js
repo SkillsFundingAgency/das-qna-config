@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import { Form, Field } from "react-final-form";
 import arrayMutators from "final-form-arrays";
 import cookie from "cookie";
@@ -34,10 +33,6 @@ const save = async values => {
 };
 
 const Section = ({ initialSectionData, initialUserSettings }) => {
-  // const router = useRouter();
-  // console.log("router query: ", router.query);
-  // console.log(initialSectionData);
-
   const [sectionData, setSectionData] = useState(initialSectionData.default);
 
   const [currentView, setCurrentView] = useState("section"); // or page
@@ -54,12 +49,10 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
   );
 
   const updateCurrentView = changeViewTo => {
-    // console.log("changeViewTo:", changeViewTo);
     setCurrentView(changeViewTo);
   };
 
   const updateCurrentPage = changePageTo => {
-    // console.log("changePageTo:", changePageTo);
     setCurrentPage(changePageTo);
   };
 
@@ -163,11 +156,8 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
                       <Row style={{ marginTop: "20px" }}>
                         <QnaField name="Title" validate={required}>
                           {({ input, meta }) => {
-                            // console.log(meta);
-
                             return (
                               <>
-                                {/* {console.log(meta.dirty)} */}
                                 <input
                                   {...input}
                                   type="text"
@@ -273,23 +263,13 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
 Section.getInitialProps = async context => {
   const { sectionId } = context.query;
   const cookies = parseCookies(context.req);
-
-  // if (context.req) {
-  // const data = await import(`./../data/sections/section-1.json`);
   const initialSectionData = await import(
     `../../data/sections/${sectionId}.json`
   );
-  // console.log(
-  //   `Show data fetched. Count: ${initialSectionData.Pages.length} pages`
-  // );
   return {
     initialSectionData: initialSectionData,
     initialUserSettings: cookies.userSettings
   };
-  // } else {
-  //   const data = window.__NEXT_DATA__.props.pageProps.data;
-  //   return { data };
-  // }
 };
 
 export default Section;

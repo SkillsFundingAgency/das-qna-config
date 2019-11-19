@@ -5,8 +5,6 @@ import Validation from "./Validation";
 import { EMPTY_VALIDATION } from "./../../data/data-structures";
 
 const Validations = ({ name }) => {
-  // console.log(name);
-
   return (
     <Container>
       <FieldArray name={`${name}.Input.Validations`}>

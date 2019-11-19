@@ -15,7 +15,6 @@ import QnaField from "./../QnaField";
 import {
   QUESTION_TYPES,
   INPUT_CLASSES,
-  EMPTY_FURTHER_QUESTION,
   EMPTY_COMPLEX_OPTION,
   EMPTY_DATAFED_CHECKBOXLIST,
   EMPTY_OPTION
@@ -36,6 +35,10 @@ const isText = type =>
     "LongTextarea"
   ].indexOf(type);
 
+const FURTHER_QUESTION_TYPES = QUESTION_TYPES.filter(
+  element => element.value !== "ComplexRadio"
+);
+
 const IfType = ({ name, children, predicate }) => (
   <Field name={`${name}.Input.Type`} subscription={{ value: true }}>
     {({ input: { value } }) => (predicate(value) ? children : null)}
@@ -45,6 +48,7 @@ const IfType = ({ name, children, predicate }) => (
 const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
   const [open, setOpen] = useState(true);
   const toggleOpen = event => setOpen(!open);
+  const isFurtherQuestion = name.includes("FurtherQuestions");
 
   return (
     <div>
@@ -76,7 +80,9 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
           <QnaField
             name={`${name}.Input.Type`}
             component={TypeSelector}
-            options={QUESTION_TYPES}
+            options={
+              isFurtherQuestion ? FURTHER_QUESTION_TYPES : QUESTION_TYPES
+            }
             isSearchable={false}
           />
           <WhenFieldChanges

@@ -8,52 +8,21 @@ import Question from "./Question";
 import { EMPTY_QUESTION } from "./../../data/data-structures";
 
 const Questions = sortableContainer(({ name }) => {
-  // console.log(name);
-
   return (
     <Container>
       <h3>Questions</h3>
       <FieldArray name={`${name}.Questions`}>
         {({ fields }) => {
-          // console.log("fields:", fields);
-
-          const myMove = () => {
-            // Error occurs as soon as we attempt to move the <Radio /> question,
-            // but only if it contains answers.
-            try {
-              fields.move(0, 1);
-            } catch (e) {
-              console.log("Move exploded", e);
-            }
-          };
-
           return (
             <>
-              {/* <div className="move">
-                <button onClick={myMove}>Move down</button>
-              </div> */}
               <SortableList
                 lockAxis="y"
                 useDragHandle
-                onSortEnd={({
-                  oldIndex,
-                  newIndex,
-                  collection,
-                  isKeySorting
-                }) => {
-                  console.log(
-                    "oldIndex, newIndex, collection, isKeySorting:",
-                    oldIndex,
-                    newIndex,
-                    collection,
-                    isKeySorting
-                  );
+                onSortEnd={({ oldIndex, newIndex }) => {
                   return fields.move(oldIndex, newIndex);
                 }}
               >
                 {fields.map((name, index) => {
-                  // console.log(name);
-
                   return (
                     <Question
                       key={name}

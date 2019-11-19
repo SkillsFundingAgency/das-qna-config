@@ -11,8 +11,6 @@ import QnaField from "./../QnaField";
 const required = value => (value ? undefined : "required");
 
 const SinglePageView = ({ currentPage, returnToSection }) => {
-  // console.log(currentPage);
-
   return (
     <>
       {/* <Container> */}

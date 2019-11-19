@@ -86,26 +86,6 @@ export const EMPTY_QUESTION = {
   ErrorMessages: null
 };
 
-export const EMPTY_FURTHER_QUESTION = {
-  QuestionId: "",
-  QuestionTag: null,
-  Label: "",
-  ShortLabel: "",
-  InputClasses: null,
-  QuestionBodyText: "",
-  Hint: "",
-  Input: {
-    Type: "Text",
-    InputClasses: null,
-    Options: [],
-    Validations: [],
-    DataEndpoint: null
-  },
-  Order: null,
-  Value: "",
-  ErrorMessages: null
-};
-
 export const EMPTY_DATAFED_CHECKBOXLIST = {
   Type: "DataFed_CheckboxList",
   InputClasses: null,
