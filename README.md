@@ -1,11 +1,11 @@
-# QnA configuration tool
 **das-qna-config**
+# QnA configuration tool
 
-This project uses [next.js](https://nextjs.org/)
+This project uses the React framework: [next.js](https://nextjs.org/)
 
 ## Install modules
 
-In the project directory: `/src/SFA.DAS.QnA.Config.Web/ClientApp` run:
+In the root directory, which containins `package.json`, run:
 
 ```npm install```
 
@@ -23,5 +23,6 @@ or if using yarn:
 
 ```yarn dev```
 
-This will run the app in the development mode.<br>
+This will run the app in the development mode.
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
