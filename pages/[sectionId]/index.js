@@ -130,6 +130,7 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
           />
         </DisplayControls>
         <Form
+          // subscription={{ submitting: true, pristine: true }}
           onSubmit={() => {}}
           initialValues={sectionData}
           mutators={{

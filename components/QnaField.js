@@ -1,46 +1,17 @@
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { Field } from "react-final-form";
 import styled from "styled-components";
-import {
-  EMPTY_SECTION,
-  EMPTY_PAGE,
-  EMPTY_OPTION,
-  EMPTY_COMPLEX_OPTION,
-  EMPTY_NEXT,
-  EMPTY_NOT_REQUIRED_CONDITION,
-  EMPTY_DETAILS,
-  EMPTY_CONDITION,
-  EMPTY_QUESTION,
-  EMPTY_VALIDATION
-} from "./../data/data-structures";
-
-const schemaObjects = [
-  EMPTY_SECTION,
-  EMPTY_PAGE,
-  EMPTY_OPTION,
-  EMPTY_COMPLEX_OPTION,
-  EMPTY_NEXT,
-  EMPTY_NOT_REQUIRED_CONDITION,
-  EMPTY_DETAILS,
-  EMPTY_CONDITION,
-  EMPTY_QUESTION,
-  EMPTY_VALIDATION
-];
-
-var merge = function(objects) {
-  var out = {};
-
-  for (var i = 0; i < objects.length; i++) {
-    for (var p in objects[i]) {
-      out[p] = objects[i][p];
-    }
-  }
-
-  return out;
-};
+import { schemaObjects, mergeObjects } from "./../helpers/getAllFieldsObject";
 
 const QnaField = ({ emptyType, name, ...props }) => {
-  const allFieldsObject = useMemo(() => merge(schemaObjects), schemaObjects);
+  const allFieldsObject = useMemo(() => {
+    return mergeObjects(schemaObjects);
+  }, [schemaObjects]);
+
+  // const allFieldsObject = useCallback(() => mergeObjects(schemaObjects), [
+  //   schemaObjects
+  // ]);
+
   const singleWordName = name.split(".").splice(-1);
   const emptyValue = allFieldsObject[singleWordName];
   const identity = value => (value === "" ? emptyValue : value);
