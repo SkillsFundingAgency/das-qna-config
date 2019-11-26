@@ -10,7 +10,7 @@ import SelectQuestion from "./SelectQuestion";
 
 export const QuestionComponents = {
   Address: TextQuestion, // needs own component
-  CheckBoxList: CheckboxListQuestion,
+  CheckboxList: CheckboxListQuestion,
   ComplexRadio: ComplexRadioQuestion,
   DataFed_CheckboxList: CheckboxListQuestion,
   Date: DateQuestion,

@@ -1,12 +1,14 @@
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Field } from "react-final-form";
 import styled from "styled-components";
 
+import QnaField from "./../QnaField";
+import WhenFieldChanges from "./../WhenFieldChanges";
 import Textarea from "./../Textarea";
 import Questions from "./Questions";
 import Select from "../Select";
-import QnaField from "./../QnaField";
 
 const required = value => (value ? undefined : "required");
 
@@ -86,25 +88,35 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
         />
       </Row>
       <Questions name={currentPage} />
-      {/* </Container> */}
 
       <h3>Details</h3>
+
       <Row>
         <QnaField
           name={`${currentPage}.Details.Title`}
           component={Textarea}
           type="text"
           placeholder={`Details title`}
-          label="Details title"
+        />
+        <WhenFieldChanges
+          field={`${currentPage}.Details.Title`}
+          becomes={[""]}
+          set={`${currentPage}.Details`}
+          to={null}
         />
       </Row>
       <Row>
         <QnaField
-          name={`${currentPage}.Details.Description`}
+          name={`${currentPage}.Details.Body`}
           component={Textarea}
           type="text"
-          placeholder={`Details description`}
-          label="Details title"
+          placeholder={`Details body`}
+        />
+        <WhenFieldChanges
+          field={`${currentPage}.Details.Body`}
+          becomes={[""]}
+          set={`${currentPage}.Details`}
+          to={null}
         />
       </Row>
       <Button onClick={returnToSection}>Return to section</Button>

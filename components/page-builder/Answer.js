@@ -12,7 +12,7 @@ import QnaField from "./../QnaField";
 
 import { EMPTY_QUESTION } from "./../../data/data-structures";
 
-const Answer = sortableElement(({ name, remove }) => (
+const Answer = sortableElement(({ name, remove, isComplex }) => (
   <Container>
     <QuestionControls>
       <SortHandle />
@@ -40,30 +40,35 @@ const Answer = sortableElement(({ name, remove }) => (
         placeholder="Hint text"
       />
     </Row>
-    <FieldArray name={`${name}.FurtherQuestions`}>
-      {({ fields }) =>
-        fields.value ? (
-          <FurtherQuestionsContainer>
-            {fields.map((name, index) => {
-              return (
-                <Question
-                  key={name}
-                  index={index}
-                  name={name}
-                  isSortable={false}
-                  removeQuestion={() => fields.remove(index)}
-                />
-              );
-            })}
-            <Buttons>
-              <Button type="button" onClick={() => fields.push(EMPTY_QUESTION)}>
-                + Add further questions
-              </Button>
-            </Buttons>
-          </FurtherQuestionsContainer>
-        ) : null
-      }
-    </FieldArray>
+    {isComplex && (
+      <FieldArray name={`${name}.FurtherQuestions`}>
+        {({ fields }) =>
+          fields.value ? (
+            <FurtherQuestionsContainer>
+              {fields.map((name, index) => {
+                return (
+                  <Question
+                    key={name}
+                    index={index}
+                    name={name}
+                    isSortable={false}
+                    removeQuestion={() => fields.remove(index)}
+                  />
+                );
+              })}
+              <Buttons>
+                <Button
+                  type="button"
+                  onClick={() => fields.push(EMPTY_QUESTION)}
+                >
+                  + Add further questions
+                </Button>
+              </Buttons>
+            </FurtherQuestionsContainer>
+          ) : null
+        }
+      </FieldArray>
+    )}
   </Container>
 ));
 

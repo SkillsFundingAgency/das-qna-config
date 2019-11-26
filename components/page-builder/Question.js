@@ -20,7 +20,7 @@ import {
   EMPTY_OPTION
 } from "./../../data/data-structures";
 
-const hasOptions = type => ~["Radio", "CheckBoxList"].indexOf(type);
+const hasOptions = type => ~["Radio", "CheckboxList"].indexOf(type);
 const isComplex = type => ~["ComplexRadio"].indexOf(type);
 const isDataFedCheckboxList = type => ~["DataFed_CheckboxList"].indexOf(type);
 const isText = type =>
@@ -46,8 +46,6 @@ const IfType = ({ name, children, predicate }) => (
 );
 
 const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
-  const [open, setOpen] = useState(true);
-  const toggleOpen = event => setOpen(!open);
   const isFurtherQuestion = name.includes("FurtherQuestions");
 
   return (
@@ -62,14 +60,6 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
           />
         </QuestionControls>
 
-        {/* <Handle>
-          <SortHandle />
-        </Handle> */}
-        {/* <Toggle
-          title={open ? "Collapse" : "Expand"}
-          name={open ? "chevron-down" : "chevron-right"}
-          onClick={this.toggleOpen}
-        /> */}
         <Row>
           <QnaField
             name={`${name}.QuestionId`}
@@ -93,7 +83,7 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
           />
           <WhenFieldChanges
             field={`${name}.Input.Type`}
-            becomes={["Radio", "CheckBoxList"]}
+            becomes={["Radio", "CheckboxList"]}
             set={`${name}.Input.Options`}
             to={[EMPTY_OPTION]}
           />
@@ -164,25 +154,16 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
             />
           </Row>
         </IfType>
-        {open && (
-          <>
-            <IfType name={name} predicate={hasOptions}>
-              <Answers name={name} isComplex={false} />
-            </IfType>
-            <IfType name={name} predicate={isComplex}>
-              <Answers name={name} isComplex={true} />
-            </IfType>
-            {/* <IfType name={name} predicate={isText}>
-              <Row>
-                <Field
-                  name={`${name}.placeholder`}
-                  component={Textarea}
-                  placeholder="Placeholder"
-                />
-              </Row>
-            </IfType> */}
-          </>
-        )}
+
+        <>
+          <IfType name={name} predicate={hasOptions}>
+            <Answers name={name} isComplex={false} />
+          </IfType>
+          <IfType name={name} predicate={isComplex}>
+            <Answers name={name} isComplex={true} />
+          </IfType>
+        </>
+
         <Validations name={name} />
       </Container>
     </div>
@@ -217,15 +198,6 @@ const TypeSelector = styled(Select)`
 const InputClasses = styled(CreatableSelect)`
   width: 100%;
 `;
-
-// const Toggle = styled(Icon)`
-//   position: absolute;
-//   top: -15px;
-//   left: 5px;
-//   width: 20px;
-//   margin-right: 5px;
-//   margin-top: 20px;
-// `;
 
 const QuestionControls = styled.div`
   position: absolute;

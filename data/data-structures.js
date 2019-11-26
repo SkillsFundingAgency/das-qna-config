@@ -183,7 +183,7 @@ export const QUESTION_TYPES = [
     label: "File upload"
   },
   {
-    value: "CheckBoxList",
+    value: "CheckboxList",
     label: "Checkbox list"
   },
   {

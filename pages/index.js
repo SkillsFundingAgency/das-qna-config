@@ -3,14 +3,27 @@ import Link from "next/link";
 import { Form } from "react-final-form";
 import arrayMutators from "final-form-arrays";
 import { FieldArray } from "react-final-form-arrays";
+import base64 from "base-64";
 
 import styled from "styled-components";
 import GlobalStyles from "../styles/global";
+import { githubFetch } from "./../helpers/githubApi";
 
 import { EMPTY_SECTION } from "./../data/data-structures";
 
 const Projects = ({ initialProjectData }) => {
-  const [projectData, setProjectData] = useState(initialProjectData.default);
+  const [projects, setProjects] = useState(initialProjectData);
+  const [projectData, setProjectData] = useState(null);
+  const [loadingProject, setLoadingProject] = useState(false);
+
+  const loadProjectFile = async name => {
+    setLoadingProject(true);
+    const jsonResponse = await githubFetch(
+      `src/SFA.DAS.QnA.Database/projects/${name}/project.json`
+    );
+    setProjectData(JSON.parse(base64.decode(jsonResponse.content)));
+    setLoadingProject(false);
+  };
 
   return (
     <>
@@ -19,7 +32,7 @@ const Projects = ({ initialProjectData }) => {
         <Header>QnA Config | Projects</Header>
         <Form
           onSubmit={() => {}}
-          initialValues={projectData}
+          initialValues={projects}
           mutators={{
             ...arrayMutators
           }}
@@ -36,77 +49,59 @@ const Projects = ({ initialProjectData }) => {
             <>
               <Columns>
                 <div>
-                  <ul>
-                    <li>
-                      <h2>
-                        {projectData.Name} ({projectData.Description})
-                      </h2>
-                      <ul>
-                        {projectData.Workflows.map((workflow, index) => (
-                          <li key={index}>
-                            <h3>
-                              {workflow.Type} ({workflow.Description})
-                            </h3>
-                            <ul>
-                              {workflow.section.map((section, index) => (
-                                <li key={section.id}>
-                                  <Link
-                                    href="/[section.id]"
-                                    as={`${section.id}`}
-                                  >
-                                    <a>{section.name}</a>
-                                  </Link>{" "}
-                                  (Sequence {section.SequenceNo} / Section{" "}
-                                  {section.SectionNo})
-                                </li>
-                              ))}
-                              {/* <button>Add a section</button> */}
-                            </ul>
-                          </li>
-                        ))}
-                      </ul>
-                    </li>
-                  </ul>
+                  {projects
+                    .filter(project => project.type === "dir")
+                    .map((project, index) => (
+                      <div key={index}>
+                        <h1 style={{ marginBottom: "0" }}>
+                          <a
+                            href="#"
+                            onClick={() => loadProjectFile(project.name)}
+                          >
+                            {project.name}
+                          </a>
+                        </h1>
+                        <p style={{ marginTop: "0" }}>{project.path}</p>
+                      </div>
+                    ))}
+
+                  <Link href="project/empty-section" as="project/empty-section">
+                    <Button>Empty section</Button>
+                  </Link>
                 </div>
-                {/* <div>
-                  <h2>
-                    {projectData.Name} ({projectData.Description})
-                  </h2>
-                  <FieldArray name="Workflows">
-                    {({ fields }) => {
-                      return (
-                        <>
-                          {fields.map((name, index) => {
-                            return (
-                              <>
-                                <p>Workflows {name}</p>
-                                <FieldArray name={`${name}.section`}>
-                                  {({ fields }) => {
-                                    return (
-                                      <>
-                                        {fields.map((name, index) => {
-                                          return <p>Section {name}</p>;
-                                        })}
-                                      </>
-                                    );
-                                  }}
-                                </FieldArray>
-                              </>
-                            );
-                          })}
-                          <Buttons>
-                            <Button
-                              type="button"
-                              onClick={() => fields.push(EMPTY_PAGE)}
-                            >
-                              + Add Workflow
-                            </Button>
-                          </Buttons>
-                        </>
-                      );
-                    }}
-                  </FieldArray>
-                </div> */}
+                {projectData ? (
+                  <div>
+                    <h2>
+                      {projectData.Name} ({projectData.Description})
+                    </h2>
+
+                    {projectData.Workflows.map((workflow, index) => (
+                      <div key={index}>
+                        <h3>
+                          {workflow.Type} ({workflow.Description})
+                        </h3>
+                        <SectionList>
+                          {workflow.section.map((section, index) => (
+                            <li key={section.id}>
+                              <Link
+                                href="[projectData.id]/[section.id]"
+                                as={`${projectData.id}/${section.id}`}
+                              >
+                                <a>{section.name}</a>
+                              </Link>
+                              <SectionDetails>
+                                {section.id}.json | Sequence{" "}
+                                {section.SequenceNo} | Section{" "}
+                                {section.SectionNo}
+                              </SectionDetails>
+                            </li>
+                          ))}
+                        </SectionList>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+                {loadingProject && <h2>Loading...</h2>}
               </Columns>
             </>
           )}
@@ -119,9 +114,35 @@ const Projects = ({ initialProjectData }) => {
 export default Projects;
 
 Projects.getInitialProps = async context => {
-  const initialProjectData = await import(`./../data/project.json`);
-  return { initialProjectData };
+  try {
+    const jsonResponse = await githubFetch("src/SFA.DAS.QnA.Database/projects");
+    return {
+      initialProjectData: jsonResponse
+    };
+  } catch (error) {
+    console.error(error);
+  }
+
+  // const initialProjectData = await import(`./../data/project.json`);
+  // return { initialProjectData };
 };
+
+const SectionList = styled.ul`
+  list-style: none;
+  padding: 0;
+
+  & > li {
+    padding: 0;
+    margin-bottom: 5px;
+  }
+`;
+
+const SectionDetails = styled.p`
+  /* text-transform: uppercase; */
+  margin-top: 0;
+  font-weight: bold;
+  font-size: 12px;
+`;
 
 const Container = styled.div`
   padding: 0 10px;

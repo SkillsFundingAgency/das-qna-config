@@ -158,9 +158,7 @@ const GeneratedPage = ({ schema }) => {
         {Details && (
           <GridRow>
             <GridCol>
-              <GovDetails summary={Details.Title}>
-                {Details.Description}
-              </GovDetails>
+              <GovDetails summary={Details.Title}>{Details.Body}</GovDetails>
             </GridCol>
           </GridRow>
         )}

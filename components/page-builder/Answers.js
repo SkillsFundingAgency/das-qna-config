@@ -28,6 +28,7 @@ const Answers = ({ name, isComplex }) => {
                   index={index}
                   name={name}
                   remove={() => fields.remove(index)}
+                  isComplex
                 />
               ))}
             </SortableList>

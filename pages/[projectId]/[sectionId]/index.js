@@ -4,21 +4,22 @@ import arrayMutators from "final-form-arrays";
 import cookie from "cookie";
 import Cookies from "js-cookie";
 import saveAs from "file-saver";
-// import fetch from "isomorphic-unfetch";
+import base64 from "base-64";
 
 import styled from "styled-components";
-import GlobalStyles from "../../styles/global";
+import GlobalStyles from "../../../styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode, faFolder, faFileAlt } from "@fortawesome/free-solid-svg-icons";
 
-import QnaField from "./../../components/QnaField";
-import AutoSave from "./../../components/AutoSave";
-import FileManager from "./../../components/FileManager";
-import GeneratedPage from "../../components/page-builder/GeneratedPage";
-import GeneratedSection from "../../components/section-builder/GeneratedSection";
-import GeneratedJson from "../../components/GeneratedJson";
+import QnaField from "../../../components/QnaField";
+import AutoSave from "../../../components/AutoSave";
+import FileManager from "../../../components/FileManager";
+import GeneratedPage from "../../../components/page-builder/GeneratedPage";
+import GeneratedSection from "../../../components/section-builder/GeneratedSection";
+import GeneratedJson from "../../../components/GeneratedJson";
+import { githubFetch } from "./../../../helpers/githubApi";
 
-import Pages from "../../components/section-builder/Pages";
+import Pages from "../../../components/section-builder/Pages";
 
 const parseCookies = req =>
   cookie.parse(req ? req.headers.cookie || "" : document.cookie);
@@ -33,7 +34,7 @@ const save = async values => {
 };
 
 const Section = ({ initialSectionData, initialUserSettings }) => {
-  const [sectionData, setSectionData] = useState(initialSectionData.default);
+  const [sectionData, setSectionData] = useState(initialSectionData);
 
   const [currentView, setCurrentView] = useState("section"); // or page
   const [currentPage, setCurrentPage] = useState(0);
@@ -262,15 +263,36 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
 };
 
 Section.getInitialProps = async context => {
-  const { sectionId } = context.query;
+  // Example response from `context.query`:
+  // { projectId: 'epaoall', sectionId: 'section1' }
+
+  const { sectionId, projectId } = context.query;
   const cookies = parseCookies(context.req);
-  const initialSectionData = await import(
-    `../../data/sections/${sectionId}.json`
-  );
-  return {
-    initialSectionData: initialSectionData,
-    initialUserSettings: cookies.userSettings
-  };
+
+  // Load local data for empty section. Refactor this.
+  if (sectionId === "empty-section") {
+    const jsonResponse = await import(
+      `../../../data/sections/${sectionId}.json`
+    );
+    const sectionData = jsonResponse.default;
+    return {
+      initialSectionData: sectionData,
+      initialUserSettings: cookies.userSettings
+    };
+  }
+
+  try {
+    const jsonResponse = await githubFetch(
+      `src/SFA.DAS.QnA.Database/projects/${projectId}/sections/${sectionId}.json`
+    );
+    const sectionData = await JSON.parse(base64.decode(jsonResponse.content));
+    return {
+      initialSectionData: sectionData,
+      initialUserSettings: cookies.userSettings
+    };
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export default Section;

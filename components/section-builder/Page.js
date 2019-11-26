@@ -1,9 +1,15 @@
+import { useState } from "react";
 import { Field } from "react-final-form";
 import { OnChange } from "react-final-form-listeners";
 import { sortableElement } from "react-sortable-hoc";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faTrash,
+  faCaretRight,
+  faCaretDown
+} from "@fortawesome/free-solid-svg-icons";
 import SortHandle from "../SortHandle";
 import WhenFieldChanges from "./../WhenFieldChanges";
 import NotRequiredConditions from "./NotRequiredConditions";
@@ -15,6 +21,14 @@ const Page = sortableElement(
     const handleEditPage = () => {
       editSinglePage(name);
     };
+
+    const toggleRoutes = () => setShowRoutes(!showRoutes);
+    const [showRoutes, setShowRoutes] = useState(false);
+
+    const ShowHideRoutes = styled.div`
+      margin-bottom: ${showRoutes ? "10px" : 0};
+      cursor: pointer;
+    `;
 
     return (
       <>
@@ -63,7 +77,18 @@ const Page = sortableElement(
             />
           </Row>
           <NotRequiredConditions name={name} />
-          <NextPage name={name} questions={questions} />
+
+          <Row>
+            <ShowHideRoutes onClick={toggleRoutes}>
+              <ShowHideIcon
+                icon={showRoutes ? faCaretDown : faCaretRight}
+                width="0"
+              />{" "}
+              <a>{showRoutes ? "Hide" : "Show"} routes</a>
+            </ShowHideRoutes>
+          </Row>
+
+          {showRoutes && <NextPage name={name} questions={questions} />}
         </Container>
       </>
     );
@@ -124,4 +149,8 @@ const EditPageButton = styled(FontAwesomeIcon)`
   &:hover {
     opacity: 1;
   }
+`;
+
+const ShowHideIcon = styled(FontAwesomeIcon)`
+  font-size: 16px;
 `;
