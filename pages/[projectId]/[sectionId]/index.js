@@ -57,7 +57,8 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
     setCurrentPage(changePageTo);
   };
 
-  // useEffect on below to get "questions" to stay current. Not currently being used
+  // useEffect on below to get "questions" to stay current.
+  // Not currently being used
   const questions = sectionData.Pages.map(
     page =>
       page.Questions &&
