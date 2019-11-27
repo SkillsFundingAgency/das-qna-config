@@ -1,5 +1,6 @@
-import Router from "next/router";
 import React, { useCallback, useState } from "react";
+import Router from "next/router";
+import Link from "next/link";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,6 +8,7 @@ import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 
 const FileManager = ({ loadSectionData, saveSectionToFile }) => {
   const [filename, setFilename] = useState("");
+  const [showLocalStorageSaves, setShowLocalStorageSaves] = useState(false);
 
   const handleFilenameChange = event => {
     setFilename(event.target.value);
@@ -52,6 +54,31 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
     });
   };
 
+  const toggleLocalStorageSaves = () =>
+    setShowLocalStorageSaves(!showLocalStorageSaves);
+
+  const openPage = (projectId, sectionId) => {
+    Router.push({
+      pathname: `/${projectId}/${sectionId}`
+    });
+  };
+
+  const AllStorageItems = () => {
+    return Object.keys(localStorage).map(key => {
+      const sectionParams = key.split("__");
+      const projectId = sectionParams[0];
+      const sectionId = sectionParams[1];
+
+      return (
+        <div>
+          <a href="#" onClick={() => openPage(projectId, sectionId)}>
+            {key}
+          </a>
+        </div>
+      );
+    });
+  };
+
   return (
     <>
       <h3>Load a section from file</h3>
@@ -64,6 +91,13 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
           </DropZone>
         </div>
       </Row>
+
+      <h3>
+        <a onClick={toggleLocalStorageSaves}>
+          Load a section from localStorage
+        </a>
+      </h3>
+      {showLocalStorageSaves && <AllStorageItems />}
 
       <h3>Save current section to file</h3>
       <form onSubmit={handleSubmit}>

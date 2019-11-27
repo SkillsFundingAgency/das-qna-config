@@ -28,12 +28,22 @@ const required = value => (value ? undefined : "required");
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-const save = async values => {
-  localStorage.setItem("sectionData", JSON.stringify(values));
-  await sleep(4000);
+const save = async (projectId, sectionId, values) => {
+  // console.log("projectId:", projectId);
+  // console.log("sectionId:", sectionId);
+  // console.log("values:", values);
+
+  localStorage.setItem(`${projectId}__${sectionId}`, JSON.stringify(values));
+  // How long the saving icon displays
+  await sleep(1500);
 };
 
-const Section = ({ initialSectionData, initialUserSettings }) => {
+const Section = ({
+  projectId,
+  sectionId,
+  initialSectionData,
+  initialUserSettings
+}) => {
   const [sectionData, setSectionData] = useState(initialSectionData);
 
   const [currentView, setCurrentView] = useState("section"); // or page
@@ -91,7 +101,7 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
   // loads data from localStorage to editor
   useEffect(() => {
     // this is a problem because the localStorage data will always overwrite the loaded section data
-    const data = localStorage.getItem("sectionData");
+    const data = localStorage.getItem(`${projectId}__${sectionId}`);
     if (data) {
       setSectionData(JSON.parse(data));
     }
@@ -149,7 +159,11 @@ const Section = ({ initialSectionData, initialUserSettings }) => {
             values
           }) => (
             <>
-              <AutoSave debounce={2000} save={save} />
+              <AutoSave
+                // After keyup how long to wait before storing in localStorage
+                debounce={1000}
+                save={() => save(projectId, sectionId, values)}
+              />
               <Columns>
                 <form onSubmit={handleSubmit}>
                   {/* <h3>{currentView === "section" ? "Section" : "Page"}</h3> */}
@@ -277,6 +291,8 @@ Section.getInitialProps = async context => {
     );
     const sectionData = jsonResponse.default;
     return {
+      projectId: projectId,
+      sectionId: sectionId,
       initialSectionData: sectionData,
       initialUserSettings: cookies.userSettings
     };
@@ -288,6 +304,8 @@ Section.getInitialProps = async context => {
     );
     const sectionData = await JSON.parse(base64.decode(jsonResponse.content));
     return {
+      projectId: projectId,
+      sectionId: sectionId,
       initialSectionData: sectionData,
       initialUserSettings: cookies.userSettings
     };
