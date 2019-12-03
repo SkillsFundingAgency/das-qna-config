@@ -57,10 +57,15 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
   const toggleLocalStorageSaves = () =>
     setShowLocalStorageSaves(!showLocalStorageSaves);
 
-  const openPage = (projectId, sectionId) => {
-    Router.push({
-      pathname: `/${projectId}/${sectionId}`
-    });
+  const openPage = (key, projectId, sectionId) => {
+    // Router.push({
+    //   pathname: `/${projectId}/${sectionId}`,
+    //   query: { draft: "true" }
+    // });
+    const draftSectionData = localStorage.getItem(key);
+    console.log(draftSectionData);
+
+    loadSectionData(draftSectionData);
   };
 
   const AllStorageItems = () => {
@@ -70,10 +75,8 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
       const sectionId = sectionParams[1];
 
       return (
-        <div>
-          <a href="#" onClick={() => openPage(projectId, sectionId)}>
-            {key}
-          </a>
+        <div key={key}>
+          <a onClick={() => openPage(key, projectId, sectionId)}>{key}</a>
         </div>
       );
     });

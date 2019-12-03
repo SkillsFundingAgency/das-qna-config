@@ -91,6 +91,8 @@ const Section = ({
   };
 
   const loadSectionData = fileContents => {
+    console.log(fileContents);
+
     setSectionData(JSON.parse(fileContents));
   };
 
@@ -99,13 +101,13 @@ const Section = ({
   }, [userSettings]);
 
   // loads data from localStorage to editor
-  useEffect(() => {
-    // this is a problem because the localStorage data will always overwrite the loaded section data
-    const data = localStorage.getItem(`${projectId}__${sectionId}`);
-    if (data) {
-      setSectionData(JSON.parse(data));
-    }
-  }, []);
+  // useEffect(() => {
+  //   // this is a problem because the localStorage data will always overwrite the loaded section data
+  //   const data = localStorage.getItem(`${projectId}__${sectionId}`);
+  //   if (data) {
+  //     setSectionData(JSON.parse(data));
+  //   }
+  // }, []);
 
   const saveCurrentSectionToFile = (fileName, jsonContents) => {
     var file = new File([JSON.stringify(jsonContents, 0, 4)], fileName, {
@@ -256,6 +258,9 @@ const Section = ({
                         saveCurrentSectionToFile(filename, values)
                       }
                     />
+                    <a href="#" onClick={showBranchData}>
+                      Show branch data
+                    </a>
                   </div>
                 )}
 
@@ -300,7 +305,7 @@ Section.getInitialProps = async context => {
 
   try {
     const jsonResponse = await githubFetch(
-      `src/SFA.DAS.QnA.Database/projects/${projectId}/sections/${sectionId}.json`
+      `/src/SFA.DAS.QnA.Database/projects/${projectId}/sections/${sectionId}.json`
     );
     const sectionData = await JSON.parse(base64.decode(jsonResponse.content));
     return {

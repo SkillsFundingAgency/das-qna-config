@@ -11,7 +11,9 @@ import { githubFetch } from "./../helpers/githubApi";
 
 import { EMPTY_SECTION } from "./../data/data-structures";
 
-const Projects = ({ initialProjectData }) => {
+const Projects = ({ initialProjectData, initialBranchData }) => {
+  const [branches, setBranches] = useState(initialBranchData);
+  console.log("branches:", branches);
   const [projects, setProjects] = useState(initialProjectData);
   const [projectData, setProjectData] = useState(null);
   const [loadingProject, setLoadingProject] = useState(false);
@@ -48,6 +50,20 @@ const Projects = ({ initialProjectData }) => {
           }) => (
             <>
               <Columns>
+                <div>
+                  {branches.map((branch, index) => (
+                    <div key={index}>
+                      <p style={{ marginBottom: "0" }}>
+                        <a
+                          href="#"
+                          onClick={() => loadProjectFile(project.name)}
+                        >
+                          {branch.name}
+                        </a>
+                      </p>
+                    </div>
+                  ))}
+                </div>
                 <div>
                   {projects
                     .filter(project => project.type === "dir")
@@ -115,9 +131,20 @@ export default Projects;
 
 Projects.getInitialProps = async context => {
   try {
-    const jsonResponse = await githubFetch("src/SFA.DAS.QnA.Database/projects");
+    const branchesJsonResponse = await githubFetch(
+      "",
+      "SkillsFundingAgency",
+      "das-qna-api",
+      "branches"
+    );
+    console.log(branchesJsonResponse);
+
+    const projectsJsonResponse = await githubFetch(
+      "src/SFA.DAS.QnA.Database/projects"
+    );
     return {
-      initialProjectData: jsonResponse
+      initialProjectData: projectsJsonResponse,
+      initialBranchData: branchesJsonResponse
     };
   } catch (error) {
     console.error(error);
