@@ -6,25 +6,40 @@ import { FieldArray } from "react-final-form-arrays";
 import base64 from "base-64";
 
 import styled from "styled-components";
+import Select from "react-select";
 import GlobalStyles from "../styles/global";
 import { githubFetch } from "./../helpers/githubApi";
 
 import { EMPTY_SECTION } from "./../data/data-structures";
 
-const Projects = ({ initialProjectData, initialBranchData }) => {
+const Projects = ({ initialBranchData }) => {
   const [branches, setBranches] = useState(initialBranchData);
-  console.log("branches:", branches);
-  const [projects, setProjects] = useState(initialProjectData);
+  const [selectedBranch, setSelectedBranch] = useState(null);
+  const [projectsInBranch, setProjectsInBranch] = useState(null);
   const [projectData, setProjectData] = useState(null);
-  const [loadingProject, setLoadingProject] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const listProjectsInBranch = async selectedBranch => {
+    setLoading(true);
+    setSelectedBranch(selectedBranch.value);
+    try {
+      const projectsJsonResponse = await githubFetch(
+        `/src/SFA.DAS.QnA.Database/projects?ref=${selectedBranch.value}`
+      );
+      setProjectsInBranch(projectsJsonResponse);
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
+  };
 
   const loadProjectFile = async name => {
-    setLoadingProject(true);
+    setLoading(true);
     const jsonResponse = await githubFetch(
-      `src/SFA.DAS.QnA.Database/projects/${name}/project.json`
+      `/src/SFA.DAS.QnA.Database/projects/${name}/project.json?ref=${selectedBranch}`
     );
     setProjectData(JSON.parse(base64.decode(jsonResponse.content)));
-    setLoadingProject(false);
+    setLoading(false);
   };
 
   return (
@@ -32,9 +47,9 @@ const Projects = ({ initialProjectData, initialBranchData }) => {
       <GlobalStyles />
       <Container>
         <Header>QnA Config | Projects</Header>
-        <Form
+        {/* <Form
           onSubmit={() => {}}
-          initialValues={projects}
+          initialValues={projects.projectsInBranch}
           mutators={{
             ...arrayMutators
           }}
@@ -48,80 +63,99 @@ const Projects = ({ initialProjectData, initialBranchData }) => {
             pristine,
             values
           }) => (
-            <>
-              <Columns>
-                <div>
-                  {branches.map((branch, index) => (
+            <> */}
+        <Columns>
+          <div>
+            <Link href="project/empty-section" as="project/empty-section">
+              <Button>Create empty section</Button>
+            </Link>
+            <h2>Branches on das-qna-api</h2>
+            <Select
+              name="branchSelector"
+              value={selectedBranch}
+              options={branches.map((branch, index) => ({
+                label: branch.name,
+                value: branch.name
+              }))}
+              onChange={listProjectsInBranch}
+              isSearchable={true}
+            />
+            {projectsInBranch &&
+            projectsInBranch.message !== "Not Found" &&
+            !loading ? (
+              <div>
+                <h2>Projects</h2>
+                {projectsInBranch
+                  .filter(project => project.type === "dir")
+                  .map((project, index) => (
                     <div key={index}>
-                      <p style={{ marginBottom: "0" }}>
+                      <h1 style={{ marginBottom: "0" }}>
                         <a
                           href="#"
                           onClick={() => loadProjectFile(project.name)}
                         >
-                          {branch.name}
+                          {project.name}
                         </a>
-                      </p>
+                      </h1>
+                      <p style={{ marginTop: "0" }}>{project.path}</p>
                     </div>
                   ))}
-                </div>
-                <div>
-                  {projects
-                    .filter(project => project.type === "dir")
-                    .map((project, index) => (
-                      <div key={index}>
-                        <h1 style={{ marginBottom: "0" }}>
-                          <a
-                            href="#"
-                            onClick={() => loadProjectFile(project.name)}
-                          >
-                            {project.name}
-                          </a>
-                        </h1>
-                        <p style={{ marginTop: "0" }}>{project.path}</p>
-                      </div>
-                    ))}
+              </div>
+            ) : null
+            // (
+            // <div>
+            //   <h2>No projects found in branch</h2>
+            // </div>
+            // )
+            }
+            {loading ? "Loading..." : null}
 
-                  <Link href="project/empty-section" as="project/empty-section">
-                    <Button>Empty section</Button>
-                  </Link>
-                </div>
-                {projectData ? (
-                  <div>
-                    <h2>
-                      {projectData.Name} ({projectData.Description})
-                    </h2>
+            {/* {branches.map((branch, index) => (
+              <div key={index}>
+                <p style={{ margin: "0 0 5px 0" }}>
+                  <a href="#" onClick={() => listProjectsInBranch(branch.name)}>
+                    {branch.name}
+                  </a>
+                </p>
+              </div>
+            ))} */}
+          </div>
 
-                    {projectData.Workflows.map((workflow, index) => (
-                      <div key={index}>
-                        <h3>
-                          {workflow.Type} ({workflow.Description})
-                        </h3>
-                        <SectionList>
-                          {workflow.section.map((section, index) => (
-                            <li key={section.id}>
-                              <Link
-                                href="[projectData.id]/[section.id]"
-                                as={`${projectData.id}/${section.id}`}
-                              >
-                                <a>{section.name}</a>
-                              </Link>
-                              <SectionDetails>
-                                {section.id}.json | Sequence{" "}
-                                {section.SequenceNo} | Section{" "}
-                                {section.SectionNo}
-                              </SectionDetails>
-                            </li>
-                          ))}
-                        </SectionList>
-                      </div>
+          {projectData ? (
+            <div>
+              <h2>
+                {projectData.Name} ({projectData.Description})
+              </h2>
+
+              {projectData.Workflows.map((workflow, index) => (
+                <div key={index}>
+                  <h3>
+                    {workflow.Type} ({workflow.Description})
+                  </h3>
+                  <SectionList>
+                    {workflow.section.map((section, index) => (
+                      <li key={section.id}>
+                        <Link
+                          href="[projectData.id]/[section.id]"
+                          as={`${projectData.id}/${section.id}`}
+                        >
+                          <a>{section.name}</a>
+                        </Link>
+                        <SectionDetails>
+                          {section.id}.json | Sequence {section.SequenceNo} |
+                          Section {section.SectionNo}
+                        </SectionDetails>
+                      </li>
                     ))}
-                  </div>
-                ) : null}
-                {loadingProject && <h2>Loading...</h2>}
-              </Columns>
-            </>
+                  </SectionList>
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </Columns>
+        {/* </>
           )}
-        />
+        /> */}
       </Container>
     </>
   );
@@ -137,13 +171,8 @@ Projects.getInitialProps = async context => {
       "das-qna-api",
       "branches"
     );
-    console.log(branchesJsonResponse);
-
-    const projectsJsonResponse = await githubFetch(
-      "src/SFA.DAS.QnA.Database/projects"
-    );
+    // console.log(branchesJsonResponse);
     return {
-      initialProjectData: projectsJsonResponse,
       initialBranchData: branchesJsonResponse
     };
   } catch (error) {
@@ -227,6 +256,7 @@ const Buttons = styled.div`
 `;
 
 const Button = styled.button`
+  margin-top: 20px;
   background: #0b0c0c;
   padding: 5px 8px 6px;
   color: white;

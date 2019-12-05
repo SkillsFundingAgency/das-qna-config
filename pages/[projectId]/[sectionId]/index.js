@@ -121,7 +121,8 @@ const Section = ({
       <GlobalStyles />
       <Container>
         <Header>
-          QnA Config | {currentView === "section" ? "Section " : "Page "} editor
+          <a href="/">QnA Config</a> |{" "}
+          {currentView === "section" ? "Section " : "Page "} editor
         </Header>
         <DisplayControls>
           <TogglePreView
