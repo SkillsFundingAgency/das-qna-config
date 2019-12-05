@@ -7,7 +7,7 @@ export const githubFetch = async (
   type = "contents"
 ) => {
   const response = await fetch(
-    `https://api.github.com/repos/${username}/${project}/${type}/${path}`,
+    `https://api.github.com/repos/${username}/${project}/${type}${path}`,
     {
       headers: {
         Authorization: `bearer ${process.env.GITHUB_PERSONAL_ACCESS_TOKEN}`,

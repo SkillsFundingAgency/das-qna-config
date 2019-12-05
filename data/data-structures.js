@@ -44,7 +44,6 @@ export const EMPTY_COMPLEX_OPTION = {
 export const EMPTY_NEXT = {
   Action: "NextPage",
   ReturnId: "",
-  Condition: null,
   Conditions: [],
   ConditionMet: false
 };
