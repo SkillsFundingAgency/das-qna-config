@@ -259,9 +259,6 @@ const Section = ({
                         saveCurrentSectionToFile(filename, values)
                       }
                     />
-                    <a href="#" onClick={showBranchData}>
-                      Show branch data
-                    </a>
                   </div>
                 )}
 
