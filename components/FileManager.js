@@ -47,7 +47,7 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
 
   const deleteLocalStorageAutoSave = event => {
     event.preventDefault();
-    localStorage.removeItem("sectionData");
+    localStorage.clear();
     Router.push({
       pathname: "/",
       query: { name: "emptied" }
@@ -115,7 +115,14 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
       </form>
       <Row>
         <Buttons>
-          <ResetAppButton href="#" onClick={deleteLocalStorageAutoSave}>
+          <ResetAppButton
+            href="#"
+            onClick={event =>
+              window.confirm(
+                "Are you sure you wish to reset? This will clear all saves from local storage."
+              ) && deleteLocalStorageAutoSave(event)
+            }
+          >
             <WarningIcon icon={faExclamationCircle} width="0" />
             Reset and return to projects page
           </ResetAppButton>
