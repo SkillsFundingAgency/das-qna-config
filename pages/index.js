@@ -9,6 +9,7 @@ import styled from "styled-components";
 import Select from "react-select";
 import GlobalStyles from "../styles/global";
 import { githubFetch } from "./../helpers/githubApi";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 import { EMPTY_SECTION } from "./../data/data-structures";
 
@@ -108,7 +109,7 @@ const Projects = ({ initialBranchData }) => {
             // </div>
             // )
             }
-            {loading ? "Loading..." : null}
+            {loading ? <LoadingSpinner /> : null}
 
             {/* {branches.map((branch, index) => (
               <div key={index}>
