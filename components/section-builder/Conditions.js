@@ -5,10 +5,10 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import Select from "../Select";
-import QnaField from "./../QnaField";
+import QnaField from "../QnaField";
 import WhenFieldChanges from "../WhenFieldChanges";
 
-import { EMPTY_CONDITION } from "./../../data/data-structures";
+import { EMPTY_CONDITION } from "../../data/data-structures";
 
 const Condition = ({ when, is, children }) => (
   // show children if condition (value === is) is met or show nothing

@@ -5,7 +5,7 @@ import SortableList from "../SortableList";
 
 import Question from "./Question";
 
-import { EMPTY_QUESTION } from "./../../data/data-structures";
+import { EMPTY_QUESTION } from "../../data/data-structures";
 
 const Questions = sortableContainer(({ name }) => {
   return (

@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 import { Field } from "react-final-form";
 import styled from "styled-components";
 
-import QnaField from "./../QnaField";
-import WhenFieldChanges from "./../WhenFieldChanges";
-import Textarea from "./../Textarea";
+import QnaField from "../QnaField";
+import WhenFieldChanges from "../WhenFieldChanges";
+import Textarea from "../Textarea";
 import Questions from "./Questions";
 import Select from "../Select";
 

@@ -8,9 +8,9 @@ import { sortableElement } from "react-sortable-hoc";
 import Question from "./Question";
 import SortHandle from "../SortHandle";
 import Textarea from "../Textarea";
-import QnaField from "./../QnaField";
+import QnaField from "../QnaField";
 
-import { EMPTY_QUESTION } from "./../../data/data-structures";
+import { EMPTY_QUESTION } from "../../data/data-structures";
 
 const Answer = sortableElement(({ name, remove, isComplex }) => (
   <Container>

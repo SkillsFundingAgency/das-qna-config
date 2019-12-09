@@ -17,7 +17,7 @@ import FileManager from "../../../components/FileManager";
 import GeneratedPage from "../../../components/page-builder/GeneratedPage";
 import GeneratedSection from "../../../components/section-builder/GeneratedSection";
 import GeneratedJson from "../../../components/GeneratedJson";
-import { githubFetch } from "./../../../helpers/githubApi";
+import { githubFetch } from "../../../helpers/githubApi";
 
 import Pages from "../../../components/section-builder/Pages";
 

@@ -11,10 +11,10 @@ import {
   faCaretDown
 } from "@fortawesome/free-solid-svg-icons";
 import SortHandle from "../SortHandle";
-import WhenFieldChanges from "./../WhenFieldChanges";
+import WhenFieldChanges from "../WhenFieldChanges";
 import NotRequiredConditions from "./NotRequiredConditions";
 import NextPage from "./NextPage";
-import QnaField from "./../QnaField";
+import QnaField from "../QnaField";
 
 const Page = sortableElement(
   ({ name, questions, editSinglePage, removePage }) => {

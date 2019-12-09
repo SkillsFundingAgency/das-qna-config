@@ -8,10 +8,10 @@ import base64 from "base-64";
 import styled from "styled-components";
 import Select from "react-select";
 import GlobalStyles from "../styles/global";
-import { githubFetch } from "./../helpers/githubApi";
+import { githubFetch } from "../helpers/githubApi";
 import LoadingSpinner from "../components/LoadingSpinner";
 
-import { EMPTY_SECTION } from "./../data/data-structures";
+import { EMPTY_SECTION } from "../data/data-structures";
 
 const Projects = ({ initialBranchData }) => {
   const [branches, setBranches] = useState(initialBranchData);
@@ -85,7 +85,7 @@ const Projects = ({ initialBranchData }) => {
             projectsInBranch.message !== "Not Found" &&
             !loading ? (
               <div>
-                <h2>Projects</h2>
+                <h2>Projects in {selectedBranch}</h2>
                 {projectsInBranch
                   .filter(project => project.type === "dir")
                   .map((project, index) => (
@@ -102,13 +102,11 @@ const Projects = ({ initialBranchData }) => {
                     </div>
                   ))}
               </div>
-            ) : null
-            // (
-            // <div>
-            //   <h2>No projects found in branch</h2>
-            // </div>
-            // )
-            }
+            ) : (
+              <div>
+                <h2>No projects found in branch</h2>
+              </div>
+            )}
             {loading ? <LoadingSpinner /> : null}
 
             {/* {branches.map((branch, index) => (
@@ -172,7 +170,7 @@ Projects.getInitialProps = async context => {
       "das-qna-api",
       "branches"
     );
-    // console.log(branchesJsonResponse);
+    console.log(branchesJsonResponse);
     return {
       initialBranchData: branchesJsonResponse
     };

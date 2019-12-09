@@ -1,12 +1,12 @@
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 import { sortableContainer } from "react-sortable-hoc";
-import SortableList from "./../SortableList";
+import SortableList from "../SortableList";
 
 import Page from "./Page";
-import SinglePageView from "./../page-builder/SinglePageView";
+import SinglePageView from "../page-builder/SinglePageView";
 
-import { EMPTY_PAGE } from "./../../data/data-structures";
+import { EMPTY_PAGE } from "../../data/data-structures";
 
 const Pages = sortableContainer(
   ({

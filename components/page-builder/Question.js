@@ -11,14 +11,14 @@ import CreatableSelect from "../CreatableSelect";
 import Textarea from "../Textarea";
 import Answers from "./Answers";
 import Validations from "./Validations";
-import QnaField from "./../QnaField";
+import QnaField from "../QnaField";
 import {
   QUESTION_TYPES,
   INPUT_CLASSES,
   EMPTY_COMPLEX_OPTION,
   EMPTY_DATAFED_CHECKBOXLIST,
   EMPTY_OPTION
-} from "./../../data/data-structures";
+} from "../../data/data-structures";
 
 const hasOptions = type => ~["Radio", "CheckboxList"].indexOf(type);
 const isComplex = type => ~["ComplexRadio"].indexOf(type);
