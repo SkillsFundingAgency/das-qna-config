@@ -1,7 +1,7 @@
 export const EMPTY_SECTION = {
   Title: "",
   LinkTitle: "",
-  DisplayType: "",
+  DisplayType: "Pages",
   RequestedFeedbackAnswered: null,
   Pages: []
 };

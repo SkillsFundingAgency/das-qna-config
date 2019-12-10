@@ -49,8 +49,7 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
     event.preventDefault();
     localStorage.clear();
     Router.push({
-      pathname: "/",
-      query: { name: "emptied" }
+      pathname: "/"
     });
   };
 
@@ -119,7 +118,7 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
             href="#"
             onClick={event =>
               window.confirm(
-                "Are you sure you wish to reset? This will clear all saves from local storage."
+                "Are you sure you want to reset? This will clear all saves from local storage."
               ) && deleteLocalStorageAutoSave(event)
             }
           >

@@ -56,7 +56,7 @@ const Pages = sortableContainer(
                           name={name}
                           removePage={() =>
                             window.confirm(
-                              "Are you sure you wish to delete this page?"
+                              "Are you sure you want to delete this page?"
                             ) && fields.remove(index)
                           }
                           questions={questions}

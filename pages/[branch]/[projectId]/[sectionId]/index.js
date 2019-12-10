@@ -7,19 +7,20 @@ import saveAs from "file-saver";
 import base64 from "base-64";
 
 import styled from "styled-components";
-import GlobalStyles from "../../../styles/global";
+import GlobalStyles from "../../../../styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode, faFolder, faFileAlt } from "@fortawesome/free-solid-svg-icons";
 
-import QnaField from "../../../components/QnaField";
-import AutoSave from "../../../components/AutoSave";
-import FileManager from "../../../components/FileManager";
-import GeneratedPage from "../../../components/page-builder/GeneratedPage";
-import GeneratedSection from "../../../components/section-builder/GeneratedSection";
-import GeneratedJson from "../../../components/GeneratedJson";
-import { githubFetch } from "../../../helpers/githubApi";
+import QnaField from "../../../../components/QnaField";
+import AutoSave from "../../../../components/AutoSave";
+import FileManager from "../../../../components/FileManager";
+import GeneratedPage from "../../../../components/page-builder/GeneratedPage";
+import GeneratedSection from "../../../../components/section-builder/GeneratedSection";
+import GeneratedJson from "../../../../components/GeneratedJson";
+import { githubFetchFileContents } from "../../../../helpers/githubApi";
 
-import Pages from "../../../components/section-builder/Pages";
+import Pages from "../../../../components/section-builder/Pages";
+import { EMPTY_SECTION } from "../../../../data/data-structures";
 
 const parseCookies = req =>
   cookie.parse(req ? req.headers.cookie || "" : document.cookie);
@@ -282,33 +283,35 @@ const Section = ({
 
 Section.getInitialProps = async context => {
   // Example response from `context.query`:
-  // { projectId: 'epaoall', sectionId: 'section1' }
-
-  const { sectionId, projectId } = context.query;
+  // {
+  //   branch: 'master',
+  //   projectId: 'epaoall',
+  //   sectionId: 'section1'
+  // }
+  const { branch, sectionId, projectId } = context.query;
   const cookies = parseCookies(context.req);
 
   // Load local data for empty section. Refactor this.
   if (sectionId === "empty-section") {
-    const jsonResponse = await import(
-      `../../../data/sections/${sectionId}.json`
-    );
-    const sectionData = jsonResponse.default;
     return {
-      projectId: projectId,
-      sectionId: sectionId,
-      initialSectionData: sectionData,
+      projectId,
+      sectionId,
+      initialSectionData: EMPTY_SECTION,
       initialUserSettings: cookies.userSettings
     };
   }
 
   try {
-    const jsonResponse = await githubFetch(
-      `/src/SFA.DAS.QnA.Database/projects/${projectId}/sections/${sectionId}.json`
+    const jsonResponse = await githubFetchFileContents(
+      branch,
+      `src/SFA.DAS.QnA.Database/projects/${projectId}/sections/${sectionId}.json`
     );
-    const sectionData = await JSON.parse(base64.decode(jsonResponse.content));
+    const sectionData = await JSON.parse(
+      jsonResponse.data.repository.object.text
+    );
     return {
-      projectId: projectId,
-      sectionId: sectionId,
+      projectId,
+      sectionId,
       initialSectionData: sectionData,
       initialUserSettings: cookies.userSettings
     };

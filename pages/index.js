@@ -8,26 +8,31 @@ import base64 from "base-64";
 import styled from "styled-components";
 import Select from "react-select";
 import GlobalStyles from "../styles/global";
-import { githubFetch } from "../helpers/githubApi";
+import {
+  githubFetchFileContents,
+  githubFetchFolderContents,
+  githubFetchBranches
+} from "../helpers/githubApi";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 import { EMPTY_SECTION } from "../data/data-structures";
 
 const Projects = ({ initialBranchData }) => {
   const [branches, setBranches] = useState(initialBranchData);
-  const [selectedBranch, setSelectedBranch] = useState(null);
-  const [projectsInBranch, setProjectsInBranch] = useState(null);
+  const [selectedBranch, setSelectedBranch] = useState("");
+  const [projectsInBranch, setProjectsInBranch] = useState("Not loaded");
   const [projectData, setProjectData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const listProjectsInBranch = async selectedBranch => {
+  const listProjectsInBranch = async chosenBranch => {
     setLoading(true);
-    setSelectedBranch(selectedBranch.value);
+    setSelectedBranch(chosenBranch.value);
     try {
-      const projectsJsonResponse = await githubFetch(
-        `/src/SFA.DAS.QnA.Database/projects?ref=${selectedBranch.value}`
+      const projectsFolderContents = await githubFetchFolderContents(
+        chosenBranch.value,
+        "src/SFA.DAS.QnA.Database/projects"
       );
-      setProjectsInBranch(projectsJsonResponse);
+      setProjectsInBranch(projectsFolderContents.data.repository.object);
     } catch (error) {
       console.error(error);
     }
@@ -36,10 +41,11 @@ const Projects = ({ initialBranchData }) => {
 
   const loadProjectFile = async name => {
     setLoading(true);
-    const jsonResponse = await githubFetch(
-      `/src/SFA.DAS.QnA.Database/projects/${name}/project.json?ref=${selectedBranch}`
+    const jsonResponse = await githubFetchFileContents(
+      selectedBranch,
+      `src/SFA.DAS.QnA.Database/projects/${name}/project.json`
     );
-    setProjectData(JSON.parse(base64.decode(jsonResponse.content)));
+    setProjectData(JSON.parse(jsonResponse.data.repository.object.text));
     setLoading(false);
   };
 
@@ -47,7 +53,11 @@ const Projects = ({ initialBranchData }) => {
     <>
       <GlobalStyles />
       <Container>
-        <Header>QnA Config | Projects</Header>
+        <Header>
+          QnA Config | Projects
+          {loading ? <LoadingSpinner /> : null}
+        </Header>
+
         {/* <Form
           onSubmit={() => {}}
           initialValues={projects.projectsInBranch}
@@ -67,27 +77,33 @@ const Projects = ({ initialBranchData }) => {
             <> */}
         <Columns>
           <div>
-            <Link href="project/empty-section" as="project/empty-section">
+            <Link
+              href="branch/project/empty-section"
+              as="branch/project/empty-section"
+            >
               <Button>Create empty section</Button>
             </Link>
             <h2>Branches on das-qna-api</h2>
             <Select
               name="branchSelector"
-              value={selectedBranch}
+              instanceId="branchSelector"
+              value={{
+                label: selectedBranch || "Select a branch...",
+                value: selectedBranch
+              }}
               options={branches.map((branch, index) => ({
-                label: branch.name,
-                value: branch.name
+                label: branch.node.name,
+                value: branch.node.name
               }))}
               onChange={listProjectsInBranch}
               isSearchable={true}
             />
-            {projectsInBranch &&
-            projectsInBranch.message !== "Not Found" &&
-            !loading ? (
+
+            {projectsInBranch && projectsInBranch !== "Not loaded" ? (
               <div>
-                <h2>Projects in {selectedBranch}</h2>
-                {projectsInBranch
-                  .filter(project => project.type === "dir")
+                <h2>Projects</h2>
+                {projectsInBranch.entries
+                  .filter(project => project.type === "tree")
                   .map((project, index) => (
                     <div key={index}>
                       <h1 style={{ marginBottom: "0" }}>
@@ -102,22 +118,9 @@ const Projects = ({ initialBranchData }) => {
                     </div>
                   ))}
               </div>
-            ) : (
-              <div>
-                <h2>No projects found in branch</h2>
-              </div>
-            )}
-            {loading ? <LoadingSpinner /> : null}
-
-            {/* {branches.map((branch, index) => (
-              <div key={index}>
-                <p style={{ margin: "0 0 5px 0" }}>
-                  <a href="#" onClick={() => listProjectsInBranch(branch.name)}>
-                    {branch.name}
-                  </a>
-                </p>
-              </div>
-            ))} */}
+            ) : projectsInBranch !== "Not loaded" ? (
+              <h2>No projects in branch</h2>
+            ) : null}
           </div>
 
           {projectData ? (
@@ -135,8 +138,8 @@ const Projects = ({ initialBranchData }) => {
                     {workflow.section.map((section, index) => (
                       <li key={section.id}>
                         <Link
-                          href="[projectData.id]/[section.id]"
-                          as={`${projectData.id}/${section.id}`}
+                          href="[selectedBranch]/[projectData.id]/[section.id]"
+                          as={`${selectedBranch}/${projectData.id}/${section.id}`}
                         >
                           <a>{section.name}</a>
                         </Link>
@@ -164,22 +167,13 @@ export default Projects;
 
 Projects.getInitialProps = async context => {
   try {
-    const branchesJsonResponse = await githubFetch(
-      "",
-      "SkillsFundingAgency",
-      "das-qna-api",
-      "branches"
-    );
-    console.log(branchesJsonResponse);
+    const getAllBranches = await githubFetchBranches();
     return {
-      initialBranchData: branchesJsonResponse
+      initialBranchData: getAllBranches.data.repository.refs.edges
     };
   } catch (error) {
     console.error(error);
   }
-
-  // const initialProjectData = await import(`./../data/project.json`);
-  // return { initialProjectData };
 };
 
 const SectionList = styled.ul`
