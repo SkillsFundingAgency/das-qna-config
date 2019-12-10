@@ -291,7 +291,7 @@ Section.getInitialProps = async context => {
   const { branch, sectionId, projectId } = context.query;
   const cookies = parseCookies(context.req);
 
-  // Load local data for empty section. Refactor this.
+  // Return with stub data for empty section
   if (sectionId === "empty-section") {
     return {
       projectId,

@@ -37,6 +37,7 @@ export const githubFetchFileContents = async (branch, path) => {
       repository(owner: "SkillsFundingAgency", name: "das-qna-api") {
         object(expression: "${branch}:${path}") {
           ... on Blob {
+            id
             text
           }
         }

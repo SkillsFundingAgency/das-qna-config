@@ -1,24 +1,17 @@
 import { useState } from "react";
 import Link from "next/link";
-import { Form } from "react-final-form";
-import arrayMutators from "final-form-arrays";
-import { FieldArray } from "react-final-form-arrays";
-import base64 from "base-64";
-
 import styled from "styled-components";
-import Select from "react-select";
 import GlobalStyles from "../styles/global";
 import {
   githubFetchFileContents,
   githubFetchFolderContents,
   githubFetchBranches
 } from "../helpers/githubApi";
+import LoadFromGithub from "../components/project-builder/LoadFromGithub";
+import ListProjectSections from "../components/project-builder/ListProjectSections";
 import LoadingSpinner from "../components/LoadingSpinner";
 
-import { EMPTY_SECTION } from "../data/data-structures";
-
 const Projects = ({ initialBranchData }) => {
-  const [branches, setBranches] = useState(initialBranchData);
   const [selectedBranch, setSelectedBranch] = useState("");
   const [projectsInBranch, setProjectsInBranch] = useState("Not loaded");
   const [projectData, setProjectData] = useState(null);
@@ -41,11 +34,18 @@ const Projects = ({ initialBranchData }) => {
 
   const loadProjectFile = async name => {
     setLoading(true);
-    const jsonResponse = await githubFetchFileContents(
-      selectedBranch,
-      `src/SFA.DAS.QnA.Database/projects/${name}/project.json`
-    );
-    setProjectData(JSON.parse(jsonResponse.data.repository.object.text));
+    try {
+      const projectsFileContents = await githubFetchFileContents(
+        selectedBranch,
+        `src/SFA.DAS.QnA.Database/projects/${name}/project.json`
+      );
+      setProjectData(
+        JSON.parse(projectsFileContents.data.repository.object.text)
+      );
+    } catch (error) {
+      console.error(error);
+    }
+    4;
     setLoading(false);
   };
 
@@ -53,28 +53,8 @@ const Projects = ({ initialBranchData }) => {
     <>
       <GlobalStyles />
       <Container>
-        <Header>
-          QnA Config | Projects
-          {loading ? <LoadingSpinner /> : null}
-        </Header>
-
-        {/* <Form
-          onSubmit={() => {}}
-          initialValues={projects.projectsInBranch}
-          mutators={{
-            ...arrayMutators
-          }}
-          render={({
-            handleSubmit,
-            reset,
-            submitting,
-            form: {
-              mutators: { push, pop } // injected from final-form-arrays above
-            },
-            pristine,
-            values
-          }) => (
-            <> */}
+        <Header>QnA Config | Projects</Header>
+        <DisplayControls>{loading ? <LoadingSpinner /> : null}</DisplayControls>
         <Columns>
           <div>
             <Link
@@ -83,81 +63,25 @@ const Projects = ({ initialBranchData }) => {
             >
               <Button>Create empty section</Button>
             </Link>
-            <h2>Branches on das-qna-api</h2>
-            <Select
-              name="branchSelector"
-              instanceId="branchSelector"
-              value={{
-                label: selectedBranch || "Select a branch...",
-                value: selectedBranch
-              }}
-              options={branches.map((branch, index) => ({
-                label: branch.node.name,
-                value: branch.node.name
-              }))}
-              onChange={listProjectsInBranch}
-              isSearchable={true}
-            />
 
-            {projectsInBranch && projectsInBranch !== "Not loaded" ? (
-              <div>
-                <h2>Projects</h2>
-                {projectsInBranch.entries
-                  .filter(project => project.type === "tree")
-                  .map((project, index) => (
-                    <div key={index}>
-                      <h1 style={{ marginBottom: "0" }}>
-                        <a
-                          href="#"
-                          onClick={() => loadProjectFile(project.name)}
-                        >
-                          {project.name}
-                        </a>
-                      </h1>
-                      <p style={{ marginTop: "0" }}>{project.path}</p>
-                    </div>
-                  ))}
-              </div>
-            ) : projectsInBranch !== "Not loaded" ? (
-              <h2>No projects in branch</h2>
-            ) : null}
+            <LoadFromGithub
+              selectedBranch={selectedBranch}
+              branches={initialBranchData}
+              projectsInBranch={projectsInBranch}
+              listProjectsInBranch={listProjectsInBranch}
+              loadProjectFile={loadProjectFile}
+            />
           </div>
 
           {projectData ? (
             <div>
-              <h2>
-                {projectData.Name} ({projectData.Description})
-              </h2>
-
-              {projectData.Workflows.map((workflow, index) => (
-                <div key={index}>
-                  <h3>
-                    {workflow.Type} ({workflow.Description})
-                  </h3>
-                  <SectionList>
-                    {workflow.section.map((section, index) => (
-                      <li key={section.id}>
-                        <Link
-                          href="[selectedBranch]/[projectData.id]/[section.id]"
-                          as={`${selectedBranch}/${projectData.id}/${section.id}`}
-                        >
-                          <a>{section.name}</a>
-                        </Link>
-                        <SectionDetails>
-                          {section.id}.json | Sequence {section.SequenceNo} |
-                          Section {section.SectionNo}
-                        </SectionDetails>
-                      </li>
-                    ))}
-                  </SectionList>
-                </div>
-              ))}
+              <ListProjectSections
+                projectData={projectData}
+                selectedBranch={selectedBranch}
+              />
             </div>
           ) : null}
         </Columns>
-        {/* </>
-          )}
-        /> */}
       </Container>
     </>
   );
@@ -175,23 +99,6 @@ Projects.getInitialProps = async context => {
     console.error(error);
   }
 };
-
-const SectionList = styled.ul`
-  list-style: none;
-  padding: 0;
-
-  & > li {
-    padding: 0;
-    margin-bottom: 5px;
-  }
-`;
-
-const SectionDetails = styled.p`
-  /* text-transform: uppercase; */
-  margin-top: 0;
-  font-weight: bold;
-  font-size: 12px;
-`;
 
 const Container = styled.div`
   padding: 0 10px;
@@ -218,6 +125,13 @@ const Header = styled.h1`
   }
 `;
 
+const DisplayControls = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 15px;
+`;
+
 const Columns = styled.div`
   display: flex;
   flex-flow: row;
@@ -232,20 +146,6 @@ const Columns = styled.div`
     padding: 0 20px;
     overflow-y: auto;
   }
-`;
-
-const Row = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
-
-const Buttons = styled.div`
-  padding: 0;
-  text-align: left;
 `;
 
 const Button = styled.button`
