@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
@@ -9,21 +11,46 @@ import styled from "styled-components";
 //   ssr: false
 // });
 
-const GeneratedJson = ({ values }) => (
-  <div>
-    <h3>
-      <FontAwesomeIcon icon={faCode} width="0" /> Generated JSON
-    </h3>
-    <Dump>{JSON.stringify(values, 0, 2)}</Dump>
-    {/* <ReactJson
+const GeneratedJson = ({ values }) => {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const prettyStringValues = JSON.stringify(values, 0, 2);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsCopied(false);
+    }, 1400);
+    return () => clearTimeout(timer);
+  }, [isCopied]);
+
+  return (
+    <div>
+      <h3>
+        <FontAwesomeIcon icon={faCode} width="0" /> Generated JSON
+      </h3>
+
+      {isCopied ? (
+        <span>Copied to clipboard</span>
+      ) : (
+        <CopyToClipboard
+          text={prettyStringValues}
+          onCopy={() => setIsCopied(true)}
+        >
+          <a href="#">Copy to clipboard</a>
+        </CopyToClipboard>
+      )}
+      <Dump>{prettyStringValues}</Dump>
+
+      {/* <ReactJson
       src={values}
       displayDataTypes={false}
       displayObjectSize={false}
       indentWidth={2}
       name={false}
     /> */}
-  </div>
-);
+    </div>
+  );
+};
 
 export default GeneratedJson;
 
