@@ -16,6 +16,7 @@ import AutoSave from "../../../../components/AutoSave";
 import FileManager from "../../../../components/FileManager";
 import GeneratedPage from "../../../../components/page-builder/GeneratedPage";
 import GeneratedSection from "../../../../components/section-builder/GeneratedSection";
+import IsJsonValid from "../../../../components/section-builder/IsJsonValid";
 import GeneratedJson from "../../../../components/GeneratedJson";
 import { githubFetchFileContents } from "../../../../helpers/githubApi";
 
@@ -120,49 +121,55 @@ const Section = ({
   return (
     <>
       <GlobalStyles />
-      <Container>
-        <Header>
-          <a href="/">QnA Config</a> |{" "}
-          {currentView === "section" ? "Section " : "Page "} editor
-        </Header>
-        <DisplayControls>
-          <TogglePreView
-            icon={faFileAlt}
-            onClick={() => updateUserSettings("showPreview")}
-            width="0"
-            className={userSettings.showPreview ? "view-is-open" : ""}
-          />
-          <ToggleFileView
-            icon={faFolder}
-            onClick={() => updateUserSettings("showFileManager")}
-            width="0"
-            className={userSettings.showFileManager ? "view-is-open" : ""}
-          />
-          <ToggleCodeView
-            icon={faCode}
-            onClick={() => updateUserSettings("showSchema")}
-            width="0"
-            className={userSettings.showSchema ? "view-is-open" : ""}
-          />
-        </DisplayControls>
-        <Form
-          // subscription={{ submitting: true, pristine: true }}
-          onSubmit={() => {}}
-          initialValues={sectionData}
-          mutators={{
-            ...arrayMutators
-          }}
-          render={({
-            handleSubmit,
-            reset,
-            submitting,
-            form: {
-              mutators: { push, pop } // injected from final-form-arrays above
-            },
-            pristine,
-            values
-          }) => (
-            <>
+      <Form
+        // subscription={{ submitting: true, pristine: true }}
+        onSubmit={() => {}}
+        initialValues={sectionData}
+        mutators={{
+          ...arrayMutators
+        }}
+        render={({
+          handleSubmit,
+          reset,
+          submitting,
+          form: {
+            mutators: { push, pop } // injected from final-form-arrays above
+          },
+          pristine,
+          values
+        }) => (
+          <>
+            <IsJsonValid values={values} />
+            <Container>
+              <Header>
+                <div>
+                  <a href="/">QnA Config</a> |{" "}
+                  {currentView === "section" ? "Section " : "Page "} editor
+                </div>
+                <DisplayControls>
+                  <TogglePreView
+                    icon={faFileAlt}
+                    onClick={() => updateUserSettings("showPreview")}
+                    width="0"
+                    className={userSettings.showPreview ? "view-is-open" : ""}
+                  />
+                  <ToggleFileView
+                    icon={faFolder}
+                    onClick={() => updateUserSettings("showFileManager")}
+                    width="0"
+                    className={
+                      userSettings.showFileManager ? "view-is-open" : ""
+                    }
+                  />
+                  <ToggleCodeView
+                    icon={faCode}
+                    onClick={() => updateUserSettings("showSchema")}
+                    width="0"
+                    className={userSettings.showSchema ? "view-is-open" : ""}
+                  />
+                </DisplayControls>
+              </Header>
+
               <AutoSave
                 // After keyup how long to wait before storing in localStorage
                 debounce={1000}
@@ -273,10 +280,10 @@ const Section = ({
                   />
                 )}
               </Columns>
-            </>
-          )}
-        />
-      </Container>
+            </Container>
+          </>
+        )}
+      />
     </>
   );
 };
@@ -302,12 +309,12 @@ Section.getInitialProps = async context => {
   }
 
   try {
-    const jsonResponse = await githubFetchFileContents(
+    const sectionJsonResponse = await githubFetchFileContents(
       branch,
       `src/SFA.DAS.QnA.Database/projects/${projectId}/sections/${sectionId}.json`
     );
     const sectionData = await JSON.parse(
-      jsonResponse.data.repository.object.text
+      sectionJsonResponse.data.repository.object.text
     );
     return {
       projectId,
@@ -331,10 +338,8 @@ const Container = styled.div`
 `;
 
 const Header = styled.h1`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  display: flex;
+  justify-content: space-between;
   height: 50px;
   margin: 5px 15px;
   text-align: left;
@@ -347,11 +352,15 @@ const Header = styled.h1`
   }
 `;
 
+const DisplayControls = styled.div`
+  top: 0;
+  right: 0;
+`;
+
 const Columns = styled.div`
   display: flex;
   flex-flow: row;
   height: 100vh;
-  padding-top: 50px;
   & > * {
     flex: 1;
     margin: 5px;
@@ -369,13 +378,6 @@ const Row = styled.div`
   &:last-child {
     margin-bottom: 0;
   }
-`;
-
-const DisplayControls = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 15px;
 `;
 
 const TogglePreView = styled(FontAwesomeIcon)`
