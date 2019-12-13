@@ -25,7 +25,7 @@ const Conditions = ({ name, questions }) => {
           <>
             {fields.map((name, index) => (
               <Container key={index}>
-                <h3 style={{ marginTop: "0" }}>if</h3>
+                <h3 style={{ marginTop: "0" }}>{index > 0 ? "AND" : "IF"}</h3>
                 <PageControls>
                   <RemoveConditionButton
                     icon={faTrash}
@@ -93,17 +93,14 @@ const Conditions = ({ name, questions }) => {
                 </Row>
               </Container>
             ))}
-
-            {!fields.value.length && (
-              <Buttons>
-                <Button
-                  type="button"
-                  onClick={() => fields.push(EMPTY_CONDITION)}
-                >
-                  + Add a Condition
-                </Button>
-              </Buttons>
-            )}
+            <Buttons>
+              <Button
+                type="button"
+                onClick={() => fields.push(EMPTY_CONDITION)}
+              >
+                + Add a Condition
+              </Button>
+            </Buttons>
           </>
         );
       }}
