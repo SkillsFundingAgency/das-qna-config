@@ -7,7 +7,15 @@ import saveAs from "file-saver";
 import base64 from "base-64";
 
 import styled from "styled-components";
-import GlobalStyles from "../../../../styles/global";
+import {
+  GlobalStyles,
+  Container,
+  Header,
+  Title,
+  DisplayControls,
+  Columns,
+  Row
+} from "../../../../styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode, faFolder, faFileAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -142,10 +150,10 @@ const Section = ({
             <IsJsonValid values={values} />
             <Container>
               <Header>
-                <div>
+                <Title>
                   <a href="/">QnA Config</a> |{" "}
                   {currentView === "section" ? "Section " : "Page "} editor
-                </div>
+                </Title>
                 <DisplayControls>
                   <TogglePreView
                     icon={faFileAlt}
@@ -299,7 +307,7 @@ Section.getInitialProps = async context => {
   const cookies = parseCookies(context.req);
 
   // Return with stub data for empty section
-  if (sectionId === "empty-section") {
+  if (sectionId === "custom") {
     return {
       projectId,
       sectionId,
@@ -328,57 +336,6 @@ Section.getInitialProps = async context => {
 };
 
 export default Section;
-
-const Container = styled.div`
-  padding: 0 10px;
-  h3 {
-    text-align: left;
-    color: #333;
-  }
-`;
-
-const Header = styled.h1`
-  display: flex;
-  justify-content: space-between;
-  height: 50px;
-  margin: 5px 15px;
-  text-align: left;
-  color: #333;
-  a {
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-`;
-
-const DisplayControls = styled.div`
-  top: 0;
-  right: 0;
-`;
-
-const Columns = styled.div`
-  display: flex;
-  flex-flow: row;
-  height: 100vh;
-  & > * {
-    flex: 1;
-    margin: 5px;
-    border: 3px solid #ddd;
-    border-radius: 3px;
-    padding: 0 20px;
-    overflow-y: auto;
-  }
-`;
-
-const Row = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
 
 const TogglePreView = styled(FontAwesomeIcon)`
   font-size: 30px;

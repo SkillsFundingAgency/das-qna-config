@@ -1,7 +1,14 @@
 import { useState } from "react";
 import Link from "next/link";
-import styled from "styled-components";
-import GlobalStyles from "../styles/global";
+import {
+  GlobalStyles,
+  Container,
+  Header,
+  Title,
+  DisplayControls,
+  Columns,
+  Button
+} from "../styles/global";
 import {
   githubFetchFileContents,
   githubFetchFolderContents,
@@ -53,15 +60,16 @@ const Projects = ({ initialBranchData }) => {
     <>
       <GlobalStyles />
       <Container>
-        <Header>QnA Config | Projects</Header>
-        <DisplayControls>{loading ? <LoadingSpinner /> : null}</DisplayControls>
+        <Header>
+          <Title>QnA Config | Projects</Title>
+          <DisplayControls>
+            {loading ? <LoadingSpinner /> : null}
+          </DisplayControls>
+        </Header>
         <Columns>
           <div>
-            <Link
-              href="branch/project/empty-section"
-              as="branch/project/empty-section"
-            >
-              <Button>Create empty section</Button>
+            <Link href="branch/project/custom" as="branch/project/custom">
+              <Button>Create custom section</Button>
             </Link>
 
             <LoadFromGithub
@@ -99,64 +107,3 @@ Projects.getInitialProps = async context => {
     console.error(error);
   }
 };
-
-const Container = styled.div`
-  padding: 0 10px;
-  h3 {
-    text-align: left;
-    color: #333;
-  }
-`;
-
-const Header = styled.h1`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  margin: 5px 15px;
-  text-align: left;
-  color: #333;
-  a {
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-`;
-
-const DisplayControls = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 15px;
-`;
-
-const Columns = styled.div`
-  display: flex;
-  flex-flow: row;
-  height: 100vh;
-  padding-top: 50px;
-  & > * {
-    flex: 1;
-    margin: 5px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-    padding: 0 20px;
-    overflow-y: auto;
-  }
-`;
-
-const Button = styled.button`
-  margin-top: 20px;
-  background: #0b0c0c;
-  padding: 5px 8px 6px;
-  color: white;
-  border-radius: 3px;
-  border: 0;
-  opacity: 0.7;
-  &:hover {
-    opacity: 1;
-  }
-`;
