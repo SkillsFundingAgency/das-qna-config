@@ -11,10 +11,8 @@ const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {
 
   return (
     <>
-      <Link noVisitedState href="#" style={{ marginBottom: "10px" }}>
-        {LinkTitle}
-      </Link>
-      <Container>
+      {LinkTitle && <BrowserTitle>{LinkTitle}</BrowserTitle>}
+      <PreviewContainer>
         <H1>{Title}</H1>
 
         {Pages.map((page, index) => (
@@ -38,19 +36,29 @@ const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {
             </GridRow>
           </div>
         ))}
-      </Container>
+      </PreviewContainer>
     </>
   );
 };
 
 export default GeneratedSection;
 
-const Container = styled.div`
+const PreviewContainer = styled.div`
   border: 1px solid #ddd;
-  border-radius: 3px;
+  background: #fff;
   padding: 25px;
-  margin-top: 10px;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  margin-top: 5px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const BrowserTitle = styled.span`
+  padding: 7px 15px;
+  font-size: 13px;
+  background: white;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-bottom: 0px solid white;
+  border-radius: 4px 4px 0 0;
 `;
 
 const GridColFlex = styled(GridCol)`

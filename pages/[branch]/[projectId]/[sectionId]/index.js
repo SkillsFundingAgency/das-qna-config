@@ -11,6 +11,7 @@ import {
   GlobalStyles,
   Container,
   Header,
+  PanelHeader,
   Title,
   DisplayControls,
   Columns,
@@ -151,11 +152,10 @@ const Section = ({
             <Container>
               <Header>
                 <Title>
-                  <a href="/">QnA Config</a> |{" "}
-                  {currentView === "section" ? "Section " : "Page "} editor
+                  <a href="/">QnA Config</a>
                 </Title>
                 <DisplayControls>
-                  <TogglePreView
+                  <TogglePreview
                     icon={faFileAlt}
                     onClick={() => updateUserSettings("showPreview")}
                     width="0"
@@ -183,13 +183,36 @@ const Section = ({
                 debounce={1000}
                 save={() => save(projectId, sectionId, values)}
               />
+              <PanelHeader>
+                <h3>{currentView === "section" ? "Section" : "Page"} editor</h3>
+              </PanelHeader>
               <Columns>
                 <form onSubmit={handleSubmit}>
-                  {/* <h3>{currentView === "section" ? "Section" : "Page"}</h3> */}
-
                   {currentView === "section" && (
                     <>
-                      <Row style={{ marginTop: "20px" }}>
+                      <Row>
+                        <QnaField name="LinkTitle" validate={required}>
+                          {({ input, meta }) => (
+                            <>
+                              <input
+                                {...input}
+                                type="text"
+                                placeholder={
+                                  meta.error && meta.touched
+                                    ? `Link title is ${meta.error}`
+                                    : `Link title (section)`
+                                }
+                                style={{ width: "100%" }}
+                                component="input"
+                                className={
+                                  meta.error && meta.touched ? meta.error : ""
+                                }
+                              />
+                            </>
+                          )}
+                        </QnaField>
+                      </Row>
+                      <Row>
                         <QnaField name="Title" validate={required}>
                           {({ input, meta }) => {
                             return (
@@ -211,28 +234,6 @@ const Section = ({
                               </>
                             );
                           }}
-                        </QnaField>
-                      </Row>
-                      <Row>
-                        <QnaField name="LinkTitle" validate={required}>
-                          {({ input, meta }) => (
-                            <>
-                              <input
-                                {...input}
-                                type="text"
-                                placeholder={
-                                  meta.error && meta.touched
-                                    ? `Link title is ${meta.error}`
-                                    : `Link title (section)`
-                                }
-                                style={{ width: "100%" }}
-                                component="input"
-                                className={
-                                  meta.error && meta.touched ? meta.error : ""
-                                }
-                              />
-                            </>
-                          )}
                         </QnaField>
                       </Row>
                     </>
@@ -337,13 +338,13 @@ Section.getInitialProps = async context => {
 
 export default Section;
 
-const TogglePreView = styled(FontAwesomeIcon)`
+const TogglePreview = styled(FontAwesomeIcon)`
   font-size: 30px;
   cursor: pointer;
   margin-right: 15px;
   opacity: 0.7;
   padding: 0 0 3px;
-  border-bottom: 3px solid #fff;
+  border-bottom: 3px solid #333;
   &:hover {
     opacity: 1;
   }
@@ -359,7 +360,7 @@ const ToggleFileView = styled(FontAwesomeIcon)`
   margin-right: 15px;
   opacity: 0.7;
   padding: 0 0 3px;
-  border-bottom: 3px solid #fff;
+  border-bottom: 3px solid #333;
   &:hover {
     opacity: 1;
   }
@@ -374,7 +375,7 @@ const ToggleCodeView = styled(FontAwesomeIcon)`
   cursor: pointer;
   opacity: 0.7;
   padding: 0 0 3px;
-  border-bottom: 3px solid #fff;
+  border-bottom: 3px solid #333;
   &:hover {
     opacity: 1;
   }

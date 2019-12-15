@@ -61,10 +61,9 @@ const GeneratedPage = ({ schema }) => {
   // const reset = event => event.preventDefault();
   return (
     <>
-      <Link noVisitedState href="#" style={{ marginBottom: "10px" }}>
-        {Title}
-      </Link>
-      <Container>
+      {Title && <BrowserTitle>{Title}</BrowserTitle>}
+
+      <PreviewContainer>
         <GridRow>
           <GridCol>{!isSingleQuestion && <H1>{Title}</H1>}</GridCol>
         </GridRow>
@@ -128,7 +127,11 @@ const GeneratedPage = ({ schema }) => {
                   ) : null}
                   <GridRow>
                     <GridCol>
-                      <Button type="submit" disabled={submitting || pristine}>
+                      <Button
+                        mb={Details ? 4 : 0}
+                        type="submit"
+                        disabled={submitting || pristine}
+                      >
                         Save and continue
                       </Button>
                     </GridCol>
@@ -162,19 +165,29 @@ const GeneratedPage = ({ schema }) => {
             </GridCol>
           </GridRow>
         )}
-      </Container>
+      </PreviewContainer>
     </>
   );
 };
 
 export default GeneratedPage;
 
-const Container = styled.div`
+const PreviewContainer = styled.div`
   border: 1px solid #ddd;
-  border-radius: 3px;
+  background: #fff;
   padding: 25px;
-  margin-top: 10px;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  margin-top: 5px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+`;
+
+const BrowserTitle = styled.span`
+  padding: 7px 15px;
+  font-size: 13px;
+  background: white;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-bottom: 0px solid white;
+  border-radius: 4px 4px 0 0;
 `;
 
 const StyledQuestions = styled.div`

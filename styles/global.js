@@ -59,7 +59,7 @@ export const GlobalStyles = () => (
 );
 
 export const Container = styled.div`
-  padding: 0 10px;
+  padding: 0;
   h3 {
     text-align: left;
     color: #333;
@@ -70,9 +70,11 @@ export const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 5px 15px;
+  margin: 0;
+  padding: 5px 10px;
   text-align: left;
-  color: #333;
+  background: #333;
+  color: #fff;
   a {
     text-decoration: none;
     &:hover {
@@ -81,9 +83,21 @@ export const Header = styled.div`
   }
 `;
 
+export const PanelHeader = styled(Header)`
+  margin-bottom: 10px;
+  background: darkslategrey;
+  h3 {
+    color: white;
+    margin: 0;
+  }
+`;
+
 export const Title = styled.h1`
   margin: 0;
   font-size: 1.5em;
+  a {
+    color: #fff;
+  }
 `;
 
 export const DisplayControls = styled.div`
@@ -96,11 +110,11 @@ export const Columns = styled.div`
   height: 100vh;
   & > * {
     flex: 1;
-    margin: 5px;
-    border: 3px solid #ddd;
-    border-radius: 3px;
-    padding: 0 20px;
+    margin: 0;
+    /* padding: 0 10px; */
     overflow-y: auto;
+    background: whitesmoke;
+    border-right: 1px solid #ddd;
   }
 `;
 
