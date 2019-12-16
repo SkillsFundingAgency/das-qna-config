@@ -1,72 +1,7 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Ajv from "ajv";
 // import { githubFetchFileContents } from "../../helpers/githubApi";
-
-const IsJsonValid = ({ values }) => {
-  const ajv = new Ajv({ allErrors: true });
-  const test = ajv.compile(schema);
-  const [isValid, setIsValid] = useState(test(values));
-  console.log(isValid, test.errors);
-
-  return (
-    <>
-      {!isValid && test.errors && (
-        <Errors>
-          <h2>Errors with imported JSON</h2>
-          <ul>
-            {test.errors.map(error => {
-              return (
-                <li>
-                  {error.schemaPath}
-                  <br />
-                  {error.keyword}
-                  <br />
-                  {error.message}
-                </li>
-              );
-            })}
-          </ul>
-        </Errors>
-      )}
-    </>
-  );
-};
-
-const Errors = styled.div`
-  padding: 15px 15px 10px;
-  background: #ab1409;
-  color: #fff;
-
-  & > h2 {
-    margin-top: 0;
-  }
-
-  & > ul {
-    padding-left: 20px;
-  }
-`;
-
-// IsJsonValid.getInitialProps = async () => {
-//   try {
-//     const schemaJsonResponse = await githubFetchFileContents(
-//       "section_schema",
-//       "src/SFA.DAS.QnA.Database/projects/SectionSchema.json"
-//     );
-//     console.log(schemaJsonResponse);
-
-//     const schemaData = await JSON.parse(
-//       schemaJsonResponse.data.repository.object.text
-//     );
-//     return {
-//       schemaData
-//     };
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-
-export default IsJsonValid;
 
 const schema = {
   definitions: {},
@@ -788,3 +723,92 @@ const schema = {
     }
   }
 };
+const ajv = new Ajv({ allErrors: true });
+const test = ajv.compile(schema);
+
+const IsJsonValid = ({ values }) => {
+  const [isValid, setIsValid] = useState(test(values));
+  // console.log(isValid, test.errors);
+
+  // useEffect(() => {
+  //   setIsValid(test(values));
+  //   console.log(isValid, test);
+  // }, [values]);
+
+  return (
+    <>
+      {!isValid && test.errors && (
+        <Errors>
+          <table>
+            <caption>JSON schema errors</caption>
+            <tr>
+              <th>Error type</th>
+              <th>Error location</th>
+              <th>Error message</th>
+              <th>Schema path</th>
+              <th>Parameters</th>
+            </tr>
+            {test.errors.map(error => {
+              console.log(error);
+
+              return (
+                <tr>
+                  <td>{error.keyword}</td>
+                  <td>{error.dataPath}</td>
+                  <td>{error.message}</td>
+                  <td>{error.schemaPath}</td>
+                  <td>{error.params.map}</td>
+                </tr>
+              );
+            })}
+          </table>
+        </Errors>
+      )}
+    </>
+  );
+};
+
+const Errors = styled.div`
+  padding: 15px 15px 10px;
+  background: #ab1409;
+  color: #fff;
+  text-align: left;
+  font-size: 13px;
+
+  table {
+    border-spacing: 0;
+  }
+
+  caption {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  th,
+  td {
+    padding: 5px 30px 5px 0;
+    border-bottom: 1px solid white;
+  }
+`;
+
+// IsJsonValid.getInitialProps = async () => {
+//   try {
+//     const schemaJsonResponse = await githubFetchFileContents(
+//       "section_schema",
+//       "src/SFA.DAS.QnA.Database/projects/SectionSchema.json"
+//     );
+//     console.log(schemaJsonResponse);
+
+//     const schemaData = await JSON.parse(
+//       schemaJsonResponse.data.repository.object.text
+//     );
+//     return {
+//       schemaData
+//     };
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+export default IsJsonValid;
