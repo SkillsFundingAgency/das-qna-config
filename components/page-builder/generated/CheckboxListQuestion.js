@@ -19,9 +19,9 @@ const CheckboxListQuestion = ({ question }) => {
         </FormGroup>
       ) : (
         <FormGroup>
-          {question.Input.Options.map(option => {
+          {question.Input.Options.map((option, index) => {
             return (
-              <Checkbox hint={ReactHtmlParser(option.HintText)}>
+              <Checkbox key={index} hint={ReactHtmlParser(option.HintText)}>
                 {option.Label}
               </Checkbox>
             );

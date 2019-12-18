@@ -88,7 +88,7 @@ const Page = sortableElement(
             </ShowHideRoutes>
           </Row>
 
-          {showRoutes && <NextPage name={name} questions={questions} />}
+          {showRoutes && <NextPage name={name} />}
         </Container>
       </>
     );

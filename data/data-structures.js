@@ -1,5 +1,5 @@
 export const EMPTY_SECTION = {
-  Tiltle: "",
+  Title: "",
   LinkTitle: "",
   DisplayType: "Pages",
   RequestedFeedbackAnswered: null,

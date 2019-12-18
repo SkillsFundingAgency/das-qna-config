@@ -59,7 +59,9 @@ export const GlobalStyles = () => (
 );
 
 export const Container = styled.div`
-  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   h3 {
     text-align: left;
     color: #333;
@@ -68,12 +70,14 @@ export const Container = styled.div`
 
 export const Header = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  margin: 5px 15px;
+  padding: 5px 10px;
   text-align: left;
-  color: #333;
+  background: #222;
+  color: #fff;
   a {
+    color: #fff;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
@@ -81,27 +85,57 @@ export const Header = styled.div`
   }
 `;
 
-export const Title = styled.h1`
-  margin: 0;
-  font-size: 1.5em;
-`;
-
-export const DisplayControls = styled.div`
-  padding-top: 5px;
-`;
-
 export const Columns = styled.div`
   display: flex;
   flex-flow: row;
-  height: 100vh;
+  flex-grow: 1;
+  overflow-y: auto;
   & > * {
     flex: 1;
-    margin: 5px;
-    border: 3px solid #ddd;
-    border-radius: 3px;
-    padding: 0 20px;
+    padding: 15px 15px;
     overflow-y: auto;
+    border-right: 5px solid #222;
+
+    &:nth-child(even) {
+      // background: #f7f7f7;
+    }
+
+    &:last-child {
+      border-right: 0;
+    }
   }
+`;
+
+export const FooterBar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #222;
+  font-size: 11px;
+  padding: 5px 10px;
+  color: white;
+
+  & > * {
+    margin: 0;
+  }
+
+  a {
+    color: #fff;
+  }
+`;
+
+export const Title = styled.h1`
+  margin: 0 auto 0 0;
+  font-size: 1.2em;
+`;
+
+export const ColumnTitle = styled.h3`
+  margin-top: 0;
+`;
+
+export const DisplayControls = styled.div`
+  // padding-top: 5px;
+  margin-left: 20px;
 `;
 
 export const Row = styled.div`
@@ -114,7 +148,6 @@ export const Row = styled.div`
 `;
 
 export const Button = styled.button`
-  margin-top: 20px;
   background: #0b0c0c;
   padding: 5px 8px 6px;
   color: white;

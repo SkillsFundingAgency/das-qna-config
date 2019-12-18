@@ -36,17 +36,8 @@ export default AutoSave;
 
 const FixedSave = styled.div`
   z-index: 0;
-  font-weight: 800;
-  position: fixed;
-  top: 0;
-  right: 160px;
-  background: rgba(255, 255, 255, 1);
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-  border-radius: 3px;
-  padding: 7px;
   transition: opacity 0.2s ease-in;
   opacity: 0;
-
   &.is-saving {
     transition: opacity 0.2s ease-out;
     opacity: 1;
@@ -54,5 +45,5 @@ const FixedSave = styled.div`
 `;
 
 const SaveIcon = styled(FontAwesomeIcon)`
-  color: #00703c;
+  color: #fff;
 `;

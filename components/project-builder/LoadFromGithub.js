@@ -28,18 +28,15 @@ const LoadFromGithub = ({
       <>
         {projectsInBranch && projectsInBranch !== "Not loaded" ? (
           <div>
-            <h2>Projects</h2>
+            <h2>Projects in branch</h2>
             {projectsInBranch.entries
               .filter(project => project.type === "tree")
               .map((project, index) => (
-                <div key={index}>
-                  <h1 style={{ marginBottom: "0" }}>
-                    <a href="#" onClick={() => loadProjectFile(project.name)}>
-                      {project.name}
-                    </a>
-                  </h1>
-                  <p style={{ marginTop: "0" }}>{project.path}</p>
-                </div>
+                <p key={index}>
+                  <a href="#" onClick={() => loadProjectFile(project.name)}>
+                    {project.name}
+                  </a>
+                </p>
               ))}
           </div>
         ) : projectsInBranch !== "Not loaded" ? (

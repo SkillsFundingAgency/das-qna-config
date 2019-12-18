@@ -69,7 +69,7 @@ const Projects = ({ initialBranchData }) => {
         <Columns>
           <div>
             <Link href="branch/project/custom" as="branch/project/custom">
-              <Button>Create custom section</Button>
+              <Button>Custom section</Button>
             </Link>
 
             <LoadFromGithub

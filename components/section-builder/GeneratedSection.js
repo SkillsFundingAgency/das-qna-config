@@ -1,5 +1,8 @@
 import { H1, Link, GridRow, GridCol } from "govuk-react";
 import styled from "styled-components";
+import { ColumnTitle } from "../../styles/global";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileAlt } from "@fortawesome/free-solid-svg-icons";
 
 const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {
   const { LinkTitle, Title, Pages } = schema;
@@ -10,42 +13,46 @@ const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {
   };
 
   return (
-    <>
+    <div>
+      <ColumnTitle>
+        <FontAwesomeIcon icon={faFileAlt} width="0" /> Preview
+      </ColumnTitle>
       <Link noVisitedState href="#" style={{ marginBottom: "10px" }}>
         {LinkTitle}
       </Link>
-      <Container>
+      <PreviewContainer>
         <H1>{Title}</H1>
 
-        {Pages.map((page, index) => (
-          <div key={index}>
-            <GridRow mb="1">
-              <GridColFlex>
-                <Link
-                  noVisitedState
-                  href="#"
-                  onClick={() => editPage(`Pages[${index}]`)}
-                >
-                  {page.LinkTitle}
-                </Link>
-                <PageId>{page.PageId}</PageId>
-              </GridColFlex>
-            </GridRow>
-            <GridRow mb="1">
-              <GridCol>
-                <hr />
-              </GridCol>
-            </GridRow>
-          </div>
-        ))}
-      </Container>
-    </>
+        {Pages &&
+          Pages.map((page, index) => (
+            <div key={index}>
+              <GridRow mb="1">
+                <GridColFlex>
+                  <Link
+                    noVisitedState
+                    href="#"
+                    onClick={() => editPage(`Pages[${index}]`)}
+                  >
+                    {page.LinkTitle}
+                  </Link>
+                  <PageId>{page.PageId}</PageId>
+                </GridColFlex>
+              </GridRow>
+              <GridRow mb="1">
+                <GridCol>
+                  <hr />
+                </GridCol>
+              </GridRow>
+            </div>
+          ))}
+      </PreviewContainer>
+    </div>
   );
 };
 
 export default GeneratedSection;
 
-const Container = styled.div`
+const PreviewContainer = styled.div`
   border: 1px solid #ddd;
   border-radius: 3px;
   padding: 25px;

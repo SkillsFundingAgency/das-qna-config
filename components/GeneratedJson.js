@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode } from "@fortawesome/free-solid-svg-icons";
+import { ColumnTitle } from "../styles/global";
 import styled from "styled-components";
 
 // import ReactJson from "react-json-view";
@@ -26,9 +27,9 @@ const GeneratedJson = ({ values }) => {
 
   return (
     <div>
-      <h3>
+      <ColumnTitle>
         <FontAwesomeIcon icon={faCode} width="0" /> Generated JSON
-      </h3>
+      </ColumnTitle>
 
       {isCopied ? (
         <span>Copied to clipboard</span>

@@ -4,11 +4,15 @@ import Link from "next/link";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faExclamationCircle,
+  faFolder
+} from "@fortawesome/free-solid-svg-icons";
+import { ColumnTitle } from "../styles/global";
 
 const FileManager = ({ loadSectionData, saveSectionToFile }) => {
   const [filename, setFilename] = useState("");
-  const [showLocalStorageSaves, setShowLocalStorageSaves] = useState(false);
+  // const [showLocalStorageSaves, setShowLocalStorageSaves] = useState(false);
 
   const handleFilenameChange = event => {
     setFilename(event.target.value);
@@ -53,36 +57,39 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
     });
   };
 
-  const toggleLocalStorageSaves = () =>
-    setShowLocalStorageSaves(!showLocalStorageSaves);
+  // const toggleLocalStorageSaves = () =>
+  //   setShowLocalStorageSaves(!showLocalStorageSaves);
 
-  const openPage = (key, projectId, sectionId) => {
-    // Router.push({
-    //   pathname: `/${projectId}/${sectionId}`,
-    //   query: { draft: "true" }
-    // });
-    const draftSectionData = localStorage.getItem(key);
-    console.log(draftSectionData);
+  // const openPage = (key, projectId, sectionId) => {
+  //   // Router.push({
+  //   //   pathname: `/${projectId}/${sectionId}`,
+  //   //   query: { draft: "true" }
+  //   // });
+  //   const draftSectionData = localStorage.getItem(key);
+  //   console.log(draftSectionData);
 
-    loadSectionData(draftSectionData);
-  };
+  //   loadSectionData(draftSectionData);
+  // };
 
-  const AllStorageItems = () => {
-    return Object.keys(localStorage).map(key => {
-      const sectionParams = key.split("__");
-      const projectId = sectionParams[0];
-      const sectionId = sectionParams[1];
+  // const AllStorageItems = () => {
+  //   return Object.keys(localStorage).map(key => {
+  //     const sectionParams = key.split("__");
+  //     const projectId = sectionParams[0];
+  //     const sectionId = sectionParams[1];
 
-      return (
-        <div key={key}>
-          <a onClick={() => openPage(key, projectId, sectionId)}>{key}</a>
-        </div>
-      );
-    });
-  };
+  //     return (
+  //       <div key={key}>
+  //         <a onClick={() => openPage(key, projectId, sectionId)}>{key}</a>
+  //       </div>
+  //     );
+  //   });
+  // };
 
   return (
-    <>
+    <div>
+      <ColumnTitle>
+        <FontAwesomeIcon icon={faFolder} width="0" /> File manager
+      </ColumnTitle>
       <h3>Load a section from file</h3>
       <Row>
         <div {...getRootProps()}>
@@ -94,12 +101,12 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
         </div>
       </Row>
 
-      <h3>
+      {/* <h3>
         <a onClick={toggleLocalStorageSaves}>
           Load a section from localStorage
         </a>
       </h3>
-      {showLocalStorageSaves && <AllStorageItems />}
+      {showLocalStorageSaves && <AllStorageItems />} */}
 
       <h3>Save current section to file</h3>
       <form onSubmit={handleSubmit}>
@@ -127,7 +134,7 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
           </ResetAppButton>
         </Buttons>
       </Row>
-    </>
+    </div>
   );
 };
 
@@ -200,6 +207,7 @@ const Button = styled.button`
 `;
 
 const ResetAppButton = styled(Button)`
+  margin-top: 30px;
   padding: 8px;
   font-size: 16px;
   background: #ab1409;
@@ -210,11 +218,6 @@ const WarningIcon = styled(FontAwesomeIcon)`
   font-size: 18px;
   cursor: pointer;
   margin-right: 8px;
-`;
-
-const InnerText = styled.p`
-  line-height: 2.4em;
-  margin: 0 5px;
 `;
 
 export default FileManager;

@@ -33,6 +33,9 @@ import {
 } from "govuk-react";
 
 import { QuestionComponents } from "./generated/QuestionComponents";
+import { ColumnTitle } from "../../styles/global";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFileAlt } from "@fortawesome/free-solid-svg-icons";
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -60,11 +63,14 @@ const GeneratedPage = ({ schema }) => {
 
   // const reset = event => event.preventDefault();
   return (
-    <>
+    <div>
+      <ColumnTitle>
+        <FontAwesomeIcon icon={faFileAlt} width="0" /> Preview
+      </ColumnTitle>
       <Link noVisitedState href="#" style={{ marginBottom: "10px" }}>
         {Title}
       </Link>
-      <Container>
+      <PreviewContainer>
         <GridRow>
           <GridCol>{!isSingleQuestion && <H1>{Title}</H1>}</GridCol>
         </GridRow>
@@ -135,22 +141,6 @@ const GeneratedPage = ({ schema }) => {
                   </GridRow>
                 </>
               )}
-              {/* <GridRow>
-                <GridCol>
-                  <Button
-                    secondary
-                    onClick={form.reset}
-                    disabled={submitting || pristine}
-                  >
-                    Reset
-                  </Button>
-                </GridCol>
-              </GridRow> */}
-              {/* <GridRow>
-              <GridCol>
-                <Dump>{JSON.stringify(values, 0, 2)}</Dump>
-              </GridCol>
-            </GridRow> */}
             </form>
           )}
         />
@@ -162,39 +152,17 @@ const GeneratedPage = ({ schema }) => {
             </GridCol>
           </GridRow>
         )}
-      </Container>
-    </>
+      </PreviewContainer>
+    </div>
   );
 };
 
 export default GeneratedPage;
 
-const Container = styled.div`
+const PreviewContainer = styled.div`
   border: 1px solid #ddd;
   border-radius: 3px;
   padding: 25px;
   margin-top: 10px;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-`;
-
-const StyledQuestions = styled.div`
-  display: flex;
-  flex-flow: column nowrap;
-  & > * {
-    margin: 3px 2px;
-    border-top: 1px solid #eee;
-    padding: 5px;
-    &:last-of-type {
-      border-bottom: 1px solid #eee;
-    }
-  }
-`;
-
-const Dump = styled.pre`
-  border: 1px solid #ccc;
-  font-size: 0.8em;
-  background: rgba(0, 0, 0, 0.1);
-  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  overflow: auto;
 `;

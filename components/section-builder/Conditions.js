@@ -17,7 +17,7 @@ const Condition = ({ when, is, children }) => (
   </Field>
 );
 
-const Conditions = ({ name, questions }) => {
+const Conditions = ({ name }) => {
   return (
     <FieldArray name={`${name}.Conditions`}>
       {({ fields }) => {

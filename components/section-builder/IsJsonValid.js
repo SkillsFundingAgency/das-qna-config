@@ -741,26 +741,30 @@ const IsJsonValid = ({ values }) => {
         <Errors>
           <table>
             <caption>JSON schema errors</caption>
-            <tr>
-              <th>Error type</th>
-              <th>Error location</th>
-              <th>Error message</th>
-              <th>Schema path</th>
-              <th>Parameters</th>
-            </tr>
-            {test.errors.map(error => {
-              console.log(error);
+            <thead>
+              <tr>
+                <th>Error type</th>
+                <th>Error location</th>
+                <th>Error message</th>
+                <th>Schema path</th>
+                <th>Parameters</th>
+              </tr>
+            </thead>
+            <tbody>
+              {test.errors.map((error, index) => {
+                // console.log(error);
 
-              return (
-                <tr>
-                  <td>{error.keyword}</td>
-                  <td>{error.dataPath}</td>
-                  <td>{error.message}</td>
-                  <td>{error.schemaPath}</td>
-                  <td>{error.params.map}</td>
-                </tr>
-              );
-            })}
+                return (
+                  <tr key={index}>
+                    <td>{error.keyword}</td>
+                    <td>{error.dataPath}</td>
+                    <td>{error.message}</td>
+                    <td>{error.schemaPath}</td>
+                    <td>{error.params.map}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
         </Errors>
       )}
@@ -781,8 +785,13 @@ const Errors = styled.div`
 
   caption {
     font-size: 20px;
+    margin-bottom: 5px;
     font-weight: bold;
     text-align: left;
+  }
+
+  tr:last-child > td {
+    border-bottom: 0;
   }
 
   th,

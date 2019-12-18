@@ -59,7 +59,6 @@ const Pages = sortableContainer(
                               "Are you sure you want to delete this page?"
                             ) && fields.remove(index)
                           }
-                          questions={questions}
                           editSinglePage={editSinglePage}
                         />
                       );

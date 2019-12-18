@@ -40,7 +40,7 @@ const NextPage = ({ name, questions }) => {
                     placeholder="PageId"
                   />
                 </Row>
-                <Conditions name={name} questions={questions} />
+                <Conditions name={name} />
               </Container>
             ))}
 
