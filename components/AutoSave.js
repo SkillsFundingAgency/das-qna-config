@@ -29,7 +29,14 @@ const AutoSaveHOC = ({ debounce, values, save }) => {
 
 // Make a HOC
 const AutoSave = props => (
-  <FormSpy {...props} subscription={{ values: true }} component={AutoSaveHOC} />
+  <FormSpy
+    {...props}
+    subscription={{ values: true }}
+    component={AutoSaveHOC}
+    // onChange={props => {
+    //   console.log("Form validity changed to", props);
+    // }}
+  />
 );
 
 export default AutoSave;

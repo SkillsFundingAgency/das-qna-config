@@ -33,7 +33,7 @@ const Page = sortableElement(
     return (
       <>
         <Container>
-          <Field name={`${name}.PageId`}>
+          {/* <Field name={`${name}.PageId`}>
             {({ input: { name, value } }) => (
               <>
                 <h2 name={name} style={{ marginTop: "0" }}>
@@ -41,7 +41,7 @@ const Page = sortableElement(
                 </h2>
               </>
             )}
-          </Field>
+          </Field> */}
           <PageControls>
             <SortHandle />
             <EditPageButton icon={faEdit} onClick={handleEditPage} width="0" />

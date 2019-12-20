@@ -78,9 +78,9 @@ export const Header = styled.div`
   color: #fff;
   a {
     color: #fff;
-    text-decoration: none;
+    text-decoration: underline;
     &:hover {
-      text-decoration: underline;
+      text-decoration: none;
     }
   }
 `;
@@ -157,4 +157,19 @@ export const Button = styled.button`
   &:hover {
     opacity: 1;
   }
+`;
+
+export const BrowserTab = styled.div`
+  display: inline-block;
+  font-size: 14px;
+  margin-bottom: -4px;
+  padding: 8px 10px;
+  background: #f1f1f1;
+  border-radius: 6px 6px 0 0;
+  color: #0b0c0c;
+`;
+
+export const PreviewContainer = styled.div`
+  border: 4px solid #f1f1f1;
+  padding: 25px;
 `;

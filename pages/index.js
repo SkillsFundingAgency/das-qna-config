@@ -5,6 +5,7 @@ import {
   Container,
   Header,
   Title,
+  ColumnTitle,
   DisplayControls,
   Columns,
   Button
@@ -14,9 +15,13 @@ import {
   githubFetchFolderContents,
   githubFetchBranches
 } from "../helpers/githubApi";
+import { guidGenerator } from "../helpers/helpers";
 import LoadFromGithub from "../components/project-builder/LoadFromGithub";
 import ListProjectSections from "../components/project-builder/ListProjectSections";
+import ListDraftSections from "../components/project-builder/ListDraftSections";
 import LoadingSpinner from "../components/LoadingSpinner";
+
+const newSectionId = guidGenerator();
 
 const Projects = ({ initialBranchData }) => {
   const [selectedBranch, setSelectedBranch] = useState("");
@@ -68,8 +73,11 @@ const Projects = ({ initialBranchData }) => {
         </Header>
         <Columns>
           <div>
-            <Link href="branch/project/custom" as="branch/project/custom">
-              <Button>Custom section</Button>
+            <Link
+              href={`custom/section/${newSectionId}`}
+              as={`custom/section/${newSectionId}`}
+            >
+              <Button>New section</Button>
             </Link>
 
             <LoadFromGithub
@@ -88,7 +96,12 @@ const Projects = ({ initialBranchData }) => {
                 selectedBranch={selectedBranch}
               />
             </div>
-          ) : null}
+          ) : (
+            <div>
+              <ColumnTitle>Saved draft sections</ColumnTitle>
+              <ListDraftSections />
+            </div>
+          )}
         </Columns>
       </Container>
     </>

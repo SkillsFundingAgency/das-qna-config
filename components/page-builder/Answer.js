@@ -65,7 +65,15 @@ const Answer = sortableElement(({ name, remove, isComplex }) => (
                 </Button>
               </Buttons>
             </FurtherQuestionsContainer>
-          ) : null
+          ) : (
+            <Row>
+              <QnaField
+                name={`${name}.ConditionalContentText`}
+                component={Textarea}
+                placeholder="Conditional content"
+              />
+            </Row>
+          )
         }
       </FieldArray>
     )}

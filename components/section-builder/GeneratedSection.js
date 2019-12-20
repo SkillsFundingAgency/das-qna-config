@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ColumnTitle } from "../../styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt } from "@fortawesome/free-solid-svg-icons";
+import { PreviewContainer, BrowserTab } from "../../styles/global";
 
 const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {
   const { LinkTitle, Title, Pages } = schema;
@@ -17,9 +18,7 @@ const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {
       <ColumnTitle>
         <FontAwesomeIcon icon={faFileAlt} width="0" /> Preview
       </ColumnTitle>
-      <Link noVisitedState href="#" style={{ marginBottom: "10px" }}>
-        {LinkTitle}
-      </Link>
+      {LinkTitle && <BrowserTab>{LinkTitle}</BrowserTab>}
       <PreviewContainer>
         <H1>{Title}</H1>
 
@@ -51,14 +50,6 @@ const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {
 };
 
 export default GeneratedSection;
-
-const PreviewContainer = styled.div`
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  padding: 25px;
-  margin-top: 10px;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-`;
 
 const GridColFlex = styled(GridCol)`
   display: flex;

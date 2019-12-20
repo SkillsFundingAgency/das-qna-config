@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+// import { useRouter } from "next/router";
 import { Form, Field } from "react-final-form";
 import arrayMutators from "final-form-arrays";
 import cookie from "cookie";
 import Cookies from "js-cookie";
 import saveAs from "file-saver";
-import base64 from "base-64";
+import { format } from "date-fns";
 
 import styled from "styled-components";
 import {
@@ -12,15 +13,19 @@ import {
   Container,
   Header,
   Title,
-  ColumnTitle,
   DisplayControls,
   Columns,
   Row,
-  FooterBar,
-  Status
+  FooterBar
 } from "../../../../styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCode, faFolder, faFileAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCode,
+  faFolder,
+  faFileAlt,
+  faBug,
+  faAngleRight
+} from "@fortawesome/free-solid-svg-icons";
 
 import QnaField from "../../../../components/QnaField";
 import AutoSave from "../../../../components/AutoSave";
@@ -41,26 +46,26 @@ const required = value => (value ? undefined : "required");
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-const save = async (branch, projectId, sectionId, values) => {
-  localStorage.setItem(
-    `${branch}__${projectId}__${sectionId}`,
-    JSON.stringify(values)
-  );
-
-  // How long the saving icon displays
-  await sleep(1500);
-};
-
 const Section = ({
   branch,
   projectId,
   sectionId,
   initialSectionData,
-  initialUserSettings
+  initialUserSettings,
+  initialPageSettings
 }) => {
   const [sectionData, setSectionData] = useState(initialSectionData);
   const [usingLocalSave, setUsingLocalSave] = useState(false);
-  // console.log(usingLocalSave);
+  const [lastSave, setLastSave] = useState("");
+
+  // const [currentView, setCurrentView] = useState(
+  //   initialPageSettings ? JSON.parse(initialPageSettings).currentView : null
+  // ); // or page
+  // console.log("TCL: currentView", currentView);
+  // const [currentPage, setCurrentPage] = useState(
+  //   initialPageSettings ? JSON.parse(initialPageSettings).currentPage : null
+  // );
+  // console.log("TCL: currentPage", currentPage);
 
   const [currentView, setCurrentView] = useState("section"); // or page
   const [currentPage, setCurrentPage] = useState(0);
@@ -69,11 +74,25 @@ const Section = ({
     initialUserSettings
       ? JSON.parse(initialUserSettings)
       : {
+          showErrors: false,
           showPreview: true,
           showSchema: false,
           showFileManager: false
         }
   );
+
+  const save = async (branch, projectId, sectionId, values) => {
+    const timeOfSave = format(new Date(), "H:mm:ss 'on' do LLL");
+    setLastSave(timeOfSave);
+    setUsingLocalSave(true);
+    localStorage.setItem(
+      `${branch}__${projectId}__${sectionId}__draft`,
+      JSON.stringify({ timeOfSave, values })
+    );
+
+    // How long the saving icon displays
+    await sleep(1500);
+  };
 
   const updateCurrentView = changeViewTo => {
     setCurrentView(changeViewTo);
@@ -112,21 +131,28 @@ const Section = ({
   };
 
   useEffect(() => {
+    Cookies.set("pageSettings", { currentView, currentPage });
+  }, [currentView, currentPage]);
+
+  useEffect(() => {
     Cookies.set("userSettings", userSettings);
   }, [userSettings]);
 
   // loads data from localStorage to editor
   useEffect(() => {
-    const data = localStorage.getItem(`${branch}__${projectId}__${sectionId}`);
+    const data = localStorage.getItem(
+      `${branch}__${projectId}__${sectionId}__draft`
+    );
     if (data) {
-      console.log("Draft found. Loading...");
+      console.log("Loading draft...");
       setUsingLocalSave(true);
-      setSectionData(JSON.parse(data));
+      setSectionData(JSON.parse(data).values);
+      setLastSave(JSON.parse(data).timeOfSave);
       // window.confirm(
       //   "Local save found for this section, would you like to load it?"
       // ) && setSectionData(JSON.parse(data));
     } else {
-      console.log("Draft section not found, loading from GitHub.");
+      console.log("Loading from GitHub.");
       loadDataFromGithub(branch, projectId, sectionId);
       setUsingLocalSave(false);
     }
@@ -175,19 +201,28 @@ const Section = ({
           values
         }) => (
           <>
-            <IsJsonValid values={values} />
+            {userSettings.showErrors && <IsJsonValid values={values} />}
+
             <Container>
               <Header>
                 <Title>
-                  <a href="/">QnA Config</a> |{" "}
+                  QnA Config |{" "}
+                  <BreadcrumbLink href="/">Projects</BreadcrumbLink>
+                  <AngleIcon icon={faAngleRight} width="0" />
                   {currentView === "section" ? "Section " : "Page "} editor
                 </Title>
                 <AutoSave
                   // After keyup how long to wait before storing in localStorage
-                  debounce={1000}
+                  debounce={3000}
                   save={() => save(branch, projectId, sectionId, values)}
                 />
                 <DisplayControls>
+                  <DisplayControlIcon
+                    icon={faBug}
+                    onClick={() => updateUserSettings("showErrors")}
+                    width="0"
+                    className={userSettings.showErrors ? "view-is-open" : ""}
+                  />
                   <DisplayControlIcon
                     icon={faFileAlt}
                     onClick={() => updateUserSettings("showPreview")}
@@ -213,9 +248,8 @@ const Section = ({
 
               {sectionData && (
                 <Columns>
+                  {/* {console.log(sectionData)} */}
                   <form onSubmit={handleSubmit}>
-                    {/* <h3>{currentView === "section" ? "Section" : "Page"}</h3> */}
-
                     {currentView === "section" && (
                       <>
                         <Row>
@@ -270,17 +304,22 @@ const Section = ({
                     )}
 
                     <Pages
-                      updateCurrentView={updateCurrentView}
                       currentView={currentView}
-                      updateCurrentPage={updateCurrentPage}
                       currentPage={currentPage}
+                      updateCurrentView={updateCurrentView}
+                      updateCurrentPage={updateCurrentPage}
                     />
                   </form>
 
                   {userSettings.showPreview && (
                     <>
                       {currentView === "page" ? (
-                        <GeneratedPage schema={eval(`values.${currentPage}`)} />
+                        <>
+                          {/* {console.log(eval(`values.${currentPage}`))} */}
+                          <GeneratedPage
+                            schema={eval(`values.${currentPage}`)}
+                          />
+                        </>
                       ) : (
                         <GeneratedSection
                           schema={values}
@@ -316,13 +355,13 @@ const Section = ({
                 <div>
                   {usingLocalSave ? (
                     <>
-                      Draft section loaded from local storage (
+                      Draft section saved at {lastSave}
+                      {" | "}
                       <a
                         href={`https://github.com/SkillsFundingAgency/das-qna-api/blob/${branch}/src/SFA.DAS.QnA.Database/projects/${projectId}/sections/${sectionId}.json`}
                       >
                         View original on GitHub
                       </a>
-                      )
                     </>
                   ) : (
                     "Loaded from GitHub"
@@ -339,7 +378,7 @@ const Section = ({
 
 Section.getInitialProps = async context => {
   const { branch, sectionId, projectId } = context.query;
-  const initialSectionData = sectionId === "custom" ? EMPTY_SECTION : null;
+  const initialSectionData = branch === "custom" ? EMPTY_SECTION : null;
 
   const cookies = parseCookies(context.req);
   return {
@@ -347,7 +386,8 @@ Section.getInitialProps = async context => {
     projectId,
     sectionId,
     initialSectionData,
-    initialUserSettings: cookies.userSettings
+    initialUserSettings: cookies.userSettings,
+    initialPageSettings: cookies.pageSettings
   };
 
   //   // Example response from `context.query`:
@@ -401,4 +441,12 @@ const DisplayControlIcon = styled(FontAwesomeIcon)`
   &.view-is-open {
     opacity: 1;
   }
+`;
+
+const BreadcrumbLink = styled.a`
+  text-decoration: underline;
+`;
+
+const AngleIcon = styled(FontAwesomeIcon)`
+  margin: 0 5px;
 `;

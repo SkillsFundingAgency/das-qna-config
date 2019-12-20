@@ -1,3 +1,9 @@
+export const guidGenerator = () => {
+  const S4 = () =>
+    (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  return S4() + S4();
+};
+
 // groups an array of objects into an object of arrays
 // with each key in the object being the value of the
 // selected key to group by

@@ -1,5 +1,12 @@
 import { Field } from "react-final-form";
-import { MultiChoice, Radio, FormGroup } from "govuk-react";
+import {
+  MultiChoice,
+  Radio,
+  FormGroup,
+  GridRow,
+  GridCol,
+  Paragraph
+} from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 import PropTypes from "prop-types";
 
@@ -12,6 +19,10 @@ const GovRadio = ({ input, hint, inline, label }) => {
 };
 
 const RadioQuestion = ({ question, questionIndex }) => {
+  const containsConditionalContentText = !!question.Input.Options.filter(
+    option => option.ConditionalContentText
+  ).length;
+
   return (
     <FormGroup>
       {question.Input.Options && (
@@ -19,16 +30,37 @@ const RadioQuestion = ({ question, questionIndex }) => {
           <MultiChoice label={question.Label} hint={question.Hint}>
             {question.Input.Options.map((option, index) => {
               return (
-                <Field
-                  key={`${question.QuestionId}[${questionIndex}][${index}]`}
-                  name={`${question.QuestionId}[${questionIndex}]`}
-                  type="radio"
-                  component={GovRadio}
-                  hint={ReactHtmlParser(option.HintText)}
-                  inline={question.Input.Options.length <= 2}
-                  label={option.Label}
-                  value={option.Value}
-                />
+                <div key={index}>
+                  <Field
+                    key={`${question.QuestionId}[${questionIndex}][${index}]`}
+                    name={`${question.QuestionId}[${questionIndex}]`}
+                    type="radio"
+                    component={GovRadio}
+                    hint={ReactHtmlParser(option.HintText)}
+                    inline={
+                      question.Input.Options.length <= 2 &&
+                      !containsConditionalContentText
+                    }
+                    label={option.Label}
+                    value={option.Value}
+                  />
+                  {option.ConditionalContentText && (
+                    <div
+                      style={{
+                        marginBottom: "15px",
+                        marginLeft: "18px",
+                        paddingLeft: "33px",
+                        borderLeft: "4px solid #b1b4b6"
+                      }}
+                    >
+                      <GridRow>
+                        <GridCol>
+                          <Paragraph>{option.ConditionalContentText}</Paragraph>
+                        </GridCol>
+                      </GridRow>
+                    </div>
+                  )}
+                </div>
               );
             })}
           </MultiChoice>

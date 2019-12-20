@@ -36,6 +36,7 @@ import { QuestionComponents } from "./generated/QuestionComponents";
 import { ColumnTitle } from "../../styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt } from "@fortawesome/free-solid-svg-icons";
+import { PreviewContainer, BrowserTab } from "../../styles/global";
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -47,6 +48,8 @@ const onSubmit = async values => {
 };
 
 const GeneratedPage = ({ schema }) => {
+  // console.log("TCL: GeneratedPage -> schema", schema);
+
   const { Title, BodyText, Questions, Details, AllowMultipleAnswers } = schema;
 
   const [isSingleQuestion, setIsSingleQuestion] = useState(false);
@@ -67,9 +70,7 @@ const GeneratedPage = ({ schema }) => {
       <ColumnTitle>
         <FontAwesomeIcon icon={faFileAlt} width="0" /> Preview
       </ColumnTitle>
-      <Link noVisitedState href="#" style={{ marginBottom: "10px" }}>
-        {Title}
-      </Link>
+      {Title && <BrowserTab>{Title}</BrowserTab>}
       <PreviewContainer>
         <GridRow>
           <GridCol>{!isSingleQuestion && <H1>{Title}</H1>}</GridCol>
@@ -134,7 +135,11 @@ const GeneratedPage = ({ schema }) => {
                   ) : null}
                   <GridRow>
                     <GridCol>
-                      <Button type="submit" disabled={submitting || pristine}>
+                      <Button
+                        mb={Details ? 6 : 0}
+                        type="submit"
+                        disabled={submitting || pristine}
+                      >
                         Save and continue
                       </Button>
                     </GridCol>
@@ -148,7 +153,9 @@ const GeneratedPage = ({ schema }) => {
         {Details && (
           <GridRow>
             <GridCol>
-              <GovDetails summary={Details.Title}>{Details.Body}</GovDetails>
+              <GovDetails mb={0} summary={Details.Title}>
+                {Details.Body}
+              </GovDetails>
             </GridCol>
           </GridRow>
         )}
@@ -158,11 +165,3 @@ const GeneratedPage = ({ schema }) => {
 };
 
 export default GeneratedPage;
-
-const PreviewContainer = styled.div`
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  padding: 25px;
-  margin-top: 10px;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-`;

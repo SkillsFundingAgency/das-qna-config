@@ -1,5 +1,5 @@
 export const EMPTY_SECTION = {
-  Title: "",
+  Tiltle: "",
   LinkTitle: "",
   DisplayType: "Pages",
   RequestedFeedbackAnswered: null,
@@ -192,11 +192,11 @@ export const QUESTION_TYPES = [
   {
     value: "TabularData",
     label: "Tabular data"
-  },
-  {
-    value: "Hidden",
-    label: "Hidden"
   }
+  // {
+  //   value: "Hidden",
+  //   label: "Hidden"
+  // }
   // {
   //   value: "Select",
   //   label: "Select"
