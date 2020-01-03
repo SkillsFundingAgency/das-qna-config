@@ -130,7 +130,7 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
             }
           >
             <WarningIcon icon={faExclamationCircle} width="0" />
-            Reset and return to projects page
+            Delete all drafts and return to projects page
           </ResetAppButton>
         </Buttons>
       </Row>

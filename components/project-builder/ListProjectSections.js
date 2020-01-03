@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import Link from "next/link";
+import { LargeColumnTitle } from "../../styles/global";
 
 const ListProjectSections = ({ projectData, selectedBranch }) => {
   return (
     <>
-      <h2>
-        {projectData.Name} ({projectData.Description})
-      </h2>
+      <LargeColumnTitle>{projectData.Name}</LargeColumnTitle>
+
+      <p>{projectData.Description}</p>
 
       {projectData.Workflows.map((workflow, index) => (
         <div key={index}>

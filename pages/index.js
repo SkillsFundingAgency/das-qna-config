@@ -5,7 +5,6 @@ import {
   Container,
   Header,
   Title,
-  ColumnTitle,
   DisplayControls,
   Columns,
   Button
@@ -98,7 +97,6 @@ const Projects = ({ initialBranchData }) => {
             </div>
           ) : (
             <div>
-              <ColumnTitle>Saved draft sections</ColumnTitle>
               <ListDraftSections />
             </div>
           )}

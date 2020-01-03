@@ -6,10 +6,20 @@ import { APPLICATION_DATA_SCHEMA } from "../../data/ApplicationDataSchema";
 const ajv = new Ajv({ allErrors: true });
 const test = ajv.compile(APPLICATION_DATA_SCHEMA);
 
-const IsJsonValid = ({ values }) => {
+const IsJsonValid = ({ values, sendNumberOfErrorsToParent, showErrors }) => {
   const [isValid, setIsValid] = useState(test(values));
+
+  useEffect(() => {
+    sendNumberOfErrorsToParent(test.errors ? test.errors.length : 0);
+  }, [test.errors]);
+
+  useEffect(() => {
+    console.log(showErrors);
+  }, []);
+
   return (
     <>
+      {showErrors ? <span>shown</span> : <span>hidden</span>}
       {!isValid && test.errors && (
         <Errors>
           <table>

@@ -1,4 +1,5 @@
 import Select from "react-select";
+import styled from "styled-components";
 
 const LoadFromGithub = ({
   selectedBranch,
@@ -28,7 +29,7 @@ const LoadFromGithub = ({
       <>
         {projectsInBranch && projectsInBranch !== "Not loaded" ? (
           <div>
-            <h2>Projects in branch</h2>
+            <BranchTitle>Projects in {selectedBranch}</BranchTitle>
             {projectsInBranch.entries
               .filter(project => project.type === "tree")
               .map((project, index) => (
@@ -48,3 +49,7 @@ const LoadFromGithub = ({
 };
 
 export default LoadFromGithub;
+
+const BranchTitle = styled.h2`
+  word-break: break-all;
+`;

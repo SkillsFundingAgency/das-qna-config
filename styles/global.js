@@ -133,6 +133,10 @@ export const ColumnTitle = styled.h3`
   margin-top: 0;
 `;
 
+export const LargeColumnTitle = styled.h2`
+  margin-top: 0;
+`;
+
 export const DisplayControls = styled.div`
   // padding-top: 5px;
   margin-left: 20px;

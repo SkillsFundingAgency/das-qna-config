@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import { LargeColumnTitle } from "../../styles/global";
 
 const ListDraftSections = ({ selectedBranch }) => {
   const [localStorageItems, setLocalStorageItems] = useState(null);
@@ -23,6 +24,7 @@ const ListDraftSections = ({ selectedBranch }) => {
 
   return (
     <>
+      <LargeColumnTitle>Saved draft sections</LargeColumnTitle>
       {localStorageItems &&
         localStorageItems.map(item => {
           const { key, branch, projectId, sectionId } = item;

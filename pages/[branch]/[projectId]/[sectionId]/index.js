@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-// import { useRouter } from "next/router";
+import Router from "next/router";
 import { Form, Field } from "react-final-form";
 import arrayMutators from "final-form-arrays";
 import cookie from "cookie";
@@ -24,7 +24,8 @@ import {
   faFolder,
   faFileAlt,
   faBug,
-  faAngleRight
+  faAngleRight,
+  faCheckCircle
 } from "@fortawesome/free-solid-svg-icons";
 
 import QnaField from "../../../../components/QnaField";
@@ -81,6 +82,11 @@ const Section = ({
         }
   );
 
+  const [numberOfErrors, setNumberOfErrors] = useState(0);
+
+  const numberOfErrorsFromChild = numberOfErrorsFromChild =>
+    setNumberOfErrors(numberOfErrorsFromChild);
+
   const save = async (branch, projectId, sectionId, values) => {
     const timeOfSave = format(new Date(), "H:mm:ss 'on' do LLL");
     setLastSave(timeOfSave);
@@ -100,6 +106,16 @@ const Section = ({
 
   const updateCurrentPage = changePageTo => {
     setCurrentPage(changePageTo);
+  };
+
+  const deleteDraft = event => {
+    event.preventDefault();
+    // console.log("deleted", branch, projectId, sectionId);
+    localStorage.removeItem(`${branch}__${projectId}__${sectionId}__draft`);
+    Router.push({
+      pathname: `/${branch}/${projectId}/${sectionId}`,
+      query: { new: "draft" }
+    });
   };
 
   // useEffect on below to get "questions" to stay current.
@@ -201,7 +217,12 @@ const Section = ({
           values
         }) => (
           <>
-            {userSettings.showErrors && <IsJsonValid values={values} />}
+            {/* {userSettings.showErrors && ( */}
+            <IsJsonValid
+              values={values}
+              sendNumberOfErrorsToParent={numberOfErrorsFromChild}
+            />
+            {/* )} */}
 
             <Container>
               <Header>
@@ -217,12 +238,35 @@ const Section = ({
                   save={() => save(branch, projectId, sectionId, values)}
                 />
                 <DisplayControls>
-                  <DisplayControlIcon
-                    icon={faBug}
-                    onClick={() => updateUserSettings("showErrors")}
-                    width="0"
-                    className={userSettings.showErrors ? "view-is-open" : ""}
-                  />
+                  <span>
+                    <BugIcon
+                      icon={faBug}
+                      onClick={() => updateUserSettings("showErrors")}
+                      width="0"
+                      className={
+                        numberOfErrors > 0
+                          ? "some-errors"
+                          : userSettings.showErrors
+                          ? "view-is-open"
+                          : ""
+                      }
+                    />
+                    {numberOfErrors > 0 ? (
+                      <span className="fa-layers-counter">
+                        {numberOfErrors}
+                      </span>
+                    ) : (
+                      <FontAwesomeIcon
+                        icon={faCheckCircle}
+                        width="0"
+                        style={{ color: "green" }}
+                      />
+                    )}
+
+                    {/* <span className="fa-layers-text fa-inverse">
+                      {numberOfErrors}
+                    </span> */}
+                  </span>
                   <DisplayControlIcon
                     icon={faFileAlt}
                     onClick={() => updateUserSettings("showPreview")}
@@ -362,6 +406,17 @@ const Section = ({
                       >
                         View original on GitHub
                       </a>
+                      {" | "}
+                      <a
+                        href="#"
+                        onClick={event =>
+                          window.confirm(
+                            "Are you sure you want to revert this page to the GitHub version? You will lose your draft for this section."
+                          ) && deleteDraft(event)
+                        }
+                      >
+                        Revert to original version
+                      </a>
                     </>
                   ) : (
                     "Loaded from GitHub"
@@ -440,6 +495,14 @@ const DisplayControlIcon = styled(FontAwesomeIcon)`
   }
   &.view-is-open {
     opacity: 1;
+  }
+`;
+
+const BugIcon = styled(DisplayControlIcon)`
+  color: #00703c;
+  &.some-errors {
+    opacity: 1;
+    color: #ab1409;
   }
 `;
 
