@@ -221,6 +221,7 @@ const Section = ({
             <IsJsonValid
               values={values}
               sendNumberOfErrorsToParent={numberOfErrorsFromChild}
+              showErrors={userSettings.showErrors}
             />
             {/* )} */}
 
