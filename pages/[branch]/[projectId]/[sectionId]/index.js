@@ -110,7 +110,6 @@ const Section = ({
 
   const deleteDraft = event => {
     event.preventDefault();
-    // console.log("deleted", branch, projectId, sectionId);
     localStorage.removeItem(`${branch}__${projectId}__${sectionId}__draft`);
     Router.push({
       pathname: `/${branch}/${projectId}/${sectionId}`,
@@ -217,13 +216,11 @@ const Section = ({
           values
         }) => (
           <>
-            {/* {userSettings.showErrors && ( */}
             <IsJsonValid
               values={values}
               sendNumberOfErrorsToParent={numberOfErrorsFromChild}
               showErrors={userSettings.showErrors}
             />
-            {/* )} */}
 
             <Container>
               <Header>
@@ -239,35 +236,36 @@ const Section = ({
                   save={() => save(branch, projectId, sectionId, values)}
                 />
                 <DisplayControls>
-                  <span>
-                    <BugIcon
-                      icon={faBug}
-                      onClick={() => updateUserSettings("showErrors")}
-                      width="0"
-                      className={
-                        numberOfErrors > 0
-                          ? "some-errors"
-                          : userSettings.showErrors
-                          ? "view-is-open"
-                          : ""
-                      }
-                    />
-                    {numberOfErrors > 0 ? (
-                      <span className="fa-layers-counter">
+                  {numberOfErrors > 0 ? (
+                    <span className="fa-layers" style={{ fontSize: "1.5em" }}>
+                      <BugIcon
+                        icon={faBug}
+                        onClick={() => updateUserSettings("showErrors")}
+                        width="0"
+                        className={
+                          userSettings.showErrors ? "view-is-open" : ""
+                        }
+                      />
+
+                      <span
+                        className="fa-layers-counter"
+                        style={{ fontSize: "1.5em" }}
+                      >
                         {numberOfErrors}
                       </span>
-                    ) : (
-                      <FontAwesomeIcon
-                        icon={faCheckCircle}
-                        width="0"
-                        style={{ color: "green" }}
-                      />
-                    )}
+                    </span>
+                  ) : (
+                    <DisplayControlIcon
+                      icon={faCheckCircle}
+                      width="0"
+                      style={{ color: "#34b300", opacity: 1 }}
+                    />
+                  )}
 
-                    {/* <span className="fa-layers-text fa-inverse">
+                  {/* <span className="fa-layers-text fa-inverse">
                       {numberOfErrors}
                     </span> */}
-                  </span>
+
                   <DisplayControlIcon
                     icon={faFileAlt}
                     onClick={() => updateUserSettings("showPreview")}
@@ -360,7 +358,6 @@ const Section = ({
                     <>
                       {currentView === "page" ? (
                         <>
-                          {/* {console.log(eval(`values.${currentPage}`))} */}
                           <GeneratedPage
                             schema={eval(`values.${currentPage}`)}
                           />
@@ -499,13 +496,7 @@ const DisplayControlIcon = styled(FontAwesomeIcon)`
   }
 `;
 
-const BugIcon = styled(DisplayControlIcon)`
-  color: #00703c;
-  &.some-errors {
-    opacity: 1;
-    color: #ab1409;
-  }
-`;
+const BugIcon = styled(DisplayControlIcon)``;
 
 const BreadcrumbLink = styled.a`
   text-decoration: underline;

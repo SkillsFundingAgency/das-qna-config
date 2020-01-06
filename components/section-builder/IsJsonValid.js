@@ -13,14 +13,9 @@ const IsJsonValid = ({ values, sendNumberOfErrorsToParent, showErrors }) => {
     sendNumberOfErrorsToParent(test.errors ? test.errors.length : 0);
   }, [test.errors]);
 
-  useEffect(() => {
-    console.log(showErrors);
-  }, []);
-
   return (
     <>
-      {showErrors ? <span>shown</span> : <span>hidden</span>}
-      {!isValid && test.errors && (
+      {!isValid && test.errors && showErrors && (
         <Errors>
           <table>
             <caption>JSON schema errors</caption>
