@@ -216,12 +216,6 @@ const Section = ({
           values
         }) => (
           <>
-            <IsJsonValid
-              values={values}
-              sendNumberOfErrorsToParent={numberOfErrorsFromChild}
-              showErrors={userSettings.showErrors}
-            />
-
             <Container>
               <Header>
                 <Title>
@@ -249,7 +243,7 @@ const Section = ({
 
                       <span
                         className="fa-layers-counter"
-                        style={{ fontSize: "1.5em" }}
+                        style={{ fontSize: "1.5em", pointerEvents: "none" }}
                       >
                         {numberOfErrors}
                       </span>
@@ -257,6 +251,7 @@ const Section = ({
                   ) : (
                     <DisplayControlIcon
                       icon={faCheckCircle}
+                      onClick={() => updateUserSettings("showErrors")}
                       width="0"
                       style={{ color: "#34b300", opacity: 1 }}
                     />
@@ -289,6 +284,11 @@ const Section = ({
                 </DisplayControls>
               </Header>
 
+              <IsJsonValid
+                values={values}
+                sendNumberOfErrorsToParent={numberOfErrorsFromChild}
+                showErrors={userSettings.showErrors}
+              />
               {sectionData && (
                 <Columns>
                   {/* {console.log(sectionData)} */}

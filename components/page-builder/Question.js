@@ -23,6 +23,7 @@ import {
 const hasOptions = type => ~["Radio", "CheckboxList"].indexOf(type);
 const isComplex = type => ~["ComplexRadio"].indexOf(type);
 const isDataFedCheckboxList = type => ~["DataFed_CheckboxList"].indexOf(type);
+const isNumber = type => ~["Number"].indexOf(type);
 const isText = type =>
   ~[
     "Text",
@@ -135,6 +136,26 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
             placeholder="Hint text (HTML)"
           />
         </Row>
+        <IfType name={name} predicate={isNumber}>
+          <Row>
+            <QnaField
+              name={`${name}.Input.InputPrefix`}
+              component="input"
+              type="text"
+              placeholder="Input 
+            prefix"
+            />
+          </Row>
+          <Row>
+            <QnaField
+              name={`${name}.Input.InputSuffix`}
+              component="input"
+              type="text"
+              placeholder="Input 
+            suffix"
+            />
+          </Row>
+        </IfType>
         <IfType name={name} predicate={isText}>
           <Row>
             <QnaField

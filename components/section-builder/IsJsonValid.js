@@ -7,7 +7,7 @@ const ajv = new Ajv({ allErrors: true });
 const test = ajv.compile(APPLICATION_DATA_SCHEMA);
 
 const IsJsonValid = ({ values, sendNumberOfErrorsToParent, showErrors }) => {
-  const [isValid, setIsValid] = useState(test(values));
+  test(values);
 
   useEffect(() => {
     sendNumberOfErrorsToParent(test.errors ? test.errors.length : 0);
@@ -15,7 +15,7 @@ const IsJsonValid = ({ values, sendNumberOfErrorsToParent, showErrors }) => {
 
   return (
     <>
-      {!isValid && test.errors && showErrors && (
+      {test.errors && showErrors && (
         <Errors>
           <table>
             <caption>JSON schema errors</caption>
@@ -30,8 +30,6 @@ const IsJsonValid = ({ values, sendNumberOfErrorsToParent, showErrors }) => {
             </thead>
             <tbody>
               {test.errors.map((error, index) => {
-                // console.log(error);
-
                 return (
                   <tr key={index}>
                     <td>{error.keyword}</td>
@@ -46,12 +44,16 @@ const IsJsonValid = ({ values, sendNumberOfErrorsToParent, showErrors }) => {
           </table>
         </Errors>
       )}
+
+      {!test.errors && showErrors && (
+        <NoErrors>There are no JSON schema errors</NoErrors>
+      )}
     </>
   );
 };
 
 const Errors = styled.div`
-  padding: 15px 15px 10px;
+  padding: 10px 15px;
   background: #ab1409;
   color: #fff;
   text-align: left;
@@ -62,7 +64,7 @@ const Errors = styled.div`
   }
 
   caption {
-    font-size: 20px;
+    font-size: 19px;
     margin-bottom: 5px;
     font-weight: bold;
     text-align: left;
@@ -77,6 +79,11 @@ const Errors = styled.div`
     padding: 5px 30px 5px 0;
     border-bottom: 1px solid white;
   }
+`;
+
+const NoErrors = styled(Errors)`
+  background: #00703c;
+  font-size: 19px;
 `;
 
 export default IsJsonValid;
