@@ -100,6 +100,7 @@ export const EMPTY_VALIDATION = {
 };
 
 export const INPUT_CLASSES = [
+  { value: "govuk-input--width-30", label: "govuk-input--width-30" },
   { value: "govuk-input--width-20", label: "govuk-input--width-20" },
   { value: "govuk-input--width-10", label: "govuk-input--width-10" },
   { value: "govuk-input--width-5", label: "govuk-input--width-5" },

@@ -1,13 +1,5 @@
 import { Field } from "react-final-form";
-import {
-  Label,
-  HintText,
-  Input,
-  InputField,
-  FormGroup,
-  H2,
-  Paragraph
-} from "govuk-react";
+import { Label, HintText, Input, FormGroup, H2, Paragraph } from "govuk-react";
 import styled from "styled-components";
 import ReactHtmlParser from "react-html-parser";
 
@@ -25,6 +17,64 @@ const LabelSwitcher = ({ label, inputType }) => (
 );
 
 const TextQuestion = ({ question, questionIndex, isSingleQuestion }) => {
+  const GovukInput = styled(Input)`
+    max-width: ${question.Input.InputPrefix || question.Input.InputSuffix
+      ? "calc(100% - 8em)"
+      : "100%"};
+
+    &.govuk-input--width-30 {
+      max-width: calc(56ex + 3ex);
+    }
+
+    &.govuk-input--width-20 {
+      max-width: calc(38ex + 3ex);
+    }
+
+    &.govuk-input--width-10 {
+      max-width: calc(20ex + 3ex);
+    }
+
+    &.govuk-input--width-5 {
+      max-width: 10.8ex;
+    }
+
+    &.govuk-input--width-4 {
+      max-width: 9ex;
+    }
+
+    &.govuk-input--width-3 {
+      max-width: 7.2ex;
+    }
+
+    &.govuk-input--width-2 {
+      max-width: 5.4ex;
+    }
+
+    &.govuk-\\0021-width-full {
+      width: 100%;
+    }
+
+    &.govuk-\\0021-width-three-quarters {
+      width: 75%;
+    }
+
+    &.govuk-\\0021-width-two-thirds {
+      width: 66.66%;
+    }
+
+    &.govuk-\\0021-width-one-half {
+      width: 50%;
+    }
+
+    &.govuk-\\0021-width-one-third {
+      width: 33.33%;
+    }
+
+    &.govuk-\\0021-width-one-quarter {
+      width: 25%;
+    }
+  `;
+
   return (
     <FormGroup>
       <Field name={`${question.QuestionId}[${questionIndex}]`}>
@@ -37,7 +87,9 @@ const TextQuestion = ({ question, questionIndex, isSingleQuestion }) => {
               />
             )}
             <HintText>{ReactHtmlParser(question.Hint)}</HintText>
+            <Prefix>{question.Input.InputPrefix}</Prefix>
             <GovukInput {...input} className={question.Input.InputClasses} />
+            <Suffix>{question.Input.InputSuffix}</Suffix>
           </>
         )}
       </Field>
@@ -45,58 +97,13 @@ const TextQuestion = ({ question, questionIndex, isSingleQuestion }) => {
   );
 };
 
-export default TextQuestion;
-
-const GovukInput = styled(Input)`
-  &.govuk-input--width-30 {
-    max-width: calc(56ex + 3ex);
-  }
-
-  &.govuk-input--width-20 {
-    max-width: calc(38ex + 3ex);
-  }
-
-  &.govuk-input--width-10 {
-    max-width: calc(20ex + 3ex);
-  }
-
-  &.govuk-input--width-5 {
-    max-width: 10.8ex;
-  }
-
-  &.govuk-input--width-4 {
-    max-width: 9ex;
-  }
-
-  &.govuk-input--width-3 {
-    max-width: 7.2ex;
-  }
-
-  &.govuk-input--width-2 {
-    max-width: 5.4ex;
-  }
-
-  &.govuk-\\0021-width-full {
-    width: 100%;
-  }
-
-  &.govuk-\\0021-width-three-quarters {
-    width: 75%;
-  }
-
-  &.govuk-\\0021-width-two-thirds {
-    width: 66.66%;
-  }
-
-  &.govuk-\\0021-width-one-half {
-    width: 50%;
-  }
-
-  &.govuk-\\0021-width-one-third {
-    width: 33.33%;
-  }
-
-  &.govuk-\\0021-width-one-quarter {
-    width: 25%;
-  }
+const Prefix = styled.span`
+  font-size: 19px;
+  margin-right: 0.5em;
 `;
+const Suffix = styled.span`
+  font-size: 19px;
+  margin-left: 0.5em;
+`;
+
+export default TextQuestion;
