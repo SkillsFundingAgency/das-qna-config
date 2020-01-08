@@ -145,8 +145,7 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
               placeholder="Input 
             prefix"
             />
-          </Row>
-          <Row>
+
             <QnaField
               name={`${name}.Input.InputSuffix`}
               component="input"
