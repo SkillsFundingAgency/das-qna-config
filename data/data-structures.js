@@ -50,7 +50,7 @@ export const EMPTY_NEXT = {
 
 export const EMPTY_NOT_REQUIRED_CONDITION = {
   Field: "",
-  IsOneOf: []
+  IsOneOf: [""]
 };
 
 export const EMPTY_DETAILS = {

@@ -1,12 +1,51 @@
-import { Field } from "react-final-form";
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 import Select from "../Select";
 import QnaField from "../QnaField";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import WhenFieldChanges from "../WhenFieldChanges";
 
 import { EMPTY_NOT_REQUIRED_CONDITION } from "../../data/data-structures";
+
+const NotRequiredConditionValue = ({ name, type }) => {
+  return (
+    <FieldArray name={`${name}.${type}`}>
+      {({ fields }) => {
+        return (
+          <>
+            {fields.map((name, index) => {
+              return (
+                <Row key={index}>
+                  <QnaField
+                    name={`${name}`}
+                    component="input"
+                    type="text"
+                    placeholder="Values"
+                  />
+                  <RemoveNotRequiredConditionValueButton
+                    icon={faTrash}
+                    onClick={() => fields.remove(index)}
+                    width="0"
+                  />
+                </Row>
+              );
+            })}
+
+            <Buttons>
+              <AddContainsAllOfButton
+                type="button"
+                onClick={() => fields.push("")}
+              >
+                + Add {type} value
+              </AddContainsAllOfButton>
+            </Buttons>
+          </>
+        );
+      }}
+    </FieldArray>
+  );
+};
 
 const NotRequiredConditions = ({ name }) => {
   return (
@@ -25,12 +64,6 @@ const NotRequiredConditions = ({ name }) => {
                   />
                 </PageControls>
                 <Row>
-                  {/* <Field
-                    name={`${name}.Action`}
-                    component={FieldTypeSelector}
-                    options={FIELD_TYPES}
-                    isSearchable={false}
-                  /> */}
                   <QnaField
                     name={`${name}.Field`}
                     component="input"
@@ -39,35 +72,22 @@ const NotRequiredConditions = ({ name }) => {
                   />
                 </Row>
 
-                <FieldArray name={`${name}.IsOneOf`}>
-                  {({ fields }) => {
-                    return (
-                      <>
-                        {fields.map((name, index) => (
-                          <Row key={index}>
-                            <QnaField
-                              name={`${name}`}
-                              component="input"
-                              type="text"
-                              placeholder="Values"
-                            />
-                            <RemoveNotRequiredConditionValueButton
-                              icon={faTrash}
-                              onClick={() => fields.remove(index)}
-                              width="0"
-                            />
-                          </Row>
-                        ))}
+                <NotRequiredConditionValue name={name} type="IsOneOf" />
 
-                        <Buttons>
-                          <Button type="button" onClick={() => fields.push("")}>
-                            + Add a value
-                          </Button>
-                        </Buttons>
-                      </>
-                    );
-                  }}
-                </FieldArray>
+                <NotRequiredConditionValue name={name} type="ContainsAllOf" />
+
+                <WhenFieldChanges
+                  field={`${name}.ContainsAllOf`}
+                  isNotEmpty
+                  set={`${name}.IsOneOf`}
+                  to={undefined}
+                />
+                <WhenFieldChanges
+                  field={`${name}.IsOneOf`}
+                  isNotEmpty
+                  set={`${name}.ContainsAllOf`}
+                  to={undefined}
+                />
               </Container>
             ))}
 
@@ -166,5 +186,8 @@ const RemoveNotRequiredConditionValueButton = styled(
 `;
 
 const AddRequiredConditionButton = styled(Button)`
+  margin-bottom: 10px;
+`;
+const AddContainsAllOfButton = styled(Button)`
   margin-bottom: 10px;
 `;

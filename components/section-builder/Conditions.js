@@ -4,13 +4,12 @@ import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import Select from "../Select";
 import QnaField from "../QnaField";
 import WhenFieldChanges from "../WhenFieldChanges";
 
 import { EMPTY_CONDITION } from "../../data/data-structures";
 
-const Condition = ({ when, is, children }) => (
+const ShowChildrenIf = ({ when, is, children }) => (
   // show children if condition (value === is) is met or show nothing
   <Field name={when} subscription={{ value: true }}>
     {({ input: { value } }) => (value === is ? children : null)}
@@ -35,8 +34,8 @@ const Conditions = ({ name }) => {
                 </PageControls>
 
                 <Row>
-                  {/* <Condition when={`${name}.QuestionIdOrTag`} is="QuestionId"> */}
-                  {/* </Condition> */}
+                  {/* <ShowChildrenIf when={`${name}.QuestionIdOrTag`} is="QuestionId"> */}
+                  {/* </ShowChildrenIf> */}
                   <QnaField
                     name={`${name}.QuestionId`}
                     component="input"
@@ -126,10 +125,6 @@ const Row = styled.div`
   &:last-child {
     margin-bottom: 0;
   }
-`;
-
-const ConditionSelector = styled(Select)`
-  width: 100%;
 `;
 
 const InnerText = styled.p`

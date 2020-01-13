@@ -87,9 +87,13 @@ const TextQuestion = ({ question, questionIndex, isSingleQuestion }) => {
               />
             )}
             <HintText>{ReactHtmlParser(question.Hint)}</HintText>
-            <Prefix>{question.Input.InputPrefix}</Prefix>
+            {question.Input.InputPrefix && (
+              <Prefix>{question.Input.InputPrefix}</Prefix>
+            )}
             <GovukInput {...input} className={question.Input.InputClasses} />
-            <Suffix>{question.Input.InputSuffix}</Suffix>
+            {question.Input.InputSuffix && (
+              <Suffix>{question.Input.InputSuffix}</Suffix>
+            )}
           </>
         )}
       </Field>
