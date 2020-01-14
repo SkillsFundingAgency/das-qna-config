@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Field } from "react-final-form";
+
 import { OnChange } from "react-final-form-listeners";
 import { sortableElement } from "react-sortable-hoc";
 import styled from "styled-components";
@@ -8,32 +9,39 @@ import {
   faEdit,
   faTrash,
   faCaretRight,
-  faCaretDown
+  faCaretDown,
+  faExclamationTriangle
 } from "@fortawesome/free-solid-svg-icons";
 import SortHandle from "../SortHandle";
-import WhenFieldChanges from "../WhenFieldChanges";
+
 import NotRequiredConditions from "./NotRequiredConditions";
 import NextPage from "./NextPage";
 import QnaField from "../QnaField";
 
-const Page = sortableElement(
-  ({ name, questions, editSinglePage, removePage }) => {
-    const handleEditPage = () => {
-      editSinglePage(name);
-    };
+const RouteError = ({ message }) => (
+  <RouteErrorContainer>
+    <FontAwesomeIcon icon={faExclamationTriangle} /> {message}
+  </RouteErrorContainer>
+);
 
-    const toggleRoutes = () => setShowRoutes(!showRoutes);
-    const [showRoutes, setShowRoutes] = useState(false);
+const Page = sortableElement(({ name, editSinglePage, removePage }) => {
+  const [showRoutes, setShowRoutes] = useState(false);
 
-    const ShowHideRoutes = styled.div`
-      margin-bottom: ${showRoutes ? "10px" : 0};
-      cursor: pointer;
-    `;
+  const handleEditPage = () => {
+    editSinglePage(name);
+  };
 
-    return (
-      <>
-        <Container>
-          {/* <Field name={`${name}.PageId`}>
+  const toggleRoutes = () => setShowRoutes(prevShowRoutes => !prevShowRoutes);
+
+  const ShowHideRoutes = styled.div`
+    margin-bottom: ${showRoutes ? "10px" : 0};
+    cursor: pointer;
+  `;
+
+  return (
+    <>
+      <Container>
+        {/* <Field name={`${name}.PageId`}>
             {({ input: { name, value } }) => (
               <>
                 <h2 name={name} style={{ marginTop: "0" }}>
@@ -42,58 +50,83 @@ const Page = sortableElement(
               </>
             )}
           </Field> */}
-          <PageControls>
-            <SortHandle />
-            <EditPageButton icon={faEdit} onClick={handleEditPage} width="0" />
-            <RemovePageButton icon={faTrash} onClick={removePage} width="0" />
-          </PageControls>
-          <Row>
-            <QnaField
-              name={`${name}.PageId`}
-              component="input"
-              type="text"
-              placeholder="PageId"
-            />
-            <QnaField
-              name={`${name}.ActivatedByPageId`}
-              component="input"
-              type="text"
-              placeholder="Activated by PageId"
-            />
-            <Field name={`${name}.Active`}>
-              {({ input: { onChange } }) => (
-                <OnChange name={`${name}.ActivatedByPageId`}>
-                  {value => onChange(value === null)}
-                </OnChange>
-              )}
-            </Field>
-          </Row>
-          <Row>
-            <QnaField
-              name={`${name}.LinkTitle`}
-              component="input"
-              type="text"
-              placeholder="Link title (page)"
-            />
-          </Row>
-          <NotRequiredConditions name={name} />
+        <PageControls>
+          <SortHandle />
+          <EditPageButton icon={faEdit} onClick={handleEditPage} width="0" />
+          <RemovePageButton icon={faTrash} onClick={removePage} width="0" />
+        </PageControls>
+        <Row>
+          <QnaField
+            name={`${name}.PageId`}
+            component="input"
+            type="text"
+            placeholder="PageId"
+          />
+          <QnaField
+            name={`${name}.ActivatedByPageId`}
+            component="input"
+            type="text"
+            placeholder="Activated by PageId"
+          />
+          <Field name={`${name}.Active`}>
+            {({ input: { onChange } }) => (
+              <OnChange name={`${name}.ActivatedByPageId`}>
+                {value => onChange(value === null)}
+              </OnChange>
+            )}
+          </Field>
+        </Row>
+        <Row>
+          <QnaField
+            name={`${name}.LinkTitle`}
+            component="input"
+            type="text"
+            placeholder="Link title (page)"
+          />
+        </Row>
+        <NotRequiredConditions name={name} />
 
-          <Row>
-            <ShowHideRoutes onClick={toggleRoutes}>
-              <ShowHideIcon
-                icon={showRoutes ? faCaretDown : faCaretRight}
-                width="0"
-              />{" "}
-              <a>{showRoutes ? "Hide" : "Show"} routes</a>
-            </ShowHideRoutes>
-          </Row>
+        <Row>
+          <Field name={`${name}.Next`}>
+            {({ input }) => {
+              // Checks all defined routes for ReturnId
+              const undefinedRoutes = input.value.filter(
+                route => route.ReturnId === ""
+              ).length;
 
-          {showRoutes && <NextPage name={name} />}
-        </Container>
-      </>
-    );
-  }
-);
+              // All is well (routes defined)
+              if (input.value.length && !undefinedRoutes) return false;
+
+              if (!input.value.length) {
+                return <RouteError message="This page has no route defined" />;
+              }
+
+              if (undefinedRoutes) {
+                return (
+                  <RouteError
+                    message="One or more
+                    routes have no ReturnId"
+                  />
+                );
+              }
+            }}
+          </Field>
+        </Row>
+        <Row>
+          <ShowHideRoutes onClick={toggleRoutes}>
+            <ShowHideIcon
+              icon={showRoutes ? faCaretDown : faCaretRight}
+              width="0"
+            />{" "}
+            <a>{showRoutes ? "Hide" : "Show"} routes</a>
+          </ShowHideRoutes>
+        </Row>
+
+        {showRoutes && <NextPage name={name} />}
+      </Container>
+    </>
+  );
+});
 
 export default Page;
 
@@ -153,4 +186,10 @@ const EditPageButton = styled(FontAwesomeIcon)`
 
 const ShowHideIcon = styled(FontAwesomeIcon)`
   font-size: 16px;
+`;
+
+const RouteErrorContainer = styled.div`
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  color: #d60000;
 `;

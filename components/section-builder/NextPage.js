@@ -1,4 +1,3 @@
-import { Field } from "react-final-form";
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 import Select from "../Select";
@@ -10,7 +9,7 @@ import Conditions from "./Conditions";
 
 import { ROUTING_TYPES, EMPTY_NEXT } from "../../data/data-structures";
 
-const NextPage = ({ name, questions }) => {
+const NextPage = ({ name }) => {
   return (
     <FieldArray name={`${name}.Next`}>
       {({ fields }) => {
