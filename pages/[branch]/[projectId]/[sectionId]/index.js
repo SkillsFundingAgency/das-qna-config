@@ -167,7 +167,11 @@ const Section = ({
       //   "Local save found for this section, would you like to load it?"
       // ) && setSectionData(JSON.parse(data));
     } else {
-      console.log("Loading from GitHub.");
+      if (branch === "custom" && projectId === "section") {
+        console.log("Creating section...");
+        return;
+      }
+      console.log("Loading from GitHub...");
       loadDataFromGithub(branch, projectId, sectionId);
       setUsingLocalSave(false);
     }
@@ -409,7 +413,7 @@ const Section = ({
                         href="#"
                         onClick={event =>
                           window.confirm(
-                            "Are you sure you want to revert this page to the GitHub version? You will lose your draft for this section."
+                            "Are you sure you want to delete your changes and revert to the original version?"
                           ) && deleteDraft(event)
                         }
                       >
