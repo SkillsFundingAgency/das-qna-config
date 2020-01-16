@@ -167,6 +167,8 @@ const Section = ({
       //   "Local save found for this section, would you like to load it?"
       // ) && setSectionData(JSON.parse(data));
     } else {
+      console.log(branch, projectId);
+
       if (branch === "custom" && projectId === "section") {
         console.log("Creating section...");
         return;
