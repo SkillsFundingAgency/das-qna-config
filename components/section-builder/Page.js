@@ -9,20 +9,14 @@ import {
   faEdit,
   faTrash,
   faCaretRight,
-  faCaretDown,
-  faExclamationTriangle
+  faCaretDown
 } from "@fortawesome/free-solid-svg-icons";
 import SortHandle from "../SortHandle";
 
 import NotRequiredConditions from "./NotRequiredConditions";
 import NextPage from "./NextPage";
 import QnaField from "../QnaField";
-
-const RouteError = ({ message }) => (
-  <RouteErrorContainer>
-    <FontAwesomeIcon icon={faExclamationTriangle} /> {message}
-  </RouteErrorContainer>
-);
+import Warning from "../Warning";
 
 const Page = sortableElement(({ name, editSinglePage, removePage }) => {
   const [showRoutes, setShowRoutes] = useState(false);
@@ -98,16 +92,11 @@ const Page = sortableElement(({ name, editSinglePage, removePage }) => {
               if (input.value.length && !undefinedRoutes) return false;
 
               if (!input.value.length) {
-                return <RouteError message="This page has no route defined" />;
+                return <Warning>This page has no route defined.</Warning>;
               }
 
               if (undefinedRoutes) {
-                return (
-                  <RouteError
-                    message="One or more
-                    routes have no ReturnId"
-                  />
-                );
+                return <Warning>One or more routes have no ReturnId</Warning>;
               }
             }}
           </Field>
@@ -186,10 +175,4 @@ const EditPageButton = styled(FontAwesomeIcon)`
 
 const ShowHideIcon = styled(FontAwesomeIcon)`
   font-size: 16px;
-`;
-
-const RouteErrorContainer = styled.div`
-  font-weight: bold;
-  margin: 0 0 10px 0;
-  color: #d60000;
 `;

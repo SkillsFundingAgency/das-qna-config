@@ -23,6 +23,7 @@ import {
   ListNavigation,
   Main,
   MultiChoice,
+  Paragraph,
   Pagination,
   PhaseBanner,
   Radio,
@@ -50,7 +51,14 @@ const onSubmit = async values => {
 const GeneratedPage = ({ schema }) => {
   // console.log("TCL: GeneratedPage -> schema", schema);
 
-  const { Title, BodyText, Questions, Details, AllowMultipleAnswers } = schema;
+  const {
+    Title,
+    BodyText,
+    InfoText,
+    Questions,
+    Details,
+    AllowMultipleAnswers
+  } = schema;
 
   const [isSingleQuestion, setIsSingleQuestion] = useState(false);
 
@@ -124,6 +132,9 @@ const GeneratedPage = ({ schema }) => {
                       )
                     );
                   })}
+                  <GridRow>
+                    <GridCol>{ReactHtmlParser(InfoText)}</GridCol>
+                  </GridRow>
                   {AllowMultipleAnswers ? (
                     <GridRow mb={5}>
                       <GridCol>

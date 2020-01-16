@@ -71,7 +71,6 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
           type="text"
           placeholder={`Body text (HTML)`}
           style={{ width: "100%" }}
-          label="Body text"
         />
       </Row>
 
@@ -87,7 +86,18 @@ const SinglePageView = ({ currentPage, returnToSection }) => {
           label="Allow multiple answers"
         />
       </Row>
+
       <Questions name={currentPage} />
+
+      <Row>
+        <QnaField
+          name={`${currentPage}.InfoText`}
+          component={Textarea}
+          type="text"
+          placeholder="Info text (HTML)"
+          style={{ width: "100%" }}
+        />
+      </Row>
 
       <h3>Details</h3>
 

@@ -40,6 +40,32 @@ export const GlobalStyles = () => (
         font-size: 19px;
       }
 
+      .govuk-body-m,
+      .govuk-body,
+      .app-prose-scope p {
+        color: #0b0c0c;
+        font-family: "GDS Transport", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-weight: 400;
+        font-size: 16px;
+        font-size: 1rem;
+        line-height: 1.25;
+        margin-top: 0;
+        margin-bottom: 15px;
+      }
+
+      @media (min-width: 40.0625em) {
+        .govuk-body-m,
+        .govuk-body,
+        .app-prose-scope p {
+          font-size: 19px;
+          font-size: 1.1875rem;
+          line-height: 1.31579;
+          margin-bottom: 20px;
+        }
+      }
+
       strong {
         color: #145;
         font-weight: bold;
@@ -176,4 +202,10 @@ export const BrowserTab = styled.div`
 export const PreviewContainer = styled.div`
   border: 4px solid #f1f1f1;
   padding: 25px;
+`;
+
+export const WarningContainer = styled.div`
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  color: #d60000;
 `;

@@ -14,7 +14,7 @@ import {
   githubFetchFolderContents,
   githubFetchBranches
 } from "../helpers/githubApi";
-import { guidGenerator } from "../helpers/helpers";
+import { guidGenerator } from "../helpers/helperFunctions";
 import LoadFromGithub from "../components/project-builder/LoadFromGithub";
 import ListProjectSections from "../components/project-builder/ListProjectSections";
 import ListDraftSections from "../components/project-builder/ListDraftSections";

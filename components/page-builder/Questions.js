@@ -4,6 +4,9 @@ import { sortableContainer } from "react-sortable-hoc";
 import SortableList from "../SortableList";
 
 import Question from "./Question";
+import Warning from "../Warning";
+
+import { findArrayDuplicates } from "../../helpers/helperFunctions";
 
 import { EMPTY_QUESTION } from "../../data/data-structures";
 
@@ -13,8 +16,31 @@ const Questions = sortableContainer(({ name }) => {
       <h3>Questions</h3>
       <FieldArray name={`${name}.Questions`}>
         {({ fields }) => {
+          const allQuestionIds = fields.value
+            ? fields.value.map(question => question.QuestionId)
+            : [];
+
+          // If this is not an empty array questionId has been used more than once.
+          // Empty string values removed with filter
+          const duplicateQuestionIds = [
+            ...new Set(findArrayDuplicates(allQuestionIds))
+          ].filter(id => id !== "");
+
           return (
             <>
+              <span>
+                {duplicateQuestionIds.length ? (
+                  <Warning>
+                    One or more question id's have been repeated:{" "}
+                    {duplicateQuestionIds.map((id, index) => (
+                      <span key={index}>
+                        {index > 0 ? ", " : null}
+                        {id}
+                      </span>
+                    ))}
+                  </Warning>
+                ) : null}
+              </span>
               <SortableList
                 lockAxis="y"
                 useDragHandle

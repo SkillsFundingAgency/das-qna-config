@@ -27,6 +27,9 @@ export const groupByObjectKey = (arrayOfObjects, keyToGroupBy) => {
   }, {});
 };
 
+export const findArrayDuplicates = array =>
+  array.filter(item => array.indexOf(item) !== array.lastIndexOf(item));
+
 // Example
 
 // const data = [

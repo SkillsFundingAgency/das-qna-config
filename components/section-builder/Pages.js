@@ -5,17 +5,13 @@ import SortableList from "../SortableList";
 
 import Page from "./Page";
 import SinglePageView from "../page-builder/SinglePageView";
+import Warning from "../Warning";
+import { findArrayDuplicates } from "../../helpers/helperFunctions";
 
 import { EMPTY_PAGE } from "../../data/data-structures";
 
 const Pages = sortableContainer(
-  ({
-    questions,
-    updateCurrentView,
-    currentView,
-    updateCurrentPage,
-    currentPage
-  }) => {
+  ({ updateCurrentView, currentView, updateCurrentPage, currentPage }) => {
     const editSinglePage = pageId => {
       updateCurrentPage(pageId);
       updateCurrentView("page");
@@ -34,8 +30,31 @@ const Pages = sortableContainer(
         ) : (
           <FieldArray name="Pages">
             {({ fields }) => {
+              const allPageIds = fields.value
+                ? fields.value.map(page => page.PageId)
+                : [];
+
+              // If this is not an empty array pageId has been used more than once.
+              // Empty string values removed with filter
+              const duplicatePageIds = [
+                ...new Set(findArrayDuplicates(allPageIds))
+              ].filter(id => id !== "");
+
               return (
                 <>
+                  <span>
+                    {duplicatePageIds.length ? (
+                      <Warning>
+                        One or more page id's have been repeated:{" "}
+                        {duplicatePageIds.map((id, index) => (
+                          <span key={index}>
+                            {index > 0 ? ", " : null}
+                            {id}
+                          </span>
+                        ))}
+                      </Warning>
+                    ) : null}
+                  </span>
                   <SortableList
                     lockAxis="y"
                     useDragHandle
