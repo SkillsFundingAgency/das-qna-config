@@ -1,6 +1,6 @@
 import fetch from "isomorphic-unfetch";
 
-const githubApi = async query => {
+const githubGraphqlApi = async query => {
   const response = await fetch(`https://api.github.com/graphql`, {
     method: "POST",
     headers: {
@@ -28,7 +28,7 @@ export const githubFetchBranches = async () => {
     }
   }`;
 
-  return githubApi(query);
+  return githubGraphqlApi(query);
 };
 
 // Example arguments:  githubFetchFileContents("master", "README.md")
@@ -38,13 +38,27 @@ export const githubFetchFileContents = async (branch, path) => {
         object(expression: "${branch}:${path}") {
           ... on Blob {
             id
+            oid
             text
           }
         }
       }
     }`;
 
-  return githubApi(query);
+  return githubGraphqlApi(query);
+};
+export const githubFetchFileSha = async (branch, path) => {
+  const query = `{
+      repository(owner: "SkillsFundingAgency", name: "das-qna-api") {
+        object(expression: "${branch}:${path}") {
+          ... on Blob {
+            oid
+          }
+        }
+      }
+    }`;
+
+  return githubGraphqlApi(query);
 };
 
 // Example arguments:  githubFetchFolderContents("master", "src/SFA.DAS.QnA.Database/projects")
@@ -62,5 +76,30 @@ export const githubFetchFolderContents = async (branch, path) => {
     }
   }`;
 
-  return githubApi(query);
+  return githubGraphqlApi(query);
+};
+
+export const githubUpdateFile = async (path, branch, values, oid, commit) => {
+  const response = await fetch(
+    `https://api.github.com/repos/SkillsFundingAgency/das-qna-api/contents/${path}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `bearer ${process.env.GITHUB_PERSONAL_ACCESS_TOKEN}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        branch,
+        content: values,
+        sha: oid,
+        message: commit.message,
+        committer: {
+          name: commit.name,
+          email: commit.email
+        }
+      })
+    }
+  );
+
+  return await response.json();
 };

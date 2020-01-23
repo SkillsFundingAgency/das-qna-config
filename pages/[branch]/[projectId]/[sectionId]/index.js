@@ -6,6 +6,7 @@ import cookie from "cookie";
 import Cookies from "js-cookie";
 import saveAs from "file-saver";
 import { format } from "date-fns";
+import base64 from "base-64";
 
 import styled from "styled-components";
 import {
@@ -35,7 +36,12 @@ import GeneratedPage from "../../../../components/page-builder/GeneratedPage";
 import GeneratedSection from "../../../../components/section-builder/GeneratedSection";
 import IsJsonValid from "../../../../components/section-builder/IsJsonValid";
 import GeneratedJson from "../../../../components/GeneratedJson";
-import { githubFetchFileContents } from "../../../../helpers/githubApi";
+import LoadingSpinner from "../../../../components/LoadingSpinner";
+import {
+  githubFetchFileContents,
+  githubFetchFileSha,
+  githubUpdateFile
+} from "../../../../helpers/githubApi";
 
 import Pages from "../../../../components/section-builder/Pages";
 import { EMPTY_SECTION } from "../../../../data/data-structures";
@@ -53,18 +59,22 @@ const Section = ({
   sectionId,
   initialSectionData,
   initialUserSettings,
-  initialPageSettings
+  initialLayoutSettings
 }) => {
   const [sectionData, setSectionData] = useState(initialSectionData);
   const [usingLocalSave, setUsingLocalSave] = useState(false);
   const [lastSave, setLastSave] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const [showCommitInfo, setShowCommitInfo] = useState(null);
+  // console.log(showCommitInfo);
 
   // const [currentView, setCurrentView] = useState(
-  //   initialPageSettings ? JSON.parse(initialPageSettings).currentView : null
+  //   initialLayoutSettings ? JSON.parse(initialLayoutSettings).currentView : null
   // ); // or page
   // console.log("TCL: currentView", currentView);
   // const [currentPage, setCurrentPage] = useState(
-  //   initialPageSettings ? JSON.parse(initialPageSettings).currentPage : null
+  //   initialLayoutSettings ? JSON.parse(initialLayoutSettings).currentPage : null
   // );
   // console.log("TCL: currentPage", currentPage);
 
@@ -146,7 +156,7 @@ const Section = ({
   };
 
   useEffect(() => {
-    Cookies.set("pageSettings", { currentView, currentPage });
+    Cookies.set("layoutSettings", { currentView, currentPage });
   }, [currentView, currentPage]);
 
   useEffect(() => {
@@ -159,18 +169,18 @@ const Section = ({
       `${branch}__${projectId}__${sectionId}__draft`
     );
     if (data) {
+      // draft found in localStorage
       console.log("Loading draft...");
       setUsingLocalSave(true);
       setSectionData(JSON.parse(data).values);
       setLastSave(JSON.parse(data).timeOfSave);
-      // window.confirm(
-      //   "Local save found for this section, would you like to load it?"
-      // ) && setSectionData(JSON.parse(data));
     } else {
       if (branch === "custom" && projectId === "section") {
+        // Create new section and return
         console.log("Creating section...");
         return;
       }
+
       console.log("Loading from GitHub...");
       loadDataFromGithub(branch, projectId, sectionId);
       setUsingLocalSave(false);
@@ -186,6 +196,7 @@ const Section = ({
       const sectionData = await JSON.parse(
         sectionJsonResponse.data.repository.object.text
       );
+
       setSectionData(sectionData);
     } catch (error) {
       console.error(error);
@@ -199,9 +210,42 @@ const Section = ({
     saveAs(file);
   };
 
+  const saveCurrentSectionToGithub = async (
+    commit,
+    branch,
+    projectId,
+    sectionId,
+    values
+  ) => {
+    setLoading(true);
+    const shaJsonResponse = await githubFetchFileSha(
+      branch,
+      `src/SFA.DAS.QnA.Database/projects/${projectId}/sections/${sectionId}.json`
+    );
+    const sha = await shaJsonResponse.data.repository.object.oid;
+    // console.log("TCL: sha", sha);
+
+    const valueString = JSON.stringify(values, 0, 4);
+    const encodedValues = base64.encode(valueString);
+
+    const updatedFileResults = await githubUpdateFile(
+      `src/SFA.DAS.QnA.Database/projects/${projectId}/sections/${sectionId}.json`,
+      branch,
+      encodedValues,
+      sha,
+      commit
+    );
+
+    setLoading(false);
+    setShowCommitInfo({ commit: updatedFileResults.commit });
+
+    // https://github.com/SkillsFundingAgency/das-qna-api/compare/qna-config-file-update-tests?expand=1
+  };
+
   return (
     <>
       <GlobalStyles />
+
       <Form
         // subscription={{ submitting: true, pristine: true }}
         onSubmit={() => {}}
@@ -234,6 +278,7 @@ const Section = ({
                   save={() => save(branch, projectId, sectionId, values)}
                 />
                 <DisplayControls>
+                  {loading ? <LoadingSpinner /> : null}
                   {numberOfErrors > 0 ? (
                     <span className="fa-layers" style={{ fontSize: "1.5em" }}>
                       <BugIcon
@@ -382,6 +427,18 @@ const Section = ({
                       saveSectionToFile={filename =>
                         saveCurrentSectionToFile(filename, values)
                       }
+                      saveSectionToGithub={commit =>
+                        saveCurrentSectionToGithub(
+                          commit,
+                          branch,
+                          projectId,
+                          sectionId,
+                          values
+                        )
+                      }
+                      commitDetails={showCommitInfo}
+                      branch={branch}
+                      projectId={projectId}
                     />
                   )}
 
@@ -444,7 +501,7 @@ Section.getInitialProps = async context => {
     sectionId,
     initialSectionData,
     initialUserSettings: cookies.userSettings,
-    initialPageSettings: cookies.pageSettings
+    initialLayoutSettings: cookies.layoutSettings
   };
 
   //   // Example response from `context.query`:

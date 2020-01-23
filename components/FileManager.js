@@ -9,18 +9,59 @@ import {
   faFolder
 } from "@fortawesome/free-solid-svg-icons";
 import { ColumnTitle } from "../styles/global";
+import Warning from "../components/Warning";
 
-const FileManager = ({ loadSectionData, saveSectionToFile }) => {
+const FileManager = ({
+  loadSectionData,
+  saveSectionToFile,
+  saveSectionToGithub,
+  commitDetails,
+  branch,
+  projectId
+}) => {
+  // console.log(branch, projectId, commitDetails);
+
   const [filename, setFilename] = useState("");
+  const [commit, setCommit] = useState({
+    name: "",
+    email: "",
+    message: "",
+    error: false
+  });
   // const [showLocalStorageSaves, setShowLocalStorageSaves] = useState(false);
 
   const handleFilenameChange = event => {
     setFilename(event.target.value);
   };
 
-  const handleSubmit = event => {
+  const handleSaveToFile = event => {
     event.preventDefault();
     saveSectionToFile(filename);
+  };
+
+  const handleCommitChange = event => {
+    event.persist();
+    setCommit(inputs => {
+      return {
+        ...inputs,
+        [event.target.name]: event.target.value
+      };
+    });
+  };
+
+  const handleSaveToGitHub = event => {
+    event.preventDefault();
+
+    setCommit(inputs => {
+      return {
+        ...inputs,
+        error: !commit.name || !commit.name || !commit.message
+      };
+    });
+
+    if (!commit.name || !commit.name || !commit.message) return false;
+
+    saveSectionToGithub(commit);
   };
 
   const onDrop = useCallback(acceptedFiles => {
@@ -101,6 +142,8 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
         </div>
       </Row>
 
+      <hr />
+
       {/* <h3>
         <a onClick={toggleLocalStorageSaves}>
           Load a section from localStorage
@@ -108,18 +151,85 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
       </h3>
       {showLocalStorageSaves && <AllStorageItems />} */}
 
-      <h3>Save current section to file</h3>
-      <form onSubmit={handleSubmit}>
+      {branch !== "custom" || projectId !== "section" ? (
+        <>
+          <h3>Save section to GitHub repository</h3>
+          {commitDetails ? (
+            <>
+              <p>
+                Updated section saved as a{" "}
+                <a target="_blank" href={commitDetails.commit.html_url}>
+                  new commit on GitHub
+                </a>{" "}
+                on the <strong>{branch}</strong> branch.
+              </p>
+              <p>
+                <a
+                  target="_blank"
+                  href={`https://github.com/SkillsFundingAgency/das-qna-api/compare/${branch}?expand=1`}
+                >
+                  Compare changes and create pull request
+                </a>
+              </p>
+            </>
+          ) : null}
+          {commit.error ? <Warning>Please complete all fields</Warning> : null}
+          <form onSubmit={handleSaveToGitHub}>
+            <Row>
+              <label htmlFor="commitName">Name</label>
+              <input
+                type="text"
+                name="name"
+                id="commitName"
+                onChange={handleCommitChange}
+                value={commit.name}
+              />
+            </Row>
+            <Row>
+              <label htmlFor="commitEmail">Email</label>
+              <input
+                type="text"
+                name="email"
+                id="commitEmail"
+                onChange={handleCommitChange}
+                value={commit.email}
+              />
+            </Row>
+            <Row>
+              <label htmlFor="commitMessage">Commit message</label>
+              <input
+                type="text"
+                name="message"
+                id="commitMessage"
+                onChange={handleCommitChange}
+                value={commit.message}
+              />
+            </Row>
+            <Row>
+              <Buttons>
+                <Button type="submit">Save to GitHub</Button>
+              </Buttons>
+            </Row>
+          </form>
+
+          <hr />
+        </>
+      ) : null}
+
+      <h3>Save section to file</h3>
+      <form onSubmit={handleSaveToFile}>
         <Row>
+          <label>Enter filename</label>
           <input type="text" onChange={handleFilenameChange} />
         </Row>
+
         <Row>
           <Buttons>
-            <Button type="submit">Save</Button>
+            <Button type="submit">Save to file</Button>
           </Buttons>
         </Row>
       </form>
-      <Row>
+      {/* <Row>
         <Buttons>
           <ResetAppButton
             href="#"
@@ -133,7 +243,7 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
             Delete all drafts and return to projects page
           </ResetAppButton>
         </Buttons>
-      </Row>
+      </Row> */}
     </div>
   );
 };
@@ -141,7 +251,7 @@ const FileManager = ({ loadSectionData, saveSectionToFile }) => {
 const DropZone = styled.p`
   border: 2px dashed #ccc;
   padding: 25px;
-  margin: 0;
+  margin: 0 0 10px 0;
 
   &.dragging {
     border: 2px dashed #96b7f6;
@@ -153,6 +263,7 @@ const DropZone = styled.p`
 `;
 
 const Row = styled.div`
+  position: relative;
   display: flex;
   flex-flow: row nowrap;
 
@@ -185,6 +296,18 @@ const Row = styled.div`
     min-height: 38px;
     line-height: 24px;
     margin: 0;
+  }
+
+  & > label {
+    position: absolute;
+    top: -6px;
+    left: 10px;
+    padding: 0 1px;
+    line-height: 1;
+    font-size: 11px;
+    font-weight: bold;
+    color: #555555;
+    background: #fff;
   }
 `;
 
