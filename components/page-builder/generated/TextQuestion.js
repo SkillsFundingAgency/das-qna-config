@@ -80,12 +80,12 @@ const TextQuestion = ({ question, questionIndex, isSingleQuestion }) => {
       <Field name={`${question.QuestionId}[${questionIndex}]`}>
         {({ input, meta }) => (
           <>
-            {!isSingleQuestion && (
+            {!isSingleQuestion ? (
               <LabelSwitcher
                 label={question.Label}
                 inputType={question.Input.Type}
               />
-            )}
+            ) : null}
             <HintText>{ReactHtmlParser(question.Hint)}</HintText>
             {question.Input.InputPrefix && (
               <Prefix>{question.Input.InputPrefix}</Prefix>

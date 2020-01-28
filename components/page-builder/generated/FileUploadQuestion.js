@@ -2,7 +2,7 @@ import { Field } from "react-final-form";
 import { FileUpload, FormGroup } from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 
-const FileUploadQuestion = ({ question, questionIndex }) => {
+const FileUploadQuestion = ({ question, questionIndex, isSingleQuestion }) => {
   return (
     <FormGroup>
       <Field
@@ -10,7 +10,7 @@ const FileUploadQuestion = ({ question, questionIndex }) => {
         component={FileUpload}
         hint={ReactHtmlParser(question.Hint)}
       >
-        {question.Label}
+        {!isSingleQuestion ? question.Label : null}
       </Field>
     </FormGroup>
   );

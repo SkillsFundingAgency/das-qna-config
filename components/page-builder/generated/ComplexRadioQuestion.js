@@ -14,13 +14,17 @@ const GovRadio = ({ input, hint, inline, label }) => {
   );
 };
 
-const ComplexRadioQuestion = ({ question, questionIndex }) => {
+const ComplexRadioQuestion = ({
+  question,
+  questionIndex,
+  isSingleQuestion
+}) => {
   return (
     <FormGroup>
       {question.Input.Options && (
         <div>
           <MultiChoice
-            label={question.Label}
+            label={!isSingleQuestion ? question.Label : null}
             hint={ReactHtmlParser(question.Hint)}
           >
             {question.Input.Options.map((option, index) => {

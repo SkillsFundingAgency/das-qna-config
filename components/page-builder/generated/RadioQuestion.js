@@ -18,7 +18,7 @@ const GovRadio = ({ input, hint, inline, label }) => {
   );
 };
 
-const RadioQuestion = ({ question, questionIndex }) => {
+const RadioQuestion = ({ question, questionIndex, isSingleQuestion }) => {
   const containsConditionalContentText = !!question.Input.Options.filter(
     option => option.ConditionalContentText
   ).length;
@@ -27,7 +27,10 @@ const RadioQuestion = ({ question, questionIndex }) => {
     <FormGroup>
       {question.Input.Options && (
         <div>
-          <MultiChoice label={question.Label} hint={question.Hint}>
+          <MultiChoice
+            label={!isSingleQuestion ? question.Label : null}
+            hint={question.Hint}
+          >
             {question.Input.Options.map((option, index) => {
               return (
                 <div key={index}>

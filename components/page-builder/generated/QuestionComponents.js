@@ -1,5 +1,6 @@
 import TextQuestion from "./TextQuestion";
 import DateQuestion from "./DateQuestion";
+import MonthAndYearQuestion from "./MonthAndYearQuestion";
 import LongTextQuestion from "./LongTextQuestion";
 import CheckboxListQuestion from "./CheckboxListQuestion";
 import RadioQuestion from "./RadioQuestion";
@@ -9,15 +10,15 @@ import TabularDataQuestion from "./TabularDataQuestion";
 import SelectQuestion from "./SelectQuestion";
 
 export const QuestionComponents = {
-  Address: TextQuestion, // needs own component
+  Address: TextQuestion,
   CheckboxList: CheckboxListQuestion,
   ComplexRadio: ComplexRadioQuestion,
   DataFed_CheckboxList: CheckboxListQuestion,
   Date: DateQuestion,
   Email: TextQuestion,
-  FileUpload: FileUploadQuestion, // needs own component
+  FileUpload: FileUploadQuestion,
   LongTextarea: LongTextQuestion,
-  MonthAndYear: DateQuestion, // needs own component
+  MonthAndYear: MonthAndYearQuestion,
   Number: TextQuestion,
   Radio: RadioQuestion,
   TabularData: TabularDataQuestion,

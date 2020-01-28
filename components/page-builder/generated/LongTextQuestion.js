@@ -2,7 +2,7 @@ import { Field } from "react-final-form";
 import { TextArea, FormGroup, HintText } from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 
-const LongTextQuestion = ({ question, questionIndex }) => {
+const LongTextQuestion = ({ question, questionIndex, isSingleQuestion }) => {
   return (
     <FormGroup>
       <Field
@@ -10,7 +10,7 @@ const LongTextQuestion = ({ question, questionIndex }) => {
         component={TextArea}
         hint={ReactHtmlParser(question.Hint)}
       >
-        {question.Label}
+        {!isSingleQuestion ? question.Label : null}
       </Field>
     </FormGroup>
   );

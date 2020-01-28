@@ -2,7 +2,7 @@ import { Field } from "react-final-form";
 import { DateField, FormGroup } from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 
-const DateQuestion = ({ question, questionIndex }) => {
+const DateQuestion = ({ question, questionIndex, isSingleQuestion }) => {
   return (
     <FormGroup>
       <Field
@@ -19,7 +19,7 @@ const DateQuestion = ({ question, questionIndex }) => {
           year: `${question.QuestionId}[Year]`
         }}
       >
-        {question.Label}
+        {!isSingleQuestion ? question.Label : null}
       </Field>
     </FormGroup>
   );
