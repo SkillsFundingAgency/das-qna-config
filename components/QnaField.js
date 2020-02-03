@@ -1,7 +1,7 @@
 import { useMemo, useCallback } from "react";
 import { Field } from "react-final-form";
 import styled from "styled-components";
-import { schemaObjects, mergeObjects } from "../helpers/getAllFieldsObject";
+import { schemaObjects, mergeObjects } from "../utils/getAllFieldsObject";
 
 const QnaField = ({ emptyType, name, ...props }) => {
   const allFieldsObject = useMemo(() => {

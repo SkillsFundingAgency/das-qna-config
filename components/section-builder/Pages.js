@@ -6,7 +6,7 @@ import SortableList from "../SortableList";
 import Page from "./Page";
 import SinglePageView from "../page-builder/SinglePageView";
 import Warning from "../Warning";
-import { findArrayDuplicates } from "../../helpers/helperFunctions";
+import { findArrayDuplicates } from "../../utils/helper-functions";
 
 import { EMPTY_PAGE } from "../../data/data-structures";
 

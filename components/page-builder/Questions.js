@@ -6,7 +6,7 @@ import SortableList from "../SortableList";
 import Question from "./Question";
 import Warning from "../Warning";
 
-import { findArrayDuplicates } from "../../helpers/helperFunctions";
+import { findArrayDuplicates } from "../../utils/helper-functions";
 
 import { EMPTY_QUESTION } from "../../data/data-structures";
 

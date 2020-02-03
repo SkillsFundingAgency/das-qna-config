@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import Router from "next/router";
 import { Form, Field } from "react-final-form";
 import arrayMutators from "final-form-arrays";
-import cookie from "cookie";
+// import cookie from "cookie";
 import Cookies from "js-cookie";
 import saveAs from "file-saver";
 import { format } from "date-fns";
 import base64 from "base-64";
+import nextCookie from "next-cookies";
+import { withAuthSync } from "../../../../utils/auth";
+import getHost from "../../../../utils/get-host";
 
 import styled from "styled-components";
 import {
@@ -41,13 +44,13 @@ import {
   githubFetchFileContents,
   githubFetchFileSha,
   githubUpdateFile
-} from "../../../../helpers/githubApi";
+} from "../../../../utils/github-api";
 
 import Pages from "../../../../components/section-builder/Pages";
 import { EMPTY_SECTION } from "../../../../data/data-structures";
 
-const parseCookies = req =>
-  cookie.parse(req ? req.headers.cookie || "" : document.cookie);
+// const parseCookies = req =>
+//   cookie.parse(req ? req.headers.cookie || "" : document.cookie);
 
 const required = value => (value ? undefined : "required");
 
@@ -59,12 +62,15 @@ const Section = ({
   sectionId,
   initialSectionData,
   initialUserSettings,
-  initialLayoutSettings
+  initialLayoutSettings,
+  ...rest
 }) => {
+  console.log(rest);
+
   const [sectionData, setSectionData] = useState(initialSectionData);
   const [usingLocalSave, setUsingLocalSave] = useState(false);
   const [lastSave, setLastSave] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   const [showCommitInfo, setShowCommitInfo] = useState(null);
   // console.log(showCommitInfo);
@@ -83,7 +89,7 @@ const Section = ({
 
   const [userSettings, setUserSettings] = useState(
     initialUserSettings
-      ? JSON.parse(initialUserSettings)
+      ? initialUserSettings
       : {
           showErrors: false,
           showPreview: true,
@@ -217,7 +223,15 @@ const Section = ({
     sectionId,
     values
   ) => {
-    setLoading(true);
+    setSaving(true);
+    const codeOwners = await githubFetchFileContents(
+      "master",
+      ".github/CODEOWNERS"
+    );
+    const codeOwnersArray = codeOwners.data.repository.object.text.match(
+      /([@][\w_-]+)/g
+    );
+    console.log(commit.name, codeOwnersArray.includes);
     const shaJsonResponse = await githubFetchFileSha(
       branch,
       `src/SFA.DAS.QnA.Database/projects/${projectId}/sections/${sectionId}.json`
@@ -236,7 +250,7 @@ const Section = ({
       commit
     );
 
-    setLoading(false);
+    setSaving(false);
     setShowCommitInfo({ commit: updatedFileResults.commit });
 
     // https://github.com/SkillsFundingAgency/das-qna-api/compare/qna-config-file-update-tests?expand=1
@@ -268,7 +282,7 @@ const Section = ({
               <Header>
                 <Title>
                   QnA Config |{" "}
-                  <BreadcrumbLink href="/">Projects</BreadcrumbLink>
+                  <BreadcrumbLink href="/projects">Projects</BreadcrumbLink>
                   <AngleIcon icon={faAngleRight} width="0" />
                   {currentView === "section" ? "Section " : "Page "} editor
                 </Title>
@@ -278,7 +292,7 @@ const Section = ({
                   save={() => save(branch, projectId, sectionId, values)}
                 />
                 <DisplayControls>
-                  {loading ? <LoadingSpinner /> : null}
+                  {saving ? <LoadingSpinner /> : null}
                   {numberOfErrors > 0 ? (
                     <span className="fa-layers" style={{ fontSize: "1.5em" }}>
                       <BugIcon
@@ -494,54 +508,42 @@ Section.getInitialProps = async context => {
   const { branch, sectionId, projectId } = context.query;
   const initialSectionData = branch === "custom" ? EMPTY_SECTION : null;
 
-  const cookies = parseCookies(context.req);
-  return {
-    branch,
-    projectId,
-    sectionId,
-    initialSectionData,
-    initialUserSettings: cookies.userSettings,
-    initialLayoutSettings: cookies.layoutSettings
-  };
+  const { token, userSettings, layoutSettings } = nextCookie(context);
+  const apiUrl = getHost(context.req) + "/api/restricted";
 
-  //   // Example response from `context.query`:
-  //   // {
-  //   //   branch: 'master',
-  //   //   projectId: 'epaoall',
-  //   //   sectionId: 'section1'
-  //   // }
-  // const { branch, sectionId, projectId } = context.query;
-  //   const cookies = parseCookies(context.req);
-  //   // Return with stub data for empty section
-  //   if (sectionId === "custom") {
-  //     return {
-  //       projectId,
-  //       sectionId,
-  //       initialSectionData: EMPTY_SECTION,
-  //       initialUserSettings: cookies.userSettings
-  //     };
-  //   }
-  //   try {
-  //     const sectionJsonResponse = await githubFetchFileContents(
-  //       branch,
-  //       `src/SFA.DAS.QnA.Database/projects/${projectId}/sections/${sectionId}.json`
-  //     );
-  //     const sectionData = await JSON.parse(
-  //       sectionJsonResponse.data.repository.object.text
-  //     );
-  //     return {
-  //       branch,
-  //       projectId,
-  //       sectionId,
-  //       initialSectionData: sectionData,
-  //       initialUserSettings: cookies.userSettings
-  //     };
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
+  const redirectOnError = () =>
+    typeof window !== "undefined"
+      ? Router.push("/")
+      : context.res.writeHead(302, { Location: "/" }).end();
+
+  try {
+    const response = await fetch(apiUrl, {
+      credentials: "include",
+      headers: {
+        Authorization: JSON.stringify({ token })
+      }
+    });
+
+    if (response.ok) {
+      return {
+        branch,
+        projectId,
+        sectionId,
+        initialSectionData,
+        initialUserSettings: userSettings,
+        initialLayoutSettings: layoutSettings
+      };
+    } else {
+      // https://github.com/developit/unfetch#caveats
+      return await redirectOnError();
+    }
+  } catch (error) {
+    // Implementation or Network error
+    return redirectOnError();
+  }
 };
 
-export default Section;
+export default withAuthSync(Section);
 
 const DisplayControlIcon = styled(FontAwesomeIcon)`
   font-size: 25px;

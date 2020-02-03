@@ -39,7 +39,7 @@ const FileManager = ({
     saveSectionToFile(filename);
   };
 
-  const handleCommitChange = event => {
+  const handleCommitChange = async event => {
     event.persist();
     setCommit(inputs => {
       return {
@@ -176,11 +176,12 @@ const FileManager = ({
           {commit.error ? <Warning>Please complete all fields</Warning> : null}
           <form onSubmit={handleSaveToGitHub}>
             <Row>
-              <label htmlFor="commitName">Name</label>
+              <label htmlFor="commitName">Github username</label>
               <input
                 type="text"
                 name="name"
                 id="commitName"
+                placeholder="Must be a codeowner of das-qna-api"
                 onChange={handleCommitChange}
                 value={commit.name}
               />
