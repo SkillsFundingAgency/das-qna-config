@@ -130,8 +130,10 @@ Projects.getInitialProps = async context => {
 
     if (response.ok) {
       try {
+        const githubUserDetails = await response.json();
         const getAllBranches = await githubFetchBranches();
         return {
+          githubUserDetails,
           initialBranchData: getAllBranches.data.repository.refs.edges
         };
       } catch (error) {
