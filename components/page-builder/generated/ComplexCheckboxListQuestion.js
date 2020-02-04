@@ -1,20 +1,26 @@
 import { Field } from "react-final-form";
-import { MultiChoice, Radio, FormGroup, GridRow, GridCol } from "govuk-react";
+import {
+  MultiChoice,
+  Checkbox,
+  FormGroup,
+  GridRow,
+  GridCol
+} from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 import styled from "styled-components";
 // import PropTypes from "prop-types";
 
-import { QuestionComponents } from "../generated/QuestionComponents";
+import { QuestionComponents } from "./QuestionComponents";
 
-const GovRadio = ({ input, hint, inline, label }) => {
+const GovCheckbox = ({ input, hint, inline, label }) => {
   return (
-    <Radio {...input} hint={hint} inline={inline}>
+    <Checkbox {...input} hint={hint} inline={inline}>
       {label}
-    </Radio>
+    </Checkbox>
   );
 };
 
-const ComplexRadioQuestion = ({
+const ComplexCheckboxListQuestion = ({
   question,
   questionIndex,
   isSingleQuestion
@@ -31,10 +37,10 @@ const ComplexRadioQuestion = ({
               return (
                 <div key={`${question.QuestionId}[${questionIndex}][${index}]`}>
                   <Field
-                    name={`${question.QuestionId}[${questionIndex}]`}
+                    name={`${question.QuestionId}[${questionIndex}][${index}]`}
                     hint={ReactHtmlParser(option.HintText)}
-                    component={GovRadio}
-                    type="radio"
+                    component={GovCheckbox}
+                    type="checkbox"
                     label={option.Label}
                   />
                   {option.FurtherQuestions
@@ -80,4 +86,4 @@ const ComplexRadioQuestion = ({
   );
 };
 
-export default ComplexRadioQuestion;
+export default ComplexCheckboxListQuestion;

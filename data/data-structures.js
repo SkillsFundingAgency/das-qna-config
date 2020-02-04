@@ -186,6 +186,10 @@ export const QUESTION_TYPES = [
     label: "Checkbox list"
   },
   {
+    value: "ComplexCheckboxList",
+    label: "Complex checkbox list"
+  },
+  {
     value: "DataFed_CheckboxList",
     label: "Data-fed checkbox list"
   },

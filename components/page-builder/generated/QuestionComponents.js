@@ -3,6 +3,7 @@ import DateQuestion from "./DateQuestion";
 import MonthAndYearQuestion from "./MonthAndYearQuestion";
 import LongTextQuestion from "./LongTextQuestion";
 import CheckboxListQuestion from "./CheckboxListQuestion";
+import ComplexCheckboxListQuestion from "./ComplexCheckboxListQuestion";
 import RadioQuestion from "./RadioQuestion";
 import ComplexRadioQuestion from "./ComplexRadioQuestion";
 import FileUploadQuestion from "./FileUploadQuestion";
@@ -12,6 +13,7 @@ import SelectQuestion from "./SelectQuestion";
 export const QuestionComponents = {
   Address: TextQuestion,
   CheckboxList: CheckboxListQuestion,
+  ComplexCheckboxList: ComplexCheckboxListQuestion,
   ComplexRadio: ComplexRadioQuestion,
   DataFed_CheckboxList: CheckboxListQuestion,
   Date: DateQuestion,

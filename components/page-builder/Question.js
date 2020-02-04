@@ -21,7 +21,8 @@ import {
 } from "../../data/data-structures";
 
 const hasOptions = type => ~["Radio", "CheckboxList"].indexOf(type);
-const isComplex = type => ~["ComplexRadio"].indexOf(type);
+const isComplex = type =>
+  ~["ComplexRadio", "ComplexCheckboxList"].indexOf(type);
 const isDataFedCheckboxList = type => ~["DataFed_CheckboxList"].indexOf(type);
 const isNumber = type => ~["Number"].indexOf(type);
 const isText = type =>
@@ -37,7 +38,8 @@ const isText = type =>
   ].indexOf(type);
 
 const FURTHER_QUESTION_TYPES = QUESTION_TYPES.filter(
-  element => element.value !== "ComplexRadio"
+  element =>
+    element.value !== "ComplexRadio" && element.value !== "ComplexCheckboxList"
 );
 
 const IfType = ({ name, children, predicate }) => (
