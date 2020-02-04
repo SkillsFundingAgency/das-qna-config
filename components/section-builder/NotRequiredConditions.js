@@ -76,6 +76,8 @@ const NotRequiredConditions = ({ name }) => {
 
                 <NotRequiredConditionValue name={name} type="ContainsAllOf" />
 
+                <NotRequiredConditionValue name={name} type="DoesNotContain" />
+
                 <WhenFieldChanges
                   field={`${name}.ContainsAllOf`}
                   isNotEmpty
@@ -83,9 +85,33 @@ const NotRequiredConditions = ({ name }) => {
                   to={undefined}
                 />
                 <WhenFieldChanges
+                  field={`${name}.ContainsAllOf`}
+                  isNotEmpty
+                  set={`${name}.DoesNotContain`}
+                  to={undefined}
+                />
+                <WhenFieldChanges
                   field={`${name}.IsOneOf`}
                   isNotEmpty
                   set={`${name}.ContainsAllOf`}
+                  to={undefined}
+                />
+                <WhenFieldChanges
+                  field={`${name}.IsOneOf`}
+                  isNotEmpty
+                  set={`${name}.DoesNotContain`}
+                  to={undefined}
+                />
+                <WhenFieldChanges
+                  field={`${name}.DoesNotContain`}
+                  isNotEmpty
+                  set={`${name}.ContainsAllOf`}
+                  to={undefined}
+                />
+                <WhenFieldChanges
+                  field={`${name}.DoesNotContain`}
+                  isNotEmpty
+                  set={`${name}.IsOneOf`}
                   to={undefined}
                 />
               </Container>
