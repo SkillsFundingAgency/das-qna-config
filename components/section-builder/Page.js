@@ -63,11 +63,19 @@ const Page = sortableElement(({ name, editSinglePage, removePage }) => {
             placeholder="Activated by PageId"
           />
           <Field name={`${name}.Active`}>
-            {({ input: { onChange } }) => (
-              <OnChange name={`${name}.ActivatedByPageId`}>
-                {value => onChange(value === null)}
-              </OnChange>
-            )}
+            {({ input: { onChange } }) => {
+              return (
+                <OnChange name={`${name}.ActivatedByPageId`}>
+                  {value => {
+                    // console.log("value: ", value);
+                    // console.log("typeof value: ", typeof value);
+                    // console.log("onChange: ", value === null);
+
+                    return onChange(!value || value.length === 0);
+                  }}
+                </OnChange>
+              );
+            }}
           </Field>
         </Row>
         <Row>
