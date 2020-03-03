@@ -144,14 +144,13 @@ const FileManager = ({
 
       <hr />
 
-      {/* <h3>
-        <a onClick={toggleLocalStorageSaves}>
-          Load a section from localStorage
-        </a>
-      </h3>
-      {showLocalStorageSaves && <AllStorageItems />} */}
+      {/* 
+      
+        Commenting out the below (save to GitHub) until Authorisation is in place for security
+      
+      */}
 
-      {branch !== "custom" || projectId !== "section" ? (
+      {/* {branch !== "custom" || projectId !== "section" ? (
         <>
           <h3>Save section to GitHub repository</h3>
           {commitDetails ? (
@@ -214,7 +213,7 @@ const FileManager = ({
 
           <hr />
         </>
-      ) : null}
+      ) : null} */}
 
       <h3>Save section to file</h3>
       <form onSubmit={handleSaveToFile}>

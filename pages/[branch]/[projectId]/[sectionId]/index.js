@@ -7,6 +7,7 @@ import Cookies from "js-cookie";
 import saveAs from "file-saver";
 import { format } from "date-fns";
 import base64 from "base-64";
+import Select from "../../../../components/Select";
 
 import styled from "styled-components";
 import {
@@ -391,6 +392,16 @@ const Section = ({
                               </>
                             )}
                           </QnaField>
+                        </Row>
+                        <Row>
+                          <QnaField
+                            name="PageCaption"
+                            component={Select}
+                            options={[
+                              { label: "True", value: true },
+                              { label: "False", value: false }
+                            ]}
+                          />
                         </Row>
                       </>
                     )}

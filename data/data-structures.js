@@ -3,6 +3,7 @@ export const EMPTY_SECTION = {
   LinkTitle: "",
   DisplayType: "Pages",
   RequestedFeedbackAnswered: null,
+  PageCaption: false,
   Pages: []
 };
 
