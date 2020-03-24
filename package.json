@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p $PORT"
   },
   "keywords": [],
   "author": "",
@@ -45,11 +45,11 @@
     "react-select": "^3.0.8",
     "react-sortable-hoc": "^1.11.0",
     "react-textarea-autosize": "^7.1.2",
-    "styled-components": "^4.4.1",
+    "styled-components": "^4.3.2",
     "styled-jsx": "^3.2.5",
     "styled-normalize": "^8.0.7"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^1.10.7"
+    "babel-plugin-styled-components": "^1.10.6"
   }
 }
