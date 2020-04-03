@@ -18,7 +18,7 @@ import {
   DisplayControls,
   Columns,
   Row,
-  FooterBar
+  FooterBar,
 } from "../../../../styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -27,7 +27,7 @@ import {
   faFileAlt,
   faBug,
   faAngleRight,
-  faCheckCircle
+  faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 import QnaField from "../../../../components/QnaField";
@@ -41,18 +41,18 @@ import LoadingSpinner from "../../../../components/LoadingSpinner";
 import {
   githubFetchFileContents,
   githubFetchFileSha,
-  githubUpdateFile
+  githubUpdateFile,
 } from "../../../../helpers/githubApi";
 
 import Pages from "../../../../components/section-builder/Pages";
 import { EMPTY_SECTION } from "../../../../data/data-structures";
 
-const parseCookies = req =>
+const parseCookies = (req) =>
   cookie.parse(req ? req.headers.cookie || "" : document.cookie);
 
-const required = value => (value ? undefined : "required");
+const required = (value) => (value ? undefined : "required");
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const Section = ({
   branch,
@@ -60,7 +60,7 @@ const Section = ({
   sectionId,
   initialSectionData,
   initialUserSettings,
-  initialLayoutSettings
+  initialLayoutSettings,
 }) => {
   const [sectionData, setSectionData] = useState(initialSectionData);
   const [usingLocalSave, setUsingLocalSave] = useState(false);
@@ -89,13 +89,13 @@ const Section = ({
           showErrors: false,
           showPreview: true,
           showSchema: false,
-          showFileManager: false
+          showFileManager: false,
         }
   );
 
   const [numberOfErrors, setNumberOfErrors] = useState(0);
 
-  const numberOfErrorsFromChild = numberOfErrorsFromChild =>
+  const numberOfErrorsFromChild = (numberOfErrorsFromChild) =>
     setNumberOfErrors(numberOfErrorsFromChild);
 
   const save = async (branch, projectId, sectionId, values) => {
@@ -111,20 +111,20 @@ const Section = ({
     await sleep(1500);
   };
 
-  const updateCurrentView = changeViewTo => {
+  const updateCurrentView = (changeViewTo) => {
     setCurrentView(changeViewTo);
   };
 
-  const updateCurrentPage = changePageTo => {
+  const updateCurrentPage = (changePageTo) => {
     setCurrentPage(changePageTo);
   };
 
-  const deleteDraft = event => {
+  const deleteDraft = (event) => {
     event.preventDefault();
     localStorage.removeItem(`${branch}__${projectId}__${sectionId}__draft`);
     Router.push({
       pathname: `/${branch}/${projectId}/${sectionId}`,
-      query: { new: "draft" }
+      query: { new: "draft" },
     });
   };
 
@@ -143,16 +143,16 @@ const Section = ({
   //       )
   //   );
 
-  const updateUserSettings = setting => {
-    setUserSettings(prevState => {
+  const updateUserSettings = (setting) => {
+    setUserSettings((prevState) => {
       return {
         ...prevState,
-        [setting]: !userSettings[setting]
+        [setting]: !userSettings[setting],
       };
     });
   };
 
-  const loadSectionData = fileContents => {
+  const loadSectionData = (fileContents) => {
     setSectionData(JSON.parse(fileContents));
   };
 
@@ -206,7 +206,7 @@ const Section = ({
 
   const saveCurrentSectionToFile = (fileName, jsonContents) => {
     var file = new File([JSON.stringify(jsonContents, 0, 4)], fileName, {
-      type: "application/json;charset=utf-8"
+      type: "application/json;charset=utf-8",
     });
     saveAs(file);
   };
@@ -252,17 +252,17 @@ const Section = ({
         onSubmit={() => {}}
         initialValues={sectionData}
         mutators={{
-          ...arrayMutators
+          ...arrayMutators,
         }}
         render={({
           handleSubmit,
           reset,
           submitting,
           form: {
-            mutators: { push, pop } // injected from final-form-arrays above
+            mutators: { push, pop }, // injected from final-form-arrays above
           },
           pristine,
-          values
+          values,
         }) => (
           <>
             <Container>
@@ -399,7 +399,7 @@ const Section = ({
                             component={Select}
                             options={[
                               { label: "True", value: true },
-                              { label: "False", value: false }
+                              { label: "False", value: false },
                             ]}
                           />
                         </Row>
@@ -435,10 +435,10 @@ const Section = ({
                   {userSettings.showFileManager && (
                     <FileManager
                       loadSectionData={loadSectionData}
-                      saveSectionToFile={filename =>
+                      saveSectionToFile={(filename) =>
                         saveCurrentSectionToFile(filename, values)
                       }
-                      saveSectionToGithub={commit =>
+                      saveSectionToGithub={(commit) =>
                         saveCurrentSectionToGithub(
                           commit,
                           branch,
@@ -479,7 +479,7 @@ const Section = ({
                       {" | "}
                       <a
                         href="#"
-                        onClick={event =>
+                        onClick={(event) =>
                           window.confirm(
                             "Are you sure you want to delete your changes and revert to the original version?"
                           ) && deleteDraft(event)
@@ -501,7 +501,7 @@ const Section = ({
   );
 };
 
-Section.getInitialProps = async context => {
+Section.getInitialProps = async (context) => {
   const { branch, sectionId, projectId } = context.query;
   const initialSectionData = branch === "custom" ? EMPTY_SECTION : null;
 
@@ -512,7 +512,7 @@ Section.getInitialProps = async context => {
     sectionId,
     initialSectionData,
     initialUserSettings: cookies.userSettings,
-    initialLayoutSettings: cookies.layoutSettings
+    initialLayoutSettings: cookies.layoutSettings,
   };
 
   //   // Example response from `context.query`:
