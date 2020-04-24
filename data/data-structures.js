@@ -3,8 +3,8 @@ export const EMPTY_SECTION = {
   LinkTitle: "",
   DisplayType: "Pages",
   RequestedFeedbackAnswered: null,
-  PageCaption: false,
-  Pages: []
+  ShowTitleAsCaption: false,
+  Pages: [],
 };
 
 export const EMPTY_PAGE = {
@@ -26,43 +26,43 @@ export const EMPTY_PAGE = {
   Details: null,
   DisplayType: null,
   Feedback: null,
-  ActivatedByPageId: null
+  ActivatedByPageId: null,
 };
 
 export const EMPTY_OPTION = {
   Value: "",
   Label: "",
-  HintText: ""
+  HintText: "",
 };
 
 export const EMPTY_COMPLEX_OPTION = {
   FurtherQuestions: [],
   Value: "",
   Label: "",
-  HintText: ""
+  HintText: "",
 };
 
 export const EMPTY_NEXT = {
   Action: "NextPage",
   ReturnId: "",
   Conditions: [],
-  ConditionMet: false
+  ConditionMet: false,
 };
 
 export const EMPTY_NOT_REQUIRED_CONDITION = {
-  Field: ""
+  Field: "",
 };
 
 export const EMPTY_DETAILS = {
   Title: "",
-  Body: ""
+  Body: "",
 };
 
 export const EMPTY_CONDITION = {
   QuestionId: "",
   QuestionTag: null,
   MustEqual: "",
-  Contains: ""
+  Contains: "",
 };
 
 export const EMPTY_QUESTION = {
@@ -78,11 +78,11 @@ export const EMPTY_QUESTION = {
     InputClasses: null,
     Options: [],
     Validations: [],
-    DataEndpoint: null
+    DataEndpoint: null,
   },
   Order: null,
   Value: "",
-  ErrorMessages: null
+  ErrorMessages: null,
 };
 
 export const EMPTY_DATAFED_CHECKBOXLIST = {
@@ -90,13 +90,13 @@ export const EMPTY_DATAFED_CHECKBOXLIST = {
   InputClasses: null,
   Options: [],
   Validations: [],
-  DataEndpoint: "http://replace-with-endpoint"
+  DataEndpoint: "http://replace-with-endpoint",
 };
 
 export const EMPTY_VALIDATION = {
   Name: "",
   Value: "",
-  ErrorMessage: ""
+  ErrorMessage: "",
 };
 
 export const INPUT_CLASSES = [
@@ -110,18 +110,18 @@ export const INPUT_CLASSES = [
   { value: "govuk-!-width-full", label: "govuk-!-width-full" },
   {
     value: "govuk-!-width-three-quarters",
-    label: "govuk-!-width-three-quarters"
+    label: "govuk-!-width-three-quarters",
   },
   { value: "govuk-!-width-two-thirds", label: "govuk-!-width-two-thirds" },
   { value: "govuk-!-width-one-half", label: "govuk-!-width-one-half" },
   { value: "govuk-!-width-one-third", label: "govuk-!-width-one-third" },
-  { value: "govuk-!-width-one-quarter", label: "govuk-!-width-one-quarter" }
+  { value: "govuk-!-width-one-quarter", label: "govuk-!-width-one-quarter" },
 ];
 
 export const VALIDATION_TYPES = [
   {
     value: "AddressBuildingAndStreetRequired",
-    label: "AddressBuildingAndStreetRequired"
+    label: "AddressBuildingAndStreetRequired",
   },
   { value: "AddressPostcodeRequired", label: "AddressPostcodeRequired" },
   { value: "AddressRequired", label: "AddressRequired" },
@@ -138,66 +138,66 @@ export const VALIDATION_TYPES = [
   { value: "MonthAndYearNotInFuture", label: "MonthAndYearNotInFuture" },
   { value: "Regex", label: "Regex" },
   { value: "RegisteredCharityNumber", label: "RegisteredCharityNumber" },
-  { value: "Required", label: "Required" }
+  { value: "Required", label: "Required" },
 ];
 
 export const QUESTION_TYPES = [
   {
     value: "Text",
-    label: "Text"
+    label: "Text",
   },
   {
     value: "Radio",
-    label: "Radio"
+    label: "Radio",
   },
   {
     value: "ComplexRadio",
-    label: "Complex radio"
+    label: "Complex radio",
   },
   {
     value: "Number",
-    label: "Number"
+    label: "Number",
   },
   {
     value: "Textarea",
-    label: "Textarea"
+    label: "Textarea",
   },
   {
     value: "Email",
-    label: "Email address"
+    label: "Email address",
   },
   {
     value: "Address",
-    label: "Address"
+    label: "Address",
   },
   {
     value: "Date",
-    label: "Date"
+    label: "Date",
   },
   {
     value: "MonthAndYear",
-    label: "Month and year"
+    label: "Month and year",
   },
   {
     value: "FileUpload",
-    label: "File upload"
+    label: "File upload",
   },
   {
     value: "CheckboxList",
-    label: "Checkbox list"
+    label: "Checkbox list",
   },
   {
     value: "ComplexCheckboxList",
-    label: "Complex checkbox list"
+    label: "Complex checkbox list",
   },
   {
     value: "DataFed_CheckboxList",
-    label: "Data-fed checkbox list"
+    label: "Data-fed checkbox list",
   },
   {
     value: "TabularData",
-    label: "Tabular data"
-  }
+    label: "Tabular data",
+  },
   // {
   //   value: "Hidden",
   //   label: "Hidden"
@@ -211,21 +211,21 @@ export const QUESTION_TYPES = [
 export const SECTION_DISPLAY_TYPES = [
   {
     value: "Pages",
-    label: "Pages"
+    label: "Pages",
   },
   {
     value: "PagesWithSections",
-    label: "Pages with sections"
-  }
+    label: "Pages with sections",
+  },
 ];
 
 export const ROUTING_TYPES = [
   {
     value: "NextPage",
-    label: "Next page"
+    label: "Next page",
   },
   {
     value: "ReturnToSection",
-    label: "Return to section"
-  }
+    label: "Return to section",
+  },
 ];
