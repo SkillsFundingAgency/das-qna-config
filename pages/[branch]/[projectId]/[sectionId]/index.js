@@ -395,7 +395,7 @@ const Section = ({
                         </Row>
                         <Row>
                           <QnaField
-                            name="PageCaption"
+                            name="ShowTitleAsCaption"
                             component={Select}
                             options={[
                               { label: "True", value: true },
