@@ -1,6 +1,6 @@
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
-import Select from "../Select";
+import NamedSelect from "../Select";
 import QnaField from "../QnaField";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -83,7 +83,7 @@ const Row = styled.div`
   }
 `;
 
-const RoutingSelector = styled(Select)`
+const RoutingSelector = styled(NamedSelect)`
   width: 100%;
 `;
 

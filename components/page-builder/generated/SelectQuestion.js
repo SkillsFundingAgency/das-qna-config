@@ -1,6 +1,6 @@
 import { Field } from "react-final-form";
 import styled from "styled-components";
-import Select from "../../Select";
+import NamedSelect from "../../Select";
 
 const SelectQuestion = ({ question }) => (
   <Row>
@@ -11,9 +11,9 @@ const SelectQuestion = ({ question }) => (
       options={
         question.answers
           ? question.answers.map(answer => ({
-              value: answer.value,
-              label: answer.text
-            }))
+            value: answer.value,
+            label: answer.text
+          }))
           : []
       }
       isSearchable={false}
@@ -37,6 +37,6 @@ const Row = styled.div`
   }
 `;
 
-const Selector = styled(Select)`
+const Selector = styled(NamedSelect)`
   flex: 1;
 `;

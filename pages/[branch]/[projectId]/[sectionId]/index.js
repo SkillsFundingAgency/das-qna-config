@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import saveAs from "file-saver";
 import { format } from "date-fns";
 import base64 from "base-64";
-import Select from "../../../../components/Select";
+import NamedSelect from "../../../../components/Select";
 
 import styled from "styled-components";
 import {
@@ -86,11 +86,11 @@ const Section = ({
     initialUserSettings
       ? JSON.parse(initialUserSettings)
       : {
-          showErrors: false,
-          showPreview: true,
-          showSchema: false,
-          showFileManager: false,
-        }
+        showErrors: false,
+        showPreview: true,
+        showSchema: false,
+        showFileManager: false,
+      }
   );
 
   const [numberOfErrors, setNumberOfErrors] = useState(0);
@@ -249,7 +249,7 @@ const Section = ({
 
       <Form
         // subscription={{ submitting: true, pristine: true }}
-        onSubmit={() => {}}
+        onSubmit={() => { }}
         initialValues={sectionData}
         mutators={{
           ...arrayMutators,
@@ -264,238 +264,238 @@ const Section = ({
           pristine,
           values,
         }) => (
-          <>
-            <Container>
-              <Header>
-                <Title>
-                  QnA Config |{" "}
-                  <BreadcrumbLink href="/">Projects</BreadcrumbLink>
-                  <AngleIcon icon={faAngleRight} width="0" />
-                  {currentView === "section" ? "Section " : "Page "} editor
+            <>
+              <Container>
+                <Header>
+                  <Title>
+                    QnA Config |{" "}
+                    <BreadcrumbLink href="/">Projects</BreadcrumbLink>
+                    <AngleIcon icon={faAngleRight} width="0" />
+                    {currentView === "section" ? "Section " : "Page "} editor
                 </Title>
-                <AutoSave
-                  // After keyup how long to wait before storing in localStorage
-                  debounce={3000}
-                  save={() => save(branch, projectId, sectionId, values)}
-                />
-                <DisplayControls>
-                  {loading ? <LoadingSpinner /> : null}
-                  {numberOfErrors > 0 ? (
-                    <span className="fa-layers" style={{ fontSize: "1.5em" }}>
-                      <BugIcon
-                        icon={faBug}
-                        onClick={() => updateUserSettings("showErrors")}
-                        width="0"
-                        className={
-                          userSettings.showErrors ? "view-is-open" : ""
-                        }
-                      />
+                  <AutoSave
+                    // After keyup how long to wait before storing in localStorage
+                    debounce={3000}
+                    save={() => save(branch, projectId, sectionId, values)}
+                  />
+                  <DisplayControls>
+                    {loading ? <LoadingSpinner /> : null}
+                    {numberOfErrors > 0 ? (
+                      <span className="fa-layers" style={{ fontSize: "1.5em" }}>
+                        <BugIcon
+                          icon={faBug}
+                          onClick={() => updateUserSettings("showErrors")}
+                          width="0"
+                          className={
+                            userSettings.showErrors ? "view-is-open" : ""
+                          }
+                        />
 
-                      <span
-                        className="fa-layers-counter"
-                        style={{ fontSize: "1.5em", pointerEvents: "none" }}
-                      >
-                        {numberOfErrors}
+                        <span
+                          className="fa-layers-counter"
+                          style={{ fontSize: "1.5em", pointerEvents: "none" }}
+                        >
+                          {numberOfErrors}
+                        </span>
                       </span>
-                    </span>
-                  ) : (
-                    <DisplayControlIcon
-                      icon={faCheckCircle}
-                      onClick={() => updateUserSettings("showErrors")}
-                      width="0"
-                      style={{ color: "#34b300", opacity: 1 }}
-                    />
-                  )}
+                    ) : (
+                        <DisplayControlIcon
+                          icon={faCheckCircle}
+                          onClick={() => updateUserSettings("showErrors")}
+                          width="0"
+                          style={{ color: "#34b300", opacity: 1 }}
+                        />
+                      )}
 
-                  {/* <span className="fa-layers-text fa-inverse">
+                    {/* <span className="fa-layers-text fa-inverse">
                       {numberOfErrors}
                     </span> */}
 
-                  <DisplayControlIcon
-                    icon={faFileAlt}
-                    onClick={() => updateUserSettings("showPreview")}
-                    width="0"
-                    className={userSettings.showPreview ? "view-is-open" : ""}
-                  />
-                  <DisplayControlIcon
-                    icon={faFolder}
-                    onClick={() => updateUserSettings("showFileManager")}
-                    width="0"
-                    className={
-                      userSettings.showFileManager ? "view-is-open" : ""
-                    }
-                  />
-                  <DisplayControlIcon
-                    icon={faCode}
-                    onClick={() => updateUserSettings("showSchema")}
-                    width="0"
-                    className={userSettings.showSchema ? "view-is-open" : ""}
-                  />
-                </DisplayControls>
-              </Header>
+                    <DisplayControlIcon
+                      icon={faFileAlt}
+                      onClick={() => updateUserSettings("showPreview")}
+                      width="0"
+                      className={userSettings.showPreview ? "view-is-open" : ""}
+                    />
+                    <DisplayControlIcon
+                      icon={faFolder}
+                      onClick={() => updateUserSettings("showFileManager")}
+                      width="0"
+                      className={
+                        userSettings.showFileManager ? "view-is-open" : ""
+                      }
+                    />
+                    <DisplayControlIcon
+                      icon={faCode}
+                      onClick={() => updateUserSettings("showSchema")}
+                      width="0"
+                      className={userSettings.showSchema ? "view-is-open" : ""}
+                    />
+                  </DisplayControls>
+                </Header>
 
-              <IsJsonValid
-                values={values}
-                sendNumberOfErrorsToParent={numberOfErrorsFromChild}
-                showErrors={userSettings.showErrors}
-              />
-              {sectionData && (
-                <Columns>
-                  {/* {console.log(sectionData)} */}
-                  <form onSubmit={handleSubmit}>
-                    {currentView === "section" && (
-                      <>
-                        <Row>
-                          <QnaField name="Title" validate={required}>
-                            {({ input, meta }) => {
-                              return (
+                <IsJsonValid
+                  values={values}
+                  sendNumberOfErrorsToParent={numberOfErrorsFromChild}
+                  showErrors={userSettings.showErrors}
+                />
+                {sectionData && (
+                  <Columns>
+                    {/* {console.log(sectionData)} */}
+                    <form onSubmit={handleSubmit}>
+                      {currentView === "section" && (
+                        <>
+                          <Row>
+                            <QnaField name="Title" validate={required}>
+                              {({ input, meta }) => {
+                                return (
+                                  <>
+                                    <input
+                                      {...input}
+                                      type="text"
+                                      placeholder={
+                                        meta.error && meta.touched
+                                          ? `Title is ${meta.error}`
+                                          : `Title (section)`
+                                      }
+                                      style={{ width: "100%" }}
+                                      component="input"
+                                      className={
+                                        meta.error && meta.touched
+                                          ? meta.error
+                                          : ""
+                                      }
+                                    />
+                                  </>
+                                );
+                              }}
+                            </QnaField>
+                          </Row>
+                          <Row>
+                            <QnaField name="LinkTitle" validate={required}>
+                              {({ input, meta }) => (
                                 <>
                                   <input
                                     {...input}
                                     type="text"
                                     placeholder={
                                       meta.error && meta.touched
-                                        ? `Title is ${meta.error}`
-                                        : `Title (section)`
+                                        ? `Link title is ${meta.error}`
+                                        : `Link title (section)`
                                     }
                                     style={{ width: "100%" }}
                                     component="input"
                                     className={
-                                      meta.error && meta.touched
-                                        ? meta.error
-                                        : ""
+                                      meta.error && meta.touched ? meta.error : ""
                                     }
                                   />
                                 </>
-                              );
-                            }}
-                          </QnaField>
-                        </Row>
-                        <Row>
-                          <QnaField name="LinkTitle" validate={required}>
-                            {({ input, meta }) => (
-                              <>
-                                <input
-                                  {...input}
-                                  type="text"
-                                  placeholder={
-                                    meta.error && meta.touched
-                                      ? `Link title is ${meta.error}`
-                                      : `Link title (section)`
-                                  }
-                                  style={{ width: "100%" }}
-                                  component="input"
-                                  className={
-                                    meta.error && meta.touched ? meta.error : ""
-                                  }
-                                />
-                              </>
-                            )}
-                          </QnaField>
-                        </Row>
-                        <Row>
-                          <QnaField
-                            name="ShowTitleAsCaption"
-                            component={Select}
-                            options={[
-                              { label: "True", value: true },
-                              { label: "False", value: false },
-                            ]}
-                          />
-                        </Row>
+                              )}
+                            </QnaField>
+                          </Row>
+                          <Row>
+                            <QnaField
+                              name="ShowTitleAsCaption"
+                              component={NamedSelect}
+                              options={[
+                                { label: "True", value: true },
+                                { label: "False", value: false },
+                              ]}
+                            />
+                          </Row>
+                        </>
+                      )}
+
+                      <Pages
+                        currentView={currentView}
+                        currentPage={currentPage}
+                        updateCurrentView={updateCurrentView}
+                        updateCurrentPage={updateCurrentPage}
+                      />
+                    </form>
+
+                    {userSettings.showPreview && (
+                      <>
+                        {currentView === "page" ? (
+                          <>
+                            <GeneratedPage
+                              schema={eval(`values.${currentPage}`)}
+                            />
+                          </>
+                        ) : (
+                            <GeneratedSection
+                              schema={values}
+                              updateCurrentPage={updateCurrentPage}
+                              updateCurrentView={updateCurrentView}
+                            />
+                          )}
                       </>
                     )}
 
-                    <Pages
-                      currentView={currentView}
-                      currentPage={currentPage}
-                      updateCurrentView={updateCurrentView}
-                      updateCurrentPage={updateCurrentPage}
-                    />
-                  </form>
-
-                  {userSettings.showPreview && (
-                    <>
-                      {currentView === "page" ? (
-                        <>
-                          <GeneratedPage
-                            schema={eval(`values.${currentPage}`)}
-                          />
-                        </>
-                      ) : (
-                        <GeneratedSection
-                          schema={values}
-                          updateCurrentPage={updateCurrentPage}
-                          updateCurrentView={updateCurrentView}
-                        />
-                      )}
-                    </>
-                  )}
-
-                  {userSettings.showFileManager && (
-                    <FileManager
-                      loadSectionData={loadSectionData}
-                      saveSectionToFile={(filename) =>
-                        saveCurrentSectionToFile(filename, values)
-                      }
-                      saveSectionToGithub={(commit) =>
-                        saveCurrentSectionToGithub(
-                          commit,
-                          branch,
-                          projectId,
-                          sectionId,
-                          values
-                        )
-                      }
-                      commitDetails={showCommitInfo}
-                      branch={branch}
-                      projectId={projectId}
-                    />
-                  )}
-
-                  {userSettings.showSchema && (
-                    <GeneratedJson
-                      values={
-                        currentView === "page"
-                          ? eval(`values.${currentPage}`)
-                          : values
-                      }
-                    />
-                  )}
-                </Columns>
-              )}
-              <FooterBar>
-                <div>{`${branch} > ${projectId} > ${sectionId}`} </div>
-                <div>
-                  {usingLocalSave ? (
-                    <>
-                      Draft section saved at {lastSave}
-                      {" | "}
-                      <a
-                        href={`https://github.com/SkillsFundingAgency/das-qna-api/blob/${branch}/src/SFA.DAS.QnA.Database/projects/${projectId}/sections/${sectionId}.json`}
-                      >
-                        View original on GitHub
-                      </a>
-                      {" | "}
-                      <a
-                        href="#"
-                        onClick={(event) =>
-                          window.confirm(
-                            "Are you sure you want to delete your changes and revert to the original version?"
-                          ) && deleteDraft(event)
+                    {userSettings.showFileManager && (
+                      <FileManager
+                        loadSectionData={loadSectionData}
+                        saveSectionToFile={(filename) =>
+                          saveCurrentSectionToFile(filename, values)
                         }
-                      >
-                        Revert to original version
+                        saveSectionToGithub={(commit) =>
+                          saveCurrentSectionToGithub(
+                            commit,
+                            branch,
+                            projectId,
+                            sectionId,
+                            values
+                          )
+                        }
+                        commitDetails={showCommitInfo}
+                        branch={branch}
+                        projectId={projectId}
+                      />
+                    )}
+
+                    {userSettings.showSchema && (
+                      <GeneratedJson
+                        values={
+                          currentView === "page"
+                            ? eval(`values.${currentPage}`)
+                            : values
+                        }
+                      />
+                    )}
+                  </Columns>
+                )}
+                <FooterBar>
+                  <div>{`${branch} > ${projectId} > ${sectionId}`} </div>
+                  <div>
+                    {usingLocalSave ? (
+                      <>
+                        Draft section saved at {lastSave}
+                        {" | "}
+                        <a
+                          href={`https://github.com/SkillsFundingAgency/das-qna-api/blob/${branch}/src/SFA.DAS.QnA.Database/projects/${projectId}/sections/${sectionId}.json`}
+                        >
+                          View original on GitHub
                       </a>
-                    </>
-                  ) : (
-                    "Loaded from GitHub"
-                  )}
-                </div>
-              </FooterBar>
-            </Container>
-          </>
-        )}
+                        {" | "}
+                        <a
+                          href="#"
+                          onClick={(event) =>
+                            window.confirm(
+                              "Are you sure you want to delete your changes and revert to the original version?"
+                            ) && deleteDraft(event)
+                          }
+                        >
+                          Revert to original version
+                      </a>
+                      </>
+                    ) : (
+                        "Loaded from GitHub"
+                      )}
+                  </div>
+                </FooterBar>
+              </Container>
+            </>
+          )}
       />
     </>
   );
