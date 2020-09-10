@@ -126,7 +126,6 @@ const GeneratedPage = ({ schema }) => {
                               </>
                             )
                           }
-
                           <GridRow>
                             <GridCol>
                               {ReactHtmlParser(question.QuestionBodyText)}

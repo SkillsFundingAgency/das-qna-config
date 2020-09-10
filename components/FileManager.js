@@ -80,14 +80,21 @@ const FileManager = ({
   }, []);
 
   const {
+    fileRejections,
     getRootProps,
     getInputProps,
     isDragActive,
-    rejectedFiles
   } = useDropzone({ onDrop, accept: "application/json" });
 
-  const rejectedFileNames = rejectedFiles.map(file => (
-    <p key={file.path}>{file.name} is not a json file</p>
+  const fileRejectionItems = fileRejections.map(({ file, errors }) => (
+    <Errors key={file.path}>
+      <p >Cannot upload {file.path}.</p>
+      <ul>
+        {errors.map(e => (
+          <li key={e.code}>{e.message}</li>
+        ))}
+      </ul>
+    </Errors>
   ));
 
   const deleteLocalStorageAutoSave = event => {
@@ -132,12 +139,12 @@ const FileManager = ({
         <FontAwesomeIcon icon={faFolder} width="0" /> File manager
       </ColumnTitle>
       <h3>Load a section from file</h3>
+      {fileRejectionItems}
       <Row>
         <div {...getRootProps()}>
           <input {...getInputProps()} />
           <DropZone className={isDragActive ? "dragging" : undefined}>
             Drop a json file here, or click to select one
-            {rejectedFileNames}
           </DropZone>
         </div>
       </Row>
@@ -246,6 +253,12 @@ const FileManager = ({
     </div>
   );
 };
+
+const Errors = styled.div`
+  border: 2px solid #ff0000;
+  padding: 5px;
+  margin: 0 0 10px 0;
+`;
 
 const DropZone = styled.p`
   border: 2px dashed #ccc;
