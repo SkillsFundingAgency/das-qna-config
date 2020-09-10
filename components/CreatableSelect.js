@@ -8,7 +8,7 @@ const customStyles = {
   })
 };
 
-export default ({ input, ...rest }) => {
+const NamedCreatableSelect = ({ input, ...rest }) => {
   const handleChange = option => {
     return option
       ? input.onChange(option.map(opp => opp.value).join(" "))
@@ -27,3 +27,5 @@ export default ({ input, ...rest }) => {
     />
   );
 };
+
+export default NamedCreatableSelect;

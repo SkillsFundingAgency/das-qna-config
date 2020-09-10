@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import SortHandle from "../SortHandle";
 import WhenFieldChanges from "../WhenFieldChanges";
-import Select from "../Select";
-import CreatableSelect from "../CreatableSelect";
+import NamedSelect from "../Select";
+import NamedCreatableSelect from "../CreatableSelect";
 import Textarea from "../Textarea";
 import Answers from "./Answers";
 import Validations from "./Validations";
@@ -212,12 +212,12 @@ const Row = styled.div`
   }
 `;
 
-const TypeSelector = styled(Select)`
+const TypeSelector = styled(NamedSelect)`
   margin-left: 5px;
   width: 100%;
 `;
 
-const InputClasses = styled(CreatableSelect)`
+const InputClasses = styled(NamedCreatableSelect)`
   width: 100%;
 `;
 
