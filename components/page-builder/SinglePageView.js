@@ -8,7 +8,7 @@ import QnaField from "../QnaField";
 import WhenFieldChanges from "../WhenFieldChanges";
 import Textarea from "../Textarea";
 import Questions from "./Questions";
-import Select from "../Select";
+import NamedSelect from "../Select";
 
 const required = value => (value ? undefined : "required");
 
@@ -159,7 +159,7 @@ const Buttons = styled.div`
   text-align: left;
 `;
 
-const MultipleAnswersSelect = styled(Select)`
+const MultipleAnswersSelect = styled(NamedSelect)`
   width: 100%;
 `;
 

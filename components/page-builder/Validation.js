@@ -8,7 +8,7 @@ import { sortableElement } from "react-sortable-hoc";
 import Question from "./Question";
 import SortHandle from "../SortHandle";
 import Textarea from "../Textarea";
-import Select from "../Select";
+import NamedSelect from "../Select";
 import QnaField from "../QnaField";
 
 import { VALIDATION_TYPES } from "../../data/data-structures";
@@ -125,6 +125,6 @@ const Button = styled.button`
   }
 `;
 
-const ValidationTypes = styled(Select)`
+const ValidationTypes = styled(NamedSelect)`
   width: 100%;
 `;

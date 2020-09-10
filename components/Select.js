@@ -9,7 +9,7 @@ const customStyles = {
   })
 };
 
-export default ({ input, ...rest }) => {
+const NamedSelect = ({ input, ...rest }) => {
   return (
     <QnASelect
       {...input}
@@ -26,3 +26,5 @@ export default ({ input, ...rest }) => {
 const QnASelect = styled(Select)`
   width: 100%;
 `;
+
+export default NamedSelect;

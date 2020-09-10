@@ -1,5 +1,7 @@
 import TextareaAutosize from "react-textarea-autosize";
 
-export default ({ input, label, ...rest }) => {
+const Textarea = ({ input, label, ...rest }) => {
   return <TextareaAutosize {...input} {...rest} />;
 };
+
+export default Textarea;
