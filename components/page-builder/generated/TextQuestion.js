@@ -1,5 +1,5 @@
 import { Field } from "react-final-form";
-import { Label, HintText, Input, FormGroup, H2, Paragraph } from "govuk-react";
+import { Label, LabelText, HintText, Input, FormGroup, H2, Paragraph } from "govuk-react";
 import styled from "styled-components";
 import ReactHtmlParser from "react-html-parser";
 
@@ -11,8 +11,12 @@ const LabelSwitcher = ({ label, inputType }) => (
         <Paragraph mb="0">**Start typing the address or postcode**</Paragraph>
       </>
     ) : (
-      <Label>{label}</Label>
-    )}
+        <Label>
+          <LabelText>
+            {label}
+          </LabelText>
+        </Label>
+      )}
   </>
 );
 

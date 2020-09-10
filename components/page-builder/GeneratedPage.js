@@ -80,12 +80,18 @@ const GeneratedPage = ({ schema }) => {
       </ColumnTitle>
       {Title && <BrowserTab>{Title}</BrowserTab>}
       <PreviewContainer>
-        <GridRow>
-          <GridCol>{!isSingleQuestion && <H1>{Title}</H1>}</GridCol>
-        </GridRow>
-        <GridRow>
-          <GridCol>{ReactHtmlParser(BodyText)}</GridCol>
-        </GridRow>
+        {!isSingleQuestion && (
+          <>
+            <GridRow>
+              <GridCol>
+                <H1>{Title}</H1>
+              </GridCol>
+            </GridRow>
+            <GridRow>
+              <GridCol>{ReactHtmlParser(BodyText)}</GridCol>
+            </GridRow>
+          </>
+        )}
 
         <Form
           onSubmit={onSubmit}
@@ -106,11 +112,21 @@ const GeneratedPage = ({ schema }) => {
                     return (
                       question.QuestionId && (
                         <div key={index}>
-                          <GridRow>
-                            <GridCol>
-                              {isSingleQuestion && <H1>{question.Label}</H1>}
-                            </GridCol>
-                          </GridRow>
+                          {isSingleQuestion &&
+                            (
+                              <>
+                                <GridRow>
+                                  <GridCol>
+                                    <H1>{question.Label}</H1>
+                                  </GridCol>
+                                </GridRow>
+                                <GridRow>
+                                  <GridCol>{ReactHtmlParser(BodyText)}</GridCol>
+                                </GridRow>
+                              </>
+                            )
+                          }
+
                           <GridRow>
                             <GridCol>
                               {ReactHtmlParser(question.QuestionBodyText)}

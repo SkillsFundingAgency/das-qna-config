@@ -16,7 +16,7 @@ const DateQuestion = ({ question, questionIndex, isSingleQuestion }) => {
     <FormGroup>
       {!isSingleQuestion ? (
         <Label>
-          <LabelText> {question.Label}</LabelText>
+          <LabelText>{question.Label}</LabelText>
         </Label>
       ) : null}
       <HintText>{ReactHtmlParser(question.Hint)}</HintText>
