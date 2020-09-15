@@ -93,6 +93,14 @@ export const EMPTY_DATAFED_CHECKBOXLIST = {
   DataEndpoint: "http://replace-with-endpoint",
 };
 
+export const EMPTY_DATAFED_RADIO = {
+  Type: "DataFed_Radio",
+  InputClasses: null,
+  Options: [],
+  Validations: [],
+  DataEndpoint: "http://replace-with-endpoint",
+};
+
 export const EMPTY_VALIDATION = {
   Name: "",
   Value: "",
@@ -193,6 +201,10 @@ export const QUESTION_TYPES = [
   {
     value: "DataFed_CheckboxList",
     label: "Data-fed checkbox list",
+  },
+  {
+    value: "DataFed_Radio",
+    label: "Data-fed radios",
   },
   {
     value: "TabularData",

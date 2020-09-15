@@ -17,13 +17,14 @@ import {
   INPUT_CLASSES,
   EMPTY_COMPLEX_OPTION,
   EMPTY_DATAFED_CHECKBOXLIST,
+  EMPTY_DATAFED_RADIO,
   EMPTY_OPTION
 } from "../../data/data-structures";
 
 const hasOptions = type => ~["Radio", "CheckboxList"].indexOf(type);
 const isComplex = type =>
   ~["ComplexRadio", "ComplexCheckboxList"].indexOf(type);
-const isDataFedCheckboxList = type => ~["DataFed_CheckboxList"].indexOf(type);
+const isDataFed = type => ~["DataFed_CheckboxList", "DataFed_Radio"].indexOf(type);
 const isNumber = type => ~["Number"].indexOf(type);
 const isText = type =>
   ~[
@@ -98,6 +99,12 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
           />
           <WhenFieldChanges
             field={`${name}.Input.Type`}
+            becomes={["DataFed_Radio"]}
+            set={`${name}.Input`}
+            to={EMPTY_DATAFED_RADIO}
+          />
+          <WhenFieldChanges
+            field={`${name}.Input.Type`}
             becomes={["ComplexRadio"]}
             set={`${name}.Input.Options`}
             to={[EMPTY_COMPLEX_OPTION]}
@@ -167,7 +174,7 @@ const Question = sortableElement(({ name, isSortable, removeQuestion }) => {
             />
           </Row>
         </IfType>
-        <IfType name={name} predicate={isDataFedCheckboxList}>
+        <IfType name={name} predicate={isDataFed}>
           <Row>
             <QnaField
               name={`${name}.Input.DataEndpoint`}
