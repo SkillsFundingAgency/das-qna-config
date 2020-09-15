@@ -27,11 +27,6 @@ const Page = sortableElement(({ name, editSinglePage, removePage }) => {
 
   const toggleRoutes = () => setShowRoutes(prevShowRoutes => !prevShowRoutes);
 
-  const ShowHideRoutes = styled.div`
-    margin-bottom: ${showRoutes ? "10px" : 0};
-    cursor: pointer;
-  `;
-
   return (
     <>
       <Container>
@@ -110,7 +105,7 @@ const Page = sortableElement(({ name, editSinglePage, removePage }) => {
           </Field>
         </Row>
         <Row>
-          <ShowHideRoutes onClick={toggleRoutes}>
+          <ShowHideRoutes onClick={toggleRoutes} margin={showRoutes}>
             <ShowHideIcon
               icon={showRoutes ? faCaretDown : faCaretRight}
               width="0"
@@ -183,4 +178,9 @@ const EditPageButton = styled(FontAwesomeIcon)`
 
 const ShowHideIcon = styled(FontAwesomeIcon)`
   font-size: 16px;
+`;
+
+const ShowHideRoutes = styled.div`
+  margin-bottom: ${props => props.margin ? "10px" : 0};
+  cursor: pointer;
 `;
