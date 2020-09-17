@@ -1,36 +1,13 @@
 import { useState, useEffect } from "react";
-import { Form, Field } from "react-final-form";
+import { Form } from "react-final-form";
 import ReactHtmlParser from "react-html-parser";
-import styled from "styled-components";
 import {
-  asPaginationItem,
-  BackLink,
-  Breadcrumb,
   Button,
-  Checkbox,
   Details as GovDetails,
-  DateInput,
-  FormGroup,
-  FileUpload,
   GridCol,
   GridRow,
   H1,
-  Header,
-  InputField,
-  Layout,
-  Link,
-  ListItem,
-  ListNavigation,
-  Main,
-  MultiChoice,
-  Paragraph,
-  Pagination,
-  PhaseBanner,
-  Radio,
-  SearchBox,
-  Select,
-  TextArea,
-  UnorderedList
+  Link
 } from "govuk-react";
 
 import { QuestionComponents } from "./generated/QuestionComponents";

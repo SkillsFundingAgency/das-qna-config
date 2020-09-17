@@ -21,10 +21,49 @@ const LabelSwitcher = ({ label, inputType }) => (
 );
 
 const TextQuestion = ({ question, questionIndex, isSingleQuestion }) => {
-  const GovukInput = styled(Input)`
-    max-width: ${question.Input.InputPrefix || question.Input.InputSuffix
-      ? "calc(100% - 8em)"
-      : "100%"};
+
+  const maxWidth = question.Input.InputPrefix || question.Input.InputSuffix
+    ? "calc(100% - 8em)"
+    : "100%"
+
+
+  return (
+    <FormGroup>
+      <Field name={`${question.QuestionId}[${questionIndex}]`}>
+        {({ input, meta }) => (
+          <>
+            {!isSingleQuestion ? (
+              <LabelSwitcher
+                label={question.Label}
+                inputType={question.Input.Type}
+              />
+            ) : null}
+            <HintText>{ReactHtmlParser(question.Hint)}</HintText>
+            {question.Input.InputPrefix && (
+              <Prefix>{question.Input.InputPrefix}</Prefix>
+            )}
+            <GovukInput {...input} className={question.Input.InputClasses} maxWidth={maxWidth} />
+            {question.Input.InputSuffix && (
+              <Suffix>{question.Input.InputSuffix}</Suffix>
+            )}
+          </>
+        )}
+      </Field>
+    </FormGroup>
+  );
+};
+
+const Prefix = styled.span`
+  font-size: 19px;
+  margin-right: 0.5em;
+`;
+const Suffix = styled.span`
+  font-size: 19px;
+  margin-left: 0.5em;
+`;
+
+const GovukInput = styled(Input)`
+    max-width: ${props => props.maxWidth};
 
     &.govuk-input--width-30 {
       max-width: calc(56ex + 3ex);
@@ -78,40 +117,5 @@ const TextQuestion = ({ question, questionIndex, isSingleQuestion }) => {
       width: 25%;
     }
   `;
-
-  return (
-    <FormGroup>
-      <Field name={`${question.QuestionId}[${questionIndex}]`}>
-        {({ input, meta }) => (
-          <>
-            {!isSingleQuestion ? (
-              <LabelSwitcher
-                label={question.Label}
-                inputType={question.Input.Type}
-              />
-            ) : null}
-            <HintText>{ReactHtmlParser(question.Hint)}</HintText>
-            {question.Input.InputPrefix && (
-              <Prefix>{question.Input.InputPrefix}</Prefix>
-            )}
-            <GovukInput {...input} className={question.Input.InputClasses} />
-            {question.Input.InputSuffix && (
-              <Suffix>{question.Input.InputSuffix}</Suffix>
-            )}
-          </>
-        )}
-      </Field>
-    </FormGroup>
-  );
-};
-
-const Prefix = styled.span`
-  font-size: 19px;
-  margin-right: 0.5em;
-`;
-const Suffix = styled.span`
-  font-size: 19px;
-  margin-left: 0.5em;
-`;
 
 export default TextQuestion;

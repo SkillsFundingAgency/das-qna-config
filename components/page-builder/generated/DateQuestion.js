@@ -1,13 +1,11 @@
-import { Field } from "react-final-form";
 import { DateField, FormGroup } from "govuk-react";
 import ReactHtmlParser from "react-html-parser";
 
 const DateQuestion = ({ question, questionIndex, isSingleQuestion }) => {
   return (
     <FormGroup>
-      <Field
+      <DateField
         name={`${question.QuestionId}[${questionIndex}]`}
-        component={DateField}
         hintText={ReactHtmlParser(question.Hint)}
         defaultValues={{
           day: "",
@@ -21,7 +19,7 @@ const DateQuestion = ({ question, questionIndex, isSingleQuestion }) => {
         }}
       >
         {!isSingleQuestion ? question.Label : null}
-      </Field>
+      </DateField>
     </FormGroup>
   );
 };
