@@ -31,41 +31,6 @@ export const GlobalStyles = () => (
         line-height: 1.6em;
       }
 
-      .govuk-list {
-        padding-left: 20px;
-      }
-
-      .govuk-body,
-      .govuk-list li {
-        font-size: 19px;
-      }
-
-      .govuk-body-m,
-      .govuk-body,
-      .app-prose-scope p {
-        color: #0b0c0c;
-        font-family: "GDS Transport", Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        font-weight: 400;
-        font-size: 16px;
-        font-size: 1rem;
-        line-height: 1.25;
-        margin-top: 0;
-        margin-bottom: 15px;
-      }
-
-      @media (min-width: 40.0625em) {
-        .govuk-body-m,
-        .govuk-body,
-        .app-prose-scope p {
-          font-size: 19px;
-          font-size: 1.1875rem;
-          line-height: 1.31579;
-          margin-bottom: 20px;
-        }
-      }
-
       strong {
         color: #145;
         font-weight: bold;

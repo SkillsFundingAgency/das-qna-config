@@ -99,7 +99,7 @@ const Section = ({
     setNumberOfErrors(numberOfErrorsFromChild);
 
   const save = async (branch, projectId, sectionId, values) => {
-    const timeOfSave = format(new Date(), "H:mm:ss 'on' do LLL");
+    const timeOfSave = format(new Date(), "H:mm:ss 'on' do LLL yyyy");
     setLastSave(timeOfSave);
     setUsingLocalSave(true);
     localStorage.setItem(
@@ -124,7 +124,7 @@ const Section = ({
     localStorage.removeItem(`${branch}__${projectId}__${sectionId}__draft`);
     Router.push({
       pathname: `/${branch}/${projectId}/${sectionId}`,
-      query: { new: "draft" },
+      query: { new: "draft" }
     });
   };
 
