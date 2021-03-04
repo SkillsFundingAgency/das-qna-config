@@ -136,6 +136,7 @@ export const VALIDATION_TYPES = [
   { value: "AddressTownOrCityRequired", label: "AddressTownOrCityRequired" },
   { value: "ClientApiCall", label: "ClientApiCall" },
   { value: "Date", label: "Date" },
+  { value: "DateInFuture", label: "DateInFuture" },
   { value: "DateNotInFuture", label: "DateNotInFuture" },
   { value: "EmailAddressIsValid", label: "EmailAddressIsValid" },
   { value: "FileType", label: "FileType" },
