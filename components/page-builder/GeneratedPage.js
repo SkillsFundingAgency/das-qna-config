@@ -7,7 +7,7 @@ import {
   GridCol,
   GridRow,
   H1,
-  Link
+  Link,
 } from "govuk-react";
 
 import { QuestionComponents } from "./generated/QuestionComponents";
@@ -16,9 +16,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt } from "@fortawesome/free-solid-svg-icons";
 import { PreviewContainer, BrowserTab } from "../../styles/global";
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-const onSubmit = async values => {
+const onSubmit = async (values) => {
   console.table(values);
 
   await sleep(300);
@@ -34,12 +34,12 @@ const GeneratedPage = ({ schema }) => {
     InfoText,
     Questions,
     Details,
-    AllowMultipleAnswers
+    AllowMultipleAnswers,
   } = schema;
 
   const [isSingleQuestion, setIsSingleQuestion] = useState(false);
 
-  const handleError = questionType => {
+  const handleError = (questionType) => {
     console.warn(
       `${questionType} is an unknown question type. Please select an existing one.`
     );
@@ -77,7 +77,7 @@ const GeneratedPage = ({ schema }) => {
               {Questions && (
                 <>
                   {Questions.filter(
-                    question => question.QuestionId && question.Input
+                    (question) => question.QuestionId && question.Input
                   ).map((question, index) => {
                     const questionTypeExists = QuestionComponents.hasOwnProperty(
                       question.Input.Type
@@ -89,20 +89,18 @@ const GeneratedPage = ({ schema }) => {
                     return (
                       question.QuestionId && (
                         <div key={index}>
-                          {isSingleQuestion &&
-                            (
-                              <>
-                                <GridRow>
-                                  <GridCol>
-                                    <H1>{question.Label}</H1>
-                                  </GridCol>
-                                </GridRow>
-                                <GridRow>
-                                  <GridCol>{ReactHtmlParser(BodyText)}</GridCol>
-                                </GridRow>
-                              </>
-                            )
-                          }
+                          {isSingleQuestion && (
+                            <>
+                              <GridRow>
+                                <GridCol>
+                                  <H1>{question.Label}</H1>
+                                </GridCol>
+                              </GridRow>
+                              <GridRow>
+                                <GridCol>{ReactHtmlParser(BodyText)}</GridCol>
+                              </GridRow>
+                            </>
+                          )}
                           <GridRow>
                             <GridCol>
                               {ReactHtmlParser(question.QuestionBodyText)}
@@ -157,7 +155,7 @@ const GeneratedPage = ({ schema }) => {
           <GridRow>
             <GridCol>
               <GovDetails mb={0} summary={Details.Title}>
-                {Details.Body}
+                {ReactHtmlParser(Details.Body)}
               </GovDetails>
             </GridCol>
           </GridRow>
