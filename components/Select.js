@@ -19,6 +19,7 @@ const NamedSelect = ({ input, ...rest }) => {
       value={rest.options.find(option => option.value === input.value)}
       styles={customStyles}
       isSearchable={false}
+      captureMenuScroll={false}
     />
   );
 };

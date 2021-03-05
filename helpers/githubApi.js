@@ -4,7 +4,7 @@ const githubGraphqlApi = async query => {
   const response = await fetch(`https://api.github.com/graphql`, {
     method: "POST",
     headers: {
-      Authorization: `bearer ${process.env.GITHUB_PERSONAL_ACCESS_TOKEN}`,
+      Authorization: `bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`,
       "Content-Type": "application/json"
     },
     body: JSON.stringify({ query })

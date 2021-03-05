@@ -11,7 +11,6 @@ import NamedSelect from "../../../../components/Select";
 
 import styled from "styled-components";
 import {
-  GlobalStyles,
   Container,
   Header,
   Title,
@@ -245,8 +244,6 @@ const Section = ({
 
   return (
     <>
-      <GlobalStyles />
-
       <Form
         // subscription={{ submitting: true, pristine: true }}
         onSubmit={() => { }}

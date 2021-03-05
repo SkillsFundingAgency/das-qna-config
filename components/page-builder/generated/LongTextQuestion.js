@@ -6,7 +6,7 @@ const LongTextQuestion = ({ question, questionIndex, isSingleQuestion }) => {
   return (
     <FormGroup>
       <Field
-        name={`${question.QuestionId}[${questionIndex}]`}
+        name={`LongText${question.QuestionId}[${questionIndex}]`}
         component={TextArea}
         hint={ReactHtmlParser(question.Hint)}
       >

@@ -29,7 +29,7 @@ const TextQuestion = ({ question, questionIndex, isSingleQuestion }) => {
 
   return (
     <FormGroup>
-      <Field name={`${question.QuestionId}[${questionIndex}]`}>
+      <Field name={`Text${question.QuestionId}[${questionIndex}]`}>
         {({ input, meta }) => (
           <>
             {!isSingleQuestion ? (

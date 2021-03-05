@@ -35,8 +35,8 @@ const RadioQuestion = ({ question, questionIndex, isSingleQuestion }) => {
               return (
                 <div key={index}>
                   <Field
-                    key={`${question.QuestionId}[${questionIndex}][${index}]`}
-                    name={`${question.QuestionId}[${questionIndex}]`}
+                    key={`Radio${question.QuestionId}[${questionIndex}][${index}]`}
+                    name={`Radio${question.QuestionId}[${questionIndex}]`}
                     type="radio"
                     component={GovRadio}
                     hint={ReactHtmlParser(option.HintText)}
