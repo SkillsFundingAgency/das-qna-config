@@ -29,9 +29,9 @@ const ComplexRadioQuestion = ({
           >
             {question.Input.Options.map((option, index) => {
               return (
-                <div key={`${question.QuestionId}[${questionIndex}][${index}]`}>
+                <div key={`ComplexRadio${question.QuestionId}[${questionIndex}][${index}]`}>
                   <Field
-                    name={`${question.QuestionId}[${questionIndex}]`}
+                    name={`ComplexRadio${question.QuestionId}[${questionIndex}]`}
                     hint={ReactHtmlParser(option.HintText)}
                     component={GovRadio}
                     type="radio"

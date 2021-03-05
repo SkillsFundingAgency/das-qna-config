@@ -5,7 +5,7 @@ const DateQuestion = ({ question, questionIndex, isSingleQuestion }) => {
   return (
     <FormGroup>
       <DateField
-        name={`${question.QuestionId}[${questionIndex}]`}
+        name={`Date${question.QuestionId}[${questionIndex}]`}
         hintText={ReactHtmlParser(question.Hint)}
         defaultValues={{
           day: "",

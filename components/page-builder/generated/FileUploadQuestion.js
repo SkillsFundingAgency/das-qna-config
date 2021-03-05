@@ -6,7 +6,7 @@ const FileUploadQuestion = ({ question, questionIndex, isSingleQuestion }) => {
   return (
     <FormGroup>
       <Field
-        name={`${question.QuestionId}[${questionIndex}]`}
+        name={`Upload${question.QuestionId}[${questionIndex}]`}
         component={FileUpload}
         hint={ReactHtmlParser(question.Hint)}
       >

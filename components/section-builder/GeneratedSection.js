@@ -4,6 +4,7 @@ import { ColumnTitle } from "../../styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt } from "@fortawesome/free-solid-svg-icons";
 import { PreviewContainer, BrowserTab } from "../../styles/global";
+import ReactHtmlParser from "react-html-parser";
 
 const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {
   const { LinkTitle, Title, Pages } = schema;
@@ -20,7 +21,7 @@ const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {
       </ColumnTitle>
       {LinkTitle && <BrowserTab>{LinkTitle}</BrowserTab>}
       <PreviewContainer>
-        <H1>{Title}</H1>
+        <H1>{ReactHtmlParser(Title)}</H1>
 
         {Pages &&
           Pages.map((page, index) => (

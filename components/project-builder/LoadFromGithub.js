@@ -1,12 +1,17 @@
 import Select from "react-select";
 import styled from "styled-components";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFolder
+} from "@fortawesome/free-solid-svg-icons";
+
 const LoadFromGithub = ({
   selectedBranch,
   branches,
   projectsInBranch,
   listProjectsInBranch,
-  loadProjectFile
+  loadProjectFile,
 }) => {
   return (
     <>
@@ -24,22 +29,24 @@ const LoadFromGithub = ({
         }))}
         onChange={listProjectsInBranch}
         isSearchable={true}
+        captureMenuScroll={false}
       />
 
       <>
         {projectsInBranch && projectsInBranch !== "Not loaded" ? (
-          <div>
-            <BranchTitle>Projects in {selectedBranch}</BranchTitle>
+          <>
+            <BranchTitle>Project folders in {selectedBranch}</BranchTitle>
             {projectsInBranch.entries
               .filter(project => project.type === "tree")
               .map((project, index) => (
-                <p key={index}>
-                  <a href="#" onClick={() => loadProjectFile(project.name)}>
+                  <ProjectTitle key={index}>
+                    <a href="#" onClick={() => loadProjectFile(project.name)}>
+                    <ProjectFolderIcon icon={faFolder} width="0" />
                     {project.name}
-                  </a>
-                </p>
+                    </a>
+                  </ProjectTitle>
               ))}
-          </div>
+          </>
         ) : projectsInBranch !== "Not loaded" ? (
           <h2>No projects in branch</h2>
         ) : null}
@@ -53,3 +60,16 @@ export default LoadFromGithub;
 const BranchTitle = styled.h2`
   word-break: break-all;
 `;
+
+const ProjectTitle = styled.h2`
+  font-size: 22px;
+  margin-bottom: 2px;
+`;
+
+const ProjectLink = styled.p`
+  margin-top: 0;
+`;
+
+const ProjectFolderIcon = styled(FontAwesomeIcon)`
+  margin-right: 10px;
+`

@@ -35,9 +35,9 @@ const ComplexCheckboxListQuestion = ({
           >
             {question.Input.Options.map((option, index) => {
               return (
-                <div key={`${question.QuestionId}[${questionIndex}][${index}]`}>
+                <div key={`Checkbox${question.QuestionId}[${questionIndex}][${index}]`}>
                   <Field
-                    name={`${question.QuestionId}[${questionIndex}][${index}]`}
+                    name={`Checkbox${question.QuestionId}[${questionIndex}][${index}]`}
                     hint={ReactHtmlParser(option.HintText)}
                     component={GovCheckbox}
                     type="checkbox"
