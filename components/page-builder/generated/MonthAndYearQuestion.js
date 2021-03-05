@@ -24,7 +24,7 @@ const DateQuestion = ({ question, questionIndex, isSingleQuestion }) => {
         <Label style={{ width: "50px", marginRight: "20px" }}>
           <LabelText>Month</LabelText>
           <Input
-            name={`${question.QuestionId}[Month]`}
+            name={`MonthYear${question.QuestionId}[Month]`}
             type="number"
             defaultValue=""
             value=""
@@ -33,7 +33,7 @@ const DateQuestion = ({ question, questionIndex, isSingleQuestion }) => {
         <Label style={{ width: "70px" }}>
           <LabelText>Year</LabelText>
           <Input
-            name={`${question.QuestionId}[Year]`}
+            name={`MonthYear${question.QuestionId}[Year]`}
             type="number"
             defaultValue=""
             value=""

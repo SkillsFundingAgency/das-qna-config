@@ -1,18 +1,17 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  GlobalStyles,
   Container,
   Header,
   Title,
   DisplayControls,
   Columns,
-  Button
+  Button,
 } from "../styles/global";
 import {
   githubFetchFileContents,
   githubFetchFolderContents,
-  githubFetchBranches
+  githubFetchBranches,
 } from "../helpers/githubApi";
 import { guidGenerator } from "../helpers/helperFunctions";
 import LoadFromGithub from "../components/project-builder/LoadFromGithub";
@@ -28,7 +27,7 @@ const Projects = ({ initialBranchData }) => {
   const [projectData, setProjectData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const listProjectsInBranch = async chosenBranch => {
+  const listProjectsInBranch = async (chosenBranch) => {
     setLoading(true);
     setSelectedBranch(chosenBranch.value);
     try {
@@ -43,7 +42,7 @@ const Projects = ({ initialBranchData }) => {
     setLoading(false);
   };
 
-  const loadProjectFile = async name => {
+  const loadProjectFile = async (name) => {
     setLoading(true);
     try {
       const projectsFileContents = await githubFetchFileContents(
@@ -62,7 +61,6 @@ const Projects = ({ initialBranchData }) => {
 
   return (
     <>
-      <GlobalStyles />
       <Container>
         <Header>
           <Title>QnA Config | Projects</Title>
@@ -108,11 +106,11 @@ const Projects = ({ initialBranchData }) => {
 
 export default Projects;
 
-Projects.getInitialProps = async context => {
+Projects.getInitialProps = async (context) => {
   try {
     const getAllBranches = await githubFetchBranches();
     return {
-      initialBranchData: getAllBranches.data.repository.refs.edges
+      initialBranchData: getAllBranches.data.repository.refs.edges,
     };
   } catch (error) {
     console.error(error);
