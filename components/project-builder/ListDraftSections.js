@@ -33,61 +33,59 @@ const ListDraftSections = ({ selectedBranch }) => {
     setLocalStorageItems(allStorageItems());
   }, []);
 
-  return (
-    <>
-      <LargeColumnTitle>Saved draft sections</LargeColumnTitle>
-      {localStorageItems &&
-        localStorageItems.map(item => {
-          const { key, branch, projectId, sectionId, lastSave } = item;
-          return (
-            <p key={key}>
+  return <>
+    <LargeColumnTitle>Saved draft sections</LargeColumnTitle>
+    {localStorageItems &&
+      localStorageItems.map(item => {
+        const { key, branch, projectId, sectionId, lastSave } = item;
+        return (
+          <p key={key}>
+            <Link
+              href={{
+                pathname: `/${branch}/${projectId}/${sectionId}`
+                // query: { type: "draft" }
+              }}
+              as={`/${branch}/${projectId}/${sectionId}`}
+            >
+
+              <span>{branch}</span>/<span>{projectId}</span>/{" "}
+              <span>{sectionId}</span>
+
+            </Link>
+            <br />
+            <span style={{ fontSize: "12px" }}>Last saved: {lastSave}</span>
+          </p>
+        );
+      })}
+
+    {/* <h2>
+      {projectData.Name} ({projectData.Description})
+    </h2>
+
+    {projectData.Workflows.map((workflow, index) => (
+      <div key={index}>
+        <h3>
+          {workflow.Type} ({workflow.Description})
+        </h3>
+        <SectionList>
+          {workflow.section.map((section, index) => (
+            <li key={section.id}>
               <Link
-                href={{
-                  pathname: `/${branch}/${projectId}/${sectionId}`
-                  // query: { type: "draft" }
-                }}
-                as={`/${branch}/${projectId}/${sectionId}`}
+                href="[selectedBranch]/[projectData.id]/[section.id]"
+                as={`${selectedBranch}/${projectData.id}/${section.id}`}
               >
-                <a>
-                  <span>{branch}</span> / <span>{projectId}</span> /{" "}
-                  <span>{sectionId}</span>
-                </a>
+                <a>{section.name}</a>
               </Link>
-              <br />
-              <span style={{ fontSize: "12px" }}>Last saved: {lastSave}</span>
-            </p>
-          );
-        })}
-
-      {/* <h2>
-        {projectData.Name} ({projectData.Description})
-      </h2>
-
-      {projectData.Workflows.map((workflow, index) => (
-        <div key={index}>
-          <h3>
-            {workflow.Type} ({workflow.Description})
-          </h3>
-          <SectionList>
-            {workflow.section.map((section, index) => (
-              <li key={section.id}>
-                <Link
-                  href="[selectedBranch]/[projectData.id]/[section.id]"
-                  as={`${selectedBranch}/${projectData.id}/${section.id}`}
-                >
-                  <a>{section.name}</a>
-                </Link>
-                <SectionDetails>
-                  {section.id}.json | Sequence {section.SequenceNo} | Section{" "}
-                  {section.SectionNo}
-                </SectionDetails>
-              </li>
-            ))}
-          </SectionList>
-        </div>
-      ))} */}
-    </>
-  );
+              <SectionDetails>
+                {section.id}.json | Sequence {section.SequenceNo} | Section{" "}
+                {section.SectionNo}
+              </SectionDetails>
+            </li>
+          ))}
+        </SectionList>
+      </div>
+    ))} */}
+  </>;
 };
 
 export default ListDraftSections;
