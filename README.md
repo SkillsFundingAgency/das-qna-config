@@ -36,3 +36,17 @@ This project uses the React framework: [next.js](https://nextjs.org/)
 ### Deployment
 
 This application will attempt to deploy automatically to Heroku on any push to the master branch. If the deployment fails you may need to contact DevOps to check the logs or provide you with access to [the Heroku instance](https://dashboard.heroku.com/apps/das-qna-config/).
+
+### Supplementary (Nov 2022)
+
+To run locally use 
+
+```npm install --force```
+
+followed by
+
+```npm audit fix --force```
+
+and to execute in powershell
+
+```$env:NEXT_PUBLIC_GITHUB_TOKEN="<git hub token here>"; npm run dev```
