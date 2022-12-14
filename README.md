@@ -1,40 +1,52 @@
-**das-qna-config**
-# QnA configuration tool
+# Questions and Answers Configuration Tool
 
 Live url: https://qna-config.apprenticeships.education.gov.uk/
 
 This project uses the React framework: [next.js](https://nextjs.org/)
 
-## Setting up a development environment
+## Developer Setup
 
-### System requirements
+### Requirements
 
-To run this application locally you'll need Node.js version 10.13 or later installed. You can check if you already have it by running `node --version` in your terminal. If you don't, you can [install the LTS version](https://nodejs.org/en/download/) from their website.
+* To run this application locally you'll need `Node.js` version 10.13 or later installed. You can check if you already have it by running `node --version` in your terminal. If you don't, you can [install the LTS version](https://nodejs.org/en/download/) from their website.
+* After cloning the project, in the root directory, which contains `package.json`, run the following commands:
 
-### Install modules
+	```npm install```
 
-After cloning the project, in the root directory, which containins `package.json`, run:
+	or if you are using yarn:
 
-```npm install```
+	```yarn```
 
-or if using yarn:
+### Running
 
-```yarn```
+* To run the solution:
 
-### Start the application
+	You can then run:
 
-You can then run:
+	```npm run dev```
 
-```npm run dev```
+	or if using yarn:
 
-or if using yarn:
+	```yarn dev```
 
-```yarn dev```
+	This will run the app in the development mode.
 
-This will run the app in the development mode.
-
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### Deployment
 
-This application will attempt to deploy automatically to Heroku on any push to the master branch. If the deployment fails you maty need to contact DevOps to check the logs or provide you with access to [the Heroku instance](https://dashboard.heroku.com/apps/das-qna-config/).
+This application will attempt to deploy automatically to Heroku on any push to the master branch. If the deployment fails you may need to contact DevOps to check the logs or provide you with access to [the Heroku instance](https://dashboard.heroku.com/apps/das-qna-config/).
+
+### Supplementary (Nov 2022)
+
+To run locally use 
+
+```npm install --force```
+
+followed by
+
+```npm audit fix --force```
+
+and to execute in powershell
+
+```$env:NEXT_PUBLIC_GITHUB_TOKEN="<git hub token here>"; npm run dev```
