@@ -59,49 +59,47 @@ const Projects = ({ initialBranchData }) => {
     setLoading(false);
   };
 
-  return (
-    <>
-      <Container>
-        <Header>
-          <Title>QnA Config | Projects</Title>
-          <DisplayControls>
-            {loading ? <LoadingSpinner /> : null}
-          </DisplayControls>
-        </Header>
-        <Columns>
-          <div>
-            <Link
-              href={`custom/section/${newSectionId}`}
-              as={`custom/section/${newSectionId}`}
-            >
-              <Button>New section</Button>
-            </Link>
+  return <>
+    <Container>
+      <Header>
+        <Title>QnA Config | Projects</Title>
+        <DisplayControls>
+          {loading ? <LoadingSpinner /> : null}
+        </DisplayControls>
+      </Header>
+      <Columns>
+        <div>
+          <Link
+            href={`custom/section/${newSectionId}`}
+            as={`custom/section/${newSectionId}`}
+            legacyBehavior>
+            <Button>New section</Button>
+          </Link>
 
-            <LoadFromGithub
+          <LoadFromGithub
+            selectedBranch={selectedBranch}
+            branches={initialBranchData}
+            projectsInBranch={projectsInBranch}
+            listProjectsInBranch={listProjectsInBranch}
+            loadProjectFile={loadProjectFile}
+          />
+        </div>
+
+        {projectData ? (
+          <div>
+            <ListProjectSections
+              projectData={projectData}
               selectedBranch={selectedBranch}
-              branches={initialBranchData}
-              projectsInBranch={projectsInBranch}
-              listProjectsInBranch={listProjectsInBranch}
-              loadProjectFile={loadProjectFile}
             />
           </div>
-
-          {projectData ? (
-            <div>
-              <ListProjectSections
-                projectData={projectData}
-                selectedBranch={selectedBranch}
-              />
-            </div>
-          ) : (
-            <div>
-              <ListDraftSections />
-            </div>
-          )}
-        </Columns>
-      </Container>
-    </>
-  );
+        ) : (
+          <div>
+            <ListDraftSections />
+          </div>
+        )}
+      </Columns>
+    </Container>
+  </>;
 };
 
 export default Projects;

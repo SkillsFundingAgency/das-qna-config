@@ -3,37 +3,35 @@ import Link from "next/link";
 import { LargeColumnTitle } from "../../styles/global";
 
 const ListProjectSections = ({ projectData, selectedBranch }) => {
-  return (
-    <>
-      <LargeColumnTitle>{projectData.Name}</LargeColumnTitle>
+  return <>
+    <LargeColumnTitle>{projectData.Name}</LargeColumnTitle>
 
-      <p>{projectData.Description}</p>
+    <p>{projectData.Description}</p>
 
-      {projectData.Workflows.map((workflow, index) => (
-        <div key={index}>
-          <h3>
-            {workflow.Type} ({workflow.Description})
-          </h3>
-          <SectionList>
-            {workflow.section.map((section, index) => (
-              <li key={section.id}>
-                <Link
-                  href="[selectedBranch]/[projectData.id]/[section.id]"
-                  as={`${selectedBranch}/${projectData.id}/${section.id}`}
-                >
-                  <a>{section.name}</a>
-                </Link>
-                <SectionDetails>
-                  {section.id}.json | Sequence {section.SequenceNo} | Section{" "}
-                  {section.SectionNo}
-                </SectionDetails>
-              </li>
-            ))}
-          </SectionList>
-        </div>
-      ))}
-    </>
-  );
+    {projectData.Workflows.map((workflow, index) => (
+      <div key={index}>
+        <h3>
+          {workflow.Type} ({workflow.Description})
+        </h3>
+        <SectionList>
+          {workflow.section.map((section, index) => (
+            <li key={section.id}>
+              <Link
+                href="[selectedBranch]/[projectData.id]/[section.id]"
+                as={`${selectedBranch}/${projectData.id}/${section.id}`}
+              >
+                {section.name}
+              </Link>
+              <SectionDetails>
+                {section.id}.json | Sequence {section.SequenceNo} | Section{" "}
+                {section.SectionNo}
+              </SectionDetails>
+            </li>
+          ))}
+        </SectionList>
+      </div>
+    ))}
+  </>;
 };
 
 export default ListProjectSections;
