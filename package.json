@@ -19,7 +19,7 @@
     "@fortawesome/react-fontawesome": "^0.1.11",
     "ajv": "^7.1.1",
     "base-64": "^1.0.0",
-    "cookie": "^0.4.1",
+    "cookie": "^0.7.0",
     "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
     "file-saver": "^2.0.2",
