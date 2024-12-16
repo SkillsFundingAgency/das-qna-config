@@ -4,10 +4,10 @@ import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import QnaField from "../QnaField";
-import WhenFieldChanges from "../WhenFieldChanges";
+import QnaField from "@/components/QnaField";
+import WhenFieldChanges from "@/components/WhenFieldChanges";
 
-import { EMPTY_CONDITION } from "../../data/data-structures";
+import { EMPTY_CONDITION } from "@/data/data-structures";
 
 const ShowChildrenIf = ({ when, is, children }) => (
   // show children if condition (value === is) is met or show nothing

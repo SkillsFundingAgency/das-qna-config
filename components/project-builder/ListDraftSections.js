@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Link from "next/link";
-import { LargeColumnTitle } from "../../styles/global";
+import { LargeColumnTitle } from "@/styles/global";
 
 const ListDraftSections = ({ selectedBranch }) => {
   const [localStorageItems, setLocalStorageItems] = useState(null);
@@ -9,6 +9,7 @@ const ListDraftSections = ({ selectedBranch }) => {
     return Object.entries(localStorage).map(item => {
       const key = item[0];
       const value = item[1];
+      console.log(`${key}: ${value}`);
 
       const sectionParams = key.split("__");
       const branch = sectionParams[0];
@@ -18,15 +19,6 @@ const ListDraftSections = ({ selectedBranch }) => {
 
       return { key, branch, projectId, sectionId, lastSave };
     });
-
-    // return Object.keys(localStorage).map(key => {
-    //   const sectionParams = key.split("__");
-    //   const branch = sectionParams[0];
-    //   const projectId = sectionParams[1];
-    //   const sectionId = sectionParams[2];
-
-    //   return { key, branch, projectId, sectionId };
-    // });
   };
 
   useEffect(() => {
@@ -43,7 +35,6 @@ const ListDraftSections = ({ selectedBranch }) => {
             <Link
               href={{
                 pathname: `/${branch}/${projectId}/${sectionId}`
-                // query: { type: "draft" }
               }}
               as={`/${branch}/${projectId}/${sectionId}`}
             >
@@ -57,34 +48,6 @@ const ListDraftSections = ({ selectedBranch }) => {
           </p>
         );
       })}
-
-    {/* <h2>
-      {projectData.Name} ({projectData.Description})
-    </h2>
-
-    {projectData.Workflows.map((workflow, index) => (
-      <div key={index}>
-        <h3>
-          {workflow.Type} ({workflow.Description})
-        </h3>
-        <SectionList>
-          {workflow.section.map((section, index) => (
-            <li key={section.id}>
-              <Link
-                href="[selectedBranch]/[projectData.id]/[section.id]"
-                as={`${selectedBranch}/${projectData.id}/${section.id}`}
-              >
-                <a>{section.name}</a>
-              </Link>
-              <SectionDetails>
-                {section.id}.json | Sequence {section.SequenceNo} | Section{" "}
-                {section.SectionNo}
-              </SectionDetails>
-            </li>
-          ))}
-        </SectionList>
-      </div>
-    ))} */}
   </>;
 };
 

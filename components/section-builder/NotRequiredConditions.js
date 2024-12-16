@@ -1,12 +1,12 @@
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
-import NamedSelect from "../Select";
-import QnaField from "../QnaField";
+import NamedSelect from "@/components/Select";
+import QnaField from "@/components/QnaField";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import WhenFieldChanges from "../WhenFieldChanges";
+import WhenFieldChanges from "@/components/WhenFieldChanges";
 
-import { EMPTY_NOT_REQUIRED_CONDITION } from "../../data/data-structures";
+import { EMPTY_NOT_REQUIRED_CONDITION } from "@/data/data-structures";
 
 const NotRequiredConditionValue = ({ name, type }) => {
   return (

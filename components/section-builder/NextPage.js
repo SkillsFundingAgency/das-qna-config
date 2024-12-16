@@ -1,13 +1,13 @@
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
-import NamedSelect from "../Select";
-import QnaField from "../QnaField";
+import NamedSelect from "@/components/Select";
+import QnaField from "@/components/QnaField";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 import Conditions from "./Conditions";
 
-import { ROUTING_TYPES, EMPTY_NEXT } from "../../data/data-structures";
+import { ROUTING_TYPES, EMPTY_NEXT } from "@/data/data-structures";
 
 const NextPage = ({ name }) => {
   return (

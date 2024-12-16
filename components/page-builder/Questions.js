@@ -1,14 +1,14 @@
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 import { sortableContainer } from "react-sortable-hoc";
-import SortableList from "../SortableList";
+import SortableList from "@/components/SortableList";
 
 import Question from "./Question";
-import Warning from "../Warning";
+import Warning from "@/components/Warning";
 
-import { findArrayDuplicates } from "../../helpers/helperFunctions";
+import { findArrayDuplicates } from "@/helpers/helperFunctions";
 
-import { EMPTY_QUESTION } from "../../data/data-structures";
+import { EMPTY_QUESTION } from "@/data/data-structures";
 
 const Questions = sortableContainer(({ name }) => {
   return (

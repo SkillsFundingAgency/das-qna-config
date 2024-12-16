@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 import saveAs from "file-saver";
 import { format } from "date-fns";
 import base64 from "base-64";
-import NamedSelect from "../../../../components/Select";
+import NamedSelect from "@/components/Select";
 
 import styled from "styled-components";
 import {
@@ -18,7 +18,7 @@ import {
   Columns,
   Row,
   FooterBar,
-} from "../../../../styles/global";
+} from "@/styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCode,
@@ -29,22 +29,22 @@ import {
   faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
-import QnaField from "../../../../components/QnaField";
-import AutoSave from "../../../../components/AutoSave";
-import FileManager from "../../../../components/FileManager";
-import GeneratedPage from "../../../../components/page-builder/GeneratedPage";
-import GeneratedSection from "../../../../components/section-builder/GeneratedSection";
-import IsJsonValid from "../../../../components/section-builder/IsJsonValid";
-import GeneratedJson from "../../../../components/GeneratedJson";
-import LoadingSpinner from "../../../../components/LoadingSpinner";
+import QnaField from "@/components/QnaField";
+import AutoSave from "@/components/AutoSave";
+import FileManager from "@/components/FileManager";
+import GeneratedPage from "@/components/page-builder/GeneratedPage";
+import GeneratedSection from "@/components/section-builder/GeneratedSection";
+import IsJsonValid from "@/components/section-builder/IsJsonValid";
+import GeneratedJson from "@/components/GeneratedJson";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import {
   githubFetchFileContents,
   githubFetchFileSha,
   githubUpdateFile,
-} from "../../../../helpers/githubApi";
+} from "@/helpers/githubApi";
 
-import Pages from "../../../../components/section-builder/Pages";
-import { EMPTY_SECTION } from "../../../../data/data-structures";
+import Pages from "@/components/section-builder/Pages";
+import { EMPTY_SECTION } from "@/data/data-structures";
 
 const parseCookies = (req) =>
   cookie.parse(req ? req.headers.cookie || "" : document.cookie);
@@ -67,16 +67,6 @@ const Section = ({
   const [loading, setLoading] = useState(false);
 
   const [showCommitInfo, setShowCommitInfo] = useState(null);
-  // console.log(showCommitInfo);
-
-  // const [currentView, setCurrentView] = useState(
-  //   initialLayoutSettings ? JSON.parse(initialLayoutSettings).currentView : null
-  // ); // or page
-  // console.log("TCL: currentView", currentView);
-  // const [currentPage, setCurrentPage] = useState(
-  //   initialLayoutSettings ? JSON.parse(initialLayoutSettings).currentPage : null
-  // );
-  // console.log("TCL: currentPage", currentPage);
 
   const [currentView, setCurrentView] = useState("section"); // or page
   const [currentPage, setCurrentPage] = useState(0);
@@ -126,21 +116,6 @@ const Section = ({
       query: { new: "draft" }
     });
   };
-
-  // useEffect on below to get "questions" to stay current.
-  // const questions =
-  //   sectionData &&
-  //   sectionData.Pages.map(
-  //     page =>
-  //       page.Questions &&
-  //       page.Questions.reduce(
-  //         (accumulator, element) => ({
-  //           label: `${element.Label} (${element.QuestionId})`,
-  //           value: element.QuestionId
-  //         }),`
-  //         {}
-  //       )
-  //   );
 
   const updateUserSettings = (setting) => {
     setUserSettings((prevState) => {
@@ -511,42 +486,6 @@ Section.getInitialProps = async (context) => {
     initialUserSettings: cookies.userSettings,
     initialLayoutSettings: cookies.layoutSettings,
   };
-
-  //   // Example response from `context.query`:
-  //   // {
-  //   //   branch: 'master',
-  //   //   projectId: 'epaoall',
-  //   //   sectionId: 'section1'
-  //   // }
-  // const { branch, sectionId, projectId } = context.query;
-  //   const cookies = parseCookies(context.req);
-  //   // Return with stub data for empty section
-  //   if (sectionId === "custom") {
-  //     return {
-  //       projectId,
-  //       sectionId,
-  //       initialSectionData: EMPTY_SECTION,
-  //       initialUserSettings: cookies.userSettings
-  //     };
-  //   }
-  //   try {
-  //     const sectionJsonResponse = await githubFetchFileContents(
-  //       branch,
-  //       `src/SFA.DAS.QnA.Database/projects/${projectId}/sections/${sectionId}.json`
-  //     );
-  //     const sectionData = await JSON.parse(
-  //       sectionJsonResponse.data.repository.object.text
-  //     );
-  //     return {
-  //       branch,
-  //       projectId,
-  //       sectionId,
-  //       initialSectionData: sectionData,
-  //       initialUserSettings: cookies.userSettings
-  //     };
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
 };
 
 export default Section;

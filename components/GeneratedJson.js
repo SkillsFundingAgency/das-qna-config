@@ -2,16 +2,9 @@ import { useState, useEffect } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode } from "@fortawesome/free-solid-svg-icons";
-import { ColumnTitle } from "../styles/global";
+import { ColumnTitle } from "@/styles/global";
 import styled from "styled-components";
 
-// import ReactJson from "react-json-view";
-// import dynamic from "next/dynamic";
-// const DynamicReactJson = dynamic(import("react-json-view"), { ssr: false });
-
-// const GeneratedJson = dynamic(() => import("../../components/GeneratedJson"), {
-//   ssr: false
-// });
 
 const GeneratedJson = ({ values }) => {
   const [isCopied, setIsCopied] = useState(false);
@@ -42,14 +35,6 @@ const GeneratedJson = ({ values }) => {
         </CopyToClipboard>
       )}
       <Dump>{prettyStringValues}</Dump>
-
-      {/* <ReactJson
-      src={values}
-      displayDataTypes={false}
-      displayObjectSize={false}
-      indentWidth={2}
-      name={false}
-    /> */}
     </div>
   );
 };

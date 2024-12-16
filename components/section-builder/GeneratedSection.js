@@ -1,9 +1,9 @@
 import { H1, Link, GridRow, GridCol } from "govuk-react";
 import styled from "styled-components";
-import { ColumnTitle } from "../../styles/global";
+import { ColumnTitle } from "@/styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt } from "@fortawesome/free-solid-svg-icons";
-import { PreviewContainer, BrowserTab } from "../../styles/global";
+import { PreviewContainer, BrowserTab } from "@/styles/global";
 import ReactHtmlParser from "react-html-parser";
 
 const GeneratedSection = ({ schema, updateCurrentPage, updateCurrentView }) => {

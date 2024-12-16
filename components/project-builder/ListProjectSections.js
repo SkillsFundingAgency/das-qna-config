@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { LargeColumnTitle } from "../../styles/global";
+import { LargeColumnTitle } from "@/styles/global";
 
 const ListProjectSections = ({ projectData, selectedBranch }) => {
   return <>

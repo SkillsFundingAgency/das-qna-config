@@ -7,17 +7,17 @@ import {
   DisplayControls,
   Columns,
   Button,
-} from "../styles/global";
+} from "@/styles/global";
 import {
   githubFetchFileContents,
   githubFetchFolderContents,
   githubFetchBranches,
-} from "../helpers/githubApi";
-import { guidGenerator } from "../helpers/helperFunctions";
-import LoadFromGithub from "../components/project-builder/LoadFromGithub";
-import ListProjectSections from "../components/project-builder/ListProjectSections";
-import ListDraftSections from "../components/project-builder/ListDraftSections";
-import LoadingSpinner from "../components/LoadingSpinner";
+} from "@/helpers/githubApi";
+import { guidGenerator } from "@/helpers/helperFunctions";
+import LoadFromGithub from "@/components/project-builder/LoadFromGithub";
+import ListProjectSections from "@/components/project-builder/ListProjectSections";
+import ListDraftSections from "@/components/project-builder/ListDraftSections";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const newSectionId = guidGenerator();
 

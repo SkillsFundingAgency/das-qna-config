@@ -5,13 +5,11 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { sortableElement } from "react-sortable-hoc";
 
-import Question from "./Question";
-import SortHandle from "../SortHandle";
-import Textarea from "../Textarea";
-import NamedSelect from "../Select";
-import QnaField from "../QnaField";
+import Textarea from "@/components/Textarea";
+import NamedSelect from "@/components/Select";
+import QnaField from "@/components/QnaField";
 
-import { VALIDATION_TYPES } from "../../data/data-structures";
+import { VALIDATION_TYPES } from "@/data/data-structures";
 
 const Validation = ({ name, remove }) => (
   <Container>

@@ -6,11 +6,11 @@ import styled from "styled-components";
 import { sortableElement } from "react-sortable-hoc";
 
 import Question from "./Question";
-import SortHandle from "../SortHandle";
-import Textarea from "../Textarea";
-import QnaField from "../QnaField";
+import SortHandle from "@/components/SortHandle";
+import Textarea from "@/components/Textarea";
+import QnaField from "@/components/QnaField";
 
-import { EMPTY_QUESTION } from "../../data/data-structures";
+import { EMPTY_QUESTION } from "@/data/data-structures";
 
 const Answer = sortableElement(({ name, remove, isComplex }) => (
   <Container>

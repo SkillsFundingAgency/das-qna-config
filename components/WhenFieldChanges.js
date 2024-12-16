@@ -35,14 +35,6 @@ const WhenFieldChanges = ({ field, becomes, isNotEmpty, set, to }) => (
 // Usage
 
 {
-  /*
-  <WhenFieldChanges
-    field={`${name}.Input.Type`}
-    becomes={["Text", "Date", "Number", "Address"]}
-    set={`${name}.Input.Options`}
-    to={undefined}
-  /> 
-*/
 }
 
 WhenFieldChanges.propTypes = {

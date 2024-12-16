@@ -4,7 +4,7 @@ import ReactHtmlParser from "react-html-parser";
 import styled from "styled-components";
 // import PropTypes from "prop-types";
 
-import { QuestionComponents } from "../generated/QuestionComponents";
+import { QuestionComponents } from "./QuestionComponents";
 
 const GovRadio = ({ input, hint, inline, label }) => {
   return (

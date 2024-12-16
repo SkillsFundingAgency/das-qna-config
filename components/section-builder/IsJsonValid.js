@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import Ajv from "ajv";
-import { APPLICATION_DATA_SCHEMA } from "../../data/ApplicationDataSchema";
+import { APPLICATION_DATA_SCHEMA } from "@/data/ApplicationDataSchema";
 
 const ajv = new Ajv({ allErrors: true });
 const test = ajv.compile(APPLICATION_DATA_SCHEMA);

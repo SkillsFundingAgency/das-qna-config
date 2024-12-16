@@ -2,9 +2,9 @@ import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 
 import Answer from "./Answer";
-import SortableList from "../SortableList";
+import SortableList from "@/components/SortableList";
 
-import { EMPTY_OPTION, EMPTY_COMPLEX_OPTION } from "../../data/data-structures";
+import { EMPTY_OPTION, EMPTY_COMPLEX_OPTION } from "@/data/data-structures";
 
 const Answers = ({ name, isComplex }) => {
   return (

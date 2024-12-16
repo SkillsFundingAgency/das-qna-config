@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 import { Field } from "react-final-form";
 import styled from "styled-components";
 
-import QnaField from "../QnaField";
-import WhenFieldChanges from "../WhenFieldChanges";
-import Textarea from "../Textarea";
+import QnaField from "@/components/QnaField";
+import WhenFieldChanges from "@/components/WhenFieldChanges";
+import Textarea from "@/components/Textarea";
 import Questions from "./Questions";
-import NamedSelect from "../Select";
+import NamedSelect from "@/components/Select";
 
 const required = value => (value ? undefined : "required");
 

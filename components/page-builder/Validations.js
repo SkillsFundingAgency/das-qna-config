@@ -2,7 +2,7 @@ import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 
 import Validation from "./Validation";
-import { EMPTY_VALIDATION } from "../../data/data-structures";
+import { EMPTY_VALIDATION } from "@/data/data-structures";
 
 const Validations = ({ name }) => {
   return (

@@ -1,6 +1,6 @@
 import { Field } from "react-final-form";
 import styled from "styled-components";
-import NamedSelect from "../../Select";
+import NamedSelect from "@/components/Select";
 
 const SelectQuestion = ({ question }) => (
   <Row>

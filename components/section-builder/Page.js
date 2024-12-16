@@ -11,12 +11,12 @@ import {
   faCaretRight,
   faCaretDown
 } from "@fortawesome/free-solid-svg-icons";
-import SortHandle from "../SortHandle";
+import SortHandle from "@/components/SortHandle";
 
 import NotRequiredConditions from "./NotRequiredConditions";
 import NextPage from "./NextPage";
-import QnaField from "../QnaField";
-import Warning from "../Warning";
+import QnaField from "@/components/QnaField";
+import Warning from "@/components/Warning";
 
 const Page = sortableElement(({ name, editSinglePage, removePage }) => {
   const [showRoutes, setShowRoutes] = useState(false);

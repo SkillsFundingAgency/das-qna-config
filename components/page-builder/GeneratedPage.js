@@ -11,10 +11,10 @@ import {
 } from "govuk-react";
 
 import { QuestionComponents } from "./generated/QuestionComponents";
-import { ColumnTitle } from "../../styles/global";
+import { ColumnTitle } from "@/styles/global";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt } from "@fortawesome/free-solid-svg-icons";
-import { PreviewContainer, BrowserTab } from "../../styles/global";
+import { PreviewContainer, BrowserTab } from "@/styles/global";
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 

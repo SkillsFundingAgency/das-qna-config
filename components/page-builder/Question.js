@@ -4,14 +4,14 @@ import { sortableElement } from "react-sortable-hoc";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import SortHandle from "../SortHandle";
-import WhenFieldChanges from "../WhenFieldChanges";
-import NamedSelect from "../Select";
-import NamedCreatableSelect from "../CreatableSelect";
-import Textarea from "../Textarea";
+import SortHandle from "@/components/SortHandle";
+import WhenFieldChanges from "@/components/WhenFieldChanges";
+import NamedSelect from "@/components/Select";
+import NamedCreatableSelect from "@/components/CreatableSelect";
+import Textarea from "@/components/Textarea";
 import Answers from "./Answers";
 import Validations from "./Validations";
-import QnaField from "../QnaField";
+import QnaField from "@/components/QnaField";
 import {
   QUESTION_TYPES,
   INPUT_CLASSES,
@@ -19,7 +19,7 @@ import {
   EMPTY_DATAFED_CHECKBOXLIST,
   EMPTY_DATAFED_RADIO,
   EMPTY_OPTION
-} from "../../data/data-structures";
+} from "@/data/data-structures";
 
 const hasOptions = type => ~["Radio", "CheckboxList"].indexOf(type);
 const isComplex = type =>

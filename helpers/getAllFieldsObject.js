@@ -9,7 +9,7 @@ import {
   EMPTY_CONDITION,
   EMPTY_QUESTION,
   EMPTY_VALIDATION
-} from "../data/data-structures";
+} from "@/data/data-structures";
 
 export const schemaObjects = [
   EMPTY_SECTION,

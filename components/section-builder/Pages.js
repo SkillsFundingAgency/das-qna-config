@@ -1,14 +1,14 @@
 import { FieldArray } from "react-final-form-arrays";
 import styled from "styled-components";
 import { sortableContainer } from "react-sortable-hoc";
-import SortableList from "../SortableList";
+import SortableList from "@/components/SortableList";
 
 import Page from "./Page";
-import SinglePageView from "../page-builder/SinglePageView";
-import Warning from "../Warning";
-import { findArrayDuplicates } from "../../helpers/helperFunctions";
+import SinglePageView from "@/components/page-builder/SinglePageView";
+import Warning from "@/components/Warning";
+import { findArrayDuplicates } from "@/helpers/helperFunctions";
 
-import { EMPTY_PAGE } from "../../data/data-structures";
+import { EMPTY_PAGE } from "@/data/data-structures";
 
 const Pages = sortableContainer(
   ({ updateCurrentView, currentView, updateCurrentPage, currentPage }) => {

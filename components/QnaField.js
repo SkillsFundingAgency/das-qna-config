@@ -1,16 +1,12 @@
 import { useMemo, useCallback } from "react";
 import { Field } from "react-final-form";
 import styled from "styled-components";
-import { schemaObjects, mergeObjects } from "../helpers/getAllFieldsObject";
+import { schemaObjects, mergeObjects } from "@/helpers/getAllFieldsObject";
 
 const QnaField = ({ emptyType, name, ...props }) => {
   const allFieldsObject = useMemo(() => {
     return mergeObjects(schemaObjects);
   }, [schemaObjects]);
-
-  // const allFieldsObject = useCallback(() => mergeObjects(schemaObjects), [
-  //   schemaObjects
-  // ]);
 
   const singleWordName = name.split(".").splice(-1);
   const emptyValue = allFieldsObject[singleWordName];
