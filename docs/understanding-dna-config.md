@@ -19,13 +19,15 @@ Next.js however is a full-stack web framework with backend processing and even S
 
 ## Running the application 
 
-### Setting the GH API token
-
 You will need the latest version of NodeJS and npm/yarn installed. There has been some issues getting these applications working on Fujitsu machines;
 
 - If you are familiar with Linux, I have had success getting this project working on [WSL](https://learn.microsoft.com/en-us/windows/wsl/install)
     - Once when you are in WSL, if you have VSCode installed (recommended for React development), you may run `code .` in to open VSCode on the project
 - I have had more success installing npm using the [msi installer](https://nodejs.org/en/download/prebuilt-installer)
+
+<div id="Chapter1"></div>
+
+### Setting the GH API token
 
 The first thing this application does is retrieve data from the GitHub API, it thus needs a token that needs to be set in the environment variables. 
 
@@ -87,3 +89,14 @@ This will then tell you which port it will be accessible from the browser from.
 ![WSL Start-up Message](images/wsl-startup-message.png "WSL Start-up Message")
 
 ### Troubleshooting 
+
+- Loading the index page `Error: "Projects.getInitialProps()" should resolve to an object. But found "undefined" instead.` 
+    - This is usually caused because Next.js errored when calling the GH API when loading the index page, make sure the [GH token env variable](#setting-the-gh-api-token) is set in the current terminal session your are running it from  
+
+![Failed initial props](images/failed-initial-props.png "Failed initial props")
+
+- Loading the index page `Unhandled Runtime Error` - inavlid JSON 
+    - [ListDraftSections.js](https://github.com/SkillsFundingAgency/das-qna-config/blob/master/components/project-builder/ListDraftSections.js#L9) iterates over all items in local storage indiscriminately and tries to serialse them all to JSON, go to F12/dev tools -> Application -> Storage -> Local Storage, and delete all the items in local storage and reload 
+
+![Local Storage JSON Error](images/localstorage-json-error.png "Local Storage JSON Error")
+![Local Storage JSON Error Fix](images/localstorage-json-error-fix.png "Local Storage JSON Error Fix")
